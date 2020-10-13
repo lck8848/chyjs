@@ -1,7 +1,7 @@
 <script>
 export default {
 	onLaunch: function() {
-		console.log('App Launch111');
+		console.log('App Launch11123523552');
 	},
 	onShow: function() {
 		console.log('App Show2225516');
