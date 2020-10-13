@@ -4,14 +4,11 @@ export default {
 
 		console.log('App Launch11123523552ss32434');
 		
-<<<<<<< HEAD
 		console.log('App Launch1116486486');
 		console.log('App Launch1116486486');
 		console.log('App Launch1116486486');
-=======
-		coconsole.log('App Launch1116486483436');
-		coconsole.log('App Launch1116486486');
->>>>>>> 9b7e9c774dbcce3934081bccc2c4f9cfe58d29b0
+		console.log('App Launch1116486483436');
+		console.log('App Launch1116486486');
 	},
 	onShow: function() {
 		console.log('App Show2225516');
