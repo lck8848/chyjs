@@ -4,7 +4,7 @@ export default {
 		console.log('App Launch111');
 	},
 	onShow: function() {
-		console.log('App Show222');
+		console.log('App Show2225516');
 	},
 	onHide: function() {
 		console.log('App Hide444');
