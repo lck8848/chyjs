@@ -9,6 +9,23 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#007AFF",
-		"backgroundColor": "#FFFFFF"
+		"backgroundColor": "#FFFFFF",
+		"usingComponents": {
+			"van-search": "/wxcomponents/vant/dist/search/index",
+			"van-grid": "/wxcomponents/vant/dist/grid/index",
+			"van-grid-item": "/wxcomponents/vant/dist/grid-item/index",
+			"van-cell": "/wxcomponents/vant/dist/cell/index",
+			"van-divider": "/wxcomponents/vant/dist/divider/index",
+			"van-icon": "/wxcomponents/vant/dist/icon/index",
+			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
+			"van-field": "/wxcomponents/vant/dist/field/index",
+			"van-tab": "/wxcomponents/vant/dist/tab/index",
+			"van-tabs": "/wxcomponents/vant/dist/tabs/index",
+			"van-sidebar": "/wxcomponents/vant/dist/sidebar/index",
+			"van-popup": "/wxcomponents/vant/dist/popup/index",
+			"van-tag": "/wxcomponents/vant/dist/tag/index",
+			"van-toast": "/wxcomponents/vant/dist/toast/index",
+			"van-sidebar-item": "/wxcomponents/vant/dist/sidebar-item/index"
+		}
 	}
 }
