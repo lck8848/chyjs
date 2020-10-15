@@ -1,6 +1,11 @@
 <template>
 	<view class="vip-container">
-
+		<view class="vip">
+			<image src="../../../static/image/activity/vip.webp" mode=""></image>
+		</view>
+		<view class="vip">
+			<image src="../../../static/image/activity/ka.webp" mode=""></image>
+		</view>
 	</view>
 </template>
 
@@ -16,10 +21,15 @@
 	}
 </script>
 
-<style>
-	.vip.container {
-		padding: 20px;
-		font-size: 14px;
-		line-height: 24px;
+<style lang="scss" scoped>
+	.vip-container {
+		.vip{
+			width: 100%;
+			height: 400rpx;
+			image{
+				width: 100%;
+				height: 100%;
+			}
+		}
 	}
 </style>
