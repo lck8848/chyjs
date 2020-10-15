@@ -47,5 +47,8 @@
             "urlCheck" : true,
             "es6" : false
         }
+    },
+    "h5" : {
+        "title" : "吃货研究所"
     }
 }
