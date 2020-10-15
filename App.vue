@@ -3,12 +3,6 @@ export default {
 	onLaunch: function() {
 
 		console.log('App Launch11123523552ss32434');
-		
-		console.log('App Launch1116486486');
-		console.log('App Launch1116486486');
-		console.log('App Launch1116486486');
-		console.log('App Launch1116486483436');
-		console.log('App Launch1116486486');
 	},
 	onShow: function() {
 		console.log('App Show2225516');
