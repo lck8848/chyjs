@@ -19,7 +19,33 @@
 		"style": {
 			"navigationBarTitleText": "我的"
 		}
-	}],
+	},
+	{
+		"path": "pages/activity/discounts/discounts",
+		"style": {
+			"navigationBarTitleText": "这些商品有优惠"
+		}
+	},
+	{
+		"path": "pages/activity/hot/hot",
+		"style": {
+			"navigationBarTitleText": "人气热销TOP20"
+		}
+	},
+	{
+		"path": "pages/activity/monnew/monnew",
+		"style": {
+			"navigationBarTitleText": "每周一上新"
+		}
+	},
+	{
+		"path": "pages/activity/vip/vip",
+		"style": {
+			"navigationBarTitleText": "老版会员专享优惠劵"
+		}
+	}
+	
+	],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#fd4646",
