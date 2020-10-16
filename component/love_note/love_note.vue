@@ -123,14 +123,14 @@
 				margin-right:20rpx;
 				background-color: white;
 				border:1px solid #E5E5E5;
-				// width: 200rpx;
-				// height: 370rpx;
+				width: 200rpx;
+				height: 370rpx;
 				image{
 					width: 300rpx;
 					height: 300rpx;
 				}
 				.desc{
-					width:300rpx;
+					width:100%;
 					height:109rpx;
 					margin-top: 0;
 					// overflow: hidden;
