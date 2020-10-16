@@ -9,20 +9,20 @@
 		<!-- 轮播图 -->
 		<view class="swiper-container">
 			<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="5000" :duration="500"
-			 indicator-active-color="#FF4444">
+			 indicator-active-color="#FF4444" :circular="true">
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="../../static/image/swiper/swiper1.webp" mode=""></image>
+						<image src="@/static/image/swiper/swiper1.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="../../static/image/swiper/swiper2.webp" mode=""></image>
+						<image src="@/static/image/swiper/swiper2.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="../../static/image/swiper/swiper3.webp" mode=""></image>
+						<image src="@/static/image/swiper/swiper3.webp" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
