@@ -2,10 +2,10 @@
 export default {
 	onLaunch: function() {
 
-		console.log('App Launch11123523552ss32434');
+		console.log('App Launch');
 	},
 	onShow: function() {
-		console.log('App Show2225516');
+		console.log('App Show');
 	},
 	onHide: function() {
 		console.log('App Hide444');
