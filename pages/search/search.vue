@@ -110,7 +110,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 	page {
 		color: #333;
 		background: #fff;
