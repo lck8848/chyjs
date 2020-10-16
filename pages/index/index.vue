@@ -122,7 +122,7 @@
 			justify-content: center;
 			align-items: center;
 			background-color: rgb(247, 246, 244);
-			padding: 20rpx;
+			padding: 10rpx;
 			.grid{
 				width: 700rpx;
 				display: flex;
