@@ -1,6 +1,11 @@
 <template>
 	<view class="discounts-container">
-		
+		<view class="discounts">
+			<image src="../../../static/image/activity/discounts.webp" mode=""></image>
+		</view>
+		<view class="discounts">
+			<image src="../../../static/image/activity/ka.webp" mode=""></image>
+		</view>
 	</view>
 </template>
 
@@ -17,10 +22,15 @@
 	}
 </script>
 
-<style>
-	.container {
-		padding: 20px;
-		font-size: 14px;
-		line-height: 24px;
+<style lang="scss" scoped>
+	.discounts-container {
+		.discounts{
+			width: 100%;
+			height: 400rpx;
+			image{
+				width: 100%;
+				height: 100%;
+			}
+		}
 	}
 </style>
