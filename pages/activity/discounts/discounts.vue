@@ -1,10 +1,10 @@
 <template>
 	<view class="discounts-container">
 		<view class="discounts">
-			<image src="../../../static/image/activity/discounts.webp" mode=""></image>
+			<image src="../../../static/images/activity/discounts.webp" mode=""></image>
 		</view>
 		<view class="ka">
-			<image src="../../../static/image/activity/ka.webp" mode=""></image>
+			<image src="../../../static/images/activity/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>
