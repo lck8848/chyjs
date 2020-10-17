@@ -1,11 +1,11 @@
 <template>
 	<view class="showcase-container">
-		<view class="showcase" @click="show()"></view>
+		<view class="showcase" @tap="show()"></view>
 		
-		<tui-bottom-popup :show="isShow" :radius="true" backgroundColor="#F7F8FA" @close="show()">
+		<tui-bottom-popup class="show-content" :show="isShow" :radius="true" backgroundColor="#F7F8FA" @close="show()">
 			<view class="show-title">
 				商品橱窗
-				<view class="cancel" @click="show()"></view>
+				<view class="cancel" @tap="show()"></view>
 			</view>
 			
 			<view v-for="(item, index) in list" :key="index" :class="['case',item.mark]">
@@ -20,30 +20,15 @@
 					</view>
 				</view>
 				
-				<scroll-view scroll-x="true" class="new">
-					<view class="item" v-for="item in newGoods" :key="item.id" @click="goGoodsDetails(item.id)">
-						<image src="../../static/icon/New-Tag 2.png" mode="widthFix" class="new-tag"></image>
-						<view class="goods">
-							<lazyload :img-url="item.image_url" :scroll-top="scrollTop" class="img"></lazyload>
-							<view class="text">
-								<view class="title">
-									{{ item.title }}
-								</view>
-								<view class="buy">
-									<view class="price">
-										<text class="tag">&yen;</text>
-										{{ item.activity_price }}
-									</view>
-									<image class="icon" src="../../static/icon/cart-circle-o.png" mode="widthFix"></image>
-								</view>
-							</view>
+				<scroll-view class="content" :scroll-x="true" @scroll="scroll">
+					<view class="goods" v-for="goods in goodsList[index]" :key="goods.id" @click="goGoodsDetails(goods.id)">
+						
+						<image class="image" :src="goods.image_url" mode="widthFix"></image>
+						<view class="price">
+							<view class="price-icon">￥</view>
+							{{ (goods.price).toFixed(2) }}
 						</view>
-					</view>
-					<view class="all-shell">
-						<view class="all">
-							查看全部
-							<image src="../../static/icon/right.png" mode="widthFix" class="right"></image>
-						</view>
+					
 					</view>
 				</scroll-view>
 			</view>
@@ -72,8 +57,15 @@
 				this.isShow = !this.isShow;
 			},
 			async getGoodsList(){
-				// let hotList
+				let { status, data } = await getHotGoods();
+				this.goodsList[0] = data;
+				this.goodsList[1] = data;
+				this.goodsList[2] = data;
+				console.log(data);
 			}
+		},
+		created(){
+			this.getGoodsList();
 		},
 		components: {
 			tuiBottomPopup
@@ -93,56 +85,81 @@
 			background-image: url(/static/images/showcase/showcase.webp);
 			background-size: cover;
 		}
-		.show-title {
-			position: relative;
-			margin: 24rpx;
-			text-align: center;
-			color: #333;
-			font-size: 32rpx;
-			
-			.cancel {
-				position: absolute;
-				top: 0rpx;
-				right: 0rpx;
-				width: 44rpx;
-				height: 44rpx;
-				background-image: url(/static/images/showcase/cancel.png);
-				background-size: cover;
-			}
-		}
-		.case {
-			.head {
-				display: flex;
-				justify-content: space-between;
-				padding: 24rpx;
-				align-items: center;
-				.left {
-					display: flex;
-					.icon {
-						width: 36rpx;
-						height: 36rpx;
-						margin-right: 12rpx;
-					}
-					.title {
-						color: #333;
-						font-size: 32rpx;
-					}
-				}
-				.right {
-					display: flex;
-					.more {
-						color: #969799;
-						font-size: 24rpx;
-					}
-					.right-icon {
-						width: 32rpx;
-						height: 32rpx;
-						background-image: url(/static/images/showcase/right.png);
-						background-size: cover;
-					}
+		
+		.show-content {
+			.show-title {
+				position: relative;
+				margin: 24rpx;
+				text-align: center;
+				color: #333;
+				font-size: 32rpx;
+				
+				.cancel {
+					position: absolute;
+					top: 0rpx;
+					right: 0rpx;
+					width: 44rpx;
+					height: 44rpx;
+					background-image: url(/static/images/showcase/cancel.png);
+					background-size: cover;
 				}
 			}
-			
+			.case {
+				.head {
+					display: flex;
+					justify-content: space-between;
+					padding: 24rpx;
+					align-items: center;
+					.left {
+						display: flex;
+						.icon {
+							width: 36rpx;
+							height: 36rpx;
+							margin-right: 12rpx;
+						}
+						.title {
+							color: #333;
+							font-size: 32rpx;
+						}
+					}
+					.right {
+						display: flex;
+						.more {
+							color: #969799;
+							font-size: 24rpx;
+						}
+						.right-icon {
+							width: 32rpx;
+							height: 32rpx;
+							background-image: url(/static/images/showcase/right.png);
+							background-size: cover;
+						}
+					}
+				}
+				.content {
+					overflow: hidden;
+					white-space: nowrap;
+					.goods {
+						display: inline-block;
+						width: 174rpx;
+						margin: 12rpx;
+						.image {
+							width: 100%;
+						}
+						.price {
+							display: flex;
+							height: 84rpx;
+							line-height: 84rpx;
+							color: #f44;
+							font-size: 32rpx;
+							.price-icon {
+								margin-right: 4rpx;
+								font-size: 24rpx;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 </style>

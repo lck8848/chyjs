@@ -16,6 +16,6 @@ export async function getClassifyGoods(aliasCode){
 	return await instance.get(`/getClassifyGoods?aliasCode=${aliasCode}`); 
 }
 
-export async function getHotGoods(){
-	return await instance.get('/getHotGoods'); 
+export async function getHotGoods(pageSize=10){
+	return await instance.get(`/getHotGoods?pageSize=${pageSize}`); 
 }
