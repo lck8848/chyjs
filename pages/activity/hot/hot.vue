@@ -144,9 +144,10 @@
 			justify-content: space-evenly;
 			.item{
 				width: 47%;
-				height: 600rpx;
+				height: 550rpx;
 				background-color: #fff;
 				overflow: hidden;
+				margin-bottom: 20rpx;
 				.img{
 					width: 360rpx;
 					height: 360rpx;
@@ -197,6 +198,8 @@
 						}
 					}
 				}
+				
+				
 			}
 		}	
 	}
