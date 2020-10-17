@@ -300,7 +300,11 @@
 			.top {
 				display: flex;
 				justify-content: space-between;
-
+overflow : hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
 				.note {
 					font-size: 28rpx;
 					color: #323233;
