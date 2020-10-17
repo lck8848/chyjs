@@ -2,7 +2,7 @@
 	<view class="hot-container">
 		<!-- 标题 -->
 		<view class="hot">
-			<image src="../../static/images/activity/hot.webp" mode=""></image>
+			<image src="@/static/images/activity/hot.webp" mode=""></image>
 		</view>
 		<!-- 列表 -->
 		<view class="hot-goods">
@@ -22,7 +22,7 @@
 							 ￥69.6
 						</view>
 						<view class="img">
-							<image src="../../static/icon/cart-circle-o.png" mode=""></image>
+							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 					
@@ -44,7 +44,7 @@
 							 ￥69.6
 						</view>
 						<view class="img">
-							<image src="../../static/icon/cart-circle-o.png" mode=""></image>
+							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 					
@@ -66,7 +66,7 @@
 							 ￥69.6
 						</view>
 						<view class="img">
-							<image src="../../static/icon/cart-circle-o.png" mode=""></image>
+							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 					
@@ -88,7 +88,7 @@
 							 ￥69.6
 						</view>
 						<view class="img">
-							<image src="../../static/icon/cart-circle-o.png" mode=""></image>
+							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 					
@@ -98,7 +98,7 @@
 		
 		
 		<view class="ka">
-			<image src="../../static/images/activity/ka.webp" mode=""></image>
+			<image src="@/static/images/activity/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>
