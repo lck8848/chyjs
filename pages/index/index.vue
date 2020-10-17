@@ -178,7 +178,7 @@
 	export default {
 		components: {
 			search,
-			// 活动
+			
 			
 		},
 		data() {
