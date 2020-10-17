@@ -3,7 +3,7 @@
 		<view class="discounts">
 			<image src="../../../static/image/activity/discounts.webp" mode=""></image>
 		</view>
-		<view class="discounts">
+		<view class="ka">
 			<image src="../../../static/image/activity/ka.webp" mode=""></image>
 		</view>
 	</view>
@@ -25,6 +25,14 @@
 <style lang="scss" scoped>
 	.discounts-container {
 		.discounts{
+			width: 100%;
+			height: 200rpx;
+			image{
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.ka{
 			width: 100%;
 			height: 400rpx;
 			image{
