@@ -19,7 +19,7 @@
 					:data-current="index"
 					@tap.stop="swichNav"
 				>
-					<text>{{ item }}</text>
+					<text>{{ item.alias_name }}</text>
 				</view>
 			</scroll-view>
 			<scroll-view
@@ -30,50 +30,23 @@
 				class="w-full fixed pl-24 left-0"
 				:scroll-into-view="scrollView_rightId"
 				:style="{ height: '100%' }"
-			>
+				v-if="is_goods"
+				>
 				<!--内容部分 start 自定义可删除-->
 				<block v-for="(item, index) in tabbar" :key="index">
 					<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
 						<view class="page-view" :id="`right_${index}`">
-							<view class="class-name">{{ item }}</view>
+							<view class="class-name">{{ item.alias_name }}</view>
 							<view class="g-container">
-								<view class="g-box" @tap.stop="productList">
-									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+								<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
+									<image :src="g.image_url" class="left_img"></image>
 									<view class="right-content">
-										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
-										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
+										<view class="g-title">{{g.title}}</view>
+										<view class="g-mask">{{g.sell_point}}</view>
 										<view class="g-price">
 											<view class="left-price">
 												<text class="price-tag">¥</text>
-												<text class="price-sale-price">26</text>
-											</view>
-											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
-										</view>
-									</view>
-								</view>
-								<view class="g-box" @tap.stop="productList">
-									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
-									<view class="right-content">
-										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
-										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
-										<view class="g-price">
-											<view class="left-price">
-												<text class="price-tag">¥</text>
-												<text class="price-sale-price">26</text>
-											</view>
-											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
-										</view>
-									</view>
-								</view>
-								<view class="g-box" @tap.stop="productList">
-									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
-									<view class="right-content">
-										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
-										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
-										<view class="g-price">
-											<view class="left-price">
-												<text class="price-tag">¥</text>
-												<text class="price-sale-price">26</text>
+												<text class="price-sale-price">{{g.price}}</text>
 											</view>
 											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
@@ -91,32 +64,15 @@
 
 <script>
 import tLinkage from '@/component/views/t-linkage/t-linkage';
-import {getClassify,getClassifyGoods} from "@/api/index.js";
+import { getClassify, getClassifyGoods } from '@/api/index.js';
 export default {
 	components: {
 		tLinkage
 	},
 	data() {
 		return {
-			tabbar: [
-				'推荐分类',
-				'进口超市',
-				'国际名牌',
-				'奢侈品',
-				'海囤全球',
-				'男装',
-				'女装',
-				'男鞋',
-				'女鞋',
-				'钟表珠宝',
-				'手机数码',
-				'电脑办公',
-				'家用电器',
-				'玩具乐器',
-				'运动户外',
-				'宠物生活',
-				'特产馆'
-			],
+			tabbar: [],
+			is_goods:false,
 			height: 0, //scroll-view高度
 			top: 0,
 			currentTab: 0, //预设当前项的值
@@ -143,10 +99,22 @@ export default {
 			});
 		}, 50);
 	},
-	created(){
-		getClassify();
+	created() {
+		this.getClassify();
 	},
 	methods: {
+		async getClassify() {
+			let classify = await getClassify();
+			this.tabbar = classify.data;
+			this.getClassifyGoods(this.tabbar);
+		},
+		async getClassifyGoods(tabbar) {
+			tabbar.map(async (v,k)=>{ 
+				let classifyGoods = await getClassifyGoods(v.alias_code);
+				this.tabbar[k].goods = classifyGoods.data;
+			})
+			this.is_goods = true;
+		},
 		// 点击标题切换当前页时改变样式
 		swichNav: function(e) {
 			let cur = e.currentTarget.dataset.current;
@@ -157,6 +125,7 @@ export default {
 				this.checkCor();
 			}
 		},
+		
 		//判断当前滚动超过一屏时，设置tab标题滚动条。
 		checkCor: function(isScroll) {
 			if (!isScroll) {
