@@ -1,37 +1,38 @@
 <template>
 	<view class="showcase-container">
-		<view class="showcase" @tap="show()"></view>
+		<view class="walk" @tap="show()"></view>
 		
-		<tui-bottom-popup class="show-content" :show="isShow" :radius="true" backgroundColor="#F7F8FA" @close="show()">
+		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" height="888" backgroundColor="#F7F8FA" @close="show()">
 			<view class="show-title">
 				商品橱窗
 				<view class="cancel" @tap="show()"></view>
 			</view>
 			
-			<view v-for="(item, index) in list" :key="index" :class="['case',item.mark]">
-				<view class="head">
-					<view class="left">
-						<view class="icon" :style="'background-image: url('+item.icon+');background-size: cover'"></view>
-						<view class="title">{{ item.title }}</view>
-					</view>
-					<view class="right">
-						<view class="more">查看更多</view>
-						<view class="right-icon"></view>
-					</view>
-				</view>
-				
-				<scroll-view class="content" :scroll-x="true" @scroll="scroll">
-					<view class="goods" v-for="goods in goodsList[index]" :key="goods.id" @click="goGoodsDetails(goods.id)">
-						
-						<image class="image" :src="goods.image_url" mode="widthFix"></image>
-						<view class="price">
-							<view class="price-icon">￥</view>
-							{{ (goods.price).toFixed(2) }}
+			<scroll-view class="content" :scroll-y="true" >
+				<view v-for="(item, index) in list" :key="index" :class="['case',item.mark]">
+					<view class="head">
+						<view class="left">
+							<view class="icon" :style="'background-image: url('+item.icon+');background-size: cover'"></view>
+							<view class="title">{{ item.title }}</view>
 						</view>
-					
+						<view class="right">
+							<view class="more">查看更多</view>
+							<view class="right-icon"></view>
+						</view>
 					</view>
-				</scroll-view>
-			</view>
+					
+					<scroll-view class="list" :scroll-x="true">
+						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @tap="console.log('点击')">
+							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+rankList[g_index]+'px;'"></view>
+							<image class="image" :src="goods.image_url" mode="widthFix"></image>
+							<view class="price">
+								<view class="price-icon">￥</view>
+								{{ (goods.price).toFixed(2) }}
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+			</scroll-view>
 		</tui-bottom-popup>
 	</view>
 </template>
@@ -49,7 +50,8 @@
 					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
 					{title: "历史足迹", icon: "/static/images/showcase/record.png", mark: "record"}
 				],
-				goodsList: []
+				goodsList: [],
+				rankList: [-4, -34, -64, -92, -120, -146, -174, -200, -227, -254]
 			}
 		},
 		methods: {
@@ -76,17 +78,18 @@
 <style lang="scss" scoped>
 	.showcase-container {
 		
-		.showcase {
+		.walk {
 			position: fixed;
 			right: 20rpx;
-			bottom: 160rpx;
+			bottom: 270rpx;
 			width: 96rpx;
 			height: 96rpx;
 			background-image: url(/static/images/showcase/showcase.webp);
 			background-size: cover;
 		}
 		
-		.show-content {
+		.showcase {
+			z-index: 999;
 			.show-title {
 				position: relative;
 				margin: 24rpx;
@@ -104,57 +107,82 @@
 					background-size: cover;
 				}
 			}
-			.case {
-				.head {
-					display: flex;
-					justify-content: space-between;
-					padding: 24rpx;
-					align-items: center;
-					.left {
-						display: flex;
-						.icon {
-							width: 36rpx;
-							height: 36rpx;
-							margin-right: 12rpx;
-						}
-						.title {
-							color: #333;
-							font-size: 32rpx;
-						}
+			.content {
+				height: 840rpx;
+				
+				.case {
+					margin: 0 24rpx 24rpx 24rpx;
+					border-radius: 16rpx;
+					background-color: #fff;
+					&:first-child {
+						background-image: url(http://47.106.36.197:7000/source/other/background.png);
+						background-size: cover;
 					}
-					.right {
+					.head {
 						display: flex;
-						.more {
-							color: #969799;
-							font-size: 24rpx;
-						}
-						.right-icon {
-							width: 32rpx;
-							height: 32rpx;
-							background-image: url(/static/images/showcase/right.png);
-							background-size: cover;
-						}
-					}
-				}
-				.content {
-					overflow: hidden;
-					white-space: nowrap;
-					.goods {
-						display: inline-block;
-						width: 174rpx;
-						margin: 12rpx;
-						.image {
-							width: 100%;
-						}
-						.price {
+						justify-content: space-between;
+						padding: 24rpx;
+						align-items: center;
+						.left {
 							display: flex;
-							height: 84rpx;
-							line-height: 84rpx;
-							color: #f44;
-							font-size: 32rpx;
-							.price-icon {
-								margin-right: 4rpx;
+							.icon {
+								width: 36rpx;
+								height: 36rpx;
+								margin-right: 12rpx;
+							}
+							.title {
+								color: #333;
+								font-size: 32rpx;
+							}
+						}
+						.right {
+							display: flex;
+							.more {
+								color: #969799;
 								font-size: 24rpx;
+							}
+							.right-icon {
+								width: 32rpx;
+								height: 32rpx;
+								background-image: url(/static/images/showcase/right.png);
+								background-size: cover;
+							}
+						}
+					}
+					.list {
+						overflow: hidden;
+						white-space: nowrap;
+						.goods {
+							position: relative;
+							display: inline-block;
+							width: 174rpx;
+							margin: 12rpx;
+							
+							.rank {
+								position: absolute;
+								left: 4px;
+								width: 28px;
+								height: 27px;
+								line-height: 27px;
+								background-image: url(http://47.106.36.197:7000/source/other/rank.png);
+								background-size: 27px;
+								background-repeat: no-repeat;
+							}
+							.image {
+								width: 100%;
+								border-radius: 16rpx;
+							}
+							.price {
+								display: flex;
+								height: 84rpx;
+								line-height: 84rpx;
+								color: #f44;
+								font-size: 32rpx;
+								font-weight: 700;
+								.price-icon {
+									margin-right: 4rpx;
+									font-size: 24rpx;
+								}
 							}
 						}
 					}
