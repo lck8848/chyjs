@@ -194,21 +194,39 @@
 
 			Tosend(){
 				console.log("send")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=gift"
+				})
 			},
 			Tofruit(){
 				console.log("fruit")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=fruits"
+				})
 			},
 			Tosnack(){
 				console.log("snack")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=snacks"
+				})
 			},
 			Totea(){
 				console.log("tea")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=tea"
+				})
 			},
 			Towine(){
 				console.log("wine")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=liquor"
+				})
 			},
 			Toall(){
 				console.log("all")
+				uni.navigateTo({
+					url:"/pages/allGoods/allGoods"
+				})
 			}
 
 			
