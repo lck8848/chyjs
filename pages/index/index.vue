@@ -2,7 +2,7 @@
 	<view class="container">
 		<!-- 搜索框 -->
 		<view class="search-container" @click="Tosearch">
-			<search  ref="search"></search>
+			<search ref="search"></search>
 		</view>
 		<!-- 轮播图 -->
 		<view class="swiper-container">
@@ -22,16 +22,13 @@
 					<view class="swiper-item">
 						<image src="@/static/image/swiper/swiper3.webp" mode=""></image>
 					</view>
-				</swiper-item>s
+				</swiper-item>
 			</swiper>
 		</view>
-
-		
-
 		<!-- 轮播图 -->
-		
+
 		<!-- 六宫格 -->
-		
+
 		<view class="grid-container">
 			<view class="grid">
 				<view class="item" @click="Tosend">
@@ -54,51 +51,64 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<!-- 六宫格  -->
-		<!-- 种草笔记 -->
-				<view class="note_container">
-					<view class="top">
-						<text class="note">种草笔记</text>
-						<text class="more" @click="toMore">查看更多></text>
+		
+		<!--开始 活动  -->
+		<view class="activity">
+			<view class="item" v-for="item in activityData" :key="item.name">
+				<navigator :url="'/pages/activity/'+item.name+'/'+item.name" open-type="navigate">
+					<view class="img">
+						<image :src="item.img_url" mode=""></image>
 					</view>
-					<view class="scroll-container">
-						<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll"  :show-scrollbar="true" >
-							<view id="demo1" class="item">
-								<view class="note_img">
-									<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
-								</view>
-								<view class="desc">
-									<text>
-										试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
-									</text>
-									
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<view class="note_img">
-									<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
-								</view>
-								<view class="desc">
-									<text>
-										试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
-									</text>
-									
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<view class="note_img">
-									<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
-								</view>
-								<view class="desc">
-									<text>
-										试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
-									</text>
-									
-								</view>
-							</view>
-							
-		<!-- 				<view id="demo1" class="item">
+				</navigator>
+			</view>
+		</view>
+		<!--结束 活动  -->
+		
+		<!-- 种草笔记 -->
+		<view class="note_container">
+			<view class="top">
+				<text class="note">种草笔记</text>
+				<text class="more" @click="toMore">查看更多></text>
+			</view>
+			<view class="scroll-container">
+				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
+					<view id="demo1" class="item">
+						<view class="note_img">
+							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+						</view>
+						<view class="desc">
+							<text>
+								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+							</text>
+
+						</view>
+					</view>
+					<view id="demo1" class="item">
+						<view class="note_img">
+							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+						</view>
+						<view class="desc">
+							<text>
+								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+							</text>
+
+						</view>
+					</view>
+					<view id="demo1" class="item">
+						<view class="note_img">
+							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+						</view>
+						<view class="desc">
+							<text>
+								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+							</text>
+
+						</view>
+					</view>
+
+					<!-- 				<view id="demo1" class="item">
 								<image src="../../static/image/note/dongzao.jpg" class="dongzao"></image>
 								<view class="desc">
 								
@@ -154,151 +164,207 @@
 								
 								</view>
 							</view> -->
-						</scroll-view>
-					</view>
-				</view>
+				</scroll-view>
+			</view>
+		</view>
+		
+		
+		
+		
+		<!-- 弹出橱窗 -->
+		<show-case></show-case>
+		<!-- 弹出橱窗 -->
 	</view>
 </template>
 
 <script>
-
-	import search from "../../component/search/search";
-
+	import search from "../../component/search/search.vue"
+	import showCase from "../../component/show-case/show-case.vue";
 	export default {
 		components:{
 			search,
+			showCase
 		},
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
 				scrollTop: 0,
-				old:{
+				old: {
 					scrollTop: 0
-				}
+				},
+				activityData:[
+					{
+						name:"monnew",
+						img_url:"../../static/images/index/monnew.webp"
+					},
+					{
+						name:"discounts",
+						img_url:"../../static/images/index/discounts.webp"
+					},
+					{
+						name:"hot",
+						img_url:"../../static/images/index/hot.webp"
+					},
+					{
+						name:"vip",
+						img_url:"../../static/images/index/vip.webp"
+					},
+					
+				]
 			}
 		},
 		methods: {
-			Tosearch(){
+			Tosearch() {
 				this.$refs.search.search()
 			},
 
 			scroll: function(e) {
-			            console.log(e)
-			            this.old.scrollTop = e.detail.scrollTop
+				console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
 			},
-			toMore(){
+			toMore() {
 				uni.navigateTo({
-					url:"/pages/note/note"
+					url: "/pages/note/note"
 				})
 			},
 
-			Tosend(){
+			Tosend() {
 				console.log("send")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=gift"
 				})
 			},
-			Tofruit(){
+			Tofruit() {
 				console.log("fruit")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=fruits"
 				})
 			},
-			Tosnack(){
+			Tosnack() {
 				console.log("snack")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=snacks"
 				})
 			},
-			Totea(){
+			Totea() {
 				console.log("tea")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=tea"
 				})
 			},
-			Towine(){
+			Towine() {
 				console.log("wine")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=liquor"
 				})
 			},
-			Toall(){
+			Toall() {
 				console.log("all")
 				uni.navigateTo({
 					url:"/pages/allGoods/allGoods"
 				})
 			}
 
-			
+
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
 	.container {
-		
-		.swiper-container{
+
+		.swiper-container {
 			width: 100%;
 			height: 370rpx;
-			.swiper{
+
+			.swiper {
 				width: 100%;
 				height: 100%;
-				.swiper-item{
+
+				.swiper-item {
 					width: 100%;
 					height: 100%;
+
+					image {
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+
+		}
+		// 活动
+		.activity{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			
+			.item{
+				width: 48%;
+				.img{
+					width: 370rpx;
+					height: 200rpx;
+					// padding-right: 10rpx;
 					image{
 						width: 100%;
 						height: 100%;
 					}
 				}
 			}
-			
 		}
 		
-
-		// 种草笔记
 		
-		.note_container{
+		
+		// 种草笔记
+		.note_container {
+
 			// background-color: #F9F9F9;
-			.top{
+			.top {
 				display: flex;
 				justify-content: space-between;
-				.note{
+
+				.note {
 					font-size: 28rpx;
-					color:#323233;
+					color: #323233;
 				}
-				.more{
-					font-size:24rpx;
-					color:#c7c7d1;
+
+				.more {
+					font-size: 24rpx;
+					color: #c7c7d1;
 				}
 			}
-			.scroll-container{
-				.scroll-view{
-					white-space:nowrap;
+
+			.scroll-container {
+				.scroll-view {
+					white-space: nowrap;
 					height: 450rpx;
 					width: 100%;
-					border:1px solid #E5E5E5;
+					border: 1px solid #E5E5E5;
 					overflow: hidden;
-					.item{
+
+					.item {
 						// 这个属性可以使图片跟文字盒子上下排行
-						display:inline-block;
-						margin:20rpx;
+						display: inline-block;
+						margin: 20rpx;
 						background-color: white;
-						border:1px solid #E5E5E5;
-						.note_img{
+						border: 1px solid #E5E5E5;
+
+						.note_img {
 							width: 300rpx;
-							image{
+
+							image {
 								width: 100%;
 								height: 300rpx;
 							}
 						}
-						.desc{
+
+						.desc {
 							width: 300rpx;
 							height: 109rpx;
 							white-space: pre-wrap;
-							
-						 
-							text{
+
+
+							text {
 								overflow: hidden;
 								text-overflow: ellipsis;
 								display: -webkit-box;
@@ -306,29 +372,33 @@
 								-webkit-line-clamp: 2;
 							}
 						}
-						
+
 					}
 				}
 			}
-			
+
 		}
+
 		// 种草笔记到这
 
-		.grid-container{
+		.grid-container {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			background-color: rgb(247, 246, 244);
 			padding: 10rpx;
-			.grid{
+
+			.grid {
 				width: 700rpx;
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: space-around;
-				.item{
+
+				.item {
 					width: 200rpx;
 					height: 200rpx;
-					image{
+
+					image {
 						width: 100%;
 						height: 100%;
 					}
