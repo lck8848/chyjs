@@ -173,8 +173,9 @@
 		
 		
 		
-		
+		<!-- 弹出橱窗 -->
 		<show-case></show-case>
+		<!-- 弹出橱窗 -->
 	</view>
 </template>
 
