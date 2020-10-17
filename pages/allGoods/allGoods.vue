@@ -1,66 +1,92 @@
 <template>
-<view>
-	<view class="container">
-		<scroll-view
-			scroll-y
-			:scroll-with-animation="isTap"
-			scroll-anchoring
-			class="w-1-4 fixed left-0 z-10"
-			:scroll-into-view="scrollView_leftId"
-			:style="{ height: height + 'px', top: top + 'px' }"
-		>
-			<view
-				:id="`left_${index}`"
-				v-for="(item, index) in tabbar"
-				:key="index"
-				style="height: 110rpx;"
-				class="w-full bg-blue-400 box-sizing flex items-center justify-center text-sm text-black-600 font-extrabold"
-				:class="[currentTab == index ? ['active', 'relative', 'text-black-900', 'text-base', 'font-medium', 'bg-pink-200'] : '']"
-				:data-current="index"
-				@tap.stop="swichNav"
+	<view>
+		<view class="container">
+			<scroll-view
+				scroll-y
+				:scroll-with-animation="isTap"
+				scroll-anchoring
+				class="w-21 fixed left-0 z-10 left-big"
+				:scroll-into-view="scrollView_leftId"
+				:style="{ height: '100%' }"
 			>
-				<text>{{ item }}</text>
-			</view>
-		</scroll-view>
-		<scroll-view
-			@scroll="scroll"
-			scroll-anchoring
-			scroll-y
-			scroll-with-animation
-			class="w-full fixed pl-24 box-sizing left-0"
-			:scroll-into-view="scrollView_rightId"
-			:style="{ height: height + 'px', top: top + 'px' }"
-		> 
-			<!--内容部分 start 自定义可删除-->
-			<block v-for="(item, index) in tabbar" :key="index">
-				<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
-					<view class="page-view" :id="`right_${index}`">
-						<view class="class-box">
-							<view class="class-item">
-								<view class="class-name">{{ item }}</view>
-								<view class="g-container">
-									<view class="g-box" @tap.stop="productList" data-key="高价回收">
-										<view class="g-title">1</view>
+				<view
+					:id="`left_${index}`"
+					v-for="(item, index) in tabbar"
+					:key="index"
+					style="height: 110rpx;"
+					class="w-full flex items-center justify-center left-view"
+					:class="[currentTab == index ? ['active', 'relative', 'font-black', 'bgc-select'] : '']"
+					:data-current="index"
+					@tap.stop="swichNav"
+				>
+					<text>{{ item }}</text>
+				</view>
+			</scroll-view>
+			<scroll-view
+				@scroll="scroll"
+				scroll-anchoring
+				scroll-y
+				scroll-with-animation
+				class="w-full fixed pl-24 left-0"
+				:scroll-into-view="scrollView_rightId"
+				:style="{ height: '100%' }"
+			>
+				<!--内容部分 start 自定义可删除-->
+				<block v-for="(item, index) in tabbar" :key="index">
+					<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
+						<view class="page-view" :id="`right_${index}`">
+							<view class="class-name">{{ item }}</view>
+							<view class="g-container">
+								<view class="g-box" @tap.stop="productList">
+									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<view class="right-content">
+										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
+										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
+										<view class="g-price">
+											<view class="left-price">
+												<text class="price-tag">¥</text>
+												<text class="price-sale-price">26</text>
+											</view>
+											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+										</view>
 									</view>
-									<view class="g-box" @tap.stop="productList" data-key="好物优选">
-										<view class="g-title">2</view>
+								</view>
+								<view class="g-box" @tap.stop="productList">
+									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<view class="right-content">
+										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
+										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
+										<view class="g-price">
+											<view class="left-price">
+												<text class="price-tag">¥</text>
+												<text class="price-sale-price">26</text>
+											</view>
+											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+										</view>
 									</view>
-									<view class="g-box" @tap.stop="productList" data-key="iphone X">
-										<view class="g-title">3</view>
-									</view>
-									<view class="g-box" @tap.stop="productList" data-key="电动牙刷" v-if="index % 2 === 0">
-										<view class="g-title">4</view>
+								</view>
+								<view class="g-box" @tap.stop="productList">
+									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<view class="right-content">
+										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
+										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
+										<view class="g-price">
+											<view class="left-price">
+												<text class="price-tag">¥</text>
+												<text class="price-sale-price">26</text>
+											</view>
+											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+										</view>
 									</view>
 								</view>
 							</view>
 						</view>
-					</view>
-				</t-linkage>
-			</block>
-			<!--内容部分 end 自定义可删除-->
-		</scroll-view>
+					</t-linkage>
+				</block>
+				<!--内容部分 end 自定义可删除-->
+			</scroll-view>
+		</view>
 	</view>
-</view>
 </template>
 
 <script>
@@ -116,6 +142,9 @@ export default {
 			});
 		}, 50);
 	},
+	created(){
+		
+	},
 	methods: {
 		// 点击标题切换当前页时改变样式
 		swichNav: function(e) {
@@ -132,7 +161,7 @@ export default {
 			if (!isScroll) {
 				this.isScroll = false;
 				this.isTap = true;
-				console.info(this.currentTab, 'currentTab')
+				console.info(this.currentTab, 'currentTab');
 				if (this.currentTab > 6) {
 					this.scrollView_leftId = `left_${this.currentTab - 2}`;
 				} else {
@@ -175,56 +204,100 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 page {
 	background-color: #fcfcfc;
+}
+.w-21 {
+	width: 21.3%;
 }
 .active::before {
 	content: '';
 	position: absolute;
-	border-left: 8rpx solid #e41f19;
-	height: 30rpx;
+	border-left: 6rpx solid #ff4444;
+	height: 100%;
 	left: 0;
 }
 /* 左侧导航布局 end*/
 .page-view {
-	width: 100%;
+	width: 74%;
 	overflow: hidden;
-	padding-top: 20rpx;
-	padding-right: 20rpx;
 	box-sizing: border-box;
 	padding-bottom: env(safe-area-inset-bottom);
-}
-.class-item {
-	background: #fff;
-	width: 100%;
-	box-sizing: border-box;
-	padding: 20rpx;
-	margin-bottom: 20rpx;
-	border-radius: 12rpx;
+	.g-container {
+		.g-box {
+			display: flex;
+			margin-bottom: 40rpx;
+			.left_img {
+				width: 176rpx;
+				height: 176rpx;
+			}
+			.right-content {
+				width: 290rpx;
+				margin-left: 20rpx;
+				.g-title {
+					margin-bottom: 4px;
+					color: #323233;
+					line-height: 20px;
+					font-weight: bold;
+					max-height: 40px;
+					font-size: 14px;
+					display: -webkit-box; /*设置为弹性盒子*/
+					-webkit-line-clamp: 2; /*最多显示5行*/
+					overflow: hidden; /*超出隐藏*/
+					text-overflow: ellipsis; /*超出显示为省略号*/
+					-webkit-box-orient: vertical;
+					word-break: break-all; /*强制英文单词自动换行*/
+				}
+				.g-mask {
+					height: 30rpx;
+					margin: 10rpx 0;
+					color: #969799;
+					line-height: 16px;
+					font-size: 12px;
+					display: -webkit-box; /*设置为弹性盒子*/
+					-webkit-line-clamp: 1; /*最多显示5行*/
+					overflow: hidden; /*超出隐藏*/
+					text-overflow: ellipsis; /*超出显示为省略号*/
+					-webkit-box-orient: vertical;
+					word-break: break-all; /*强制英文单词自动换行*/
+				}
+				.g-price {
+					position: relative;
+					display: flex;
+					justify-content: space-between;
+					.left-price {
+						font-weight: 800;
+						color: rgb(255, 68, 68);
+						.price-tag {
+							align-self: center;
+							height: 14px;
+							margin-right: 2px;
+							font-size: 12px;
+						}
+					}
+					.btn_img {
+						position: absolute;
+						width: 44rpx;
+						height: 44rpx;
+						right: -26rpx;
+					}
+				}
+			}
+		}
+	}
 }
 .class-name {
-	font-size: 26rpx;
-	font-weight: bold;
+	color: #666;
+	margin-bottom: 22rpx;
+	font-size: 12px;
+	line-height: 30px;
 }
-.g-container {
-	/* padding-top: 20rpx; */
-	display: flex;
-	display: -webkit-flex;
-	justify-content: flex-start;
-	flex-direction: row;
-	flex-wrap: wrap;
+.left-view {
+	background-color: #f8f8f8;
+	font-size: 28rpx;
 }
-.g-box {
-	width: 33.3333%;
-	text-align: center;
-	padding-top: 40rpx;
-}
-.g-image {
-	width: 120rpx;
-	height: 120rpx;
-}
-.g-title {
-	font-size: 22rpx;
+.bgc-select {
+	background-color: #ffffff;
 }
 </style>

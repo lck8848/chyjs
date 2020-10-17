@@ -167,17 +167,22 @@
 				</scroll-view>
 			</view>
 		</view>
+		
+		
+		
+		
+		
+		<show-case></show-case>
 	</view>
 </template>
 
 <script>
-	import search from "../../component/search/search";
-
+	import search from "../../component/search/search.vue"
+	import showCase from "../../component/show-case/show-case.vue";
 	export default {
-		components: {
+		components:{
 			search,
-			
-			
+			showCase
 		},
 		data() {
 			return {
