@@ -30,14 +30,17 @@
 		<!-- 轮播图 -->
 		
 		
+		<show-case></show-case>
 	</view>
 </template>
 
 <script>
 	import search from "../../components/search/search"
+	import showCase from "../../component/show-case/show-case.vue";
 	export default {
 		components:{
-			search
+			search,
+			showCase
 		},
 		data() {
 			return {
