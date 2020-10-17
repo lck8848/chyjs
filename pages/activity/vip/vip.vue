@@ -1,11 +1,8 @@
 <template>
 	<view class="vip-container">
 		<view class="vip">
-<<<<<<< HEAD
-			<image src="../../../static/images/activity/vip.webp" mode=""></image>
-=======
+
 			<image src="@/static/images/activity/vip.webp" mode=""></image>
->>>>>>> 994f2c4d218316461eb7a37fa024660366c9cf0c
 		</view>
 		
 		<view class="monnew-goods">
@@ -114,7 +111,7 @@
 			}
 		}
 		
-		.vip-goods{
+		.monnew-goods{
 				
 				display: flex;
 				flex-wrap: wrap;
