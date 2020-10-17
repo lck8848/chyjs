@@ -10,17 +10,17 @@
 			 indicator-active-color="#FF4444" :circular="true">
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper1.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper1.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper2.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper2.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper3.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper3.webp" mode=""></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -76,7 +76,7 @@
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -87,7 +87,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -98,7 +98,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>

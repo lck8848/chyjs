@@ -60,9 +60,9 @@
 			return {
 				isShow: false,
 				list: [
-					{title: "店铺热榜", icon: "/static/image/showcase/hot.png", mark: "hot"},
-					{title: "为你推荐", icon: "/static/image/showcase/recommend.png", mark: "recommend"},
-					{title: "历史足迹", icon: "/static/image/showcase/record.png", mark: "record"}
+					{title: "店铺热榜", icon: "/static/images/showcase/hot.png", mark: "hot"},
+					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
+					{title: "历史足迹", icon: "/static/images/showcase/record.png", mark: "record"}
 				],
 				goodsList: []
 			}
@@ -90,7 +90,7 @@
 			bottom: 160rpx;
 			width: 96rpx;
 			height: 96rpx;
-			background-image: url(/static/image/showcase/showcase.webp);
+			background-image: url(/static/images/showcase/showcase.webp);
 			background-size: cover;
 		}
 		.show-title {
@@ -106,7 +106,7 @@
 				right: 0rpx;
 				width: 44rpx;
 				height: 44rpx;
-				background-image: url(/static/image/showcase/cancel.png);
+				background-image: url(/static/images/showcase/cancel.png);
 				background-size: cover;
 			}
 		}
@@ -137,7 +137,7 @@
 					.right-icon {
 						width: 32rpx;
 						height: 32rpx;
-						background-image: url(/static/image/showcase/right.png);
+						background-image: url(/static/images/showcase/right.png);
 						background-size: cover;
 					}
 				}

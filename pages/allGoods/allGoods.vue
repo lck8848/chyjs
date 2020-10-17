@@ -38,7 +38,7 @@
 							<view class="class-name">{{ item }}</view>
 							<view class="g-container">
 								<view class="g-box" @tap.stop="productList">
-									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
 									<view class="right-content">
 										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
 										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
@@ -47,12 +47,12 @@
 												<text class="price-tag">¥</text>
 												<text class="price-sale-price">26</text>
 											</view>
-											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
 									</view>
 								</view>
 								<view class="g-box" @tap.stop="productList">
-									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
 									<view class="right-content">
 										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
 										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
@@ -61,12 +61,12 @@
 												<text class="price-tag">¥</text>
 												<text class="price-sale-price">26</text>
 											</view>
-											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
 									</view>
 								</view>
 								<view class="g-box" @tap.stop="productList">
-									<image src="/static/image/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
+									<image src="/static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" class="left_img"></image>
 									<view class="right-content">
 										<view class="g-title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</view>
 										<view class="g-mask">9折会员价：28.8元-64.8元。</view>
@@ -75,7 +75,7 @@
 												<text class="price-tag">¥</text>
 												<text class="price-sale-price">26</text>
 											</view>
-											<image src="/static/image/allGoods/btn-shopcart.png" class="btn_img"></image>
+											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
 									</view>
 								</view>
@@ -91,6 +91,7 @@
 
 <script>
 import tLinkage from '@/component/views/t-linkage/t-linkage';
+import {getClassify,getClassifyGoods} from "@/api/index.js";
 export default {
 	components: {
 		tLinkage
@@ -143,7 +144,7 @@ export default {
 		}, 50);
 	},
 	created(){
-		
+		getClassify();
 	},
 	methods: {
 		// 点击标题切换当前页时改变样式
