@@ -10,24 +10,21 @@
 			 indicator-active-color="#FF4444" :circular="true">
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper1.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper1.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper2.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper2.webp" mode=""></image>
 					</view>
 				</swiper-item>
 				<swiper-item>
 					<view class="swiper-item">
-						<image src="@/static/image/swiper/swiper3.webp" mode=""></image>
+						<image src="@/static/images/swiper/swiper3.webp" mode=""></image>
 					</view>
-				</swiper-item>s
+				</swiper-item>
 			</swiper>
 		</view>
-
-
-
 		<!-- 轮播图 -->
 
 		<!-- 六宫格 -->
@@ -56,6 +53,19 @@
 		</view>
 
 		<!-- 六宫格  -->
+		
+		<!--开始 活动  -->
+		<view class="activity">
+			<view class="item" v-for="item in activityData" :key="item.name">
+				<navigator :url="'/pages/activity/'+item.name+'/'+item.name" open-type="navigate">
+					<view class="img">
+						<image :src="item.img_url" mode=""></image>
+					</view>
+				</navigator>
+			</view>
+		</view>
+		<!--结束 活动  -->
+		
 		<!-- 种草笔记 -->
 		<view class="note_container">
 			<view class="top">
@@ -66,7 +76,7 @@
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/luosifen-.jpg" class="luosifen"></image>
+							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -78,7 +88,7 @@
 
 					<view id="demo1" class="item" @click="toDongzao">
 						<view class="note_img">
-							<image src="../../static/image/note/dongzao.jpg" class="dongzao" ></image>
+							<image src="../../static/images/note/dongzao.jpg" class="dongzao" ></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -88,7 +98,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/niurougan.jpg" class="niurougan"></image>
+							<image src="../../static/images/note/niurougan.jpg" class="niurougan"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -98,7 +108,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/jianguo.jpg" class="milk"></image>
+							<image src="/static/images/note/jianguo.jpg" class="milk"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -108,7 +118,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/banfen.jpg" class="banfen"></image>
+							<image src="../../static/images/note/banfen.jpg" class="banfen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -118,7 +128,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/guoba.jpg" class="guoba"></image>
+							<image src="../../static/images/note/guoba.jpg" class="guoba"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -129,7 +139,7 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/fengzhua.jpg" class="jizhua"></image>
+							<image src="../../static/images/note/fengzhua.jpg" class="jizhua"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -139,7 +149,17 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/image/note/mifen.jpeg" class="mifen"></image>
+							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
+						</view>
+						<view class="desc">
+							<text>
+								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+							</text>
+						</view>
+					</view>
+					<view id="demo1" class="item">
+						<view class="note_img">
+							<image src="../../static/images/note/mifen.jpeg" class="mifen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -150,6 +170,7 @@
 				</scroll-view>
 			</view>
 		</view>
+		
 		<!-- 分类宫格 -->
 		<view class="category_container">
 			<!-- 送ta礼物分类 -->
@@ -219,15 +240,95 @@
 		<view class="top-button" @click="ToTop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
+				<!-- <image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
+						</view>
+						<view class="desc">
+							<text>
+								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+							</text>
+
+						</view>
+					</view> -->
+
+					<!-- 				<view id="demo1" class="item">
+								<image src="../../static/image/note/dongzao.jpg" class="dongzao"></image>
+								<view class="desc">
+						
+								
+									新疆，还有什么水果是你不行的？连枣都能甜哭我！
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/niurougan.jpg" class="niurougan"></image>
+								<view class="desc">
+								
+									什么样的牛肉干好吃？内蒙古的朋友有话说
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/jianguo.jpg" class="milk"></image>
+								<view class="desc">
+								
+									我找到了植物奶咖啡的平替（不是）
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/banfen.jpg" class="banfen"></image>
+								<view class="desc">
+								
+									吹爆南昌拌粉！一周有5天都想嗦它嗦它嗦它
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/guoba.jpg" class="guoba"></image>
+								<view class="desc">
+								
+									好吃的锅巴，会发出海鲜味的咔嚓咔嚓声
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/fengzhua.jpg" class="jizhua"></image>
+								<view class="desc">
+								
+									请把柠檬和鸡爪这对cp给我锁死死！
+								
+								</view>
+							</view>
+							<view id="demo1" class="item">
+								<image src="../../static/image/note/mifen.jpeg" class="mifen"></image>
+								<view class="desc">
+								
+									湖南人的乡愁，从一碗常德米粉开始
+								
+								</view>
+							</view> -->
+				<!-- </scroll-view>
+			</view>
+		</view>
+		 -->
+		
+		
+		
+		<!-- 弹出橱窗 -->
+		<show-case></show-case>
+		<!-- 弹出橱窗 -->
 	</view>
 </template>
 
 <script>
+
 	import search from "../../component/search/search";
+	import showCase from "../../component/show-case/show-case.vue";
 
 	export default {
 		components: {
 			search,
+			showCase
 		},
 		data() {
 			return {
@@ -235,7 +336,26 @@
 				scrollTop: 0,
 				old: {
 					scrollTop: 0
-				}
+				},
+				activityData:[
+					{
+						name:"monnew",
+						img_url:"../../static/images/index/monnew.webp"
+					},
+					{
+						name:"discounts",
+						img_url:"../../static/images/index/discounts.webp"
+					},
+					{
+						name:"hot",
+						img_url:"../../static/images/index/hot.webp"
+					},
+					{
+						name:"vip",
+						img_url:"../../static/images/index/vip.webp"
+					},
+					
+				]
 			}
 		},
 		methods: {
@@ -247,7 +367,9 @@
 				console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
+
 			// 点击查看更多>(种草笔记)
+
 			toMore() {
 				uni.navigateTo({
 					url: "/pages/note/note"
@@ -256,27 +378,41 @@
 
 			Tosend() {
 				console.log("send")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=gift"
+				})
 			},
 			Tofruit() {
 				console.log("fruit")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=fruits"
+				})
 			},
 			Tosnack() {
 				console.log("snack")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=snacks"
+				})
 			},
 			Totea() {
 				console.log("tea")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=tea"
+				})
 			},
 			Towine() {
 				console.log("wine")
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=liquor"
+				})
 			},
 			Toall() {
 				console.log("all")
+
 			},
-			// 回到顶部
-			ToTop() {
-				uni.pageScrollTo({
-				scrollTop: 0,
-				duration: 300
+			navigateTo1(){
+				uni.navigateTo({
+					url:"/pages/allGoods/allGoods"
 				})
 			}
 		}
@@ -285,8 +421,12 @@
 
 <style lang="scss" scoped>
 	.container {
+
 	background-color: #F9F9F9;
 	height:3000rpx;
+
+
+
 		.swiper-container {
 			width: 100%;
 			height: 370rpx;
@@ -321,6 +461,42 @@
 				padding:0 20rpx;
 				.note {
 					font-size: 32rpx;
+				}
+			}
+		}
+		// 活动
+		.activity{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			
+			.item{
+				width: 48%;
+				.img{
+					width: 370rpx;
+					height: 200rpx;
+					// padding-right: 10rpx;
+					image{
+						width: 100%;
+						height: 100%;
+					}
+				}
+			}
+		}
+		
+		
+		
+		// 种草笔记
+		.note_container {
+
+			// background-color: #F9F9F9;
+			.top {
+				display: flex;
+				justify-content: space-between;
+
+				.note {
+					font-size: 28rpx;
+
 					color: #323233;
 				}
 
@@ -335,14 +511,21 @@
 					white-space: nowrap;
 					height: 450rpx;
 					width: 100%;
+
 					margin-top:20rpx;
 					margin-left:20rpx;
 					// border: 1px solid #E5E5E5;
+
+					border: 1px solid #E5E5E5;
+
 					overflow: hidden;
 
 					.item {
 						// 这个属性可以使图片跟文字盒子上下排行
 						display: inline-block;
+						background-color: white;
+						border: 1px solid #E5E5E5;
+						margin: 20rpx;
 						background-color: white;
 						border: 1px solid #E5E5E5;
 						.note_img {
@@ -360,6 +543,7 @@
 							padding:10rpx;
 							// 字体不换行
 							white-space: pre-wrap;
+
 
 							// 限制两行以后用省略号表示
 							text {
