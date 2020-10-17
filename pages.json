@@ -61,9 +61,12 @@
 		"style": {
 			
 		}
-	}
+	},
+	
+    
 
-	   ,{
+
+	   {
             "path" : "pages/user/address/address",
             "style" : {
 				"navigationBarTitleText":"收货地址"
