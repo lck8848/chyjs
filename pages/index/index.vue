@@ -25,9 +25,6 @@
 				</swiper-item>
 			</swiper>
 		</view>
-
-
-
 		<!-- 轮播图 -->
 
 		<!-- 六宫格 -->
@@ -56,6 +53,7 @@
 		</view>
 
 		<!-- 六宫格  -->
+		
 		<!--开始 活动  -->
 		<view class="activity">
 			<view class="item" v-for="item in activityData" :key="item.name">
@@ -300,11 +298,7 @@
 			.top {
 				display: flex;
 				justify-content: space-between;
-overflow : hidden;
-					text-overflow: ellipsis;
-					display: -webkit-box;
-					-webkit-line-clamp: 2;
-					-webkit-box-orient: vertical;
+
 				.note {
 					font-size: 28rpx;
 					color: #323233;
