@@ -31,7 +31,7 @@
 				:scroll-into-view="scrollView_rightId"
 				:style="{ height: '100%' }"
 				v-if="is_goods"
-				>
+			>
 				<!--内容部分 start 自定义可删除-->
 				<block v-for="(item, index) in tabbar" :key="index">
 					<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
@@ -41,12 +41,12 @@
 								<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
 									<image :src="g.image_url" class="left_img"></image>
 									<view class="right-content">
-										<view class="g-title">{{g.title}}</view>
-										<view class="g-mask">{{g.sell_point}}</view>
+										<view class="g-title">{{ g.title }}</view>
+										<view class="g-mask">{{ g.sell_point }}</view>
 										<view class="g-price">
 											<view class="left-price">
 												<text class="price-tag">¥</text>
-												<text class="price-sale-price">{{g.price}}</text>
+												<text class="price-sale-price">{{ g.price }}</text>
 											</view>
 											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
@@ -72,7 +72,7 @@ export default {
 	data() {
 		return {
 			tabbar: [],
-			is_goods:false,
+			is_goods: false,
 			height: 0, //scroll-view高度
 			top: 0,
 			currentTab: 0, //预设当前项的值
@@ -84,7 +84,7 @@ export default {
 			isTap: true
 		};
 	},
-	onLoad: function(options) {
+	onLoad(options) {
 		setTimeout(() => {
 			uni.getSystemInfo({
 				success: res => {
@@ -109,10 +109,10 @@ export default {
 			this.getClassifyGoods(this.tabbar);
 		},
 		async getClassifyGoods(tabbar) {
-			tabbar.map(async (v,k)=>{ 
+			tabbar.map(async (v, k) => {
 				let classifyGoods = await getClassifyGoods(v.alias_code);
 				this.tabbar[k].goods = classifyGoods.data;
-			})
+			});
 			this.is_goods = true;
 		},
 		// 点击标题切换当前页时改变样式
@@ -125,7 +125,7 @@ export default {
 				this.checkCor();
 			}
 		},
-		
+
 		//判断当前滚动超过一屏时，设置tab标题滚动条。
 		checkCor: function(isScroll) {
 			if (!isScroll) {

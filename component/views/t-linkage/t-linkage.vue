@@ -28,6 +28,7 @@ export default {
 	watch: {
 		scrollTop(newValue, oldValue) {
 			console.info(newValue, 'newValue')
+			
 			if (this.initialize != 0) {
 				this.updateScrollChange(() => {
 					this.updateStickyChange();
@@ -46,6 +47,17 @@ export default {
 	},
 	created() {
 		this.initialize = this.recalc;
+		
+			setTimeout(() => {
+		if (this.initialize != 0) {
+			this.updateScrollChange(() => {
+				this.updateStickyChange();
+				this.initialize = 0;
+			});
+		} else {
+			this.updateStickyChange();
+		}
+			}, 600);
 	},
 	mounted() {
 		setTimeout(() => {
