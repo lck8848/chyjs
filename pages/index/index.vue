@@ -149,16 +149,6 @@
 					</view>
 					<view id="demo1" class="item">
 						<view class="note_img">
-							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
 							<image src="../../static/images/note/mifen.jpeg" class="mifen"></image>
 						</view>
 						<view class="desc">
@@ -240,79 +230,7 @@
 		<view class="top-button" @click="ToTop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
-				<!-- <image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
-							</text>
-
-						</view>
-					</view> -->
-
-					<!-- 				<view id="demo1" class="item">
-								<image src="../../static/image/note/dongzao.jpg" class="dongzao"></image>
-								<view class="desc">
-						
-								
-									新疆，还有什么水果是你不行的？连枣都能甜哭我！
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/niurougan.jpg" class="niurougan"></image>
-								<view class="desc">
-								
-									什么样的牛肉干好吃？内蒙古的朋友有话说
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/jianguo.jpg" class="milk"></image>
-								<view class="desc">
-								
-									我找到了植物奶咖啡的平替（不是）
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/banfen.jpg" class="banfen"></image>
-								<view class="desc">
-								
-									吹爆南昌拌粉！一周有5天都想嗦它嗦它嗦它
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/guoba.jpg" class="guoba"></image>
-								<view class="desc">
-								
-									好吃的锅巴，会发出海鲜味的咔嚓咔嚓声
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/fengzhua.jpg" class="jizhua"></image>
-								<view class="desc">
-								
-									请把柠檬和鸡爪这对cp给我锁死死！
-								
-								</view>
-							</view>
-							<view id="demo1" class="item">
-								<image src="../../static/image/note/mifen.jpeg" class="mifen"></image>
-								<view class="desc">
-								
-									湖南人的乡愁，从一碗常德米粉开始
-								
-								</view>
-							</view> -->
-				<!-- </scroll-view>
-			</view>
-		</view>
-		 -->
-		
-		
+				
 		
 		<!-- 弹出橱窗 -->
 		<show-case></show-case>
@@ -371,8 +289,12 @@
 			// 点击查看更多>(种草笔记)
 
 			toMore() {
+				console.log("more")
 				uni.navigateTo({
-					url: "/pages/note/note"
+					url: "/pages/note/note",
+					fail(err){
+						console.log(err);
+					}
 				})
 			},
 
@@ -410,9 +332,14 @@
 				uni.switchTab({
 					url:"/pages/allGoods/allGoods"
 				})
-
 			},
-			
+			// 回到顶部
+			ToTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				})
+			}
 		}
 	}
 </script>
@@ -445,23 +372,7 @@
 			}
 
 		}
-
-
-		// 种草笔记
-
-		.note_container {
-
-			background-color: #F9F9F9;
-			.top {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding:0 20rpx;
-				.note {
-					font-size: 32rpx;
-				}
-			}
-		}
+		
 		// 活动
 		.activity{
 			display: flex;
@@ -491,10 +402,12 @@
 			.top {
 				display: flex;
 				justify-content: space-between;
-
+				align-items: center;
+				// padding:20rpx;
+				padding:0 20rpx;
+			
 				.note {
-					font-size: 28rpx;
-
+					font-size: 32rpx;
 					color: #323233;
 				}
 
@@ -509,28 +422,25 @@
 					white-space: nowrap;
 					height: 450rpx;
 					width: 100%;
-
 					margin-top:20rpx;
-					margin-left:20rpx;
-					// border: 1px solid #E5E5E5;
-
 					border: 1px solid #E5E5E5;
-
 					overflow: hidden;
-
 					.item {
 						// 这个属性可以使图片跟文字盒子上下排行
 						display: inline-block;
 						background-color: white;
+						width:40%;
+						height:420rpx;
 						border: 1px solid #E5E5E5;
-						margin: 20rpx;
+						// padding:10rpx;
+						margin: 10rpx;
 						background-color: white;
 						border: 1px solid #E5E5E5;
 						.note_img {
 							width: 300rpx;
 
 							image {
-								width: 100%;
+								width: 300rpx;
 								height: 300rpx;
 							}
 						}
@@ -629,9 +539,9 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 23upx;
-			bottom: 200upx;
-			z-index: 99;
+			right: 42upx;
+			bottom: 300upx;
+			z-index: 9999;
 			.topimg{
 				width:100rpx;
 				height:100rpx;

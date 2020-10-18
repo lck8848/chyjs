@@ -72,6 +72,32 @@
 				"navigationBarTitleText":"收货地址"
 			}
         }
+        ,{
+            "path" : "pages/grid/coffee",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/alcohol",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/snack",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/vegetable",
+            "style" : {}
+        }
+		
+        ,{
+            "path" : "pages/note/note",
+            "style" : {
+			
+							// "navigationStyle": "custom" ,
+							// "navigationBarTextStyle": "white" 
+						
+			}
+        }
     ],
 
 
@@ -122,7 +148,8 @@
 			"van-popup": "/wxcomponents/vant/dist/popup/index",
 			"van-tag": "/wxcomponents/vant/dist/tag/index",
 			"van-toast": "/wxcomponents/vant/dist/toast/index",
-			"van-sidebar-item": "/wxcomponents/vant/dist/sidebar-item/index"
+			"van-sidebar-item": "/wxcomponents/vant/dist/sidebar-item/index",
+			"van-skeleton": "/wxcomponents/vant/dist/skeleton/index"
 		}
 	}
 }

@@ -104,7 +104,7 @@ export default {
 	},
 	methods: {
 		async getClassify() {
-			let classify = await getClassify();
+			let classify = await getClassify(1000);
 			this.tabbar = classify.data;
 			this.getClassifyGoods(this.tabbar);
 		},
@@ -131,7 +131,7 @@ export default {
 			if (!isScroll) {
 				this.isScroll = false;
 				this.isTap = true;
-				console.info(this.currentTab, 'currentTab');
+				// console.info(this.currentTab, 'currentTab');
 				if (this.currentTab > 6) {
 					this.scrollView_leftId = `left_${this.currentTab - 2}`;
 				} else {
