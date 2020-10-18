@@ -28,8 +28,7 @@ export default {
 	watch: {
 		scrollTop(newValue, oldValue) {
 			// console.info(newValue, 'newValue');
-
-				this.updateStickyChange();
+			this.updateStickyChange();
 		},
 		recalc(newValue, oldValue) {
 			this.updateScrollChange(() => {
