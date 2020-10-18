@@ -19,7 +19,13 @@
 			}
 		},
 		methods: {
-
+			// 回到顶部
+			ToTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				})
+			},
 		}
 	}
 </script>

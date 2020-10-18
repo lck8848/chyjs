@@ -72,6 +72,32 @@
 				"navigationBarTitleText":"收货地址"
 			}
         }
+        ,{
+            "path" : "pages/grid/coffee",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/alcohol",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/snack",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/vegetable",
+            "style" : {}
+        }
+		
+        ,{
+            "path" : "pages/note/note",
+            "style" : {
+			
+							// "navigationStyle": "custom" ,
+							// "navigationBarTextStyle": "white" 
+						
+			}
+        }
     ],
 
 
