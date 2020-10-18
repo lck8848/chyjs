@@ -377,7 +377,6 @@
 			},
 
 			Tosend() {
-				console.log("send")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=gift"
 				})
