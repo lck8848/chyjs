@@ -27,16 +27,9 @@ export default {
 	},
 	watch: {
 		scrollTop(newValue, oldValue) {
-			console.info(newValue, 'newValue');
+			// console.info(newValue, 'newValue');
 
-			if (this.initialize != 0) {
-				this.updateScrollChange(() => {
-					this.updateStickyChange();
-					this.initialize = 0;
-				});
-			} else {
 				this.updateStickyChange();
-			}
 		},
 		recalc(newValue, oldValue) {
 			this.updateScrollChange(() => {
@@ -47,17 +40,12 @@ export default {
 	},
 	created() {
 		this.initialize = this.recalc;
-
 		setTimeout(() => {
-			if (this.initialize != 0) {
-				this.updateScrollChange(() => {
-					this.updateStickyChange();
-					this.initialize = 0;
-				});
-			} else {
+			this.updateScrollChange(() => {
 				this.updateStickyChange();
-			}
-		}, 600);
+				this.initialize = 0;
+			});
+		}, 1000);
 	},
 	mounted() {
 		setTimeout(() => {
