@@ -330,10 +330,7 @@
 			},
 			Toall() {
 				console.log("all")
-
-			},
-			navigateTo1(){
-				uni.navigateTo({
+				uni.switchTab({
 					url:"/pages/allGoods/allGoods"
 				})
 			},
