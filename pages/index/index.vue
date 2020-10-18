@@ -632,7 +632,7 @@
 			position: fixed;
 			right: 23upx;
 			bottom: 200upx;
-			z-index: 9999;
+			z-index: 99;
 			.topimg{
 				width:100rpx;
 				height:100rpx;
