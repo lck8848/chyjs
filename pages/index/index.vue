@@ -301,7 +301,6 @@
 			},
 
 			Tosend() {
-				console.log("send")
 				uni.navigateTo({
 					url:"/pages/index/classify?genre=gift"
 				})
@@ -544,7 +543,7 @@
 			position: fixed;
 			right: 42upx;
 			bottom: 300upx;
-			z-index: 9999;
+			z-index: 99;
 			.topimg{
 				width:100rpx;
 				height:100rpx;
