@@ -73,7 +73,7 @@
 				<view class="title">
 					新品
 				</view>
-				<view class="more">
+				<view class="more" @click="tonew()">
 					更多
 				</view>
 			</view>
@@ -102,13 +102,23 @@
 						</view>
 					</view>
 					
-					<view class="item more">
-						<view class="img">
+						
+					<view class="item more" @click="tonew()">
+
+
+						<view class="text-more" >
+							<view class="info">
+								<view class="title">
+									查看更多
+								</view>
 								
+								<view class="right">
+									<image src="@/static/images/index/右.png" mode=""></image>
+								</view>
+							</view>
 						</view>
-						<view class="text-more">
-							查看更多
-						</view>
+						
+						
 					</view>
 
 				</scroll-view>
@@ -404,6 +414,11 @@
 					duration: 300
 				})
 			},
+			tonew(){
+				uni.navigateTo({
+					url: "/pages/new/new"
+				})
+			},
 			async init(){
 				var {data} = await getClassifyGoods(1000)
 				
@@ -503,15 +518,23 @@
 					.more{
 						// margin-bottom: 198rpx;
 						// overflow: hidden;
+						text-align: center;
+						line-height: 390rpx;
 						position:relative;
 						background-color: rgba(50,50,51,.05);
 						color: #969799;
 					}
 					.item{
 						display: inline-block;
+						// display: flex;
+						
 						height: 390rpx;
 						width: 198rpx;
 						margin:10rpx;
+
+						vertical-align: middle;
+						box-sizing: border-box;
+
 						.img{
 							position: relative;
 							height: 198rpx;
@@ -530,6 +553,8 @@
 								width: 100%;
 								height: 100%;
 							}
+							
+							
 						}
 						.text{
 							display: flex;
@@ -539,10 +564,28 @@
 							padding: 0 16rpx 4rpx;
 							background-color: #FFFFFF;
 							&-more{
+								text-align: center;
 								background-color:rgba(50,50,51,.00);
 								justify-content: center;
 								flex-direction:row;
+								.info{
+									display: flex;
+									// align-items: center;
+									justify-content: center;
+									
+									.right{
+										width: 32rpx;
+										height: 32rpx;
+										image{
+											width: 100%;
+											height: 100%;
+										}
+										
+									}
+								}
+								
 							}
+							
 							.title{
 								font-size: 26rpx;
 								font-weight: bold;
@@ -603,6 +646,7 @@
 				}
 
 				.more {
+					
 					font-size: 24rpx;
 					color: #c7c7d1;
 				}
