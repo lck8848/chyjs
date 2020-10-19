@@ -83,7 +83,7 @@
 		.walk {
 			position: fixed;
 			right: 20rpx;
-			bottom: 270rpx;
+			bottom: 170rpx;
 			width: 96rpx;
 			height: 96rpx;
 			background-image: url(/static/images/showcase/showcase.webp);
