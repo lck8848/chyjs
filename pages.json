@@ -125,6 +125,10 @@
             }
             
         }
+        ,{
+            "path" : "pages/new/new",
+            "style" : {}
+        }
     ],
 
 
