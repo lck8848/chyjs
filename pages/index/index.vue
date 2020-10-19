@@ -53,7 +53,7 @@
 		</view>
 
 		<!-- 六宫格  -->
-		
+
 		<!--开始 活动  -->
 		<view class="activity">
 			<view class="item" v-for="item in activityData" :key="item.name">
@@ -65,7 +65,7 @@
 			</view>
 		</view>
 		<!--结束 活动  -->
-		
+
 		<!-- 种草笔记 -->
 		<view class="note_container">
 			<view class="top">
@@ -88,7 +88,7 @@
 
 					<view id="demo1" class="item" @click="toDongzao">
 						<view class="note_img">
-							<image src="../../static/images/note/dongzao.jpg" class="dongzao" ></image>
+							<image src="../../static/images/note/dongzao.jpg" class="dongzao"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -160,7 +160,7 @@
 				</scroll-view>
 			</view>
 		</view>
-		
+
 		<!-- 分类宫格 -->
 		<view class="category_container">
 			<!-- 送ta礼物分类 -->
@@ -225,13 +225,13 @@
 			</view> -->
 		</view>
 		<!-- 分类宫格end -->
-		
+
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
-				
-		
+
+
 		<!-- 弹出橱窗 -->
 		<show-case></show-case>
 		<!-- 弹出橱窗 -->
@@ -239,11 +239,10 @@
 </template>
 
 <script>
-
 	import search from "../../component/search/search";
 	import showCase from "../../component/show-case/show-case.vue";
 	import gift from "../grid/gift.vue";
-	
+
 	export default {
 		components: {
 			search,
@@ -257,24 +256,23 @@
 				old: {
 					scrollTop: 0
 				},
-				activityData:[
-					{
-						name:"monnew",
-						img_url:"../../static/images/index/monnew.webp"
+				activityData: [{
+						name: "monnew",
+						img_url: "../../static/images/index/monnew.webp"
 					},
 					{
-						name:"discounts",
-						img_url:"../../static/images/index/discounts.webp"
+						name: "discounts",
+						img_url: "../../static/images/index/discounts.webp"
 					},
 					{
-						name:"hot",
-						img_url:"../../static/images/index/hot.webp"
+						name: "hot",
+						img_url: "../../static/images/index/hot.webp"
 					},
 					{
-						name:"vip",
-						img_url:"../../static/images/index/vip.webp"
+						name: "vip",
+						img_url: "../../static/images/index/vip.webp"
 					},
-					
+
 				]
 			}
 		},
@@ -294,7 +292,7 @@
 				console.log("more")
 				uni.navigateTo({
 					url: "/pages/note/note",
-					fail(err){
+					fail(err) {
 						console.log(err);
 					}
 				})
@@ -302,37 +300,37 @@
 
 			Tosend() {
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=gift"
+					url: "/pages/index/classify?genre=gift"
 				})
 			},
 			Tofruit() {
 				console.log("fruit")
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=fruits"
+					url: "/pages/index/classify?genre=fruits"
 				})
 			},
 			Tosnack() {
 				console.log("snack")
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=snacks"
+					url: "/pages/index/classify?genre=snacks"
 				})
 			},
 			Totea() {
 				console.log("tea")
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=tea"
+					url: "/pages/index/classify?genre=tea"
 				})
 			},
 			Towine() {
 				console.log("wine")
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=liquor"
+					url: "/pages/index/classify?genre=liquor"
 				})
 			},
 			Toall() {
 				console.log("all")
 				uni.switchTab({
-					url:"/pages/allGoods/allGoods"
+					url: "/pages/allGoods/allGoods"
 				})
 			},
 			// 回到顶部
@@ -343,16 +341,15 @@
 				})
 			},
 		},
-		onShow() {
-		},
+		onShow() {},
 	}
 </script>
 
 <style lang="scss" scoped>
 	.container {
 
-	background-color: #F9F9F9;
-	height:3000rpx;
+		background-color: #F9F9F9;
+		height: 3000rpx;
 
 
 
@@ -376,29 +373,31 @@
 			}
 
 		}
-		
+
 		// 活动
-		.activity{
+		.activity {
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
-			
-			.item{
+
+			.item {
 				width: 48%;
-				.img{
+
+				.img {
 					width: 370rpx;
 					height: 200rpx;
+
 					// padding-right: 10rpx;
-					image{
+					image {
 						width: 100%;
 						height: 100%;
 					}
 				}
 			}
 		}
-		
-		
-		
+
+
+
 		// 种草笔记
 		.note_container {
 
@@ -408,8 +407,8 @@
 				justify-content: space-between;
 				align-items: center;
 				// padding:20rpx;
-				padding:0 20rpx;
-			
+				padding: 0 20rpx;
+
 				.note {
 					font-size: 32rpx;
 					color: #323233;
@@ -426,20 +425,22 @@
 					white-space: nowrap;
 					height: 450rpx;
 					width: 100%;
-					margin-top:20rpx;
+					margin-top: 20rpx;
 					border: 1px solid #E5E5E5;
 					overflow: hidden;
+
 					.item {
 						// 这个属性可以使图片跟文字盒子上下排行
 						display: inline-block;
 						background-color: white;
-						width:40%;
-						height:420rpx;
+						width: 40%;
+						height: 420rpx;
 						border: 1px solid #E5E5E5;
 						// padding:10rpx;
 						margin: 10rpx;
 						background-color: white;
 						border: 1px solid #E5E5E5;
+
 						.note_img {
 							width: 300rpx;
 
@@ -465,9 +466,9 @@
 								display: -webkit-box;
 								-webkit-box-orient: vertical;
 								-webkit-line-clamp: 2;
-								
+
 								font-weight: bold;
-								color:#4E4E4E
+								color: #4E4E4E
 							}
 						}
 
@@ -478,61 +479,68 @@
 		}
 
 		// 种草笔记到这
-		
+
 		// 商品宫格分类
-		.category_container{
-			.sendGift{
-				.img{
-					width:100%;
-					height:180rpx;
-					
+		.category_container {
+			.sendGift {
+				.img {
+					width: 100%;
+					height: 180rpx;
+
 				}
-				
+
 				width:750rpx;
+
 				// height:1000rpx;
-				.outside{
+				.outside {
 					display: flex;
 					justify-content: space-around;
 					flex-wrap: wrap;
-					height:800rpx;
-					border:1px solid #F9F9F9;
-					.inside{
-						width:30%;
-						height:350rpx;
-						margin-bottom:10rpx;
-						background-color:white;
-						text{
-							padding:8rpx;
-							font-size:26rpx;
+					height: 800rpx;
+					border: 1px solid #F9F9F9;
+
+					.inside {
+						width: 30%;
+						height: 350rpx;
+						margin-bottom: 10rpx;
+						background-color: white;
+
+						text {
+							padding: 8rpx;
+							font-size: 26rpx;
 							font-weight: bold;
-							
+
 							overflow: hidden;
 							text-overflow: ellipsis;
 							display: -webkit-box;
 							-webkit-box-orient: vertical;
 							-webkit-line-clamp: 2;
 						}
-						.small_item{
-							width:100%;
-							height:180rpx;
+
+						.small_item {
+							width: 100%;
+							height: 180rpx;
 						}
-						.money{
+
+						.money {
 							display: flex;
 							justify-content: space-between;
 							align-items: center;
-							padding:14rpx;
-							margin-left:-5rpx;
-							font-size:32rpx;
-							color:#FF4444;
-							.cart{
-								width:35rpx;
-								height:35rpx;
+							padding: 14rpx;
+							margin-left: -5rpx;
+							font-size: 32rpx;
+							color: #FF4444;
+
+							.cart {
+								width: 35rpx;
+								height: 35rpx;
 							}
 						}
-					}					
-				}	
+					}
+				}
 			}
 		}
+
 		// 商品宫格分类到这
 
 		// 回到顶部
@@ -541,16 +549,16 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-
 			right: 40rpx;
 			bottom: 300rpx;
 			z-index: 5;
 
-			.topimg{
-				width:100rpx;
-				height:100rpx;
+			.topimg {
+				width: 100rpx;
+				height: 100rpx;
 			}
 		}
+
 		// 回到顶部到这
 		.grid-container {
 			display: flex;
