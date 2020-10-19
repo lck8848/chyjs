@@ -292,10 +292,8 @@
 				align-items: center;
 				justify-content: space-between;
 				background-color: #FF0000;
-				// background: #fff;
 				bottom:0px;
 				
-				z-index: 999999;
 				
 		}
 		.tui-countdown-text {
