@@ -15,6 +15,11 @@
 			<!-- 点击进店标签，进入首页 -->
 				<uni-tag text="进店" @click="toIndex" type="error" :inverted="true" circle="true" ></uni-tag>
 		</view>
+		
+		<!-- 笔记宫格 -->
+		<view class="note_grid">
+			
+		</view>
 	</view>
 </template>
 

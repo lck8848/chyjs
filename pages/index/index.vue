@@ -164,7 +164,8 @@
 		<!-- 分类宫格 -->
 		<view class="category_container">
 			<!-- 送ta礼物分类 -->
-			<view class="sendGift">
+			<gift></gift>
+			<!-- <view class="sendGift">
 				<image src="../../static/images/index/sendgift.webp" class="img"></image>
 				<view class="outside">
 						<view class="inside">
@@ -220,9 +221,8 @@
 											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
 										  </view>		 
 						</view>
-				</view>
-				
-			</view>
+				</view>	
+			</view> -->
 		</view>
 		<!-- 分类宫格end -->
 		
@@ -242,11 +242,13 @@
 
 	import search from "../../component/search/search";
 	import showCase from "../../component/show-case/show-case.vue";
-
+	import gift from "../grid/gift.vue";
+	
 	export default {
 		components: {
 			search,
-			showCase
+			showCase,
+			gift
 		},
 		data() {
 			return {
@@ -340,8 +342,10 @@
 					scrollTop: 0,
 					duration: 300
 				})
-			}
-		}
+			},
+		},
+		onShow() {
+		},
 	}
 </script>
 
@@ -441,7 +445,8 @@
 							width: 300rpx;
 
 							image {
-								width: 300rpx;
+								overflow: hidden;
+								width: 100%;
 								height: 300rpx;
 							}
 						}
@@ -449,7 +454,7 @@
 						.desc {
 							width: 300rpx;
 							height: 100rpx;
-							padding:10rpx;
+							// padding:10rpx;
 							// 字体不换行
 							white-space: pre-wrap;
 
@@ -525,11 +530,8 @@
 								height:35rpx;
 							}
 						}
-					}
-									
-				}
-					
-				
+					}					
+				}	
 			}
 		}
 		// 商品宫格分类到这
