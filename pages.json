@@ -61,17 +61,17 @@
 		"style": {
 			
 		}
-	},
-	
-    
-
-
-	   {
-            "path" : "pages/user/address/address",
-            "style" : {
-				"navigationBarTitleText":"收货地址"
-			}
-        }
+	},{
+		"path" : "pages/user/address/address",
+		"style" : {
+			"navigationBarTitleText":"收货地址"
+		}
+	},{
+		"path": "pages/showcase/showcase",
+		"style": {
+			"navigationBarTitleText": "商品橱窗"
+		}
+	}
         ,{
             "path" : "pages/grid/coffee",
             "style" : {}

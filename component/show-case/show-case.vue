@@ -9,22 +9,24 @@
 			</view>
 			
 			<scroll-view class="content" :scroll-y="true" >
-				<view v-for="(item, index) in list" :key="index" :class="['case',item.mark]">
+				<view v-for="(item, index) in list" :key="index" class="case">
 					<view class="head">
 						<view class="left">
 							<view class="icon" :style="'background-image: url('+item.icon+');background-size: cover'"></view>
 							<view class="title">{{ item.title }}</view>
 						</view>
-						<view class="right">
+						<navigator class="right" :url="'/pages/showcase/showcase?index='+index">
 							<view class="more">查看更多</view>
 							<view class="right-icon"></view>
-						</view>
+						</navigator>
 					</view>
 					
 					<scroll-view class="list" :scroll-x="true">
 						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @tap="console.log('点击')">
 							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+rankList[g_index]+'px;'"></view>
-							<image class="image" :src="goods.image_url" mode="widthFix"></image>
+							<view class="shell">
+								<image class="image" :src="goods.image_url" mode="widthFix"></image>
+							</view>
 							<view class="price">
 								<view class="price-icon">￥</view>
 								{{ (goods.price).toFixed(2) }}
@@ -81,7 +83,7 @@
 		.walk {
 			position: fixed;
 			right: 20rpx;
-			bottom: 270rpx;
+			bottom: 170rpx;
 			width: 96rpx;
 			height: 96rpx;
 			background-image: url(/static/images/showcase/showcase.webp);
@@ -168,10 +170,15 @@
 								background-size: 27px;
 								background-repeat: no-repeat;
 							}
-							.image {
+							.shell {
 								width: 100%;
-								border-radius: 16rpx;
+								height: 174rpx;
+								.image {
+									width: 100%;
+									border-radius: 16rpx;
+								}
 							}
+							
 							.price {
 								display: flex;
 								height: 84rpx;

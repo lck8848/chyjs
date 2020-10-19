@@ -3,57 +3,12 @@
 		<view class="sendGift">
 			<image src="../../static/images/index/sendgift.webp" class="img"></image>
 			<view class="outside">
-					<view class="inside">
+					<view class="inside" v-for="item in giftData" :key="item.id">
 									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
+									  <text>{{item.title}}</text>
 									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-									  </view>		 
-					</view>
-					
-					<view class="inside">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-									  </view>		 
-					</view>
-					
-					<view class="inside">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-									  </view>		 
-					</view>
-					
-					<view class="inside">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-									  </view>		 
-					</view>
-					
-					<view class="inside">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-									  </view>		 
-					</view>
-					
-					<view class="inside">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-									  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-									  <view class="money">
-									  	<text>￥298</text>
-										<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
+									  	<text>￥{{item.price}}</text>
+										<image :src="item.image_url" class="cart"></image>
 									  </view>		 
 					</view>
 			</view>
@@ -63,19 +18,29 @@
 </template>
 
 <script>
+	import {getGift} from "@/api/index.js";
 	export default {
+		name:"gift",
 		data() {
 			return {
-				
+				giftData:[]
 			}
 		},
 		methods: {
-			
+			async getGiftList(){
+				
+				var res = await getGift();
+				console.log(res);
+				// this.giftData = data;
+			}
+		},
+		created(){
+			this.getGiftList();
 		}
 	}
 </script>
 
-<style style="scss">
+<style lang="scss">
 .gift_classify{
 	.sendGift{
 		.img{
@@ -125,9 +90,8 @@
 						height:35rpx;
 					}
 				}
-			}
-							
-		}				
+			}					
+		}	
 	}
 }
 </style>
