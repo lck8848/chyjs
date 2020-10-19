@@ -8,7 +8,7 @@
 		<view class="hot-goods">
 			<view class="item">
 				<view class="img">
-					<image src="https://img.yzcdn.cn/upsload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
+					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
 				</view>
 				<view class="text">
 					<view class="title">
