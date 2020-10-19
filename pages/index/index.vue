@@ -543,7 +543,7 @@
 			position: fixed;
 
 			right: 40rpx;
-			bottom: 200rpx;
+			bottom: 300rpx;
 			z-index: 5;
 
 			.topimg{
