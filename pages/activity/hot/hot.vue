@@ -6,20 +6,20 @@
 		</view>
 		<!-- 列表 -->
 		<view class="hot-goods">
-			<view class="item">
+			<view class="item" v-for="item in hotGoodsData" :key="item.id">
 				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
+					<image :src="item.image_url" mode=""></image>
 				</view>
 				<view class="text">
 					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
+						{{ item.title }}
 					</view>
 					<view class="vip_price">
-						9折会员价：62.91元。
+						{{item.sell_point}}
 					</view>
 					<view class="details">
 						<view class="price">
-							 ￥69.6
+							 ￥{{item.price}}
 						</view>
 						<view class="img">
 							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
@@ -28,73 +28,9 @@
 					
 				</view>
 			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="vip_price">
-						9折会员价：62.91元。
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-					
-				</view>
-			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="vip_price">
-						9折会员价：62.91元。
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-					
-				</view>
-			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="vip_price">
-						9折会员价：62.91元。
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-					
-				</view>
-			</view>
-		</view>s
+		
+			
+		</view>
 		
 		
 		<view class="ka">
@@ -104,14 +40,25 @@
 </template>
 
 <script>
+	import { getHotGoods } from "../../../api/index.js"
+	
 	export default {
 		data() {
 			return {
-				goodsData:[]
+				hotGoodsData:[],
+				pageSzie:20
 			}
 		},
 		methods: {
-
+			async gethotGoods(){
+				var { data } = await getHotGoods(this.pageSzie);
+				this.hotGoodsData = data;
+				console.log(this.hotGoodsData)
+			}
+		},
+		
+		created(){
+			this.gethotGoods()
 		}
 	}
 </script>
@@ -175,6 +122,12 @@
 						font-size: 20rpx;
 						color: #969799;
 						margin-bottom: 15rpx;
+						overflow : hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 1;
+						-webkit-box-orient: vertical;
+						
 					}
 				}
 				.details{

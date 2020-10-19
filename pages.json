@@ -98,6 +98,15 @@
 						
 			}
         }
+        ,{
+            "path" : "pages/user/balance/balance",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 
 
