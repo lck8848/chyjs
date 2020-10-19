@@ -30,7 +30,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 .snack_classify{
 	.sendGift{
 		.img{
