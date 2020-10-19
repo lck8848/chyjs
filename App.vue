@@ -13,6 +13,9 @@ export default {
 </script>
 
 <style>
+	page{
+		background: #f8f8f8;
+	}
 	@import "./app.css";
 	/* unicode引入iconfront */
 	@import url("./iconfront.css");
