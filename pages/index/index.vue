@@ -73,7 +73,7 @@
 				<view class="title">
 					新品
 				</view>
-				<view class="more">
+				<view class="more" @click="tonew()">
 					更多
 				</view>
 			</view>
@@ -102,10 +102,8 @@
 						</view>
 					</view>
 					
-					<view class="item more">
-						<view class="img">
-								
-						</view>
+					<view class="item more"  @click="tonew()" >
+						
 						<view class="text-more">
 							查看更多
 						</view>
@@ -404,6 +402,11 @@
 					duration: 300
 				})
 			},
+			tonew(){
+				uni.navigateTo({
+					url: "/pages/new/new"
+				})
+			},
 			async init(){
 				var {data} = await getClassifyGoods(1000)
 				
@@ -503,6 +506,8 @@
 					.more{
 						// margin-bottom: 198rpx;
 						// overflow: hidden;
+						text-align: center;
+						line-height: 390rpx;
 						position:relative;
 						background-color: rgba(50,50,51,.05);
 						color: #969799;
@@ -512,6 +517,8 @@
 						height: 390rpx;
 						width: 198rpx;
 						margin:10rpx;
+						vertical-align: middle;
+						box-sizing: border-box;
 						.img{
 							position: relative;
 							height: 198rpx;
