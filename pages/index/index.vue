@@ -66,6 +66,58 @@
 		</view>
 		<!--结束 活动  -->
 		
+		<!-- 新品滑动 -->
+		<view class="new-container">
+			<view class="head">
+				<view class="title">
+					新品
+				</view>
+				<view class="more">
+					更多
+				</view>
+			</view>
+			<view class="newscroll-container">
+				<scroll-view class="scroll" scroll-x="true" >
+					<view class="item" v-for="item in newgoods" :key="item.id">
+						<view class="img">
+							<image :src="item.image_url" mode=""></image>
+							<view class="label">
+								新品
+							</view>
+						</view>
+						
+						<view class="text">
+							<view class="title">
+								{{item.title}}
+							</view>
+							<view class="bottom">
+								<view class="left">
+									￥<text class="price">{{item.price}}</text>
+								</view>
+								<view class="right">
+									<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+								</view>
+							</view>
+						</view>
+					</view>
+					
+					<view class="item more">
+						<view class="img">
+								
+						</view>
+						<view class="text-more">
+							查看更多
+						</view>
+					</view>
+
+				</scroll-view>
+			</view>
+			
+		</view>
+		
+		<!-- 新品滑动 -->
+		
+		
 		<!-- 种草笔记 -->
 		<view class="note_container">
 			<view class="top">
@@ -243,6 +295,7 @@
 	import search from "../../component/search/search";
 	import showCase from "../../component/show-case/show-case.vue";
 	import gift from "../grid/gift.vue";
+	import {getClassifyGoods} from "@/api/index.js"
 	
 	export default {
 		components: {
@@ -275,7 +328,8 @@
 						img_url:"../../static/images/index/vip.webp"
 					},
 					
-				]
+				],
+				newgoods:[]
 			}
 		},
 		methods: {
@@ -342,9 +396,19 @@
 					duration: 300
 				})
 			},
+			async init(){
+				var {data} = await getClassifyGoods(1000)
+				
+				data.splice(6,4)
+				// console.log(data)
+				this.newgoods = data
+			}
 		},
 		onShow() {
 		},
+		onLoad(){
+			this.init()
+		}
 	}
 </script>
 
@@ -397,6 +461,117 @@
 			}
 		}
 		
+		
+		//新品
+		.new-container{
+			// overflow: hidden;
+			padding: 0 20rpx;
+			.head{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin: 20rpx 0;
+				.title{
+					background-color: rgb(217, 129, 84);
+					font-size: 28rpx;
+					color: #FFFFFF;
+					padding: 4rpx 18rpx;
+					border-radius: 6rpx;
+				}
+				.more{
+					font-size: 24rpx;
+					color: #C7C7D1;
+				}
+			}
+			.newscroll-container{
+				height: 410rpx;
+				.scroll{
+					white-space: nowrap;
+					.more{
+						// margin-bottom: 198rpx;
+						// overflow: hidden;
+						position:relative;
+						background-color: rgba(50,50,51,.05);
+						color: #969799;
+					}
+					.item{
+						display: inline-block;
+						height: 390rpx;
+						width: 198rpx;
+						margin:10rpx;
+						.img{
+							position: relative;
+							height: 198rpx;
+							width: 198rpx;
+							.label{
+								position: absolute;
+								left: 0;
+								top: 14rpx;
+								font-size: 24rpx;
+								color: white;
+								background-color: rgb(255, 68, 68);
+								padding: 0 10rpx ;
+								border-radius: 0 20rpx 20rpx 0;
+							}
+							image{
+								width: 100%;
+								height: 100%;
+							}
+						}
+						.text{
+							display: flex;
+							justify-content: space-between;
+							flex-direction: column;
+							box-sizing: border-box;
+							padding: 0 16rpx 4rpx;
+							background-color: #FFFFFF;
+							&-more{
+								background-color:rgba(50,50,51,.00);
+								justify-content: center;
+								flex-direction:row;
+							}
+							.title{
+								font-size: 26rpx;
+								font-weight: bold;
+								margin: 10rpx 0;
+								white-space: pre-wrap;
+								text-overflow: -o-ellipsis-lastline;
+								overflow: hidden;
+								text-overflow: ellipsis;
+								display: -webkit-box;
+								-webkit-line-clamp: 2;
+								-webkit-box-orient: vertical;
+							}
+							.bottom{
+								display: flex;
+								justify-content: space-between;
+								padding: 25rpx 0;
+								.left{
+									font-size: 24rpx;
+									color: #ff4444;
+									.price{
+										font-size: 32rpx;
+										font-weight: bold;
+										
+									}
+								}
+								.right{
+									height: 40rpx;
+									width: 40rpx;
+									image{
+										width: 100%;
+										height: 100%;
+									}
+								}
+							}
+						}
+					}
+				}
+				
+			}
+			
+		}
+		//新品
 		
 		
 		// 种草笔记
