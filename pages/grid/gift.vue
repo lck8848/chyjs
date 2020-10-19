@@ -4,15 +4,14 @@
 			<image src="../../static/images/index/sendgift.webp" class="img"></image>
 			<view class="outside">
 					<view class="inside" v-for="item in giftData" :key="item.id">
-									  <image src="../../static/images/index/crab.webp" class="small_item"></image>
+									  <image :src="item.image_url" class="small_item"></image>
 									  <text>{{item.title}}</text>
 									  <view class="money">
 									  	<text>￥{{item.price}}</text>
-										<image :src="item.image_url" class="cart"></image>
+										<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
 									  </view>		 
 					</view>
 			</view>
-			
 		</view>
 	</view>
 </template>
@@ -28,10 +27,10 @@
 		},
 		methods: {
 			async getGiftList(){
-				
-				var res = await getGift();
-				console.log(res);
-				// this.giftData = data;
+				// 解构赋值拿到data
+				var {data} = await getGift();
+				this.giftData = data;
+				console.log(this.giftData);
 			}
 		},
 		created(){
@@ -58,12 +57,15 @@
 			height:800rpx;
 			border:1px solid #F9F9F9;
 			.inside{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 				width:30%;
 				height:350rpx;
 				margin-bottom:10rpx;
 				background-color:white;
 				text{
-					padding:8rpx;
+					// padding:8rpx;
 					font-size:26rpx;
 					font-weight: bold;
 					
