@@ -2,7 +2,7 @@
 	<view class="showcase-container">
 		<view class="walk" @tap="show()"></view>
 		
-		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" height="888" backgroundColor="#F7F8FA" @close="show()">
+		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" height="968" backgroundColor="#F7F8FA" @close="show()">
 			<view class="show-title">
 				商品橱窗
 				<view class="cancel" @tap="show()"></view>
@@ -23,7 +23,7 @@
 					
 					<scroll-view class="list" :scroll-x="true">
 						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @tap="console.log('点击')">
-							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+rankList[g_index]+'px;'"></view>
+							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
 							<view class="shell">
 								<image class="image" :src="goods.image_url" mode="widthFix"></image>
 							</view>
@@ -52,8 +52,7 @@
 					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
 					{title: "历史足迹", icon: "/static/images/showcase/record.png", mark: "record"}
 				],
-				goodsList: [],
-				rankList: [-4, -34, -64, -92, -120, -146, -174, -200, -227, -254]
+				goodsList: []
 			}
 		},
 		methods: {
@@ -65,7 +64,6 @@
 				this.goodsList[0] = data;
 				this.goodsList[1] = data;
 				this.goodsList[2] = data;
-				console.log(data);
 			}
 		},
 		created(){
@@ -110,7 +108,7 @@
 				}
 			}
 			.content {
-				height: 840rpx;
+				height: 920rpx;
 				
 				.case {
 					margin: 0 24rpx 24rpx 24rpx;
