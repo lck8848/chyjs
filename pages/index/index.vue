@@ -539,9 +539,9 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 42upx;
-			bottom: 300upx;
-			z-index: 9999;
+			right: 40rpx;
+			bottom: 200rpx;
+			z-index: 5;
 			.topimg{
 				width:100rpx;
 				height:100rpx;
