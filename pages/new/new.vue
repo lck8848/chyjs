@@ -1,8 +1,6 @@
 <template>
-<<<<<<< HEAD
-	<view>
-		new
-=======
+
+
 	<view class="new-container">
 		<!-- 头部 -->
 		<view class="tui-header">
@@ -57,7 +55,6 @@
 		
 		
 		<!-- 商品列表 -->
->>>>>>> 48fdceec7edd2b9aebad7987ebc0df113cbb2a6f
 	</view>
 </template>
 
@@ -66,10 +63,7 @@
 	export default {
 		data() {
 			return {
-<<<<<<< HEAD
-				
-			};
-=======
+
 				selected:1,
 				goods:[],
 				yuangoods:[],
@@ -135,15 +129,10 @@
 		},
 		onLoad(){
 			this.init()
->>>>>>> 48fdceec7edd2b9aebad7987ebc0df113cbb2a6f
 		}
 	}
 </script>
 
-<<<<<<< HEAD
-<style lang="scss">
-
-=======
 <style lang="scss" scoped>
 	.new-container{
 		
@@ -275,8 +264,5 @@
 				}
 			}
 		}
-		
-		// 商品列表
-	}
->>>>>>> 48fdceec7edd2b9aebad7987ebc0df113cbb2a6f
+	}	
 </style>
