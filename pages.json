@@ -127,7 +127,9 @@
         }
         ,{
             "path" : "pages/new/new",
-            "style" : {}
+            "style" : {
+				  "navigationBarTitleText": "新品"
+			}
         }
         ,{
             "path" : "pages/user/order/order",
@@ -141,7 +143,15 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+
+        },
+		{
+		    "path" : "pages/search/search-result",
+		    "style" : {
+				 "navigationBarTitleText": "搜索结果"
+			}
+		}
+		
         ,{
             "path" : "pages/user/balance/record/record",
             "style" :                                                                                    
@@ -150,8 +160,6 @@
                 "enablePullDownRefresh": false
             }
         }
-        
-        
     ],
 
 
