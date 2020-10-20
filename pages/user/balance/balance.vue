@@ -33,13 +33,13 @@
 		</view>
 
 		<view class="grid">
-			<navigator url="">
+			<navigator url="/pages/user/balance/recharge/recharge" open-type="navigate">
 				<view class="recharge">
 					<image src="@/static/images/user/充值.png" mode=""></image>
 					<text>充值</text>
 				</view>
 			</navigator>
-			<navigator url="">
+			<navigator url="" open-type="navigate">
 				<view class="bill ">
 					<image src="@/static/images/user/账单.png" mode=""></image>
 					<text>账单</text>
@@ -78,7 +78,7 @@
 
 		.balance-page {
 			margin: auto;
-			width: 360px;
+			width: 88%;
 			height: 140px;
 			border-radius: 20rpx;
 			background-color: #ff5454;
@@ -118,7 +118,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 390px;
+			width: 94%;
 			height: 60px;
 
 			.recharge {
@@ -161,7 +161,7 @@
 		.lianjie{
 			margin: auto;
 			border-radius: 20rpx;
-			width: 390px;
+			width: 94%;
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
