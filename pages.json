@@ -129,6 +129,16 @@
             "path" : "pages/new/new",
             "style" : {}
         }
+        
+        ,{
+            "path" : "pages/user/balance/recharge/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "充值中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 
 
