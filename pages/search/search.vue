@@ -4,24 +4,37 @@
 			<view class="tui-search-input">
 				<icon type="search" :size='13' color='#333'></icon>
 				<input confirm-type="search" placeholder="大家都在搜：螺蛳粉" :focus="true" auto-focus placeholder-class="tui-input-plholder"
-				 class="tui-input" v-model.trim="key" @input="inputKey"/>
+				 class="tui-input" v-model.trim="key" @input="inputKey" />
 				<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
 			</view>
 			<view class="tui-cancle" @tap="back">取消</view>
 		</view>
-
+		
+		<view class="tui-btn-box"><tui-button type="green" @click="detail(key)">搜索</tui-button></view>
+		
+		<view class="tui-search-history">
+			<view class="tui-history-header">
+				<view class="tui-search-title">热门搜索</view>
+			</view>
+			<view class="tui-history-content">
+				<block v-for="(item,index) in hot" :key="index" >
+					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
+				</block>
+			</view>
+		</view>
+		
 		<view class="tui-search-history" v-show="history.length>0 && !key">
 			<view class="tui-history-header">
 				<view class="tui-search-title">搜索历史</view>
 				<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
 			</view>
 			<view class="tui-history-content">
-				<block v-for="(item,index) in history" :key="index">
-					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle">{{item}}</tui-tag>
+				<block v-for="(item,index) in history" :key="index" >
+					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
 				</block>
 			</view>
 		</view>
-		<view v-show="key">
+		<!-- <view v-show="key">
 			<view class="tui-header">
 				<view class="tui-header-left tui-noboredr">搜索 “{{key}}”</view>
 			</view>
@@ -32,7 +45,7 @@
 					</view>
 				</block>
 			</view>
-		</view>
+		</view> -->
 
 		<!-- <view class="tui-search-hot">
 			<view class="tui-hot-header">
@@ -54,9 +67,7 @@
 	export default {
 		data() {
 			return {
-				history: [
-					"肉松",
-				],
+				history: JSON.parse(localStorage.getItem('history')) == null ? [] : JSON.parse(localStorage.getItem('history')) ,
 				hot: [
 					"海苔肉松卷",
 					"榴莲千层",
@@ -70,6 +81,22 @@
 			}
 		},
 		methods: {
+			getkey(val){
+				this.key = val
+				
+			},
+			detail(key){
+				console.log(key)
+				var data = this.key
+				this.history.push_unique(data)
+				localStorage.setItem('history',JSON.stringify(this.history))
+				uni.navigateTo({
+					url:"/pages/search/search-result?keyword=" + this.key
+				})
+				
+				
+				
+			},
 			back: function() {
 				uni.navigateBack();
 			},
@@ -81,12 +108,17 @@
 			},
 			openActionSheet: function() {
 				this.showActionSheet = true
+				
 			},
 			itemClick: function(e) {
+				// console.log(e)
 				let index = e.index;
+				// console.log(index)
 				if (index == 0) {
 					this.showActionSheet = false;
+					localStorage.removeItem('history')
 					this.history = []
+					
 				}
 			},
 			inputKey: function(e) {
@@ -106,6 +138,16 @@
 				})
 				this.searchList = arr
 			}
+		},
+		onLoad(){
+			Array.prototype.push_unique = function () {
+				for (var i = 0; i < arguments.length; i++) {
+					var ele = arguments[i];
+					if (this.indexOf(ele) == -1) {
+						this.push(ele);
+					}
+				}
+			};
 		}
 	}
 </script>

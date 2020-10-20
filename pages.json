@@ -127,7 +127,9 @@
         }
         ,{
             "path" : "pages/new/new",
-            "style" : {}
+            "style" : {
+				  "navigationBarTitleText": "新品"
+			}
         }
         
         ,{
@@ -138,7 +140,14 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/search/search-result",
+		    "style" : {
+				 "navigationBarTitleText": "搜索结果"
+			}
+		}
+		
     ],
 
 
