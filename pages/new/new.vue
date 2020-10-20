@@ -1,4 +1,6 @@
 <template>
+
+
 	<view class="new-container">
 		<!-- 头部 -->
 		<view class="tui-header">
@@ -61,6 +63,7 @@
 	export default {
 		data() {
 			return {
+
 				selected:1,
 				goods:[],
 				yuangoods:[],
@@ -261,7 +264,5 @@
 				}
 			}
 		}
-		
-		// 商品列表
-	}
+	}	
 </style>

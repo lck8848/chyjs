@@ -39,7 +39,7 @@
 					<text>充值</text>
 				</view>
 			</navigator>
-			<navigator url="" open-type="navigate">
+			<navigator url="/pages/user/balance/record/record" open-type="navigate">
 				<view class="bill ">
 					<image src="@/static/images/user/账单.png" mode=""></image>
 					<text>账单</text>

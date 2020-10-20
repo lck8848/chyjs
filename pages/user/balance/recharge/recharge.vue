@@ -3,9 +3,9 @@
 		<view class="fees" @tap="show()">
 			<text>选择充值余额</text>
 			<text class="money">当前余额:¥0.00</text>
-			
 		</view>
-		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" height="300"  backgroundColor="#F7F8FA" @close="show()">
+		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" :height="height" backgroundColor="#F7F8FA" @close="show()">
+			
 			<view class="show-title">
 				适用门店
 				<view class="img" @tap="show()">
@@ -34,6 +34,8 @@
 			</view>
 			
 		</tui-bottom-popup>
+		
+		<button class="button-style" type="warn">立即充值</button>
 	</view>
 </template>
 
@@ -44,6 +46,7 @@
 		data() {
 			return {
 				isShow: false,
+				height:250
 			};
 		},
 		methods:{
@@ -60,9 +63,9 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .recharge-container{
-	
+	min-height: calc(100vh - 32px);
 	.fees{
 		padding: 20rpx;
 		display: flex;
@@ -116,7 +119,17 @@
 			color: #ccc;
 		}
 	}
-
+	.button-style{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		
+		top: 560px;
+		// left: 0px;
+		width: 700rpx;
+		border-radius:40px;
+	}
 }
 
 </style>

@@ -131,7 +131,10 @@
 				  "navigationBarTitleText": "新品"
 			}
         }
-        
+        ,{
+            "path" : "pages/user/order/order",
+            "style" : {}
+        }
         ,{
             "path" : "pages/user/balance/recharge/recharge",
             "style" :                                                                                    
@@ -140,6 +143,7 @@
                 "enablePullDownRefresh": false
             }
             
+
         },
 		{
 		    "path" : "pages/search/search-result",
@@ -148,6 +152,15 @@
 			}
 		}
 		
+        ,{
+            "path" : "pages/user/balance/record/record",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易记录",
+                "enablePullDownRefresh": false
+            }
+        }
+
     ],
 
 
@@ -184,22 +197,23 @@
 		"navigationBarBackgroundColor": "#007AFF",
 		"backgroundColor": "#FFFFFF",
 		"usingComponents": {
-			"van-search": "/wxcomponents/vant/dist/search/index",
-			"van-grid": "/wxcomponents/vant/dist/grid/index",
-			"van-grid-item": "/wxcomponents/vant/dist/grid-item/index",
-			"van-cell": "/wxcomponents/vant/dist/cell/index",
-			"van-divider": "/wxcomponents/vant/dist/divider/index",
-			"van-icon": "/wxcomponents/vant/dist/icon/index",
-			"van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
-			"van-field": "/wxcomponents/vant/dist/field/index",
-			"van-tab": "/wxcomponents/vant/dist/tab/index",
-			"van-tabs": "/wxcomponents/vant/dist/tabs/index",
-			"van-sidebar": "/wxcomponents/vant/dist/sidebar/index",
-			"van-popup": "/wxcomponents/vant/dist/popup/index",
-			"van-tag": "/wxcomponents/vant/dist/tag/index",
-			"van-toast": "/wxcomponents/vant/dist/toast/index",
-			"van-sidebar-item": "/wxcomponents/vant/dist/sidebar-item/index",
-			"van-skeleton": "/wxcomponents/vant/dist/skeleton/index"
+			"van-search": "/wxcomponents/vant/search/index",
+			"van-grid": "/wxcomponents/vant/grid/index",
+			"van-grid-item": "/wxcomponents/vant/grid-item/index",
+			"van-cell": "/wxcomponents/vant/cell/index",
+			"van-divider": "/wxcomponents/vant/divider/index",
+			"van-icon": "/wxcomponents/vant/icon/index",
+			"van-cell-group": "/wxcomponents/vant/cell-group/index",
+			"van-field": "/wxcomponents/vant/field/index",
+			"van-tab": "/wxcomponents/vant/tab/index",
+			"van-tabs": "/wxcomponents/vant/tabs/index",
+			"van-sidebar": "/wxcomponents/vant/sidebar/index",
+			"van-popup": "/wxcomponents/vant/popup/index",
+			"van-tag": "/wxcomponents/vant/tag/index",
+			"van-toast": "/wxcomponents/vant/toast/index",
+			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index",
+			"van-skeleton": "/wxcomponents/vant/skeleton/index",
+			"van-button": "/wxcomponents/vant/button/index"
 		}
 	}
 }
