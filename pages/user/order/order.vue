@@ -35,7 +35,7 @@
 				</view>
 				<view class="goods">
 					<view class="img-shell">
-						<image class="img" src="../../../static/images/allGoods/Fm5hF8RwVJz0OPCe5mv4jICVhiXP.jpg!middle.webp" mode="widthFix"></image>
+						<image class="img" src="../../../static/images/allGoods/haoyou.webp" mode="widthFix"></image>
 					</view>
 					<view class="info">
 						<view class="info-top">
