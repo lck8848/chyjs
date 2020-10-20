@@ -139,6 +139,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/balance/record/record",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 
 
