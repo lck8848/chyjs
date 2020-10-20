@@ -129,7 +129,10 @@
             "path" : "pages/new/new",
             "style" : {}
         }
-        
+        ,{
+            "path" : "pages/user/order/order",
+            "style" : {}
+        }
         ,{
             "path" : "pages/user/balance/recharge/recharge",
             "style" :                                                                                    
@@ -146,7 +149,6 @@
                 "navigationBarTitleText": "交易记录",
                 "enablePullDownRefresh": false
             }
-            
         }
     ],
 

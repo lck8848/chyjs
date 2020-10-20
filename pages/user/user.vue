@@ -1,5 +1,9 @@
 <template>
 	<view class="container">
+		
+		
+		<order-shell></order-shell>
+		
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
@@ -30,6 +34,7 @@
 
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
+	import orderShell from "../../component/order-shell/order-shell.vue";
 	export default {
 		data() {
 			return {
@@ -63,7 +68,8 @@
 				}
 			}
 		},components:{
-			recommend
+			recommend,
+			orderShell
 		}
 	}
 </script>
