@@ -129,6 +129,10 @@
             "path" : "pages/new/new",
             "style" : {}
         }
+        ,{
+            "path" : "pages/user/order/order",
+            "style" : {}
+        }
     ],
 
 
