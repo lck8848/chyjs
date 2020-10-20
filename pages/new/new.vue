@@ -1,5 +1,8 @@
 <template>
+
+
 	<view class="new-container">
+		<!-- 头部 -->
 		<view class="tui-header">
 			
 			<view class="tui-header-top">
@@ -23,44 +26,117 @@
 			</view>
 		</view>
 		
-		<view class="goods-list">
-			<view class="item">
-				
+		<!-- 头部 -->
+		
+		
+		<tui-loadmore :index="2" v-if="showload"></tui-loadmore>
+		
+		<!-- 商品列表 -->
+		
+		<view class="goods-list" v-else>
+			
+			<view class="item" v-for="item in goods" :key="item.id">
+				<view class="img">
+					<image :src="item.image_url" mode=""></image>
+				</view>
+				<view class="text">
+					<view class="content">
+						{{item.title}}
+					</view>
+					<view class="bottom">
+						<view class="price">￥<text class="num">{{item.price}}</text></view>
+						<view class="cart">
+							<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		
+		
+		<!-- 商品列表 -->
 	</view>
 </template>
 
 <script>
+	import {getClassifyGoods} from "@/api/index.js"
 	export default {
 		data() {
 			return {
+
 				selected:1,
+				goods:[],
+				yuangoods:[],
+				showload:false
 			};
 		},
 		methods:{
-			screen(e){
-				console.log(e)
+			 screen(e){
 				this.selected = 1
+				this.showload = true
+				setTimeout(()=>{
+					this.goods = this.yuangoods
+					this.showload = false
+				},1000)
+				
+				
+
 			},
 			up(e){
+				
 				this.selected = 2
-				console.log(e)
+				this.showload = true
+				let updata = this.goods.slice(0)
+				// console.log(updata)
+				updata.sort(function(a,b){
+					return a.price - b.price
+				})
+				setTimeout(()=>{
+					this.goods=updata
+					this.showload = false
+				},1000)
+				
 			},
 			down(e){
 				this.selected = 3
-				console.log(e)
+				this.showload = true
+				let downdata = this.goods.slice(0)
+				// console.log(updata)
+				downdata.sort(function(a,b){
+					return b.price - a.price
+				})
+				setTimeout(()=>{
+					this.goods=downdata
+					this.showload = false
+				},1000)
+				
 			},
-			newgood(){
+			newgood(e){
 				this.selected = 4
+				this.showload = true
+				setTimeout(()=>{
+					this.goods = this.yuangoods
+					this.showload = false
+				},1000)
+				
+			},
+			async init(){
+				var {data} = await getClassifyGoods(1000)
+				this.goods = data
+				this.yuangoods = data
+				
 			}
+		},
+		onLoad(){
+			this.init()
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
 	.new-container{
+		
+		// 头部
 		.tui-header {
 			width: 100%;
 			padding: 30rpx;
@@ -126,6 +202,67 @@
 			}
 			
 		}
+		//头部
 		
-	}
+		
+		// 商品列表
+		.goods-list{
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			padding: 0 10rpx;
+			width: 750rpx;
+			box-sizing: border-box;
+			
+			.item{
+				width: 345rpx;
+				padding: 10rpx;
+				.img{
+					width: 345rpx;
+					height: 345rpx;
+					image{
+						width: 100%;
+						height: 100%;
+					}
+				}
+				.text{
+					width: 100%;
+					padding: 0 24rpx 8rpx;
+					box-sizing: border-box;
+					background-color: #FFFFFF;
+					.content{
+						font-size: 26rpx;
+						color: #323233;
+						overflow: hidden;
+						padding-top: 10rpx;
+						margin-bottom: 20rpx;
+						box-sizing: border-box;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-line-clamp: 2;
+						-webkit-box-orient: vertical;
+					}
+					.bottom{
+						display: flex;
+						justify-content: space-between;
+						.price{
+							font-size: 24rpx;
+							color: #FF4444;
+							.num{
+								font-size: 36rpx;
+							}
+						}
+						.cart{
+							width: 48rpx;
+							height: 48rpx;
+							image{
+								width: 100%;
+								height: 100%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}	
 </style>
