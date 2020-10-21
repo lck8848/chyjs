@@ -90,12 +90,13 @@
 			background-color: white;
 			.info{
 				display: flex;
-				
+				// 名字
 				.title {
 					display: flex;
 					flex-direction: column;
 					justify-content: space-around;
 					margin-left:20rpx;
+					// 3年有赞
 					.img {
 						width: 120rpx;
 						height: 30rpx;
@@ -105,7 +106,7 @@
 						font-weight: bold;
 					}
 				}
-
+				// 吃货研究所logo
 				.left {
 					image {
 						width:100rpx;
@@ -113,6 +114,7 @@
 					}
 				}
 			}
+			// 逛一逛标签
 			.uni-tag{
 				width:80rpx;
 				height:50rpx;
