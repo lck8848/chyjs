@@ -23,12 +23,12 @@
 			</view>
 		</view>
 		
-		<view class="tui-search-history" v-show="history.length>0 && !key">
+		<view class="tui-search-history" >
 			<view class="tui-history-header">
 				<view class="tui-search-title">搜索历史</view>
 				<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
 			</view>
-			<view class="tui-history-content">
+			<view class="tui-history-content" v-show="history.length > 0">
 				<block v-for="(item,index) in history" :key="index" >
 					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
 				</block>
@@ -67,7 +67,7 @@
 	export default {
 		data() {
 			return {
-				history: JSON.parse(localStorage.getItem('history')) == null ? [] : JSON.parse(localStorage.getItem('history')) ,
+				history:[] ,
 				hot: [
 					"海苔肉松卷",
 					"榴莲千层",
@@ -89,7 +89,8 @@
 				console.log(key)
 				var data = this.key
 				this.history.push_unique(data)
-				localStorage.setItem('history',JSON.stringify(this.history))
+				console.log(this.history)
+				uni.setStorageSync('history',JSON.stringify(this.history))
 				uni.navigateTo({
 					url:"/pages/search/search-result?keyword=" + this.key
 				})
@@ -116,7 +117,7 @@
 				// console.log(index)
 				if (index == 0) {
 					this.showActionSheet = false;
-					localStorage.removeItem('history')
+					uni.removeStorageSync('history')
 					this.history = []
 					
 				}
@@ -148,6 +149,12 @@
 					}
 				}
 			};
+			this.history = JSON.parse(uni.getStorageSync('history'))
+		},
+		onShow() {
+			this.history = JSON.parse(uni.getStorageSync('history'))
+			console.log(uni.getStorageSync('history'))
+			console.log(this.history)
 		}
 	}
 </script>
