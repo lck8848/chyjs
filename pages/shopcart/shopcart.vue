@@ -1,6 +1,5 @@
 <template>
 	<view class="container">
-<<<<<<< HEAD
 		<!-- 自定义头部导航 -->
 		<view class="navigator">
 			<view class="info">
@@ -14,7 +13,7 @@
 				</view>
 			</view>
 			<!-- 编辑购物车 -->
-			<view class="right"  @click="show" v-if="edit">
+			<view class="right" @click="show" v-if="edit">
 				编辑
 			</view>
 			<!-- 点击编辑之后，变成完成 -->
@@ -79,9 +78,9 @@
 
 			<!-- 分割线 -->
 			<view class="divider">
-				<van-divider></van-divider>			
+				<van-divider></van-divider>
 			</view>
-			
+
 
 			<!-- 规格 -->
 			<view class="specification">
@@ -106,10 +105,6 @@
 		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
 		<recommend></recommend>
 
-
-		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
-		<text class="intro">详见：</text>
-		<uni-link :href="href" :text="href"></uni-link>
 
 	</view>
 </template>
@@ -143,14 +138,14 @@
 			show() {
 				// console.log("1111")
 				this.edit = !this.edit;
-			
+
 			},
 			typeClick() {
 				this.typeShow = true;
 			},
 			hidePopup() {
 				this.typeShow = false;
-			}, 
+			},
 			close() {
 				this.hidePopup();
 			}
@@ -403,16 +398,16 @@
 			// 关闭图标
 			.close {
 				position: absolute;
-				top:30rpx;
-				right:30rpx;
+				top: 30rpx;
+				right: 30rpx;
 				width: 50rpx;
 				height: 50rpx;
 			}
-			
+
 			// 分割线
-			.divider{
-				width:700rpx;
-				margin:25rpx;
+			.divider {
+				width: 700rpx;
+				margin: 25rpx;
 			}
 
 			// 规格

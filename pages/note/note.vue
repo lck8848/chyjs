@@ -18,8 +18,32 @@
 		
 		<!-- 笔记宫格 -->
 		<view class="note_grid">
-			
-		</view>
+					<view class="top">
+						<text class="date">9月14日</text>
+						<text class="title">试吃了一个月，差点被开除，终于找到了内心满分的螺蛳粉！</text>
+						<text class="host">#掌柜说#</text>
+					</view>
+					<view class="img_grid">
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+					</view>
+					<view class="goods_details">
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<view class="info">
+							<view class="title">
+								<text class="title_space"></text>
+								[嘻螺会麻辣味袋装螺蛳粉]麻辣鲜香Q弹爽滑 300g/袋
+							</view>
+							<view class="info_price">￥56.80</view>
+						</view>
+						<!-- right -->
+						<image src="../../static/images/showcase/right.png" class="Right"></image>
+					</view>
+				</view>
 	</view>
 </template>
 
@@ -52,12 +76,17 @@
 		background-color: #e5e5e5;
 		height:3000rpx;
 		width: 750rpx;
-
+		
+		// 自定义头部导航
 		.navigator {
 			display: flex;
 			// flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
+			position:fixed;
+			top:0;
+			left:0;
+			z-index: 999;
 			width: 100%;
 			height: 120rpx;
 			// padding:10rpx;
@@ -97,5 +126,94 @@
 				margin-right:40rpx;
 			}
 		}
+		// 笔记宫格
+				.note_grid{
+					// width:710rpx;
+					// height:1000rpx;。
+					margin-top:54rpx;
+					margin:150rpx 25rpx 0 25rpx;
+					background-color: white;
+					padding-bottom: 10rpx;
+					.top{
+						display: flex;
+						flex-direction: column;
+						// 上右下左
+						padding: 0rpx 40rpx;
+						padding-top:20rpx;
+						// padding: 0 40rpx 0 40rpx;
+						// padding-left: 40rpx;
+						// padding-right: 40rpx;
+						.date{
+							font-size:24rpx;
+							color: #929799;
+							padding-bottom: 20rpx;
+						}
+						.title{
+							font-size:32rpx;
+							font-weight: bold;
+							color:#363636;
+						}
+						.host{
+							padding-top: 20rpx;
+							font-size:30rpx;
+							color:red;
+						}
+					}
+					.img_grid{
+						display: flex;
+						flex-wrap: wrap;
+						margin: 0rpx 13rpx 0rpx 20rpx;
+						// margin-left: 40rpx;
+						image{
+							width:200rpx;
+							height:200rpx;
+							// 上 右 下 左
+							margin: 10rpx 10rpx 10rpx 10rpx;
+						}
+						
+					}
+					.goods_details{
+						display: flex;
+						margin: 30rpx 60rpx 30rpx 30rpx;
+						align-items: center;
+						width:600rpx;
+						height:150rpx;
+						background-color: #F9F9F9;
+						padding:0px 20rpx 0px 20rpx;
+						image{
+							margin-left: 10rpx;
+							width:110rpx;
+							height:110rpx;
+						}
+							.info{
+								
+								display: flex;
+								flex-direction: column;
+								flex-wrap: wrap;
+								justify-content: space-between;
+								
+								.title{
+									margin-left: 20rpx;
+									font-size:24rpx;
+									color:#323232;
+									.title_space{
+										padding-left: 14rpx;
+									}
+								}
+								.info_price{
+									margin-left: 20rpx;
+									margin-top: 20rpx;
+									font-size:24rpx;
+								}
+							}
+						// 右键
+						.Right{
+							width:40rpx;
+							height:40rpx;
+						}
+					}
+					
+				}
+				// 笔记宫格到这
 	}
 </style>
