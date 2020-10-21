@@ -29,6 +29,7 @@
 </template>
 
 <script>
+	import {getRecommend} from"../../api/index.js";
 </script>
 
 <style lang="scss">
