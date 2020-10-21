@@ -15,7 +15,11 @@
 			</view>
 		</button>
 		<!-- 登录 -->
-
+		<!-- 余额 -->
+		<view class="fees">
+			<van-cell  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+		</view>
+		
 		<order-shell></order-shell>
 
 		<!-- 回到顶部 -->
@@ -178,7 +182,13 @@
 
 		}
 
-
+		.fees{
+			margin: auto;
+			border-radius: 40rpx;
+			width: 94vw;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
 	}
 
 	.signin {

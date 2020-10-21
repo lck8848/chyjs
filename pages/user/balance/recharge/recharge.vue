@@ -42,7 +42,7 @@
 			<view class="yuan">
 				￥
 			</view>
-			<input @tap='KeyboarOpen' :disabled="true" type="text" :value="fees" />
+			<input @tap='KeyboarOpen' :disabled="true" type="text" v-model="fees" />
 		</view>
 		<number-keyboard tabBar ref='KeyboarHid' otherNum="." @input='onInput' psdLength='32'></number-keyboard>
 		<button class="button-style" @tap="topUp" type="warn">立即充值</button>
