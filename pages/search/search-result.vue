@@ -50,9 +50,23 @@
 		
 		<tui-loadmore :index="2" v-if="showload"></tui-loadmore>
 		
+		<!-- 暂无数据 -->
+		<view class="none-container" v-if="shownone">
+			<view class="img">
+				<image src="@/static/images/search/nodata.png" mode=""></image>
+			</view>
+			<view class="text">
+				<text>没有找到你想要的商品</text>
+				<text>换个搜索词试试</text>
+			</view>
+		</view>
+		
+		<!-- 暂无数据 -->
+		
+		
 		<!-- 商品列表 -->
 		
-		<view class="goods-list" v-else>
+		<view class="goods-list" v-if="!showload && !shownone">
 			
 			<view class="item" v-for="item in goods" :key="item.id">
 				<view class="img">
@@ -88,8 +102,18 @@
 				showload:false,
 				keyword :"",
 				key: "",
-				history: JSON.parse(localStorage.getItem('history')) == null ? [] : JSON.parse(localStorage.getItem('history')) ,
+				history:JSON.parse(uni.getStorageSync("history"))
 			};
+		},
+		computed:{
+			shownone:function(){
+				var _this = this
+				var status = false
+				if(this.goods.length==0){
+					status = true
+				}
+				return status
+			},
 		},
 		methods:{
 			 screen(e){
@@ -147,7 +171,8 @@
 				this.yuangoods = res.data
 				var data = this.key
 				this.history.push_unique(data)
-				localStorage.setItem('history',JSON.stringify(this.history))
+				uni.setStorageSync('history',JSON.stringify(this.history))
+				console.log(this.goods)
 				
 			},
 			async init(){
@@ -286,6 +311,32 @@
 		}
 		//头部
 		
+		// 暂无数据
+		.none-container{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 750rpx;
+			// margin: 0 auto;
+			.img{
+				width: 320rpx;
+				height: 320rpx;
+				image{
+					width: 100%;
+					height: 100%;
+				}
+			}
+			.text{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				font-size: 28rpx;
+				color: #969799;
+			}
+		}
+		// 暂无数据
 		
 		// 商品列表
 		.goods-list{
