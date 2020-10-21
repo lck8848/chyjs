@@ -41,6 +41,6 @@ export async function getNoteList(page=1, pageSize=10){
 }
 
 // 商品详情
-export async function getNoteList(g_id){
+export async function getGoodsDetail(g_id){
 	return await instance.get(`/getGoodsDetail?g_id=${g_id}`); 
 }
