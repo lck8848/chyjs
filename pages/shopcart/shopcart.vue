@@ -1,5 +1,6 @@
 <template>
 	<view class="container">
+<<<<<<< HEAD
 		<!-- 自定义头部导航 -->
 		<view class="navigator">
 			<view class="info">
@@ -104,6 +105,11 @@
 		<!-- 分割线 -->
 		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
 		<recommend></recommend>
+
+
+		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
+		<text class="intro">详见：</text>
+		<uni-link :href="href" :text="href"></uni-link>
 
 	</view>
 </template>
