@@ -6,14 +6,14 @@
 				<view class="tui-search-input">
 					<icon type="search" :size='13' color='#333'></icon>
 					<input confirm-type="search" placeholder="大家都在搜：螺蛳粉" :focus="true" auto-focus placeholder-class="tui-input-plholder"
-					 class="tui-input" v-model.trim="key"  />
+					 class="tui-input" v-model.trim="key" @confirm="search(key)"  />
 					<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
 				</view>
 			</view>
 			
-			<view class="button">
+			<!-- <view class="button">
 				<button size="mini" type="warn" @click="search(key)">搜索</button>
-			</view>
+			</view> -->
 		</view>
 		
 		

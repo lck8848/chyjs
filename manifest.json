@@ -42,24 +42,20 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-
-
-        "appid" : "wx2e515029d79bc280",
-
-
+        "appid" : "wx3e8521db307996fe",
         "setting" : {
             "urlCheck" : false,
             "es6" : false,
-            "postcss" : true
+            "postcss" : true,
+            "minified" : true
         },
         "permission" : {
             "scope.userLocation" : {
-             "desc" : ""
+                "desc" : ""
             }
         }
     },
     "h5" : {
         "title" : "吃货研究所"
     }
-	
 }
