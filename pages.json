@@ -133,7 +133,9 @@
         }
         ,{
             "path" : "pages/user/order/order",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "我的订单"
+			}
         }
         ,{
             "path" : "pages/user/balance/recharge/recharge",
