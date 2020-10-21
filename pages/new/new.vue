@@ -59,7 +59,7 @@
 </template>
 
 <script>
-	import {getClassifyGoods} from "@/api/index.js"
+	import {getGoodsByStatus} from "@/api/index.js"
 	export default {
 		data() {
 			return {
@@ -121,7 +121,7 @@
 				
 			},
 			async init(){
-				var {data} = await getClassifyGoods(1000)
+				var {data} = await getGoodsByStatus(3)
 				this.goods = data
 				this.yuangoods = data
 				

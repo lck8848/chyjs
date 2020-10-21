@@ -19,7 +19,10 @@
 	}, {
 		"path": "pages/shopcart/shopcart",
 		"style": {
-			"navigationBarTitleText": "购物车"
+			"navigationBarTitleText": "购物车",
+			"app-plus":{
+							"titleNView":false  
+					   }
 		}
 	}, {
 		"path": "pages/user/user",
@@ -92,9 +95,9 @@
         ,{
             "path" : "pages/note/note",
             "style" : {
-			
-							// "navigationStyle": "custom" ,
-							// "navigationBarTextStyle": "white" 
+						"app-plus":{
+									"titleNView":false  
+								 }
 						
 			}
         }
