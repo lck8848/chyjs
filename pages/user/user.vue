@@ -4,15 +4,14 @@
 		<!-- 二维码 -->
 		<button open-type="getUserInfo" hover-class="none" @getuserinfo="getuserinfo">
 			<view class="info">
-				
-					<view class="item">
-						<view class="img">
-							<image :src="infoData.img_url" mode=""></image>
-						</view>
-						<view class="name">
-							<view class="info_name"> {{ infoData.name}} </view>
-						</view>
+				<view class="item">
+					<view class="img">
+						<image :src="infoData.img_url" mode=""></image>
 					</view>
+					<view class="name">
+						<view class="info_name"> {{ infoData.name}} </view>
+					</view>
+				</view>
 			</view>
 		</button>
 		<!-- 登录 -->
@@ -67,7 +66,6 @@
 					var _this = this;
 					uni.getUserInfo({
 						success(res) {
-							console.log("111111")
 							// uni.setStorageSync("name",res.userInfo.nickName)
 							// uni.setStorageSync("img_url",res.userInfo.avatarUrl)
 							_this.infoData.name = res.userInfo.nickName;
