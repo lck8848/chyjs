@@ -44,3 +44,13 @@ export async function getNoteList(page=1, pageSize=10){
 export async function getGoodsDetail(g_id){
 	return await instance.get(`/getGoodsDetail?g_id=${g_id}`); 
 }
+
+//推荐商品
+export async function getRecommend(pageSize=18){
+	return await instance.get(`/getRecommend?pageSize=${pageSize}`); 
+}
+
+//用户订单
+export async function getOrderByUserId(userId, status){
+	return await instance.get(`/getOrderByUserId?u_id=${user_id}&status=${status}`); 
+}
