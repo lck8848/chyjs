@@ -116,69 +116,74 @@
 			},
 		},
 		methods:{
-			 screen(e){
+			async  screen(e){
 				this.selected = 1
 				this.showload = true
+				var obj = {keyword:this.keyword,page:1,pageSize:10}
+				// console.log(updata)
+				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
-					this.goods = this.yuangoods
+					this.goods = data
 					this.showload = false
 				},1000)
 				
 				
 
 			},
-			up(e){
+			async up(e){
 				
 				this.selected = 2
 				this.showload = true
-				let updata = this.goods.slice(0)
+				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"asc"}
 				// console.log(updata)
-				updata.sort(function(a,b){
-					return a.price - b.price
-				})
+				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
-					this.goods=updata
+					this.goods = data
 					this.showload = false
 				},1000)
 				
 			},
-			down(e){
+			async down(e){
 				this.selected = 3
 				this.showload = true
-				let downdata = this.goods.slice(0)
+				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"desc"}
 				// console.log(updata)
-				downdata.sort(function(a,b){
-					return b.price - a.price
-				})
+				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
-					this.goods=downdata
+					this.goods = data
 					this.showload = false
 				},1000)
 				
 			},
-			newgood(e){
+			async newgood(e){
 				this.selected = 4
 				this.showload = true
+				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"new"}
+				// console.log(updata)
+				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
-					this.goods = this.yuangoods
+					this.goods = data
 					this.showload = false
 				},1000)
 				
 			},
 			async search(val){
-				var res = await getSearchResult(val)
-				this.goods = res.data
-				this.yuangoods = res.data
+				console.log(val)
+				this.keyword = val
+				var obj = {keyword:this.keyword,page:1,pageSize:10}
+				var {data} = await getSearchResult(obj)
+				this.goods = data
 				var data = this.key
 				this.history.push_unique(data)
 				uni.setStorageSync('history',JSON.stringify(this.history))
 				console.log(this.goods)
 				
 			},
-			async init(){
-				var {data} = await getSearchResult(this.keyword)
+			async init(obj){
+				var {data} = await getSearchResult(obj)
 				this.goods = data
 				this.yuangoods = data
+				console.log(this.goods)
 				
 			}
 		},
@@ -193,7 +198,8 @@
 				}
 			};
 			this.keyword = options.keyword
-			this.init()
+			var obj = {keyword:options.keyword,page:1,pageSize:10}
+			this.init(obj)
 		}
 	}
 </script>

@@ -2,7 +2,7 @@ import instance from './config.js';
 
 //搜索
 export async function getSearchResult({keyword, order, page, pageSize}){
-	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}`); 
+	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}&order=${order}`); 
 }
 
 //礼物
