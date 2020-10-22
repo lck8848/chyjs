@@ -1,9 +1,9 @@
 <template>
 	<view class="coffee_container">
 		<view class="sendGift">
-			<image src="../../static/images/index/sendgift.webp" class="img"></image>
+			<image src="../../static/images/index/coffee.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
-				<view class="inside" v-for="item in giftData" :key="item.id">
+				<view class="inside" v-for="item in teaData" :key="item.id">
 					<image :src="item.image_url" class="small_item"></image>
 					<text>{{item.title}}</text>
 					<view class="money">
@@ -17,15 +17,30 @@
 </template>
 
 <script>
+	import {getClassifyGoods} from "@/api/index.js"
 	export default {
 		name: 'coffee',
 		data() {
 			return {
-
+				teaData:[]
 			}
 		},
 		methods: {
-
+			async getTeaData(){
+				var {data} = await getClassifyGoods(1033);
+				// 筛选数据
+				data = data.slice(0,9);
+				this.teaData = data;
+			},
+			// 点击咖啡茶饮跳转到相应页面
+			toClassifyGoods(){
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=tea"
+				})
+			}
+		},
+		created(){
+			this.getTeaData();
 		}
 	}
 </script>
@@ -33,6 +48,7 @@
 <style lang="scss">
 	.coffee_container {
 		.sendGift {
+			margin-top: 280rpx;
 			.img {
 				width: 100%;
 				height: 180rpx;

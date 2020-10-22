@@ -2,8 +2,8 @@
 	<view class="show-container" :style="'background-image: url('+bg_list[index]+');'">
 		<view class="transaction-container">
 			<view class="transaction-item">
-				<image class="photo" :src="temp[current].img" mode="widthFix"></image>
-				<text class="text">{{ temp[current].text }}</text>
+				<image class="photo" :src="fakingData[current].photo" mode="widthFix"></image>
+				<text class="text">{{fakingData[current].addr+" "+fakingData[current].nickname[0]+"**"}} 刚刚下单啦</text>
 			</view>
 		</view>
 		<view class="list">
@@ -34,48 +34,64 @@
 </template>
 
 <script>
-	import { getHotGoods } from '../../api/index.js';
+	import { getHotGoods, getRecommend, getGoodsByIds, getFakingData } from '../../api/index.js';
 	export default {
 		data() {
 			return {
 				index: 0,
 				current: 0,
+				user_gods_ids:"23,45,21,75,35,74,27,3,38,67,32,12,62,84,97,54,34,43,53,64",
+				intervalId: "",
 				bg_list: ['http://47.106.36.197:7000/source/other/ranking_bg.png',
 				'http://47.106.36.197:7000/source/other/recommend_bg.png',
 				'http://47.106.36.197:7000/source/other/footmark_bg.png'],
 				goodsList: [],
-				temp: [
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/95173169f85f61278cbdd75701770be7.png", text: "广东 深圳 年** 刚刚下单啦"},
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/c3998a48d5f8744b744e3e369666e63b.png", text: "江苏 苏州 陈** 刚刚下单啦"},
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/a72ce0a19a7fc19a1921e891f25ee59f.png", text: "北京 北京 S** 刚刚下单啦"},
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/67e895423d5bdb9b59a6964dab8eb135.png", text: '广西 桂林 陆** 刚刚下单啦'},
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/16cdb32d9829b387fe7a7ef0bb73024c.png", text: "上海 上海 黄** 刚刚下单啦"},
-					{img: "https://img.yzcdn.cn/public_files/2019/09/18/02c643189e12d4aecb4f2a43d4c7e16e.png", text: "北京 北京 南** 刚刚下单啦"}
-				]
+				fakingData: []
 			}
 		},
 		methods: {
-			async getGoodsList(){
-				let { status, data } = await getHotGoods(20);
-				if(!status){
-					this.goodsList = data;
+			async getGoodsList(index){
+				let res = {};
+				switch (index){
+					case '0':
+						res = await getHotGoods(20);
+						break;
+					case '1':
+						res = await getRecommend(20);
+						break;
+					default:
+						res = await getGoodsByIds(this.user_gods_ids);
+						break;
+				}
+				if(!res.status){
+					this.goodsList = res.data;
 				}
 			},
 			showBuyCase(){
-				setInterval(() => {
-					if(this.current === this.temp.length-1){
+				this.intervalId = setInterval(() => {
+					if(this.current === this.fakingData.length-1){
 						this.current = 0;
 					}else {
 						this.current += 1;
 					}
 					
 				}, 2000)
+			},
+			async getFakingData(){
+				let data = await getFakingData();
+				this.fakingData = data;
 			}
 		},
 		onLoad: function (option) {
 			this.index = option.index;
-			this.getGoodsList();
+		},
+		onShow(){
 			this.showBuyCase();
+			this.getGoodsList(this.index);
+			this.getFakingData();
+		},
+		onHide(){
+			clearInterval(this.intervalId);
 		}
 	}
 </script>

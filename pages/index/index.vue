@@ -66,7 +66,7 @@
 		</view>
 		<!--结束 活动  -->
 
-		
+
 		<!-- 新品滑动 -->
 		<view class="new-container">
 			<view class="head">
@@ -78,7 +78,7 @@
 				</view>
 			</view>
 			<view class="newscroll-container">
-				<scroll-view class="scroll" scroll-x="true" >
+				<scroll-view class="scroll" scroll-x="true">
 					<view class="item" v-for="item in newgoods" :key="item.id">
 						<view class="img">
 							<image :src="item.image_url" mode=""></image>
@@ -86,7 +86,7 @@
 								新品
 							</view>
 						</view>
-						
+
 						<view class="text">
 							<view class="title">
 								{{item.title}}
@@ -101,36 +101,32 @@
 							</view>
 						</view>
 					</view>
-					
-						
+
+
 					<view class="item more" @click="tonew()">
 
 
-						<view class="text-more" >
+						<view class="text-more">
 							<view class="info">
 								<view class="title">
 									查看更多
 								</view>
-								
+
 								<view class="right">
 									<image src="@/static/images/index/右.png" mode=""></image>
 								</view>
 							</view>
 						</view>
-						
-						
+
+
 					</view>
 
 				</scroll-view>
 			</view>
-			
+
 		</view>
-		
+
 		<!-- 新品滑动 -->
-		
-		
-
-
 
 		<!-- 种草笔记 -->
 		<view class="note_container">
@@ -140,89 +136,17 @@
 			</view>
 			<view class="scroll-container">
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
-					<view id="demo1" class="item">
+					<view id="demo1" class="item" v-for="item in notelist" :key="item.id">
 						<view class="note_img">
-							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
+							<image :src="item.img_url" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
-								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+								{{item.title}}
 							</text>
+						</view>
+					</view>
 
-						</view>
-					</view>
-
-					<view id="demo1" class="item" @click="toDongzao">
-						<view class="note_img">
-							<image src="../../static/images/note/dongzao.jpg" class="dongzao"></image>
-						</view>
-						<view class="desc">
-							<text>
-								新疆，还有什么水果是你不行的？连枣都能甜哭我！
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/niurougan.jpg" class="niurougan"></image>
-						</view>
-						<view class="desc">
-							<text>
-								什么样的牛肉干好吃？内蒙古的朋友有话说
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="/static/images/note/jianguo.jpg" class="milk"></image>
-						</view>
-						<view class="desc">
-							<text>
-								我找到了植物奶咖啡的平替（不是）
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/banfen.jpg" class="banfen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								吹爆南昌拌粉！一周有5天都想嗦它嗦它嗦它
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/guoba.jpg" class="guoba"></image>
-						</view>
-						<view class="desc">
-							<text>
-								好吃的锅巴，会发出海鲜味的咔嚓咔嚓声
-
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/fengzhua.jpg" class="jizhua"></image>
-						</view>
-						<view class="desc">
-							<text>
-								请把柠檬和鸡爪这对cp给我锁死死！
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/mifen.jpeg" class="mifen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								湖南人的乡愁，从一碗常德米粉开始
-							</text>
-						</view>
-					</view>
 				</scroll-view>
 			</view>
 		</view>
@@ -231,64 +155,14 @@
 		<view class="category_container">
 			<!-- 送ta礼物分类 -->
 			<gift></gift>
-			<!-- <view class="sendGift">
-				<image src="../../static/images/index/sendgift.webp" class="img"></image>
-				<view class="outside">
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-				</view>	
-			</view> -->
+			<!-- 各种零食 -->
+			<snack></snack>
+			<!--果蔬生鲜 -->
+			<vegetable></vegetable>
+			<!-- 咖啡茶饮 -->
+			<coffee></coffee>
+			<!-- 各种酒水 -->
+			<alcohol></alcohol>
 		</view>
 		<!-- 分类宫格end -->
 
@@ -308,17 +182,30 @@
 	import search from "../../component/search/search";
 	import showCase from "../../component/show-case/show-case.vue";
 	import gift from "../grid/gift.vue";
+	import snack from "../grid/snack.vue";
+	import vegetable from "../grid/vegetable.vue";
+	import coffee from "../grid/coffee.vue";
+	import alcohol from "../grid/alcohol.vue";
 
-	import {getClassifyGoods} from "@/api/index.js"
-	
+	// 渲染种草笔记列表
+	// import 
 
+	import {
+		getGoodsByStatus,
+		getHomeNoteList,
+		getClassifyGoods
+	} from "@/api/index.js"
 
 
 	export default {
 		components: {
 			search,
 			showCase,
-			gift
+			gift,
+			snack,
+			vegetable,
+			coffee,
+			alcohol
 		},
 		data() {
 			return {
@@ -344,9 +231,10 @@
 						img_url: "../../static/images/index/vip.webp"
 					},
 
-					
+
 				],
-				newgoods:[]
+				newgoods: [],
+				notelist: []
 
 			}
 		},
@@ -356,7 +244,7 @@
 			},
 
 			scroll: function(e) {
-				console.log(e)
+				// console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
 
@@ -414,24 +302,32 @@
 					duration: 300
 				})
 			},
-			tonew(){
+			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
 				})
 			},
-			async init(){
-				var {data} = await getClassifyGoods(1000)
-				
-				data.splice(6,4)
-				// console.log(data)
-				this.newgoods = data
+			async init() {
+				var {
+					data
+				} = await getGoodsByStatus(3)
+				console.log(data)
+				this.newgoods = data.splice(0, 6)
+
+
+			},
+			// 渲染种草笔记
+			async getnote() {
+				var {
+					data
+				} = await getHomeNoteList()
+				this.notelist = data
+				console.log(this.notelist)
 			}
 		},
-
-		onShow() {
-		},
-		onLoad(){
+		created() {
 			this.init()
+			this.getnote()
 		}
 
 	}
@@ -488,105 +384,118 @@
 			}
 		}
 
-		
-		
+
+
 		//新品
-		.new-container{
+		.new-container {
 			// overflow: hidden;
 			padding: 0 20rpx;
-			.head{
+
+			.head {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				margin: 20rpx 0;
-				.title{
+
+				.title {
 					background-color: rgb(217, 129, 84);
 					font-size: 28rpx;
 					color: #FFFFFF;
 					padding: 4rpx 18rpx;
 					border-radius: 6rpx;
 				}
-				.more{
+
+				.more {
 					font-size: 24rpx;
 					color: #C7C7D1;
 				}
 			}
-			.newscroll-container{
+
+			.newscroll-container {
 				height: 410rpx;
-				.scroll{
+
+				.scroll {
 					white-space: nowrap;
-					.more{
+
+					.more {
 						// margin-bottom: 198rpx;
 						// overflow: hidden;
 						text-align: center;
 						line-height: 390rpx;
-						position:relative;
-						background-color: rgba(50,50,51,.05);
+						position: relative;
+						background-color: rgba(50, 50, 51, .05);
 						color: #969799;
 					}
-					.item{
+
+					.item {
 						display: inline-block;
 						// display: flex;
-						
+
 						height: 390rpx;
 						width: 198rpx;
-						margin:10rpx;
+						margin: 10rpx;
 
 						vertical-align: middle;
 						box-sizing: border-box;
 
-						.img{
+						.img {
 							position: relative;
 							height: 198rpx;
 							width: 198rpx;
-							.label{
+
+							.label {
 								position: absolute;
 								left: 0;
 								top: 14rpx;
 								font-size: 24rpx;
 								color: white;
 								background-color: rgb(255, 68, 68);
-								padding: 0 10rpx ;
+								padding: 0 10rpx;
 								border-radius: 0 20rpx 20rpx 0;
 							}
-							image{
+
+							image {
 								width: 100%;
 								height: 100%;
 							}
-							
-							
+
+
 						}
-						.text{
+
+						.text {
 							display: flex;
 							justify-content: space-between;
 							flex-direction: column;
 							box-sizing: border-box;
 							padding: 0 16rpx 4rpx;
 							background-color: #FFFFFF;
-							&-more{
+
+							&-more {
 								text-align: center;
-								background-color:rgba(50,50,51,.00);
+								background-color: rgba(50, 50, 51, .00);
 								justify-content: center;
-								flex-direction:row;
-								.info{
+								flex-direction: row;
+
+								.info {
 									display: flex;
 									// align-items: center;
 									justify-content: center;
-									
-									.right{
+
+									.right {
 										width: 32rpx;
 										height: 32rpx;
-										image{
+
+										image {
 											width: 100%;
 											height: 100%;
 										}
-										
+
 									}
 								}
-								
+
 							}
-							
-							.title{
+
+							.title {
 								font-size: 26rpx;
 								font-weight: bold;
 								margin: 10rpx 0;
@@ -598,23 +507,28 @@
 								-webkit-line-clamp: 2;
 								-webkit-box-orient: vertical;
 							}
-							.bottom{
+
+							.bottom {
 								display: flex;
 								justify-content: space-between;
 								padding: 25rpx 0;
-								.left{
+
+								.left {
 									font-size: 24rpx;
 									color: #ff4444;
-									.price{
+
+									.price {
 										font-size: 32rpx;
 										font-weight: bold;
-										
+
 									}
 								}
-								.right{
+
+								.right {
 									height: 40rpx;
 									width: 40rpx;
-									image{
+
+									image {
 										width: 100%;
 										height: 100%;
 									}
@@ -623,12 +537,13 @@
 						}
 					}
 				}
-				
+
 			}
-			
+
 		}
+
 		//新品
-		
+
 		// 种草笔记
 		.note_container {
 
@@ -646,7 +561,7 @@
 				}
 
 				.more {
-					
+
 					font-size: 24rpx;
 					color: #c7c7d1;
 				}
@@ -711,69 +626,6 @@
 		}
 
 		// 种草笔记到这
-
-		// 商品宫格分类
-		.category_container {
-			.sendGift {
-				.img {
-					width: 100%;
-					height: 180rpx;
-
-				}
-
-				width:750rpx;
-
-				// height:1000rpx;
-				.outside {
-					display: flex;
-					justify-content: space-around;
-					flex-wrap: wrap;
-					height: 800rpx;
-					border: 1px solid #F9F9F9;
-
-					.inside {
-						width: 30%;
-						height: 350rpx;
-						margin-bottom: 10rpx;
-						background-color: white;
-
-						text {
-							padding: 8rpx;
-							font-size: 26rpx;
-							font-weight: bold;
-
-							overflow: hidden;
-							text-overflow: ellipsis;
-							display: -webkit-box;
-							-webkit-box-orient: vertical;
-							-webkit-line-clamp: 2;
-						}
-
-						.small_item {
-							width: 100%;
-							height: 180rpx;
-						}
-
-						.money {
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
-							padding: 14rpx;
-							margin-left: -5rpx;
-							font-size: 32rpx;
-							color: #FF4444;
-
-							.cart {
-								width: 35rpx;
-								height: 35rpx;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// 商品宫格分类到这
 
 		// 回到顶部
 		.top-button {

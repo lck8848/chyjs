@@ -1,21 +1,77 @@
 import instance from './config.js';
 
-export async function getSearchResult(keyword, page=1, pageSize=10){
-	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}`); 
+//搜索
+export async function getSearchResult({keyword, order, page, pageSize}){
+	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}&order=${order}`); 
 }
 
+//礼物
 export async function getGift(page=1, pageSize=10){
 	return await instance.get(`/getGift?page=${page}&pageSize=${pageSize}`); 
 }
 
+//详细分类
 export async function getClassify(genre){
 	return await instance.get(`/getClassify?genre=${genre}`); 
 }
 
-export async function getClassifyGoods(aliasCode){
-	return await instance.get(`/getClassifyGoods?aliasCode=${aliasCode}`); 
+//获取对应分类商品
+export async function getClassifyGoods(aliasCode, page=1, pageSize=10){
+	return await instance.get(`/getClassifyGoods?aliasCode=${aliasCode}&page=${page}&pageSize=${pageSize}`); 
 }
 
+//热销商品
 export async function getHotGoods(pageSize=10){
 	return await instance.get(`/getHotGoods?pageSize=${pageSize}`); 
+}
+
+//根据状态获取商品
+export async function getGoodsByStatus(status, page=1, pageSize=10){
+	return await instance.get(`/getGoodsByStatus?status=${status}&page=${page}&pageSize=${pageSize}`); 
+}
+
+//笔记首页列表
+export async function getHomeNoteList(pageSize=10){
+	return await instance.get(`/getHomeNoteList?pageSize=${pageSize}`); 
+}
+
+// 笔记更多列表
+export async function getNoteList(page=1, pageSize=10){
+	return await instance.get(`/getNoteList?page=${page}&pageSize=${pageSize}`); 
+}
+
+//笔记详情
+export async function getNoteDetail(n_id){
+	return await instance.get(`/getNoteDetail?n_id=${n_id}`); 
+}
+
+// 商品详情
+export async function getGoodsDetail(g_id){
+	return await instance.get(`/getGoodsDetail?g_id=${g_id}`); 
+}
+
+//推荐商品
+export async function getRecommend(pageSize=18){
+	return await instance.get(`/getRecommend?pageSize=${pageSize}`); 
+}
+
+//用户订单
+export async function getOrderByUserId(userId, status, keyword=-1){
+	return await instance.get(`/getOrderByUserId?u_id=${userId}&status=${status}&keyword=${keyword}`); 
+}
+
+//订单详情
+export async function getOrderDetails(o_id){
+	return await instance.get(`/getOrderDetails?o_id=${o_id}`); 
+}
+
+
+//根据商品ids字符串获取商品
+export async function getGoodsByIds(ids){
+	return await instance.get(`/getGoodsByIds?ids=${ids}`); 
+}
+
+//***下单数据
+export async function getFakingData(){
+	return await instance.get('/getFakingData'); 
 }

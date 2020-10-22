@@ -1,9 +1,9 @@
 <template>
 	<view class="vegetable_container">
 		<view class="sendGift">
-			<image src="../../static/images/index/sendgift.webp" class="img"></image>
+			<image src="../../static/images/index/vegetable.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
-				<view class="inside" v-for="item in giftData" :key="item.id">
+				<view class="inside" v-for="item in vegetableData" :key="item.id">
 					<image :src="item.image_url" class="small_item"></image>
 					<text>{{item.title}}</text>
 					<view class="money">
@@ -17,15 +17,28 @@
 </template>
 
 <script>
+	import {getClassifyGoods} from "@/api/index.js"
 	export default {
 		name: "vegetable",
 		data() {
 			return {
-
+				vegetableData:[]
 			}
 		},
 		methods: {
-
+			async getVegatableData(){
+				var {data} = await getClassifyGoods(1032);
+				this.vegetableData = data;
+			},
+			// 点击果蔬生鲜跳转到相应页面
+			toClassifyGoods(){
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=fruits"
+				})
+			}
+		},
+		created() {
+			this.getVegatableData();
 		}
 	}
 </script>
@@ -33,6 +46,7 @@
 <style lang="scss">
 	.vegetable_container {
 		.sendGift {
+			margin-top:280rpx;
 			.img {
 				width: 100%;
 				height: 180rpx;
