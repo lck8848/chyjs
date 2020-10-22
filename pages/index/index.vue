@@ -258,7 +258,8 @@
 	import vegetable from "../grid/vegetable.vue";
 	import coffee from "../grid/coffee.vue";
 	import alcohol from "../grid/alcohol.vue";
-	import {getClassifyGoods} from "@/api/index.js"
+	import {getClassifyGoods} from "@/api/index.js";
+	import {getGoodsByStatus} from "@/api/index.js"
 	
 
 
@@ -373,17 +374,17 @@
 				})
 			},
 			async init(){
-				var {data} = await getClassifyGoods(1000)
+				var {data} = await getGoodsByStatus(3)
+					console.log(data)
+				this.newgoods = data.splice(0,6)
+			
 				
-				data.splice(6,4)
-				// console.log(data)
-				this.newgoods = data
 			}
 		},
 
 		onShow() {
 		},
-		onLoad(){
+		created(){
 			this.init()
 		}
 

@@ -5,17 +5,17 @@
 		</view>
 		
 		<view class="monnew-goods">
-			<view class="item">
+			<view class="item" v-for="item in goodsData" :key="item.id">
 				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
+					<image :src="item.image_url" mode=""></image>
 				</view>
 				<view class="text">
 					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
+						{{item.title}}
 					</view>
 					<view class="details">
 						<view class="price">
-							 ￥69.6
+							 ￥{{item.price}}
 						</view>
 						<view class="img">
 							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
@@ -23,61 +23,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-				</view>
 			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-				</view>
-			</view>
-			<view class="item">
-				<view class="img">
-					<image src="https://img.yzcdn.cn/upload_files/2020/02/19/FttG9zmgRhlYVCujwsQJsOXZpn4p.jpg!middle.webp" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						［烤兔］整只手撕 大口吃肉 500g/袋
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥69.6
-						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
 		<view class="monnew">
 
 			<image src="@/static/images/activity/ka.webp" mode=""></image>
@@ -86,14 +32,22 @@
 </template>
 
 <script>
+	import { getGoodsByStatus } from "@/api/index.js"
 	export default {
 		data() {
 			return {
-				
+				goodsData:[]
 			}
 		},
 		methods: {
-
+			 async getGoodsData(){
+				 var {data} = await getGoodsByStatus(3);
+				 this.goodsData = data
+				 console.log(this.goodsData)
+			 }
+		},
+		onLoad() {
+			this.getGoodsData()
 		}
 	}
 </script>
@@ -114,7 +68,9 @@
 			
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: space-evenly;
+			justify-content: space-between;
+			margin-left: 10px;
+			margin-right: 10px;
 			.item{
 				width: 47%;
 				height: 540rpx;

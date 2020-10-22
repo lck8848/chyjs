@@ -2,7 +2,7 @@ import instance from './config.js';
 
 //搜索
 export async function getSearchResult({keyword, order, page, pageSize}){
-	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}`); 
+	return await instance.get(`/getSearchResult?keyword=${keyword}&page=${page}&pageSize=${pageSize}&order=${order}`); 
 }
 
 //礼物
@@ -51,6 +51,16 @@ export async function getRecommend(pageSize=18){
 }
 
 //用户订单
-export async function getOrderByUserId(userId, status){
-	return await instance.get(`/getOrderByUserId?u_id=${user_id}&status=${status}`); 
+export async function getOrderByUserId(userId, status, keyword=-1){
+	return await instance.get(`/getOrderByUserId?u_id=${userId}&status=${status}&keyword=${keyword}`); 
+}
+
+//根据商品ids字符串获取商品
+export async function getGoodsByIds(ids){
+	return await instance.get(`/getGoodsByIds?ids=${ids}`); 
+}
+
+
+export async function getFakingData(){
+	return await instance.get('/getFakingData'); 
 }
