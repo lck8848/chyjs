@@ -66,7 +66,7 @@
 		</view>
 		<!--结束 活动  -->
 
-		
+
 		<!-- 新品滑动 -->
 		<view class="new-container">
 			<view class="head">
@@ -78,15 +78,17 @@
 				</view>
 			</view>
 			<view class="newscroll-container">
+
 				<scroll-view class="scroll" scroll-x="true" >
 					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
+
 						<view class="img">
 							<image :src="item.image_url" mode=""></image>
 							<view class="label">
 								新品
 							</view>
 						</view>
-						
+
 						<view class="text">
 							<view class="title">
 								{{item.title}}
@@ -101,31 +103,31 @@
 							</view>
 						</view>
 					</view>
-					
-						
+
+
 					<view class="item more" @click="tonew()">
 
 
-						<view class="text-more" >
+						<view class="text-more">
 							<view class="info">
 								<view class="title">
 									查看更多
 								</view>
-								
+
 								<view class="right">
 									<image src="@/static/images/index/右.png" mode=""></image>
 								</view>
 							</view>
 						</view>
-						
-						
+
+
 					</view>
 
 				</scroll-view>
 			</view>
-			
+
 		</view>
-		
+
 		<!-- 新品滑动 -->
 
 		<!-- 种草笔记 -->
@@ -144,7 +146,6 @@
 							<text>
 								{{item.title}}
 							</text>
-
 						</view>
 					</view>
 
@@ -191,7 +192,11 @@
 	// 渲染种草笔记列表
 	// import 
 
-	import {getGoodsByStatus,getHomeNoteList,getClassifyGoods} from "@/api/index.js"
+	import {
+		getGoodsByStatus,
+		getHomeNoteList,
+		getClassifyGoods
+	} from "@/api/index.js"
 
 
 	export default {
@@ -228,10 +233,10 @@
 						img_url: "../../static/images/index/vip.webp"
 					},
 
-					
+
 				],
-				newgoods:[],
-				notelist:[]
+				newgoods: [],
+				notelist: []
 
 			}
 		},
@@ -305,28 +310,30 @@
 					duration: 300
 				})
 			},
-			tonew(){
+			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
 				})
 			},
-			async init(){
-				var {data} = await getGoodsByStatus(3)
-					console.log(data)
-				this.newgoods = data.splice(0,6)
-			
-				
+			async init() {
+				var {
+					data
+				} = await getGoodsByStatus(3)
+				console.log(data)
+				this.newgoods = data.splice(0, 6)
+
+
 			},
-			async getnote(){
-				var {data} = await getHomeNoteList()
+			// 渲染种草笔记
+			async getnote() {
+				var {
+					data
+				} = await getHomeNoteList()
 				this.notelist = data
 				console.log(this.notelist)
 			}
 		},
-
-		onShow() {
-		},
-		created(){
+		created() {
 			this.init()
 			this.getnote()
 		}
@@ -385,105 +392,118 @@
 			}
 		}
 
-		
-		
+
+
 		//新品
-		.new-container{
+		.new-container {
 			// overflow: hidden;
 			padding: 0 20rpx;
-			.head{
+
+			.head {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				margin: 20rpx 0;
-				.title{
+
+				.title {
 					background-color: rgb(217, 129, 84);
 					font-size: 28rpx;
 					color: #FFFFFF;
 					padding: 4rpx 18rpx;
 					border-radius: 6rpx;
 				}
-				.more{
+
+				.more {
 					font-size: 24rpx;
 					color: #C7C7D1;
 				}
 			}
-			.newscroll-container{
+
+			.newscroll-container {
 				height: 410rpx;
-				.scroll{
+
+				.scroll {
 					white-space: nowrap;
-					.more{
+
+					.more {
 						// margin-bottom: 198rpx;
 						// overflow: hidden;
 						text-align: center;
 						line-height: 390rpx;
-						position:relative;
-						background-color: rgba(50,50,51,.05);
+						position: relative;
+						background-color: rgba(50, 50, 51, .05);
 						color: #969799;
 					}
-					.item{
+
+					.item {
 						display: inline-block;
 						// display: flex;
-						
+
 						height: 390rpx;
 						width: 198rpx;
-						margin:10rpx;
+						margin: 10rpx;
 
 						vertical-align: middle;
 						box-sizing: border-box;
 
-						.img{
+						.img {
 							position: relative;
 							height: 198rpx;
 							width: 198rpx;
-							.label{
+
+							.label {
 								position: absolute;
 								left: 0;
 								top: 14rpx;
 								font-size: 24rpx;
 								color: white;
 								background-color: rgb(255, 68, 68);
-								padding: 0 10rpx ;
+								padding: 0 10rpx;
 								border-radius: 0 20rpx 20rpx 0;
 							}
-							image{
+
+							image {
 								width: 100%;
 								height: 100%;
 							}
-							
-							
+
+
 						}
-						.text{
+
+						.text {
 							display: flex;
 							justify-content: space-between;
 							flex-direction: column;
 							box-sizing: border-box;
 							padding: 0 16rpx 4rpx;
 							background-color: #FFFFFF;
-							&-more{
+
+							&-more {
 								text-align: center;
-								background-color:rgba(50,50,51,.00);
+								background-color: rgba(50, 50, 51, .00);
 								justify-content: center;
-								flex-direction:row;
-								.info{
+								flex-direction: row;
+
+								.info {
 									display: flex;
 									// align-items: center;
 									justify-content: center;
-									
-									.right{
+
+									.right {
 										width: 32rpx;
 										height: 32rpx;
-										image{
+
+										image {
 											width: 100%;
 											height: 100%;
 										}
-										
+
 									}
 								}
-								
+
 							}
-							
-							.title{
+
+							.title {
 								font-size: 26rpx;
 								font-weight: bold;
 								margin: 10rpx 0;
@@ -495,23 +515,28 @@
 								-webkit-line-clamp: 2;
 								-webkit-box-orient: vertical;
 							}
-							.bottom{
+
+							.bottom {
 								display: flex;
 								justify-content: space-between;
 								padding: 25rpx 0;
-								.left{
+
+								.left {
 									font-size: 24rpx;
 									color: #ff4444;
-									.price{
+
+									.price {
 										font-size: 32rpx;
 										font-weight: bold;
-										
+
 									}
 								}
-								.right{
+
+								.right {
 									height: 40rpx;
 									width: 40rpx;
-									image{
+
+									image {
 										width: 100%;
 										height: 100%;
 									}
@@ -520,12 +545,13 @@
 						}
 					}
 				}
-				
+
 			}
-			
+
 		}
+
 		//新品
-		
+
 		// 种草笔记
 		.note_container {
 
@@ -543,7 +569,7 @@
 				}
 
 				.more {
-					
+
 					font-size: 24rpx;
 					color: #c7c7d1;
 				}
