@@ -172,6 +172,15 @@
 			    "navigationBarTitleText": "商品详情"
 			}
 		}
+        ,{
+            "path" : "pages/user/address/editAddress",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增地址",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 
 
