@@ -79,7 +79,7 @@
 			</view>
 			<view class="newscroll-container">
 				<scroll-view class="scroll" scroll-x="true" >
-					<view class="item" v-for="item in newgoods" :key="item.id">
+					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
 						<view class="img">
 							<image :src="item.image_url" mode=""></image>
 							<view class="label">
@@ -254,6 +254,12 @@
 					fail(err) {
 						console.log(err);
 					}
+				})
+			},
+			
+			Todetail(id){
+				uni.navigateTo({
+					url:"/pages/goods/detail?g_id=" + id
 				})
 			},
 
