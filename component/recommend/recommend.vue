@@ -44,7 +44,8 @@
 
 <style lang="scss">
 	.reommend_container {
-
+		// 给顶部点空间，不会被tabbar遮到
+		margin-bottom:200rpx;
 		// width:750rpx;
 		.outside {
 			display: flex;

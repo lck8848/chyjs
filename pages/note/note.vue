@@ -17,33 +17,32 @@
 		</view>
 		
 		<!-- 笔记宫格 -->
-		<view class="note_grid" v-for="item in NoteLIst" :key="item.id">
-					<view class="top">
-						<text class="date">{{item.create_time}}</text>
-						<text class="title">{{item.title}}</text>
-						<text class="host">#{{item.label}}#</text>
-					</view>
-					<view class="img_grid">
-						<image :src="item.img_url" mode=""></image>
-						<!-- <image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image> -->
-					</view>
-					<view class="goods_details">
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<view class="info">
-							<view class="title">
-								<text class="title_space"></text>
-								[嘻螺会麻辣味袋装螺蛳粉]麻辣鲜香Q弹爽滑 300g/袋
-							</view>
-							<view class="info_price">￥56.80</view>
+		<view class="note_container">
+			<view class="note_grid" v-for="item in NoteLIst" :key="item.id">
+						<view class="top">
+							<text class="date">9月14日</text>
+							<text class="title">{{item.title}}</text>
+							<text class="host">#{{item.label}}#</text>
 						</view>
-						<!-- right -->
-						<image src="../../static/images/showcase/right.png" class="Right"></image>
-					</view>
-				</view>
+						<!-- 循环图片不要在view元素循环，会换行 -->
+						<view class="img_grid">
+							<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
+						</view>
+						<view class="goods_details">
+							<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+							<view class="info">
+								<view class="title">
+									<text class="title_space"></text>
+									[嘻螺会麻辣味袋装螺蛳粉]麻辣鲜香Q弹爽滑 300g/袋
+								</view>
+								<view class="info_price">￥56.80</view>
+							</view>
+							<!-- right -->
+							<image src="../../static/images/showcase/right.png" class="Right"></image>
+						</view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -84,6 +83,7 @@
 
 <style lang="scss">
 	.note_container {
+		margin-top: 150rpx;
 		background-color: #F8F8F8;
 		height:3000rpx;
 		width: 750rpx;
@@ -102,7 +102,7 @@
 			height: 120rpx;
 			// padding:10rpx;
 			padding-left:20rpx;
-			background-color: white;
+			background-color: white;	
 			.info{
 				display: flex;
 				// 名字
@@ -138,94 +138,98 @@
 			}
 		}
 		// 笔记宫格
-				.note_grid{
-					// width:710rpx;
-					// height:1000rpx;。
-					margin-top:54rpx;
-					margin:150rpx 25rpx 0 25rpx;
-					background-color: white;
-					padding-bottom: 10rpx;
-					.top{
-						display: flex;
-						flex-direction: column;
-						// 上右下左
-						padding: 0rpx 40rpx;
-						padding-top:20rpx;
-						// padding: 0 40rpx 0 40rpx;
-						// padding-left: 40rpx;
-						// padding-right: 40rpx;
-						.date{
-							font-size:24rpx;
-							color: #929799;
-							padding-bottom: 20rpx;
-						}
-						.title{
-							font-size:32rpx;
-							font-weight: bold;
-							color:#363636;
-						}
-						.host{
-							padding-top: 20rpx;
-							font-size:30rpx;
-							color:red;
-						}
+		.note_container{
+			.note_grid{
+				// width:710rpx;
+				// height:1000rpx;。
+				// margin-top:54rpx;
+				margin:20rpx 25rpx 0 25rpx;
+				background-color: white;
+				padding-bottom: 10rpx;
+				.top{
+					display: flex;
+					flex-direction: column;
+					// 上右下左
+					padding: 0rpx 40rpx;
+					padding-top:20rpx;
+					// padding: 0 40rpx 0 40rpx;
+					// padding-left: 40rpx;
+					// padding-right: 40rpx;
+					.date{
+						font-size:24rpx;
+						color: #929799;
+						padding-bottom: 20rpx;
 					}
-					.img_grid{
-						display: flex;
-						flex-wrap: wrap;
-						margin: 0rpx 13rpx 0rpx 20rpx;
-						// margin-left: 40rpx;
-						image{
-							width:200rpx;
-							height:200rpx;
-							// 上 右 下 左
-							margin: 10rpx 10rpx 10rpx 10rpx;
-						}
-						
+					.title{
+						font-size:32rpx;
+						font-weight: bold;
+						color:#363636;
 					}
-					// 商品卡片
-					.goods_details{
-						display: flex;
-						margin: 30rpx 60rpx 30rpx 30rpx;
-						align-items: center;
-						width:600rpx;
-						height:150rpx;
-						background-color: #F9F9F9;
-						padding:0px 20rpx 0px 20rpx;
-						image{
-							margin-left: 10rpx;
-							width:110rpx;
-							height:110rpx;
-						}
-							.info{
-								
-								display: flex;
-								flex-direction: column;
-								flex-wrap: wrap;
-								justify-content: space-between;
-								
-								.title{
-									margin-left: 20rpx;
-									font-size:24rpx;
-									color:#323232;
-									.title_space{
-										padding-left: 14rpx;
-									}
-								}
-								.info_price{
-									margin-left: 20rpx;
-									margin-top: 20rpx;
-									font-size:24rpx;
-								}
-							}
-						// 右键
-						.Right{
-							width:40rpx;
-							height:40rpx;
-						}
+					.host{
+						padding-top: 20rpx;
+						font-size:30rpx;
+						color:red;
+					}
+				}
+				.img_grid{
+					display: flex;
+					// flex-direction: column;
+					flex-wrap: wrap;
+					margin: 0rpx 13rpx 0rpx 20rpx;
+					// margin-left: 40rpx;
+					image{
+						width:200rpx;
+						height:200rpx;
+						// 上 右 下 左
+						margin: 10rpx 10rpx 10rpx 10rpx;
 					}
 					
 				}
+				// 商品卡片
+				.goods_details{
+					display: flex;
+					margin: 30rpx 60rpx 30rpx 30rpx;
+					align-items: center;
+					width:600rpx;
+					height:150rpx;
+					background-color: #F9F9F9;
+					padding:0px 20rpx 0px 20rpx;
+					image{
+						margin-left: 10rpx;
+						width:110rpx;
+						height:110rpx;
+					}
+						.info{
+							
+							display: flex;
+							flex-direction: column;
+							flex-wrap: wrap;
+							justify-content: space-between;
+							
+							.title{
+								margin-left: 20rpx;
+								font-size:24rpx;
+								color:#323232;
+								.title_space{
+									padding-left: 14rpx;
+								}
+							}
+							.info_price{
+								margin-left: 20rpx;
+								margin-top: 20rpx;
+								font-size:24rpx;
+							}
+						}
+					// 右键
+					.Right{
+						width:40rpx;
+						height:40rpx;
+					}
+				}
+				
+			}
+		}
+				
 				// 笔记宫格到这
 	}
 </style>
