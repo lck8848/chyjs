@@ -67,11 +67,23 @@
 				</view>
 			</view>
 		</view>
+		
+		<view :class="['empty', current === 0?'empty-list':'']" v-if="orderList.length === 0">
+			<view class="shell-img">
+				<image class="img" src="http://47.106.36.197:7000/source/other/empty_order.png" mode="widthFix"></image>
+			</view>
+			<view class="text">
+				暂无订单
+			</view>
+		</view>
+		
+		<recommend></recommend>
 	</view>
 </template>
 
 <script>
 	import { getOrderByUserId } from '@/api/index.js';
+	import recommend from '../../../component/recommend/recommend.vue';
 	export default {
 		data() {
 			return {
@@ -123,6 +135,9 @@
 			if(!this.current){
 				this.checked(0);
 			}
+		},
+		components: {
+			recommend
 		}
 	}
 </script>
@@ -130,6 +145,26 @@
 <style lang="scss">
 .order-container {
 	padding-top: 180rpx;
+	.empty {
+		padding: 64rpx 0;
+		text-align: center;
+		background-color: #fff;
+		.shell-img {
+			margin-bottom: 32rpx;
+			.img {
+				width: 320rpx;
+			}
+		}
+		.text {
+			color: #969799;
+			font-size: 28rpx;
+		}
+	}
+	.empty-list {
+		padding-top: 240rpx;
+		height: 90vh;
+	}
+	
 	.head-fixed {
 		position: fixed;
 		top: 0;
