@@ -105,7 +105,10 @@
 		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
 		<recommend></recommend>
 
-
+		<!-- 回到顶部 -->
+		<view class="top-button" @click="ToTop">
+			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
+		</view>
 	</view>
 </template>
 
@@ -148,7 +151,14 @@
 			},
 			close() {
 				this.hidePopup();
-			}
+			},
+			// 回到顶部
+			ToTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				})
+			},
 		},
 		computed: {
 			// 如果购物车数据大于0则触发v-if，若不是则触发v-else
@@ -456,6 +466,24 @@
 				border-radius: 50rpx;
 			}
 		}
+		
+		// 回到顶部
+		.top-button {
+			width: 70upx;
+			height: 70upx;
+			// 固定定位
+			position: fixed;
+			right: 40rpx;
+			bottom: 300rpx;
+			z-index: 5;
+		
+			.topimg {
+				width: 100rpx;
+				height: 100rpx;
+			}
+		}
+		
+		// 回到顶部到这
 
 	}
 </style>

@@ -101,6 +101,15 @@
 						
 			}
         }
+		,{
+		    "path" : "pages/note/noteDetail",
+		    "style" : {
+						"app-plus":{
+									"titleNView":false  
+								 }
+						
+			}
+		}
         ,{
             "path" : "pages/user/balance/balance",
             "style" :                                                                                    
@@ -164,7 +173,14 @@
                 "navigationBarTitleText": "交易记录",
                 "enablePullDownRefresh": false
             }
-        }
+        },
+		{
+			"path" : "pages/goods/detail",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "商品详情"
+			}
+		}
     ],
 
 

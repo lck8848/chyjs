@@ -1,7 +1,7 @@
 <template>
 	<view class="gift_classify">
 		<view class="sendGift">
-			<image src="../../static/images/index/sendgift.webp" class="img"></image>
+			<image src="../../static/images/index/sendgift.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in giftData" :key="item.id">
 					<image :src="item.image_url" class="small_item"></image>
@@ -35,6 +35,12 @@
 				} = await getGift();
 				this.giftData = data;
 				console.log(this.giftData);
+			},
+			// 点击送他礼物跳转到相应页面
+			toClassifyGoods(){
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=gift"
+				})
 			}
 		},
 		created() {
@@ -43,7 +49,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.gift_classify {
 		.sendGift {
 			.img {

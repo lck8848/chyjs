@@ -85,6 +85,7 @@
 				this.detail(val)
 			},
 			detail(key){
+				
 				console.log(key)
 				var data = key
 				this.history.push_unique(data)
@@ -140,6 +141,7 @@
 			}
 		},
 		onLoad(){
+			
 			Array.prototype.push_unique = function () {
 				for (var i = 0; i < arguments.length; i++) {
 					var ele = arguments[i];
@@ -148,12 +150,10 @@
 					}
 				}
 			};
-			this.history = JSON.parse(uni.getStorageSync('history'))
+			// this.history = JSON.parse(uni.getStorageSync('history'))
 		},
 		onShow() {
-			this.history = JSON.parse(uni.getStorageSync('history'))
-			console.log(uni.getStorageSync('history'))
-			console.log(this.history)
+			this.history =!uni.getStorageSync('history') ? [] : JSON.parse(uni.getStorageSync('history'))
 		}
 	}
 </script>
