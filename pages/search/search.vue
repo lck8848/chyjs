@@ -85,6 +85,7 @@
 				this.detail(val)
 			},
 			detail(key){
+				
 				console.log(key)
 				var data = key
 				this.history.push_unique(data)
@@ -140,6 +141,7 @@
 			}
 		},
 		onLoad(){
+			
 			Array.prototype.push_unique = function () {
 				for (var i = 0; i < arguments.length; i++) {
 					var ele = arguments[i];
@@ -152,7 +154,6 @@
 		},
 		onShow() {
 			this.history =!uni.getStorageSync('history') ? [] : JSON.parse(uni.getStorageSync('history'))
-			
 		}
 	}
 </script>

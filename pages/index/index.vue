@@ -187,7 +187,10 @@
 	import vegetable from "../grid/vegetable.vue";
 	import coffee from "../grid/coffee.vue";
 	import alcohol from "../grid/alcohol.vue";
-	
+
+	// 渲染种草笔记列表
+	// import 
+
 	import {getGoodsByStatus,getHomeNoteList,getClassifyGoods} from "@/api/index.js"
 
 
