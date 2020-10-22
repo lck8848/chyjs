@@ -37,8 +37,7 @@
 		<view class="input" @tap='KeyboarOpen' v-show="isFoucs">
 			输入其他余额
 		</view>
-		
-		<view class="item input2" v-show="!isFoucs">
+		<view class="item input2" v-if="!isFoucs">
 			<view class="yuan">
 				￥
 			</view>

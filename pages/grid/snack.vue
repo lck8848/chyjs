@@ -1,9 +1,9 @@
 <template>
 	<view class="snack_classify">
 			<view class="all_snack">
-				<image src="../../static/images/index/snack.webp" class="img"></image>
+				<image src="../../static/images/index/snack.webp" class="img" @click="toClassifyGoods"></image>
 				<view class="outside">
-						<view class="inside" v-for="item in giftData" :key="item.id">
+						<view class="inside" v-for="item in snackData" :key="item.id" @click=toGoodsDetail(item.id)>
 										  <image :src="item.image_url" class="small_item"></image>
 										  <text>{{item.title}}</text>
 										  <view class="money">
@@ -17,22 +17,47 @@
 </template>
 
 <script>
+	import {getClassifyGoods} from "@/api/index.js"
 	export default {
 		name:"snack",
 		data() {
 			return {
-				
+				snackData:[]
 			}
 		},
 		methods: {
-			
+			async getSnackList() {
+				// 解构赋值拿到data
+				var {
+					data
+				} = await getClassifyGoods(1031);
+				// 用slice方法筛选出九个产品
+				data = data.slice(0,9)
+				this.snackData = data;
+				console.log(this.snackData);
+			},
+			toGoodsDetail(id){
+				uni.navigateTo({
+					url:`/pages/?id=${id}`
+				})
+			},
+			// 点击各种零食图片跳转到相应的页面
+			toClassifyGoods(){
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=snacks"
+				})
+			}
+		},
+		created(){
+			this.getSnackList();
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .snack_classify{
-	.sendGift{
+	.all_snack{
+		margin-top:280rpx;
 		.img{
 			width:100%;
 			height:180rpx;

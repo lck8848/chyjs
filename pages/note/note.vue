@@ -73,7 +73,7 @@
 
 <style lang="scss">
 	.note_container {
-		background-color: #e5e5e5;
+		background-color: #F8F8F8;
 		height:3000rpx;
 		width: 750rpx;
 		
@@ -172,6 +172,7 @@
 						}
 						
 					}
+					// 商品卡片
 					.goods_details{
 						display: flex;
 						margin: 30rpx 60rpx 30rpx 30rpx;

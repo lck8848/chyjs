@@ -65,7 +65,7 @@
 	export default {
 		data() {
 			return {
-				timeList: [240000],
+				timeList: [],
 				goodsData: []
 			}
 		},
@@ -77,9 +77,13 @@
 				
 				
 				this.goodsData = data
-				
-				
+				var timestamp = new Date().getTime();
+				console.log(timestamp)
+				this.goodsData.map(v=>{
+					this.timeList.push((timestamp - v.create_time));
+				})
 				console.log(this.goodsData)
+				console.log(this.timeList)
 			}
 		},
 		onLoad() {
