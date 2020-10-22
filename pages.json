@@ -174,13 +174,18 @@
                 "enablePullDownRefresh": false
             }
         },
+		// {
+		// 	"path" : "pages/goods/detail",
+		// 	"style" :                                                                                    
+		// 	{
+		// 	    "navigationBarTitleText": "商品详情"
+		// 	}
+		// }
+  //       ,
 		{
-			"path" : "pages/goods/detail",
-			"style" :                                                                                    
-			{
-			    "navigationBarTitleText": "商品详情"
-			}
-		}
+            "path" : "pages/user/orderDetails/orderDetails",
+            "style" : {}
+        }
     ],
 
 
