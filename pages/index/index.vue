@@ -136,89 +136,18 @@
 			</view>
 			<view class="scroll-container">
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
-					<view id="demo1" class="item">
+					<view id="demo1" class="item" v-for="item in notelist" :key="item.id">
 						<view class="note_img">
-							<image src="../../static/images/note/luosifen-.jpg" class="luosifen"></image>
+							<image :src="item.img_url" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
-								试吃了1个月、差点被开除，终于找到了内心满分的螺蛳粉！
+								{{item.title}}
 							</text>
 
 						</view>
 					</view>
 
-					<view id="demo1" class="item" @click="toDongzao">
-						<view class="note_img">
-							<image src="../../static/images/note/dongzao.jpg" class="dongzao"></image>
-						</view>
-						<view class="desc">
-							<text>
-								新疆，还有什么水果是你不行的？连枣都能甜哭我！
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/niurougan.jpg" class="niurougan"></image>
-						</view>
-						<view class="desc">
-							<text>
-								什么样的牛肉干好吃？内蒙古的朋友有话说
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="/static/images/note/jianguo.jpg" class="milk"></image>
-						</view>
-						<view class="desc">
-							<text>
-								我找到了植物奶咖啡的平替（不是）
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/banfen.jpg" class="banfen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								吹爆南昌拌粉！一周有5天都想嗦它嗦它嗦它
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/guoba.jpg" class="guoba"></image>
-						</view>
-						<view class="desc">
-							<text>
-								好吃的锅巴，会发出海鲜味的咔嚓咔嚓声
-
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/fengzhua.jpg" class="jizhua"></image>
-						</view>
-						<view class="desc">
-							<text>
-								请把柠檬和鸡爪这对cp给我锁死死！
-							</text>
-						</view>
-					</view>
-					<view id="demo1" class="item">
-						<view class="note_img">
-							<image src="../../static/images/note/mifen.jpeg" class="mifen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								湖南人的乡愁，从一碗常德米粉开始
-							</text>
-						</view>
-					</view>
 				</scroll-view>
 			</view>
 		</view>
@@ -258,11 +187,11 @@
 	import vegetable from "../grid/vegetable.vue";
 	import coffee from "../grid/coffee.vue";
 	import alcohol from "../grid/alcohol.vue";
-	import {getClassifyGoods} from "@/api/index.js";
-	import {getGoodsByStatus} from "@/api/index.js"
+
 	// 渲染种草笔记列表
 	// import 
 
+	import {getGoodsByStatus,getHomeNoteList,getClassifyGoods} from "@/api/index.js"
 
 
 	export default {
@@ -301,7 +230,8 @@
 
 					
 				],
-				newgoods:[]
+				newgoods:[],
+				notelist:[]
 
 			}
 		},
@@ -311,7 +241,7 @@
 			},
 
 			scroll: function(e) {
-				console.log(e)
+				// console.log(e)
 				this.old.scrollTop = e.detail.scrollTop
 			},
 
@@ -380,6 +310,11 @@
 				this.newgoods = data.splice(0,6)
 			
 				
+			},
+			async getnote(){
+				var {data} = await getHomeNoteList()
+				this.notelist = data
+				console.log(this.notelist)
 			}
 		},
 
@@ -387,6 +322,7 @@
 		},
 		created(){
 			this.init()
+			this.getnote()
 		}
 
 	}

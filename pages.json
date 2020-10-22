@@ -164,7 +164,14 @@
                 "navigationBarTitleText": "交易记录",
                 "enablePullDownRefresh": false
             }
-        }
+        },
+		{
+			"path" : "pages/goods/detail",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "商品详情"
+			}
+		}
     ],
 
 
