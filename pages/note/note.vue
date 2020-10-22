@@ -17,19 +17,19 @@
 		</view>
 		
 		<!-- 笔记宫格 -->
-		<view class="note_grid">
+		<view class="note_grid" v-for="item in NoteLIst" :key="item.id">
 					<view class="top">
-						<text class="date">9月14日</text>
-						<text class="title">试吃了一个月，差点被开除，终于找到了内心满分的螺蛳粉！</text>
-						<text class="host">#掌柜说#</text>
+						<text class="date">{{item.create_time}}</text>
+						<text class="title">{{item.title}}</text>
+						<text class="host">#{{item.label}}#</text>
 					</view>
 					<view class="img_grid">
+						<image :src="item.img_url" mode=""></image>
+						<!-- <image src="../../static/images/note/luosifen-.jpg" mode=""></image>
 						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
 						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
 						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
-						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+						<image src="../../static/images/note/luosifen-.jpg" mode=""></image> -->
 					</view>
 					<view class="goods_details">
 						<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
@@ -48,10 +48,11 @@
 </template>
 
 <script>
+	import {getNoteList} from "../../api/index.js";
 	export default {
 		data() {
 			return {
-
+				NoteLIst:[]
 			};
 		},
 		methods:{
@@ -63,11 +64,21 @@
 						console.log(err);
 					}
 				})
+			},
+			// 获取渲染更多笔记列表数据
+			async getNoteListData(){
+				var {data} = await getNoteList();
+				console.log(data);
+				this.NoteLIst = data;
+				// console.log(this.NoteLIst)
 			}
 		},
 		components: {
 
 		},
+		created() {
+			this.getNoteListData();
+		}
 	}
 </script>
 

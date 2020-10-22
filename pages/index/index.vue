@@ -260,7 +260,8 @@
 	import alcohol from "../grid/alcohol.vue";
 	import {getClassifyGoods} from "@/api/index.js";
 	import {getGoodsByStatus} from "@/api/index.js"
-	
+	// 渲染种草笔记列表
+	// import 
 
 
 
