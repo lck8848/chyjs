@@ -6,7 +6,7 @@
 					<view class="search" v-if="isShow">
 						<uni-icons class="search-icon" color="#999999" size="14" type="search" />
 						<input class="search-input" type="text" v-model="value" :placeholder="placeholder"
-						auto-focus @blur="show" />
+						auto-focus @blur="show" @confirm="search()" />
 					</view>
 					<view class="setout" @tap="show" v-else>
 						<uni-icons color="#c8c9cc" size="14" type="search" />
@@ -18,39 +18,36 @@
 			<view class="tab">
 				<view class="tab-check" v-for="(item, index) in tabList" :key="index" @tap="checked(index)"
 				:class="current === index ?'checked':''">
-					{{ item }}
+					{{ item.title }}
 				</view>
 				<view class="tab-line" :style="'transform: translateX('+current*150+'rpx) translateX(-50%);'"></view>
 			</view>
 		</view>
 		
 		<view class="order-list">
-			<view class="order">
+			<view class="order" v-for="item in orderList" :key="item.id">
 				<view class="head">
 					<view class="left">
-						吃货研究所店铺
+						{{ item.shop_name }}
 						<view class="right-icon"></view>
 					</view>
 					<view class="right">等待买家付款</view>
 				</view>
 				<view class="goods">
 					<view class="img-shell">
-
-
-						<image class="img" src="../../../static/images/allGoods/haoyou.webp" mode="widthFix"></image>
-
+						<image class="img" :src="item.image_url" mode="widthFix"></image>
 					</view>
 					<view class="info">
 						<view class="info-top">
 							<view class="info-left">
-								[濑祭]23二割分山田锦纯米大吟酿清酒720ml
+								{{ item.title }}
 							</view>
 							<view class="info-right">
-								<view class="price">￥899.00</view>
-								<view class="count">x1</view>
+								<view class="price">￥{{ item.price.toFixed(2) }}</view>
+								<view class="count">x{{ item.total_num }}</view>
 							</view>
 						</view>
-						<view class="info-bottom">720mL装</view>
+						<view class="info-bottom">{{ item.spec_name }}</view>
 					</view>
 				</view>
 				
@@ -58,14 +55,14 @@
 					<view class="total-price">
 						需付款
 						<view class="mini">￥</view>
-						<view class="big">899</view>
-						<view class="mini">.00</view>
+						<view class="big">{{ (item.total_price.toFixed(2).toString()).split('.')[0] }}</view>
+						<view class="mini">.{{ (item.total_price.toFixed(2).toString()).split('.')[1] }}</view>
 					</view>
 				</view>
 				<view class="shell">
 					<view class="button">
-						<view class="btn cancel">取消订单</view>
-						<view class="btn pay">立即付款</view>
+						<view class="btn cancel" @tap="cancel()">取消订单</view>
+						<view class="btn pay"  @tap="atOnce()">立即付款</view>
 					</view>
 				</view>
 			</view>
@@ -74,22 +71,26 @@
 </template>
 
 <script>
+	import { getOrderByUserId } from '@/api/index.js';
 	export default {
 		data() {
 			return {
+				userId: 1,
 				current: 0,
 				value: "",
 				placeholder:"搜索订单",
 				isShow: false,
-				tabList: ["全部", "待付款", "待发货", "待收货", "退款/售后"]
+				tabList: [{title:"全部", status: 0}, {title:"待付款", status: 1},
+					{title:"待发货", status: 3}, {title:"待收货", status:2}, {title:"退款/售后", status:4}],
+				orderList: []
 			};
 		},
 		methods: {
-			search({ value }){
-				console.log(value);
-			},
-			inputText({ value }){
-				console.log(value);
+			async search(){
+				let { status, data } = await getOrderByUserId(this.userId, this.tabList[this.current].status,this.value);
+				if(!status){
+					this.orderList = data;
+				}
 			},
 			show(msg){
 				if(msg === 'cancel'){
@@ -99,20 +100,36 @@
 					this.isShow = this.value.trim() ?this.isShow = true :!this.isShow;
 				}
 			},
-			checked(index){
+			async checked(index){
 				this.current = index;
-				console.log(index);
+				let { status, data } = await getOrderByUserId(this.userId, this.tabList[index].status, this.value);
+				if(!status){
+					this.orderList = data;
+				}
+			},
+			cancel(){
+				console.log("取消订单");
+			},
+			atOnce(){
+				console.log("立即付款");
 			}
 		},
-		onLoad(option){
-			this.current = option.index;
+		onLoad({index}){
+			if(index){
+				this.checked(Number(index)+1);
+			}
+		},
+		created() {
+			if(!this.current){
+				this.checked(0);
+			}
 		}
 	}
 </script>
 
 <style lang="scss">
 .order-container {
-	padding-top: 200rpx;
+	padding-top: 180rpx;
 	.head-fixed {
 		position: fixed;
 		top: 0;
@@ -199,6 +216,7 @@
 			padding: 0rpx 20rpx 36rpx 20rpx;
 			border-radius: 16rpx;
 			background-color: #fff;
+			margin-top: 20rpx;
 			.head {
 				display: flex;
 				justify-content: space-between;
@@ -241,6 +259,11 @@
 						font-size: 28rpx;
 						.info-left {
 							margin-right: 40rpx;
+							
+							display: -webkit-box;
+							-webkit-box-orient: vertical;
+							-webkit-line-clamp: 2;
+							overflow: hidden;
 						}
 						.info-right {
 							text-align: right;
@@ -259,17 +282,20 @@
 			.shell {
 				display: flex;
 				flex-direction: row-reverse;
-				padding-top: 20rpx;
+				padding-top: 32rpx;
 			}
 			.total-price {
 				display: flex;
 				font-size: 28rpx;
+				
+				display:flex;
+				align-items:flex-end;
 				.mini {
 					padding-top: 8rpx;
 					font-size: 24rpx;
 				}
 				.big {
-					font-size: 36rpx;
+					font-size: 32rpx;
 				}
 			}
 						

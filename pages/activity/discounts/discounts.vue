@@ -80,7 +80,7 @@
 				var timestamp = new Date().getTime();
 				console.log(timestamp)
 				this.goodsData.map(v=>{
-					this.timeList.push(((timestamp - v.create_time)/3600)*1000)   
+					this.timeList.push((timestamp - v.create_time));
 				})
 				console.log(this.goodsData)
 				console.log(this.timeList)

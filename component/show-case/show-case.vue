@@ -22,7 +22,7 @@
 					</view>
 					
 					<scroll-view class="list" :scroll-x="true">
-						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @tap="console.log('点击')">
+						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id">
 							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
 							<view class="shell">
 								<image class="image" :src="goods.image_url" mode="widthFix"></image>
@@ -41,12 +41,13 @@
 
 <script>
 	import tuiBottomPopup from '../../components/thorui/tui-bottom-popup/tui-bottom-popup.vue'; 
-	import { getHotGoods } from '../../api/index.js';
+	import { getHotGoods, getRecommend, getGoodsByIds } from '../../api/index.js';
 	export default {
 		name: "show-case",
 		data(){
 			return {
 				isShow: false,
+				user_gods_ids:"23,45,21,75,35,74,27,3,38,67,32,12,62,84,97,54,34,43,53,64",
 				list: [
 					{title: "店铺热榜", icon: "/static/images/showcase/hot.png", mark: "hot"},
 					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
@@ -60,10 +61,16 @@
 				this.isShow = !this.isShow;
 			},
 			async getGoodsList(){
-				let { status, data } = await getHotGoods();
-				this.goodsList[0] = data;
-				this.goodsList[1] = data;
-				this.goodsList[2] = data;
+				let ids = this.user_gods_ids.split(',');
+				if(ids.length > 10){
+					ids.length = 10;
+				}
+				let hotRes = await getHotGoods();
+				let recRes = await getRecommend(10);
+				let traRes = await getGoodsByIds(ids.join(','));
+				this.goodsList[0] = hotRes.data;
+				this.goodsList[1] = recRes.data;
+				this.goodsList[2] = traRes.data;
 			}
 		},
 		created(){

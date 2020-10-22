@@ -309,7 +309,7 @@
 	import showCase from "../../component/show-case/show-case.vue";
 	import gift from "../grid/gift.vue";
 
-	import {getClassifyGoods} from "@/api/index.js"
+	import {getGoodsByStatus} from "@/api/index.js"
 	
 
 
@@ -420,17 +420,17 @@
 				})
 			},
 			async init(){
-				var {data} = await getClassifyGoods(1000)
+				var {data} = await getGoodsByStatus(3)
+					console.log(data)
+				this.newgoods = data.splice(0,6)
+			
 				
-				data.splice(6,4)
-				// console.log(data)
-				this.newgoods = data
 			}
 		},
 
 		onShow() {
 		},
-		onLoad(){
+		created(){
 			this.init()
 		}
 
