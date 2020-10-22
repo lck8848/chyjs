@@ -127,10 +127,6 @@
 		</view>
 		
 		<!-- 新品滑动 -->
-		
-		
-
-
 
 		<!-- 种草笔记 -->
 		<view class="note_container">
@@ -231,64 +227,14 @@
 		<view class="category_container">
 			<!-- 送ta礼物分类 -->
 			<gift></gift>
-			<!-- <view class="sendGift">
-				<image src="../../static/images/index/sendgift.webp" class="img"></image>
-				<view class="outside">
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-						
-						<view class="inside">
-										  <image src="../../static/images/index/crab.webp" class="small_item"></image>
-										  <text>［提蟹卡 阳澄湖大闸蟹］你的谢意 我们传达 顺丰包邮</text>
-										  <view class="money">
-										  	<text>￥298</text>
-											<image src="../../static/images/index/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
-						</view>
-				</view>	
-			</view> -->
+			<!-- 各种零食 -->
+			<snack></snack>
+			<!--果蔬生鲜 -->
+			<vegetable></vegetable>
+			<!-- 咖啡茶饮 -->
+			<coffee></coffee>
+			<!-- 各种酒水 -->
+			<alcohol></alcohol>
 		</view>
 		<!-- 分类宫格end -->
 
@@ -308,7 +254,10 @@
 	import search from "../../component/search/search";
 	import showCase from "../../component/show-case/show-case.vue";
 	import gift from "../grid/gift.vue";
-
+	import snack from "../grid/snack.vue";
+	import vegetable from "../grid/vegetable.vue";
+	import coffee from "../grid/coffee.vue";
+	import alcohol from "../grid/alcohol.vue";
 	import {getClassifyGoods} from "@/api/index.js"
 	
 
@@ -318,7 +267,11 @@
 		components: {
 			search,
 			showCase,
-			gift
+			gift,
+			snack,
+			vegetable,
+			coffee,
+			alcohol
 		},
 		data() {
 			return {
@@ -711,69 +664,6 @@
 		}
 
 		// 种草笔记到这
-
-		// 商品宫格分类
-		.category_container {
-			.sendGift {
-				.img {
-					width: 100%;
-					height: 180rpx;
-
-				}
-
-				width:750rpx;
-
-				// height:1000rpx;
-				.outside {
-					display: flex;
-					justify-content: space-around;
-					flex-wrap: wrap;
-					height: 800rpx;
-					border: 1px solid #F9F9F9;
-
-					.inside {
-						width: 30%;
-						height: 350rpx;
-						margin-bottom: 10rpx;
-						background-color: white;
-
-						text {
-							padding: 8rpx;
-							font-size: 26rpx;
-							font-weight: bold;
-
-							overflow: hidden;
-							text-overflow: ellipsis;
-							display: -webkit-box;
-							-webkit-box-orient: vertical;
-							-webkit-line-clamp: 2;
-						}
-
-						.small_item {
-							width: 100%;
-							height: 180rpx;
-						}
-
-						.money {
-							display: flex;
-							justify-content: space-between;
-							align-items: center;
-							padding: 14rpx;
-							margin-left: -5rpx;
-							font-size: 32rpx;
-							color: #FF4444;
-
-							.cart {
-								width: 35rpx;
-								height: 35rpx;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		// 商品宫格分类到这
 
 		// 回到顶部
 		.top-button {

@@ -1,9 +1,9 @@
 <template>
 	<view class="alcohol_container">
 		<view class="sendGift">
-			<image src="../../static/images/index/alcohol.webp" class="img"></image>
+			<image src="../../static/images/index/alcohol.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
-					<view class="inside" v-for="item in giftData" :key="item.id">
+					<view class="inside" v-for="item in alcoholData" :key="item.id">
 									  <image :src="item.image_url" class="small_item"></image>
 									  <text>{{item.title}}</text>
 									  <view class="money">
@@ -17,15 +17,29 @@
 </template>
 
 <script>
+	import {getClassifyGoods} from "@/api/index.js"
 	export default {
 		name:"alcohol",
 		data() {
 			return {
-				
+				alcoholData:{}
 			}
 		},
 		methods: {
-			
+			async getalcohol(){
+				var {data} = await getClassifyGoods(1034);
+				data=data.slice(0,9);
+				this.alcoholData = data;
+			},
+			// 点击各种酒水跳转到相应页面
+			toClassifyGoods(){
+				uni.navigateTo({
+					url:"/pages/index/classify?genre=liquor"
+				})
+			}
+		},
+		created() {
+			this.getalcohol();
 		}
 	}
 </script>
@@ -33,6 +47,8 @@
 <style lang="scss">
 .alcohol_container{
 	.sendGift{
+		margin-top:280rpx;
+		margin-bottom:400rpx;
 		.img{
 			width:100%;
 			height:180rpx;
