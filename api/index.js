@@ -40,6 +40,11 @@ export async function getNoteList(page=1, pageSize=10){
 	return await instance.get(`/getNoteList?page=${page}&pageSize=${pageSize}`); 
 }
 
+//笔记详情
+export async function getNoteDetail(n_id){
+	return await instance.get(`/getNoteDetail?n_id=${n_id}`); 
+}
+
 // 商品详情
 export async function getGoodsDetail(g_id){
 	return await instance.get(`/getGoodsDetail?g_id=${g_id}`); 
@@ -55,12 +60,18 @@ export async function getOrderByUserId(userId, status, keyword=-1){
 	return await instance.get(`/getOrderByUserId?u_id=${userId}&status=${status}&keyword=${keyword}`); 
 }
 
+//订单详情
+export async function getOrderDetails(o_id){
+	return await instance.get(`/getOrderDetails?o_id=${o_id}`); 
+}
+
+
 //根据商品ids字符串获取商品
 export async function getGoodsByIds(ids){
 	return await instance.get(`/getGoodsByIds?ids=${ids}`); 
 }
 
-
+//***下单数据
 export async function getFakingData(){
 	return await instance.get('/getFakingData'); 
 }

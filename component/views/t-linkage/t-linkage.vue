@@ -49,7 +49,7 @@ export default {
 	mounted() {
 		setTimeout(() => {
 			this.updateScrollChange();
-		}, 20);
+		}, 50);
 	},
 	data() {
 		return {

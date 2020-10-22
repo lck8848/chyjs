@@ -150,15 +150,10 @@
 					}
 				}
 			};
-			this.history = JSON.parse(uni.getStorageSync('history'))
+			// this.history = JSON.parse(uni.getStorageSync('history'))
 		},
 		onShow() {
-			if(this.history == null){
-				return
-			}
-			this.history = JSON.parse(uni.getStorageSync('history'))
-			console.log(uni.getStorageSync('history'))
-			console.log(this.history)
+			this.history =!uni.getStorageSync('history') ? [] : JSON.parse(uni.getStorageSync('history'))
 		}
 	}
 </script>
