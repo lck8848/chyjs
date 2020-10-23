@@ -62,7 +62,7 @@
 					</view>
 					<view class="shell">
 						<view class="button">
-							<view class="btn cancel" @tap="cancel()">取消订单</view>
+							<view class="btn cancel" @tap="cancel(item.id)">取消订单</view>
 							<view class="btn pay"  @tap="atOnce()">立即付款</view>
 						</view>
 					</view>
@@ -161,6 +161,7 @@
 			margin-bottom: 32rpx;
 			.img {
 				width: 320rpx;
+				height: auto;
 			}
 		}
 		.text {
@@ -288,6 +289,7 @@
 					margin-right: 20rpx;
 					.img {
 						width: 140rpx;
+						height: auto;
 						border-radius: 16rpx;
 					}
 				}
