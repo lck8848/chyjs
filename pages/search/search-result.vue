@@ -68,7 +68,7 @@
 		
 		<view class="goods-list" v-if="!showload && !shownone">
 			
-			<view class="item" v-for="item in goods" :key="item.id">
+			<view class="item" v-for="item in goods" :key="item.id" @click="todetail(item.id)">
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 				</view>
@@ -185,6 +185,11 @@
 				this.yuangoods = data
 				console.log(this.goods)
 				
+			},
+			todetail(id){
+				uni.navigateTo({
+					url:"/pages/goods/detail?id=" + id
+				})
 			}
 		},
 		onLoad(options){
