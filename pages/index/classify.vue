@@ -38,7 +38,7 @@
 		
 		<!-- 商品列表 -->
 		<view class="goods-list">
-			<view class="item" v-for="item in goods" :key="item.id">
+			<view class="item" v-for="item in goods" :key="item.id" @click="todetail(item.id)">
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 				</view>
@@ -133,6 +133,11 @@
 			},
 			onPageScroll(e) {
 				this.scrollTop = e.scrollTop
+			},
+			todetail(id){
+				uni.navigateTo({
+					url:"/pages/goods/detail?id=" + id
+				})
 			}
 		},
 		 onLoad(options) {

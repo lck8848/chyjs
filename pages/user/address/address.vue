@@ -11,7 +11,6 @@
 							</view>
 							<view class="tui-address-detail">
 								<view class="tui-address-label" v-if="index===0">默认</view>
-								<!-- <view class="tui-address-label" v-if="index!=2">{{["公司","住宅","其它"][index]}}</view> -->
 								<text>广东省深圳市南山区高新科技园中区一路</text>
 							</view>
 						</view>
