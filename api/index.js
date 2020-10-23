@@ -75,3 +75,11 @@ export async function getGoodsByIds(ids){
 export async function getFakingData(){
 	return await instance.get('/getFakingData'); 
 }
+
+export async function wxlogin(code, userInfo){
+	return await instance.post('/wxlogin', {code, userInfo}); 
+}
+
+export async function addAddr(addr){
+	return await instance.post('/addAddr', addr); 
+}

@@ -264,7 +264,7 @@
 			
 			Todetail(id){
 				uni.navigateTo({
-					url:"/pages/goods/detail?g_id=" + id
+					url:"/pages/goods/detail?id=" + id
 				})
 			},
 

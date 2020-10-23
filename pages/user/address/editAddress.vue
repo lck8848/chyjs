@@ -16,17 +16,23 @@
 			</tui-list-cell>
 			<tui-list-cell :arrow="true" padding="0">
 				<view class="tui-line-cell">
-					<view class="tui-title"><text class="tui-title-city-text">所在城市</text></view>
-					<input placeholder-class="tui-phcolor" class="tui-input" disabled name="city" placeholder="请选择城市" maxlength="50" type="text" />
+					<view class="tui-title"><text class="tui-title-city-text">所在地区</text></view>
+					<picker :value="value" mode="multiSelector" @change="picker" @columnchange="columnPicker" :range="multiArray">
+						<input placeholder-class="tui-phcolor" class="tui-input" :value="text" disabled name="city" placeholder="请选择省/市/区" maxlength="50"
+						 type="text" />
+					</picker>
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
-					<view class="tui-title">收货地址</view>
-					<input placeholder-class="tui-phcolor" class="tui-input" name="address" placeholder="请输入详细的收货地址" maxlength="50" type="text" />
+					<view class="tui-title">详细地址</view>
+				
+					<input placeholder-class="tui-phcolor"  shape="circle" class="tui-input" name="address" placeholder="请输入详细地址" maxlength="50"
+					type="text" />
+					
 				</view>
 			</tui-list-cell>
-			
+
 
 			<!-- 默认地址 -->
 			<tui-list-cell :hover="false" padding="0">
@@ -47,13 +53,66 @@
 </template>
 
 <script>
+	import cityData from "../../../utils/picker.city.js"
+
 	export default {
 		data() {
 			return {
-				
+				selectList: cityData,
+				multiArray: [], //picker数据
+				value: [0, 0, 0],
+				text: "",
+				id: ""
 			}
 		},
-		methods: {}
+		methods: {
+			picker: function(e) {
+				let value = e.detail.value;
+				if (this.selectList.length > 0) {
+					let provice = this.selectList[value[0]].text
+					let city = this.selectList[value[0]].children[value[1]].text
+					let district = this.selectList[value[0]].children[value[1]].children[value[2]].text
+					this.text = provice + " " + city + " " + district;
+					this.id = this.selectList[value[0]].children[value[1]].children[value[2]].value
+				}
+			},
+			toArr(object) {
+				let arr = [];
+				for (let i in object) {
+					arr.push(object[i].text);
+				}
+				return arr;
+			},
+			columnPicker: function(e) {
+				//第几列 下标从0开始
+				let column = e.detail.column;
+				//第几行 下标从0开始
+				let value = e.detail.value;
+				if (column === 0) {
+					this.multiArray = [
+						this.multiArray[0],
+						this.toArr(this.selectList[value].children),
+						this.toArr(this.selectList[value].children[0].children)
+					];
+					this.value = [value, 0, 0]
+				} else if (column === 1) {
+					this.multiArray = [
+						this.multiArray[0],
+						this.multiArray[1],
+						this.toArr(this.selectList[this.value[0]].children[value].children)
+					];
+					this.value = [this.value[0], value, 0]
+				}
+			}
+		},
+
+		onLoad: function() {
+			this.multiArray = [
+				this.toArr(this.selectList),
+				this.toArr(this.selectList[0].children),
+				this.toArr(this.selectList[0].children[0].children)
+			]
+		},
 	}
 </script>
 
@@ -97,9 +156,11 @@
 		color: #ccc;
 		font-size: 28rpx;
 	}
-	.tui-cell-title{
+
+	.tui-cell-title {
 		font-size: 28rpx;
 	}
+
 	.tui-addr-label {
 		margin-left: 70rpx;
 	}
@@ -116,11 +177,13 @@
 		display: inline-block;
 		transform: scale(0.9);
 	}
-	.tui-label-active{
+
+	.tui-label-active {
 		background: #E41F19;
-		border-color:#E41F19;
+		border-color: #E41F19;
 		color: #fff;
 	}
+
 	.tui-swipe-cell {
 		width: 100%;
 		display: flex;
