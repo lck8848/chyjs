@@ -2,8 +2,10 @@
 	<view class="list_box">
 		<!-- 菜单左边 -->
 		<view class="left">
-			<scroll-view scroll-y="true" :style="{ height: scrollHeight }">
-				<view class="item" v-for="(item, index) in leftArray" :key="index" :class="{ active: index == leftIndex }" :data-index="index" @tap="leftTap">{{ item.id }}</view>
+			<scroll-view id="left_scroll-el" scroll-y="true" :scroll-into-view="leftScrollInto" :style="{ height: scrollHeight }">
+				<view class="item" :id="'left-' + index" v-for="(item, index) in leftArray" :key="index" :class="{ active: index == leftIndex }" :data-index="index" @tap="leftTap">
+					{{ item.alias_name }}
+				</view>
 			</scroll-view>
 		</view>
 		<view class="main">
@@ -18,15 +20,21 @@
 			>
 				<block v-for="(item, index) in mainArray" :key="index">
 					<view class="item" :id="'item-' + index">
-						<view class="title">
-							<view>{{ item.title }}</view>
-						</view>
-						<view class="goods" v-for="(item2, index2) in item.list" :key="index2">
-							<image src="/static/logo.png" mode=""></image>
-							<view>
-								<view>第{{ index2 + 1 }}个商品标题</view>
-								<view class="describe">第{{ index2 + 1 }}个商品的描述内容</view>
-								<view class="money">第{{ index2 + 1 }}个商品的价格</view>
+						<view class="class-name">{{ item.alias_name }}</view>
+						<view class="g-container">
+							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
+								<image :src="g.image_url" class="left_img"></image>
+								<view class="right-content">
+									<view class="g-title">{{ g.title }}</view>
+									<view class="g-mask">{{ g.sell_point }}</view>
+									<view class="g-price">
+										<view class="left-price">
+											<text class="price-tag">¥</text>
+											<text class="price-sale-price">{{ g.price }}</text>
+										</view>
+										<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
+									</view>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -37,42 +45,22 @@
 </template>
 
 <script>
+import { getClassify, getClassifyGoods, getClassifyGoodsByAll } from '@/api/index.js';
 export default {
 	data() {
 		return {
 			scrollHeight: '500px',
-			leftArray: [
-				{
-					id: 1
-				},
-				{
-					id: 2
-				},
-				{
-					id: 3
-				},
-				{
-					id: 4
-				},
-				{
-					id: 5
-				},
-				{
-					id: 6
-				},
-				{
-					id: 7
-				},
-				{
-					id: 8
-				}
-			],
+			leftArray: [],
 			mainArray: [],
 			topArr: [],
+			left_topArr: [],
 			leftIndex: 0,
-			isMainScroll: false,
+			isMainScroll: true,
 			scrollInto: '',
-			tipsTop: '0px'
+			leftScrollInto: '',
+			tipsTop: '0px',
+			left_tipsTop: '0px',
+			is_click: false
 		};
 	},
 	onLoad() {
@@ -80,7 +68,6 @@ export default {
 			success: res => {
 				/* 设置当前滚动容器的高，若非窗口的告诉，请自行修改 */
 				this.scrollHeight = `${res.windowHeight}px`;
-				console.log('gaodu', res.windowHeight);
 			}
 		});
 	},
@@ -89,24 +76,35 @@ export default {
 		this.getListData();
 	},
 	methods: {
+		async getClassify() {
+			let classify = await getClassify(1000);
+			this.tabbar = classify.data;
+			this.getClassifyGoods(this.tabbar);
+		},
+		async getClassifyGoods(tabbar) {
+			tabbar.map(async (v, k) => {
+				let classifyGoods = await getClassifyGoods(v.alias_code);
+				this.tabbar[k].goods = classifyGoods.data;
+			});
+			this.is_goods = true;
+		},
 		/* 获取列表数据 */
-		getListData() {
-			/* 因无真实数据，当前方法模拟数据 */
-			let [left, main] = [[], []];
+		async getListData() {
+			let classify = await getClassify();
+			let aliasCodes = [];
+			this.leftArray = classify.data;
 
-			for (let i = 0; i < 8; i++) {
-				left.push(`${i + 1}类商品`);
+			this.leftArray.map(v => {
+				aliasCodes.push(v.alias_code);
+			});
+			let total_num_res = await getClassifyGoods('1051');
+			let classifys = await getClassifyGoodsByAll(aliasCodes);
+			this.leftArray.map((v, k) => {
+				v.goods = classifys.data[k];
+			});
+			this.leftArray[0].goods = total_num_res.data;
 
-				let list = [];
-				for (let j = 0; j < i + 1; j++) {
-					list.push(j);
-				}
-				main.push({
-					title: `第${i + 1}类商品标题`,
-					list
-				});
-			}
-			this.mainArray = main;
+			this.mainArray = this.leftArray;
 
 			this.$nextTick(() => {
 				this.getElementTop();
@@ -128,14 +126,16 @@ export default {
 		async getElementTop() {
 			/* Promise 对象数组 */
 			let p_arr = [];
+			let l_arr = [];
 
 			/* 遍历数据，创建相应的 Promise 数组数据 */
 			for (let i = 0; i < this.mainArray.length; i++) {
 				const resu = await this.getScrollTop(`#item-${i}`);
+				const left_resu = await this.getScrollTop(`#left-${i}`);
 				p_arr.push(resu);
+				l_arr.push(left_resu);
 			}
 
-			// console.log('p_arr', p_arr)
 
 			/* 主区域滚动容器的顶部距离 */
 			this.getScrollTop('#scroll-el').then(res => {
@@ -146,9 +146,20 @@ export default {
 
 				/* 所有节点信息返回后调用该方法 */
 				Promise.all(p_arr).then(data => {
-					console.log('滚动', data);
 					this.tipsTop = `${data}px`;
 					this.topArr = data;
+				});
+			});
+			this.getScrollTop('#left_scroll-el').then(res => {
+				let top = res;
+				// #ifdef H5
+				top += 43; //因固定提示块的需求，H5的默认标题栏是44px
+				// #endif
+
+				/* 所有节点信息返回后调用该方法 */
+				Promise.all(l_arr).then(data => {
+					this.left_tipsTop = `${data}px`;
+					this.left_topArr = data;
 				});
 			});
 		},
@@ -160,7 +171,6 @@ export default {
 			}
 			let top = e.detail.scrollTop;
 			let index = -1;
-
 			if (top >= this.topArr[this.topArr.length - 1]) {
 				index = this.topArr.length - 1;
 			} else {
@@ -168,7 +178,12 @@ export default {
 					return this.topArr[index + 1] >= top;
 				});
 			}
+			if (this.is_click) {
+				index++;
+				this.is_click = false;
+			}
 			this.leftIndex = index < 0 ? 0 : index;
+			this.leftScrollInto = `left-${index}`;
 		},
 		/* 主区域触摸 */
 		mainTouch() {
@@ -176,10 +191,21 @@ export default {
 		},
 		/* 左侧导航点击 */
 		leftTap(e) {
+			this.is_click = true;
 			let index = e.currentTarget.dataset.index;
-			this.isMainScroll = false;
+			this.isMainScroll = true;
 			this.leftIndex = Number(index);
 			this.scrollInto = `item-${index}`;
+			if (index % 14 > 0) {
+				if (this.leftIndex > 6) {
+					this.leftScrollInto = `left_${this.leftIndex - 2}`;
+				} else {
+					this.leftScrollInto = `left_0`;
+				}
+				this.leftScrollInto = `right_${this.leftIndex}`;
+			} else {
+				this.leftScrollInto = `left_${this.leftIndex}`;
+			}
 		}
 	}
 };
@@ -194,13 +220,14 @@ export default {
 	align-items: flex-start;
 	align-content: flex-start;
 	font-size: 28rpx;
+	font-family: Times, TimesNR, 'New Century Schoolbook', Georgia,'New York', serif;
 
 	.left {
 		width: 200rpx;
 		background-color: #f6f6f6;
 		line-height: 80rpx;
 		box-sizing: border-box;
-		font-size: 32rpx;
+		font-size: 26rpx;
 
 		.item {
 			padding-left: 20rpx;
@@ -225,7 +252,9 @@ export default {
 
 			&.active,
 			&:active {
-				color: #42b983;
+				font-size: 30rpx;
+				color: red;
+				font-weight: 600;
 				background-color: #fff;
 			}
 		}
@@ -253,42 +282,95 @@ export default {
 			padding-left: 10rpx;
 		}
 
-		.title {
-			line-height: 64rpx;
-			position: relative;
-			font-size: 24rpx;
-			font-weight: bold;
-			color: #666;
-			height: 64rpx;
-		}
-
 		.item {
 			margin-bottom: 20rpx;
-		}
 
-		.goods {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: nowrap;
-			justify-content: flex-start;
-			align-items: center;
-			align-content: center;
-			margin-bottom: 10rpx;
-
-			& > image {
-				width: 120rpx;
-				height: 120rpx;
-				margin-right: 16rpx;
+			.class-name {
+				color: #666;
+				margin-bottom: 22rpx;
+				font-size: 12px;
+				line-height: 30px;
 			}
+			.g-container {
+				.g-box {
+					display: flex;
+					margin-bottom: 40rpx;
 
-			.describe {
-				font-size: 24rpx;
-				color: #999;
-			}
+					.left_img {
+						width: 176rpx;
+						height: 176rpx;
+					}
 
-			.money {
-				font-size: 24rpx;
-				color: #efba21;
+					.right-content {
+						width: 290rpx;
+						margin-left: 20rpx;
+
+						.g-title {
+							margin-bottom: 4px;
+							height: 80rpx;
+							color: #323233;
+							line-height: 20px;
+							font-weight: bold;
+							max-height: 40px;
+							font-size: 14px;
+							display: -webkit-box;
+							/*设置为弹性盒子*/
+							-webkit-line-clamp: 2;
+							/*最多显示5行*/
+							overflow: hidden;
+							/*超出隐藏*/
+							text-overflow: ellipsis;
+							/*超出显示为省略号*/
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+							/*强制英文单词自动换行*/
+						}
+
+						.g-mask {
+							height: 30rpx;
+							margin: 10rpx 0;
+							color: #969799;
+							line-height: 16px;
+							font-size: 12px;
+							display: -webkit-box;
+							/*设置为弹性盒子*/
+							-webkit-line-clamp: 1;
+							/*最多显示5行*/
+							overflow: hidden;
+							/*超出隐藏*/
+							text-overflow: ellipsis;
+							/*超出显示为省略号*/
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+							/*强制英文单词自动换行*/
+						}
+
+						.g-price {
+							position: relative;
+							display: flex;
+							justify-content: space-between;
+
+							.left-price {
+								font-weight: 800;
+								color: rgb(255, 68, 68);
+
+								.price-tag {
+									align-self: center;
+									height: 14px;
+									margin-right: 2px;
+									font-size: 12px;
+								}
+							}
+
+							.btn_img {
+								position: absolute;
+								width: 44rpx;
+								height: 44rpx;
+								right: -26rpx;
+							}
+						}
+					}
+				}
 			}
 		}
 	}
