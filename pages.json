@@ -182,13 +182,8 @@
 			}
 		}
         ,{
-            "path" : "pages/user/address/editAddress",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "新增地址",
-                "enablePullDownRefresh": false
-            }
-            
+            "path" : "pages/user/orderDetails/orderDetails",
+            "style" : {}
         }
     ],
 

@@ -26,49 +26,51 @@
 		
 		<view class="order-list">
 			<view class="order" v-for="item in orderList" :key="item.id">
-				<view class="head">
-					<view class="left">
-						{{ item.shop_name }}
-						<view class="right-icon"></view>
-					</view>
-					<view class="right">等待买家付款</view>
-				</view>
-				<view class="goods">
-					<view class="img-shell">
-						<image class="img" :src="item.image_url" mode="widthFix"></image>
-					</view>
-					<view class="info">
-						<view class="info-top">
-							<view class="info-left">
-								{{ item.title }}
-							</view>
-							<view class="info-right">
-								<view class="price">￥{{ item.price.toFixed(2) }}</view>
-								<view class="count">x{{ item.total_num }}</view>
-							</view>
+				<navigator :url="'/pages/user/orderDetails/orderDetails?oid='+item.id">
+					<view class="head">
+						<view class="left">
+							{{ item.shop_name }}
+							<view class="right-icon"></view>
 						</view>
-						<view class="info-bottom">{{ item.spec_name }}</view>
+						<view class="right">等待买家付款</view>
 					</view>
-				</view>
-				
-				<view class="shell">
-					<view class="total-price">
-						需付款
-						<view class="mini">￥</view>
-						<view class="big">{{ (item.total_price.toFixed(2).toString()).split('.')[0] }}</view>
-						<view class="mini">.{{ (item.total_price.toFixed(2).toString()).split('.')[1] }}</view>
+					<view class="goods">
+						<view class="img-shell">
+							<image class="img" :src="item.image_url" mode="widthFix"></image>
+						</view>
+						<view class="info">
+							<view class="info-top">
+								<view class="info-left">
+									{{ item.title }}
+								</view>
+								<view class="info-right">
+									<view class="price">￥{{ item.price.toFixed(2) }}</view>
+									<view class="count">x{{ item.total_num }}</view>
+								</view>
+							</view>
+							<view class="info-bottom">{{ item.spec_name }}</view>
+						</view>
 					</view>
-				</view>
-				<view class="shell">
-					<view class="button">
-						<view class="btn cancel" @tap="cancel()">取消订单</view>
-						<view class="btn pay"  @tap="atOnce()">立即付款</view>
+					
+					<view class="shell">
+						<view class="total-price">
+							需付款
+							<view class="mini">￥</view>
+							<view class="big">{{ (item.total_price.toString()).split('.')[0] }}</view>
+							<view class="mini">.{{ (item.total_price.toFixed(2).toString()).split('.')[1] }}</view>
+						</view>
 					</view>
-				</view>
+					<view class="shell">
+						<view class="button">
+							<view class="btn cancel" @tap="cancel()">取消订单</view>
+							<view class="btn pay"  @tap="atOnce()">立即付款</view>
+						</view>
+					</view>
+				</navigator>
 			</view>
 		</view>
 		
-		<view :class="['empty', current === 0?'empty-list':'']" v-if="orderList.length === 0">
+		<view :class="['empty', current === 0?'empty-list':'']" v-show="orderList.length === 0">
 			<view class="shell-img">
 				<image class="img" src="http://47.106.36.197:7000/source/other/empty_order.png" mode="widthFix"></image>
 			</view>
@@ -77,7 +79,7 @@
 			</view>
 		</view>
 		
-		<recommend></recommend>
+		<recommend v-show="current !== 0"></recommend>
 	</view>
 </template>
 
