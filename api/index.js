@@ -20,6 +20,11 @@ export async function getClassifyGoods(aliasCode, page=1, pageSize=10){
 	return await instance.get(`/getClassifyGoods?aliasCode=${aliasCode}&page=${page}&pageSize=${pageSize}`); 
 }
 
+//获取对应分类所有商品
+export async function getClassifyGoodsByAll(aliasCodes, page=1, pageSize=10){
+	return await instance.get(`/getClassifyGoodsByAll?aliasCodes=${aliasCodes}&page=${page}&pageSize=${pageSize}`); 
+}
+
 //热销商品
 export async function getHotGoods(pageSize=10){
 	return await instance.get(`/getHotGoods?pageSize=${pageSize}`); 
