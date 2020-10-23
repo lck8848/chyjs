@@ -143,6 +143,7 @@
 				this.edit = !this.edit;
 
 			},
+			// 点击规格，弹出弹出层
 			typeClick() {
 				this.typeShow = true;
 			},
@@ -466,6 +467,7 @@
 				border-radius: 50rpx;
 			}
 		}
+		// 弹出层到这
 		
 		// 回到顶部
 		.top-button {

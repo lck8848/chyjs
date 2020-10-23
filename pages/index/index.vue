@@ -134,7 +134,7 @@
 				<text class="note">种草笔记</text>
 				<text class="more" @click="toMore">查看更多></text>
 			</view>
-			<view class="scroll-container">
+			<view class="scroll-container" @click="toNOteDetail">
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
 					<view id="demo1" class="item" v-for="item in notelist" :key="item.id">
 						<view class="note_img">
@@ -305,6 +305,12 @@
 			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
+				})
+			},
+			// 点击种草笔记列表，跳转到相应的笔记内容
+			toNOteDetail(){
+				uni.navigateTo({
+					url:"/pages/note/noteDetail"
 				})
 			},
 			async init() {
