@@ -51,7 +51,7 @@ export async function getGoodsDetail(g_id){
 }
 
 //推荐商品
-export async function getRecommend(pageSize=18){
+export async function getRecommend(pageSize=16){
 	return await instance.get(`/getRecommend?pageSize=${pageSize}`); 
 }
 

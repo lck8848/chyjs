@@ -84,6 +84,7 @@
 				.img-shell {
 					.img {
 						width: 60rpx;
+						height: auto;
 					}
 				}
 				.text {
