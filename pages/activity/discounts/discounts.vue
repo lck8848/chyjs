@@ -7,6 +7,7 @@
 
 		<view class="discounts_goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
+				
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 					<view class="tui-countdown">
