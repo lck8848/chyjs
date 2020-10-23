@@ -1,37 +1,15 @@
 <template>
 	<view>
 		<view class="container">
-			<scroll-view
-				scroll-y
-				:scroll-with-animation="isTap"
-				scroll-anchoring
-				class="w-21 left-big"
-				:scroll-into-view="scrollView_leftId"
-				style="height:100vh;"
-			>
-				<view
-					:id="`left_${index}`"
-					v-for="(item, index) in tabbar"
-					:key="index"
-					style="height: 110rpx;"
-					class="left-view"
-					:class="[currentTab == index ? ['active', 'relative' , 'bgc-select'] : '']"
-					:data-current="index"
-					@tap.stop="swichNav"
-				>
+			<scroll-view scroll-y :scroll-with-animation="isTap" scroll-anchoring class="w-21 left-big" :scroll-into-view="scrollView_leftId"
+			 style="height:100vh;">
+				<view :id="`left_${index}`" v-for="(item, index) in tabbar" :key="index" style="height: 110rpx;" class="left-view"
+				 :class="[currentTab == index ? ['active', 'relative' , 'bgc-select'] : '']" :data-current="index" @tap.stop="swichNav">
 					<text>{{ item.alias_name }}</text>
 				</view>
 			</scroll-view>
-			<scroll-view
-				@scroll="scroll"
-				scroll-anchoring
-				scroll-y
-				scroll-with-animation
-				class="right-view"
-				:scroll-into-view="scrollView_rightId"
-				style="height: 100vh;"
-				v-if="is_goods"
-			>
+			<scroll-view @scroll="scroll" scroll-anchoring scroll-y scroll-with-animation class="right-view" :scroll-into-view="scrollView_rightId"
+			 style="height: 100vh;" v-if="is_goods">
 				<!--内容部分 start 自定义可删除-->
 				<block v-for="(item, index) in tabbar" :key="index">
 					<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
@@ -58,230 +36,288 @@
 				</block>
 				<!--内容部分 end 自定义可删除-->
 			</scroll-view>
+
+			<!-- 回到顶部 -->
+			<view class="top-button" @click="ToTop">
+				<image src="../../static/images/index/icon/top.png" class="topimg"></image>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import tLinkage from '@/component/views/t-linkage/t-linkage';
-import { getClassify, getClassifyGoods } from '@/api/index.js';
-export default {
-	components: {
-		tLinkage
-	},
-	data() {
-		return {
-			tabbar: [],
-			is_goods: false,
-			height: 0, //scroll-view高度
-			top: 0,
-			currentTab: 0, //预设当前项的值
-			scrollView_leftId: 'left_0',
-			scrollView_rightId: 'right_0',
-			scrollTop: 0,
-			distanceTop: uni.upx2px(92),
-			isScroll: true,
-			isTap: true
-		};
-	},
-	onLoad(options) {
-		setTimeout(() => {
-			uni.getSystemInfo({
-				success: res => {
-					let header = 92;
-					let top = 0;
-					//#ifdef H5
-					top = 44;
-					//#endif
-					this.height = res.windowHeight - uni.upx2px(header);
-					this.top = top + uni.upx2px(header);
-				}
-			});
-		}, 50);
-	},
-	created() {
-		this.getClassify();
-	},
-	methods: {
-		async getClassify() {
-			let classify = await getClassify(1000);
-			this.tabbar = classify.data;
-			this.getClassifyGoods(this.tabbar);
+	import tLinkage from '@/component/views/t-linkage/t-linkage';
+	import {
+		getClassify,
+		getClassifyGoods
+	} from '@/api/index.js';
+	export default {
+		components: {
+			tLinkage
 		},
-		async getClassifyGoods(tabbar) {
-			tabbar.map(async (v, k) => {
-				let classifyGoods = await getClassifyGoods(v.alias_code);
-				this.tabbar[k].goods = classifyGoods.data;
-			});
-			console.log(this.tabbar);
-			this.is_goods = true;
+		data() {
+			return {
+				tabbar: [],
+				is_goods: false,
+				height: 0, //scroll-view高度
+				top: 0,
+				currentTab: 0, //预设当前项的值
+				scrollView_leftId: 'left_0',
+				scrollView_rightId: 'right_0',
+				scrollTop: 0,
+				distanceTop: uni.upx2px(92),
+				isScroll: true,
+				isTap: true
+			};
 		},
-		// 点击标题切换当前页时改变样式
-		swichNav: function(e) {
-			let cur = e.currentTarget.dataset.current;
-			if (this.currentTab == cur) {
-				return false;
-			} else {
-				this.currentTab = cur;
-				this.checkCor();
-			}
+		onLoad(options) {
+			setTimeout(() => {
+				uni.getSystemInfo({
+					success: res => {
+						let header = 92;
+						let top = 0;
+						//#ifdef H5
+						top = 44;
+						//#endif
+						this.height = res.windowHeight - uni.upx2px(header);
+						this.top = top + uni.upx2px(header);
+					}
+				});
+			}, 50);
 		},
-
-		//判断当前滚动超过一屏时，设置tab标题滚动条。
-		checkCor: function(isScroll) {
-			if (!isScroll) {
-				this.isScroll = false;
-				this.isTap = true;
-				// console.info(this.currentTab, 'currentTab');
-				if (this.currentTab > 6) {
-					this.scrollView_leftId = `left_${this.currentTab - 2}`;
+		created() {
+			this.getClassify();
+		},
+		methods: {
+			async getClassify() {
+				let classify = await getClassify(1000);
+				this.tabbar = classify.data;
+				this.getClassifyGoods(this.tabbar);
+			},
+			async getClassifyGoods(tabbar) {
+				tabbar.map(async (v, k) => {
+					let classifyGoods = await getClassifyGoods(v.alias_code);
+					this.tabbar[k].goods = classifyGoods.data;
+				});
+				console.log(this.tabbar);
+				this.is_goods = true;
+			},
+			// 点击标题切换当前页时改变样式
+			swichNav: function(e) {
+				let cur = e.currentTarget.dataset.current;
+				if (this.currentTab == cur) {
+					return false;
 				} else {
-					this.scrollView_leftId = `left_0`;
+					this.currentTab = cur;
+					this.checkCor();
 				}
-				this.scrollView_rightId = `right_${this.currentTab}`;
-			} else {
-				this.scrollView_leftId = `left_${this.currentTab}`;
-			}
-		},
-		productList(e) {
-			let key = e.currentTarget.dataset.key;
-			uni.navigateTo({
-				url: '/pages/template/mall/productList/productList?searchKey=' + key
-			});
-		},
-		search: function() {
-			uni.navigateTo({
-				url: '/pages/template/news/search/search'
-			});
-		},
-		scroll(e) {
-			//动画时长固定300ms
-			if (!this.isScroll) {
-				setTimeout(() => {
-					this.isScroll = true;
-				}, 150);
-			} else {
-				this.scrollTop = e.detail.scrollTop;
-			}
-		},
-		linkage(e) {
-			if (e.isLinkage && e.index != this.currentTab) {
-				this.isTap = false;
-				this.currentTab = e.index;
-				this.checkCor(true);
-			}
+			},
+
+			//判断当前滚动超过一屏时，设置tab标题滚动条。
+			checkCor: function(isScroll) {
+				if (!isScroll) {
+					this.isScroll = false;
+					this.isTap = true;
+					// console.info(this.currentTab, 'currentTab');
+					if (this.currentTab > 6) {
+						this.scrollView_leftId = `left_${this.currentTab - 2}`;
+					} else {
+						this.scrollView_leftId = `left_0`;
+					}
+					this.scrollView_rightId = `right_${this.currentTab}`;
+				} else {
+					this.scrollView_leftId = `left_${this.currentTab}`;
+				}
+			},
+			productList(e) {
+				let key = e.currentTarget.dataset.key;
+				uni.navigateTo({
+					url: '/pages/template/mall/productList/productList?searchKey=' + key
+				});
+			},
+			search: function() {
+				uni.navigateTo({
+					url: '/pages/template/news/search/search'
+				});
+			},
+			scroll(e) {
+				//动画时长固定300ms
+				if (!this.isScroll) {
+					setTimeout(() => {
+						this.isScroll = true;
+					}, 150);
+				} else {
+					this.scrollTop = e.detail.scrollTop;
+				}
+			},
+			linkage(e) {
+				if (e.isLinkage && e.index != this.currentTab) {
+					this.isTap = false;
+					this.currentTab = e.index;
+					this.checkCor(true);
+				}
+			},
+			// 回到顶部
+			ToTop() {
+				uni.pageScrollTo({
+					scrollTop: 0,
+					duration: 300
+				})
+			},
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss" scoped>
-page {
-	background-color: #fcfcfc;
-}
-.container{
-	display: flex;
-width: 100vw;
-}
-.w-21 {
-	width: 33.3vw;
-}
-.active::before {
-	content: '';
-	position: absolute;
-	border-left: 6rpx solid #ff4444;
-	height: 110rpx;
-	left: 0;
-}
-/* 左侧导航布局 end*/
-.page-view {
-	width: 74vw;
-	overflow: hidden;
-	box-sizing: border-box;
-	padding-bottom: env(safe-area-inset-bottom);
-	.g-container {
-		.g-box {
-			display: flex;
-			margin-bottom: 40rpx;
-			.left_img {
-				width: 176rpx;
-				height: 176rpx;
-			}
-			.right-content {
-				width: 290rpx;
-				margin-left: 20rpx;
-				.g-title {
-					margin-bottom: 4px;
-					height: 80rpx;
-					color: #323233;
-					line-height: 20px;
-					font-weight: bold;
-					max-height: 40px;
-					font-size: 14px;
-					display: -webkit-box; /*设置为弹性盒子*/
-					-webkit-line-clamp: 2; /*最多显示5行*/
-					overflow: hidden; /*超出隐藏*/
-					text-overflow: ellipsis; /*超出显示为省略号*/
-					-webkit-box-orient: vertical;
-					word-break: break-all; /*强制英文单词自动换行*/
+	page {
+		background-color: #fcfcfc;
+	}
+
+	.container {
+		display: flex;
+		width: 100vw;
+	}
+
+	.w-21 {
+		width: 33.3vw;
+	}
+
+	.active::before {
+		content: '';
+		position: absolute;
+		border-left: 6rpx solid #ff4444;
+		height: 110rpx;
+		left: 0;
+	}
+
+	/* 左侧导航布局 end*/
+	.page-view {
+		width: 74vw;
+		overflow: hidden;
+		box-sizing: border-box;
+		padding-bottom: env(safe-area-inset-bottom);
+
+		.g-container {
+			.g-box {
+				display: flex;
+				margin-bottom: 40rpx;
+
+				.left_img {
+					width: 176rpx;
+					height: 176rpx;
 				}
-				.g-mask {
-					height: 30rpx;
-					margin: 10rpx 0;
-					color: #969799;
-					line-height: 16px;
-					font-size: 12px;
-					display: -webkit-box; /*设置为弹性盒子*/
-					-webkit-line-clamp: 1; /*最多显示5行*/
-					overflow: hidden; /*超出隐藏*/
-					text-overflow: ellipsis; /*超出显示为省略号*/
-					-webkit-box-orient: vertical;
-					word-break: break-all; /*强制英文单词自动换行*/
-				}
-				.g-price {
-					position: relative;
-					display: flex;
-					justify-content: space-between;
-					.left-price {
-						font-weight: 800;
-						color: rgb(255, 68, 68);
-						.price-tag {
-							align-self: center;
-							height: 14px;
-							margin-right: 2px;
-							font-size: 12px;
-						}
+
+				.right-content {
+					width: 290rpx;
+					margin-left: 20rpx;
+
+					.g-title {
+						margin-bottom: 4px;
+						height: 80rpx;
+						color: #323233;
+						line-height: 20px;
+						font-weight: bold;
+						max-height: 40px;
+						font-size: 14px;
+						display: -webkit-box;
+						/*设置为弹性盒子*/
+						-webkit-line-clamp: 2;
+						/*最多显示5行*/
+						overflow: hidden;
+						/*超出隐藏*/
+						text-overflow: ellipsis;
+						/*超出显示为省略号*/
+						-webkit-box-orient: vertical;
+						word-break: break-all;
+						/*强制英文单词自动换行*/
 					}
-					.btn_img {
-						position: absolute;
-						width: 44rpx;
-						height: 44rpx;
-						right: -26rpx;
+
+					.g-mask {
+						height: 30rpx;
+						margin: 10rpx 0;
+						color: #969799;
+						line-height: 16px;
+						font-size: 12px;
+						display: -webkit-box;
+						/*设置为弹性盒子*/
+						-webkit-line-clamp: 1;
+						/*最多显示5行*/
+						overflow: hidden;
+						/*超出隐藏*/
+						text-overflow: ellipsis;
+						/*超出显示为省略号*/
+						-webkit-box-orient: vertical;
+						word-break: break-all;
+						/*强制英文单词自动换行*/
+					}
+
+					.g-price {
+						position: relative;
+						display: flex;
+						justify-content: space-between;
+
+						.left-price {
+							font-weight: 800;
+							color: rgb(255, 68, 68);
+
+							.price-tag {
+								align-self: center;
+								height: 14px;
+								margin-right: 2px;
+								font-size: 12px;
+							}
+						}
+
+						.btn_img {
+							position: absolute;
+							width: 44rpx;
+							height: 44rpx;
+							right: -26rpx;
+						}
 					}
 				}
 			}
 		}
 	}
-}
-.class-name {
-	color: #666;
-	margin-bottom: 22rpx;
-	font-size: 12px;
-	line-height: 30px;
-}
-.left-view {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #f8f8f8;
-	font-size: 28rpx;
-}
-.right-view {
-	padding-left: 40rpx;
-}
-.bgc-select {
-	
-	  font-weight: 900;
-	background-color: #ffffff;
-}
+
+	.class-name {
+		color: #666;
+		margin-bottom: 22rpx;
+		font-size: 12px;
+		line-height: 30px;
+	}
+
+	.left-view {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #f8f8f8;
+		font-size: 28rpx;
+	}
+
+	.right-view {
+		padding-left: 40rpx;
+	}
+
+	.bgc-select {
+
+		font-weight: 900;
+		background-color: #ffffff;
+	}
+
+	// 回到顶部
+	.top-button {
+		width: 70upx;
+		height: 70upx;
+		// 固定定位
+		position: fixed;
+		right: 40rpx;
+		bottom: 50rpx;
+		z-index: 5;
+
+		.topimg {
+			width: 100rpx;
+			height: 100rpx;
+		}
+	}
 </style>

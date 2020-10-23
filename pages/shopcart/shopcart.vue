@@ -143,6 +143,7 @@
 				this.edit = !this.edit;
 
 			},
+			// 点击规格，弹出弹出层
 			typeClick() {
 				this.typeShow = true;
 			},
@@ -466,7 +467,9 @@
 				border-radius: 50rpx;
 			}
 		}
-		
+
+		// 弹出层到这
+
 		// 回到顶部
 		.top-button {
 			width: 70upx;
@@ -474,15 +477,15 @@
 			// 固定定位
 			position: fixed;
 			right: 40rpx;
-			bottom: 300rpx;
+			bottom: 50rpx;
 			z-index: 5;
-		
+
 			.topimg {
 				width: 100rpx;
 				height: 100rpx;
 			}
 		}
-		
+
 		// 回到顶部到这
 
 	}

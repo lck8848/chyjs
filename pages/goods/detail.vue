@@ -351,7 +351,7 @@
 		
 			
 			/deep/ .g-detail{
-				width: 400px;
+				
 				/deep/ .js-richtext-lazy-img{
 					width: 200px;
 					height:200px;
