@@ -79,7 +79,7 @@
 			</view>
 			<view class="newscroll-container">
 
-				<scroll-view class="scroll" scroll-x="true" >
+				<scroll-view class="scroll" scroll-x="true">
 					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
 
 						<view class="img">
@@ -212,10 +212,10 @@
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
-				scrollTop: 0,
-				old: {
-					scrollTop: 0
-				},
+				// scrollTop: 0,
+				// old: {
+				// 	scrollTop: 0
+				// },
 				activityData: [{
 						name: "monnew",
 						img_url: "../../static/images/index/monnew.webp"
@@ -261,10 +261,10 @@
 					}
 				})
 			},
-			
-			Todetail(id){
+
+			Todetail(id) {
 				uni.navigateTo({
-					url:"/pages/goods/detail?id=" + id
+					url: "/pages/goods/detail?id=" + id
 				})
 			},
 
@@ -316,9 +316,9 @@
 				})
 			},
 			// 点击种草笔记列表，跳转到相应的笔记内容
-			toNOteDetail(){
+			toNOteDetail() {
 				uni.navigateTo({
-					url:"/pages/note/noteDetail"
+					url: "/pages/note/noteDetail"
 				})
 			},
 			async init() {
