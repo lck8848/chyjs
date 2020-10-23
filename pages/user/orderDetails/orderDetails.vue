@@ -12,7 +12,7 @@
 			</view>
 			
 			<view class="steps">
-				<order-steps :options="['买家付款', '商家发货', '交易完成']" :active="reStatus[data.status]"></order-steps>
+				<order-steps :options="['买家付款', '商家发货', '买家收货', '交易完成']" :active="reStatus[data.status]"></order-steps>
 			</view>
 			
 			<view class="addr">
@@ -102,7 +102,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="pay-shell">
+		<view class="pay-shell" v-if="reStatus[data.status] === 0">
 			<view class="pay">
 				<view class="shell">
 					合计：
@@ -130,7 +130,9 @@
 				data: {},
 				statusList: [
 					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"},
-					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"}
+					{img_url:'http://47.106.36.197:7000/source/other/send_goods.svg', title: '等待商家发货', text:"商家忙碌发货中"},
+					{img_url:'http://47.106.36.197:7000/source/other/take_goods.svg', title: '等待买家收货', text:"商家已发货，等待查收中"},
+					{img_url:'http://47.106.36.197:7000/source/other/after_salt.svg', title: '交易完成', text:"谢谢惠顾"}
 				],
 				reStatus: {1: 0, 2: 2, 3: 1, 4: 3}
 			};
@@ -179,7 +181,7 @@
 				border-radius: 8rpx;
 				background-color: #b1b1b1;
 				.img {
-					vertical-align: middle;
+					vertical-align: sub;
 					width: 72%;
 				}
 			}
@@ -213,6 +215,7 @@
 				}
 			}
 			.info {
+				flex: 1;
 				.top {
 					display: flex;
 					justify-content: space-between;

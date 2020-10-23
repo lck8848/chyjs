@@ -32,7 +32,7 @@
 							{{ item.shop_name }}
 							<view class="right-icon"></view>
 						</view>
-						<view class="right">等待买家付款</view>
+						<view class="right">{{ status[reStatus[item.status]] }}</view>
 					</view>
 					<view class="goods">
 						<view class="img-shell">
@@ -70,7 +70,7 @@
 			</view>
 		</view>
 		
-		<view :class="['empty', current === 0?'empty-list':'']" v-show="orderList.length === 0">
+		<view :class="['empty', current === 0?'empty-list':'']" v-if="orderList.length === 0">
 			<view class="shell-img">
 				<image class="img" src="http://47.106.36.197:7000/source/other/empty_order.png" mode="widthFix"></image>
 			</view>
@@ -79,7 +79,11 @@
 			</view>
 		</view>
 		
-		<recommend v-show="current !== 0"></recommend>
+		<view class="recommend" v-show="current !== 0">
+			<view class="rec-title">更多精选商品</view>
+			<recommend></recommend>
+		</view>
+		
 	</view>
 </template>
 
@@ -96,7 +100,9 @@
 				isShow: false,
 				tabList: [{title:"全部", status: 0}, {title:"待付款", status: 1},
 					{title:"待发货", status: 3}, {title:"待收货", status:2}, {title:"退款/售后", status:4}],
-				orderList: []
+				orderList: [],
+				status: ["等待买家付款", "等待商家发货", "等待买家收货", "交易完成"],
+				reStatus: {1: 0, 2: 2, 3: 1, 4: 3}
 			};
 		},
 		methods: {
@@ -355,6 +361,13 @@
 					color: #F01D35;
 				}
 			}
+		}
+	}
+	.recommend {
+		.rec-title {
+			padding: 28rpx 0 20rpx;
+			text-align: center;
+			font-size: 28rpx;
 		}
 	}
 }
