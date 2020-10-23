@@ -5,17 +5,17 @@
 				scroll-y
 				:scroll-with-animation="isTap"
 				scroll-anchoring
-				class="w-21 fixed left-0 z-10 left-big"
+				class="w-21 left-big"
 				:scroll-into-view="scrollView_leftId"
-				:style="{ height: '100%' }"
+				style="height:100vh;"
 			>
 				<view
 					:id="`left_${index}`"
 					v-for="(item, index) in tabbar"
 					:key="index"
 					style="height: 110rpx;"
-					class="w-full flex items-center justify-center left-view"
-					:class="[currentTab == index ? ['active', 'relative', 'font-black', 'bgc-select'] : '']"
+					class="left-view"
+					:class="[currentTab == index ? ['active', 'relative' , 'bgc-select'] : '']"
 					:data-current="index"
 					@tap.stop="swichNav"
 				>
@@ -27,9 +27,9 @@
 				scroll-anchoring
 				scroll-y
 				scroll-with-animation
-				class="w-full fixed pl-24 left-0"
+				class="right-view"
 				:scroll-into-view="scrollView_rightId"
-				:style="{ height: '100%' }"
+				style="height: 100vh;"
 				v-if="is_goods"
 			>
 				<!--内容部分 start 自定义可删除-->
@@ -113,6 +113,7 @@ export default {
 				let classifyGoods = await getClassifyGoods(v.alias_code);
 				this.tabbar[k].goods = classifyGoods.data;
 			});
+			console.log(this.tabbar);
 			this.is_goods = true;
 		},
 		// 点击标题切换当前页时改变样式
@@ -178,19 +179,23 @@ export default {
 page {
 	background-color: #fcfcfc;
 }
+.container{
+	display: flex;
+width: 100vw;
+}
 .w-21 {
-	width: 21.3%;
+	width: 33.3vw;
 }
 .active::before {
 	content: '';
 	position: absolute;
 	border-left: 6rpx solid #ff4444;
-	height: 100%;
+	height: 110rpx;
 	left: 0;
 }
 /* 左侧导航布局 end*/
 .page-view {
-	width: 74%;
+	width: 74vw;
 	overflow: hidden;
 	box-sizing: border-box;
 	padding-bottom: env(safe-area-inset-bottom);
@@ -207,6 +212,7 @@ page {
 				margin-left: 20rpx;
 				.g-title {
 					margin-bottom: 4px;
+					height: 80rpx;
 					color: #323233;
 					line-height: 20px;
 					font-weight: bold;
@@ -264,10 +270,18 @@ page {
 	line-height: 30px;
 }
 .left-view {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: #f8f8f8;
 	font-size: 28rpx;
 }
+.right-view {
+	padding-left: 40rpx;
+}
 .bgc-select {
+	
+	  font-weight: 900;
 	background-color: #ffffff;
 }
 </style>

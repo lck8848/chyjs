@@ -14,14 +14,18 @@
 				</view>
 			</view>
 		</button>
-		<!-- 登录 -->
 		<!-- 余额 -->
 		<view class="fees">
-			<van-cell  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="balance-o"  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
 		</view>
-		
+			
 		<order-shell></order-shell>
-
+		
+		<view class="userInfoitem">
+			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon='user-o'  title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="location-o" title="收货地址" is-link link-type="navigateTo" url="/pages/user/address/address"/>
+		</view>
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
@@ -183,6 +187,14 @@
 		}
 
 		.fees{
+			margin: auto;
+			border-radius: 40rpx;
+			width: 94vw;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+			
+		.userInfoitem{
 			margin: auto;
 			border-radius: 40rpx;
 			width: 94vw;
