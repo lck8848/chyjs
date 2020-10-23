@@ -238,6 +238,7 @@
 			"van-toast": "/wxcomponents/vant/toast/index",
 			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index",
 			"van-skeleton": "/wxcomponents/vant/skeleton/index",
+			"van-stepper": "/wxcomponents/vant/stepper/index",
 			"van-button": "/wxcomponents/vant/button/index"
 			
 		}
