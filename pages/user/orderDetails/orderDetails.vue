@@ -3,16 +3,16 @@
 		<view class="head">
 			<view class="status">
 				<view class="status-icon">
-					<image class="img" :src="statusList[data.status-1].img_url" mode="widthFix"></image>
+					<image class="img" :src="statusList[reStatus[data.status]].img_url" mode="widthFix"></image>
 				</view>
 				<view class="status-info">
-					<view class="title">{{statusList[data.status-1].title}}</view>
-					<view class="text">{{statusList[data.status-1].text}}</view>
+					<view class="title">{{statusList[reStatus[data.status]].title}}</view>
+					<view class="text">{{statusList[reStatus[data.status]].text}}</view>
 				</view>
 			</view>
 			
 			<view class="steps">
-				<order-steps :options="['买家付款', '商家发货', '交易完成']" :active="data.status-1"></order-steps>
+				<order-steps :options="['买家付款', '商家发货', '交易完成']" :active="reStatus[data.status]"></order-steps>
 			</view>
 			
 			<view class="addr">
@@ -107,11 +107,11 @@
 				<view class="shell">
 					合计：
 					<view class="number">
-						{{(data.total_price+data.goods.postage).toFixed(2)}}
+						￥{{(data.total_price+data.goods.postage).toFixed(2)}}
 					</view>
 				</view>
 				<view class="pay-btn">
-					
+					去支付
 				</view>
 			</view>
 		</view>
@@ -129,8 +129,10 @@
 				isShow: false,
 				data: {},
 				statusList: [
+					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"},
 					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"}
-				]
+				],
+				reStatus: {1: 0, 2: 2, 3: 1, 4: 3}
 			};
 		},
 		methods: {
@@ -340,14 +342,43 @@
 		.total {
 			display: flex;
 			flex-direction: row-reverse;
+		}
+	}
+	.shell {
+		display: flex;
+		text-align: right;
+		color: #696969;
+		font-size: 28rpx;
+		.number {
+			color: #f44;
+		}
+	}
+	.pay-shell {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 80rpx;
+		display: flex;
+		flex-direction: row-reverse;
+		background-color: #fff;
+		.pay {
+			display: flex;
 			.shell {
-				display: flex;
-				text-align: right;
-				color: #696969;
+				padding: 20rpx;
+				color: #000;
+				align-items: center;
+				font-weight: 600;
 				font-size: 28rpx;
-				.number {
-					color: #f44;
-				}
+			}
+			.pay-btn {
+				width: 208rpx;
+				height: 100%;
+				line-height: 80rpx;
+				color: #fff;
+				text-align: center;
+				font-size: 32rpx;
+				background-color: #f44;
 			}
 		}
 	}

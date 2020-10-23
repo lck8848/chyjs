@@ -35,7 +35,7 @@
 		
 		<view class="goods-list" v-else>
 			
-			<view class="item" v-for="item in goods" :key="item.id">
+			<view class="item" v-for="item in goods" :key="item.id" @click="todetail(item.id)">
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 				</view>
@@ -125,6 +125,11 @@
 				this.goods = data
 				this.yuangoods = data
 				
+			},
+			todetail(id){
+				uni.navigateTo({
+					url:"/pages/goods/detail?id=" + id
+				})
 			}
 		},
 		onLoad(){
