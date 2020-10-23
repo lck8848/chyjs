@@ -16,15 +16,15 @@
 		</button>
 		<!-- 余额 -->
 		<view class="fees">
-			<van-cell icon="balance-o"  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="balance-o" title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
 		</view>
-			
+
 		<order-shell></order-shell>
-		
+
 		<view class="userInfoitem">
-			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
-			<van-cell icon='user-o'  title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
-			<van-cell icon="location-o" title="收货地址" is-link link-type="navigateTo" url="/pages/user/address/address"/>
+			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
+			<van-cell icon='user-o' title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
+			<van-cell icon="location-o" title="收货地址" is-link link-type="navigateTo" url="/pages/user/address/address" />
 		</view>
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop">
@@ -49,7 +49,7 @@
 					name: "点击显示微信头像",
 					img_url: "/static/images/user/头像.png"
 				},
-				isShowinfo:false,
+				isShowinfo: false,
 			}
 		},
 		methods: {
@@ -60,8 +60,8 @@
 					duration: 300
 				})
 			},
-			
-			
+
+
 			// 登录
 			 getuserinfo:  function(e) {
 				console.log(e)
@@ -85,25 +85,25 @@
 					})
 				} else {
 					console.log("用户拒绝授权")
-					
+
 				}
 			},
-			
-			CheckAuth(){
+
+			CheckAuth() {
 				// 查看微信小程序授权
 				uni.getSetting({
-				   success:(res)=> {
-					  if(res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == "false"){
-						  this.infoData.name = "点击显示微信头像"
-						  this.infoData.img_url = "/static/images/user/头像.png"
-					  }
-					  console.log(res.authSetting)
-					  console.log(res.authSetting['scope.userInfo'])
-				   },
-				  
-				   
+					success: (res) => {
+						if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == "false") {
+							this.infoData.name = "点击显示微信头像"
+							this.infoData.img_url = "/static/images/user/头像.png"
+						}
+						console.log(res.authSetting)
+						console.log(res.authSetting['scope.userInfo'])
+					},
+
+
 				})
-				
+
 			},
 		},
 		components: {
@@ -128,7 +128,7 @@
 			// 固定定位
 			position: fixed;
 			right: 40rpx;
-			bottom: 200upx;
+			bottom: 50rpx;
 			z-index: 9999;
 
 			.topimg {
@@ -161,6 +161,7 @@
 					height: 100rpx;
 					border-radius: 50%;
 					overflow: hidden;
+
 					image {
 						width: 100rpx;
 						height: 100rpx;
@@ -188,15 +189,15 @@
 
 		}
 
-		.fees{
+		.fees {
 			margin: auto;
 			border-radius: 40rpx;
 			width: 94vw;
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
-			
-		.userInfoitem{
+
+		.userInfoitem {
 			margin: auto;
 			border-radius: 40rpx;
 			width: 94vw;

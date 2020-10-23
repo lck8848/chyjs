@@ -79,7 +79,7 @@
 			</view>
 			<view class="newscroll-container">
 
-				<scroll-view class="scroll" scroll-x="true" >
+				<scroll-view class="scroll" scroll-x="true">
 					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
 
 						<view class="img">
@@ -136,7 +136,7 @@
 				<text class="note">种草笔记</text>
 				<text class="more" @click="toMore">查看更多></text>
 			</view>
-			<view class="scroll-container">
+			<view class="scroll-container" @click="toNOteDetail">
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
 					<view id="demo1" class="item" v-for="item in notelist" :key="item.id">
 						<view class="note_img">
@@ -212,10 +212,10 @@
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
-				scrollTop: 0,
-				old: {
-					scrollTop: 0
-				},
+				// scrollTop: 0,
+				// old: {
+				// 	scrollTop: 0
+				// },
 				activityData: [{
 						name: "monnew",
 						img_url: "../../static/images/index/monnew.webp"
@@ -261,10 +261,10 @@
 					}
 				})
 			},
-			
-			Todetail(id){
+
+			Todetail(id) {
 				uni.navigateTo({
-					url:"/pages/goods/detail?id=" + id
+					url: "/pages/goods/detail?id=" + id
 				})
 			},
 
@@ -313,6 +313,12 @@
 			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
+				})
+			},
+			// 点击种草笔记列表，跳转到相应的笔记内容
+			toNOteDetail() {
+				uni.navigateTo({
+					url: "/pages/note/noteDetail"
 				})
 			},
 			async init() {
