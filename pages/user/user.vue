@@ -70,7 +70,7 @@
 					uni.login({
 						success(res) {
 							console.log(res)
-							var res = wxlogin(res.code)
+							
 						}
 					})
 					
