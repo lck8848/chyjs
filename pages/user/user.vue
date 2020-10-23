@@ -41,6 +41,7 @@
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
 	import orderShell from "../../component/order-shell/order-shell.vue";
+	import {wxlogin} from "../../api/index.js"
 	export default {
 		data() {
 			return {
@@ -64,14 +65,15 @@
 			// 登录
 			getuserinfo: function(e) {
 				console.log(e)
+				var _this = this;
 				if (e.detail.errMsg === 'getUserInfo:ok') {
 					console.log("同意")
 					uni.login({
 						success(res) {
-							console.log(res)
+							console.log(res.code)
 						}
 					})
-					var _this = this;
+					
 					uni.getUserInfo({
 						success(res) {
 							// uni.setStorageSync("name",res.userInfo.nickName)
