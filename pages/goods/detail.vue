@@ -26,15 +26,11 @@
 		<!-- 轮播图 -->
 		<view class="swiper-container">
 			<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
-				<swiper-item>
-					<view class="swiper-item"><image src="https://img.yzcdn.cn/upload_files/item_watermark/2020/10/19/85f05b13492c486446c4954abd253b78.jpg!large.webp" mode=""></image></view>
-				</swiper-item>
-				<swiper-item>
-					<view class="swiper-item"><image src="https://img.yzcdn.cn/upload_files/2020/10/15/FpemRNHgGGT6TlLFxU-tl16Fv6g4.jpg!large.webp" mode=""></image></view>
-				</swiper-item>
-				<swiper-item>
-					<view class="swiper-item"><image src="https://img.yzcdn.cn/upload_files/2020/10/15/FvXX8w9Kg54fHN3qNr9LxudRcfdS.jpg!large.webp" mode=""></image></view>
-				</swiper-item>
+				<block v-for="(item,index) in swiperdata":key="item">
+					<swiper-item :data-index="index"  @tap.stop="previewImage"  >
+						<view class="swiper-item"><image :src="item" mode=""></image></view>
+					</swiper-item>
+				</block>
 			</swiper>
 		</view>
 		<!-- 轮播图 -->
@@ -42,14 +38,14 @@
 		<!-- 价格标题 -->
 		<view class="info">
 			<view class="disprice">
-				￥<text>899.00</text>
+				￥<text>{{goodDetailData.price}}</text>
 			</view>
 			<view class="price">
-				价格<text>￥1038</text>
+				价格<text>￥{{goodDetailData.original}}</text>
 			</view>
 			<view class="title">
 				<view class="name">
-					［獭祭］23二割三分山田锦纯米大吟酿清酒720ml
+					{{goodDetailData.title}}
 				</view>
 				<view class="share">
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
@@ -57,7 +53,7 @@
 				</view>
 			</view>
 			<view class="sell_point">
-				9折会员价：809.1元。喝过獭祭方知何为清酒
+				{{goodDetailData.sell_point}}
 			</view>
 		</view>
 		
@@ -70,7 +66,7 @@
 				<text class="second">￥0.00-30.00</text>
 			</view>
 			<view class="residue">
-				剩余1250
+				剩余{{ goodDetailData.stock_num}}
 			</view>
 		</view>
 		
@@ -94,15 +90,20 @@
 			</view>
 		</view>
 		<!-- 运费 服务 选择 -->
-		
+		<view  v-html="goodDetailData.details">
+			
+		</view>
 	</view>
 </template>
 
 <script>
+	import { getGoodsDetail } from "@/api/index.js"
 	export default{
 		data(){
 			return{
-				swiperdata:[]
+				swiperdata:[],
+				goodDetailData:{},
+				
 			}
 		},
 		methods:{
@@ -115,12 +116,37 @@
 				uni.switchTab({
 					url:"/pages/user/user"
 				})
+			},
+			previewImage: function(e) {
+				console.log(e)
+				let index = e.currentTarget.dataset.index;
+				console.log(index)
+				
+				uni.previewImage({
+					current: this.swiperdata[index],
+					urls: this.swiperdata
+				});
+			},
+			async getGoodsDetailData(id){
+				var { data } = await getGoodsDetail(Number(id));
+				
+				
+				data.images.map(v=>{
+					this.swiperdata.push(v.img_url)
+				});
+				this.goodDetailData = data;
+				console.log(data)
+				console.log(this.swiperdata)
 			}
+		},
+		onLoad(option) {
+			this.getGoodsDetailData(option.id)
+
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 	.detail-container{
 		// 头部
 		.head{
@@ -322,5 +348,18 @@
 			}
 		}
 		// 运费 服务 选择
+		
+			
+			/deep/ .g-detail{
+				
+				/deep/ .js-richtext-lazy-img{
+					width: 200px;
+					height:200px;
+				}
+			}
+			
+		
 	}
+	
+
 </style>
