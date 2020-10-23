@@ -7,6 +7,7 @@
 
 		<view class="monnew-goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate">
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 				</view>
@@ -23,6 +24,7 @@
 						</view>
 					</view>
 				</view>
+				</navigator>
 			</view>
 		</view>
 
