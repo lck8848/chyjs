@@ -63,13 +63,14 @@
 			
 			
 			// 登录
-			getuserinfo: function(e) {
+			 getuserinfo:  function(e) {
 				console.log(e)
 				if (e.detail.errMsg === 'getUserInfo:ok') {
 					console.log("同意")
 					uni.login({
 						success(res) {
 							console.log(res)
+							var res = wxlogin(res.code)
 						}
 					})
 					
