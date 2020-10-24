@@ -36,7 +36,8 @@
 					</view>
 					<view class="goods">
 						<view class="img-shell">
-							<image class="img" :src="item.image_url" mode="widthFix"></image>
+							<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
+							<!-- <image class="img" :src="item.image_url" mode="widthFix"></image> -->
 						</view>
 						<view class="info">
 							<view class="info-top">
@@ -60,13 +61,18 @@
 							<view class="mini">.{{ (item.total_price.toFixed(2).toString()).split('.')[1] }}</view>
 						</view>
 					</view>
-					<view class="shell">
-						<view class="button">
-							<view class="btn cancel" @tap="cancel(item.id)">取消订单</view>
-							<view class="btn pay"  @tap="atOnce()">立即付款</view>
-						</view>
-					</view>
 				</navigator>
+				<view class="shell" v-if="item.status === 1">
+					<view class="button">
+						<view class="btn cancel" @tap="cancel(item.id)">取消订单</view>
+						<view class="btn pay"  @tap="atOnce(item.id)">立即付款</view>
+					</view>
+				</view>
+				<view class="shell" v-if="item.status === 2">
+					<view class="button">
+						<view class="btn pay"  @tap="takeGoods(item.id)">确认收货</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		
@@ -79,7 +85,7 @@
 			</view>
 		</view>
 		
-		<view class="recommend" v-show="current !== 0">
+		<view class="recommend" v-if="current !== 0">
 			<view class="rec-title">更多精选商品</view>
 			<recommend></recommend>
 		</view>
@@ -88,21 +94,23 @@
 </template>
 
 <script>
-	import { getOrderByUserId } from '@/api/index.js';
+	import { getOrderByUserId, updateOrderStatus } from '@/api/index.js';
 	import recommend from '../../../component/recommend/recommend.vue';
+	import lazyImg from '@/component/lazy-img/lazy-img.vue';
 	export default {
 		data() {
 			return {
 				userId: 1,
 				current: 0,
 				value: "",
+				scrollTop: 0,
 				placeholder:"搜索订单",
 				isShow: false,
 				tabList: [{title:"全部", status: 0}, {title:"待付款", status: 1},
 					{title:"待发货", status: 3}, {title:"待收货", status:2}, {title:"退款/售后", status:4}],
 				orderList: [],
-				status: ["等待买家付款", "等待商家发货", "等待买家收货", "交易完成"],
-				reStatus: {1: 0, 2: 2, 3: 1, 4: 3}
+				status: ["等待买家付款", "等待商家发货", "等待买家收货", "交易完成", "订单已取消"],
+				reStatus: {1: 0, 2: 2, 3: 1, 4: 3, 5: 4}
 			};
 		},
 		methods: {
@@ -127,12 +135,30 @@
 					this.orderList = data;
 				}
 			},
-			cancel(){
-				console.log("取消订单");
+			async cancel(oid){
+				let {status} = await updateOrderStatus(oid, 5);
+				if(!status){
+					uni.showToast({
+						title: '订单已取消'
+					});
+					this.checked(this.current);
+				}
 			},
-			atOnce(){
+			atOnce(oid){
 				console.log("立即付款");
+			},
+			async takeGoods(oid){
+				let {status} = await updateOrderStatus(oid, 4);
+				if(!status){
+					uni.showToast({
+						title: '确认收货'
+					});
+					this.checked(this.current);
+				}
 			}
+		},
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
 		},
 		onLoad({index}){
 			if(index){
@@ -145,7 +171,8 @@
 			}
 		},
 		components: {
-			recommend
+			recommend,
+			lazyImg
 		}
 	}
 </script>
@@ -287,6 +314,7 @@
 				display: flex;
 				.img-shell {
 					margin-right: 20rpx;
+					width: 140rpx;
 					.img {
 						width: 140rpx;
 						height: auto;
@@ -294,6 +322,7 @@
 					}
 				}
 				.info {
+					flex: 1;
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;

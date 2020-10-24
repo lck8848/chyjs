@@ -42,7 +42,7 @@
 		methods: {
 			editAddr(index, addressType) {
 				uni.navigateTo({
-					url: "./editAddress"
+					url: "/pages/user/address/editAddress"
 				})
 			}
 		}

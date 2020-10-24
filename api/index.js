@@ -88,3 +88,8 @@ export async function wxlogin(code, userInfo){
 export async function addAddr(addr){
 	return await instance.post('/addAddr', addr); 
 }
+
+//修改订单状态
+export async function updateOrderStatus(oid, status){
+	return await instance.post('/updateOrderStatus', {oid, status});
+}
