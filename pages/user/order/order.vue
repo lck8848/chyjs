@@ -316,12 +316,13 @@
 					margin-right: 20rpx;
 					width: 140rpx;
 					.img {
-						width: 100%;
+						width: 140rpx;
 						height: auto;
 						border-radius: 16rpx;
 					}
 				}
 				.info {
+					flex: 1;
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;

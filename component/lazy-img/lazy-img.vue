@@ -60,6 +60,7 @@
 
 <style lang="scss">
 .lazyload-container {
+	width: 100%;
 	.lazy-img {
 		width: 100%;
 		height: auto;

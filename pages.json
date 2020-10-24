@@ -185,6 +185,10 @@
             "path" : "pages/user/orderDetails/orderDetails",
             "style" : {}
         }
+        ,{
+            "path" : "pages/user/userInfo/userInfo",
+            "style" : {}
+        }
     ],
 
 
