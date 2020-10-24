@@ -1,323 +1,378 @@
 <template>
-	<view>
-		<view class="container">
-			<scroll-view scroll-y :scroll-with-animation="isTap" scroll-anchoring class="w-21 left-big" :scroll-into-view="scrollView_leftId"
-			 style="height:100vh;">
-				<view :id="`left_${index}`" v-for="(item, index) in tabbar" :key="index" style="height: 110rpx;" class="left-view"
-				 :class="[currentTab == index ? ['active', 'relative' , 'bgc-select'] : '']" :data-current="index" @tap.stop="swichNav">
-					<text>{{ item.alias_name }}</text>
+	<view class="list_box">
+		<!-- 菜单左边 -->
+		<view class="left">
+			<scroll-view id="left_scroll-el" scroll-y="true" :scroll-into-view="leftScrollInto" :style="{ height: scrollHeight }">
+				<view class="item" :id="'left-' + index" v-for="(item, index) in leftArray" :key="index" :class="{ active: index == leftIndex }" :data-index="index" @tap="leftTap">
+					{{ item.alias_name }}
 				</view>
 			</scroll-view>
-			<scroll-view @scroll="scroll" scroll-anchoring scroll-y scroll-with-animation class="right-view" :scroll-into-view="scrollView_rightId"
-			 style="height: 100vh;" v-if="is_goods">
-				<!--内容部分 start 自定义可删除-->
-				<block v-for="(item, index) in tabbar" :key="index">
-					<t-linkage :distanceTop="distanceTop" :recalc="1" :scrollTop="scrollTop" :index="index" @linkage="linkage">
-						<view class="page-view" :id="`right_${index}`">
-							<view class="class-name">{{ item.alias_name }}</view>
-							<view class="g-container">
-								<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
-									<image :src="g.image_url" class="left_img"></image>
-									<view class="right-content">
-										<view class="g-title">{{ g.title }}</view>
-										<view class="g-mask">{{ g.sell_point }}</view>
-										<view class="g-price">
-											<view class="left-price">
-												<text class="price-tag">¥</text>
-												<text class="price-sale-price">{{ g.price }}</text>
-											</view>
-											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
+		</view>
+		<view class="main">
+			<scroll-view
+				scroll-y="true"
+				:style="{ height: scrollHeight }"
+				@scroll="mainScroll"
+				:scroll-into-view="scrollInto"
+				scroll-with-animation="true"
+				@touchstart="mainTouch"
+				id="scroll-el"
+			>
+				<block v-for="(item, index) in mainArray" :key="index">
+					<view class="item" :id="'item-' + index">
+						<view class="class-name">{{ item.alias_name }}</view>
+						<view class="g-container">
+							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
+								<image :src="g.image_url" class="left_img"></image>
+								<view class="right-content">
+									<view class="g-title">{{ g.title }}</view>
+									<view class="g-mask">{{ g.sell_point }}</view>
+									<view class="g-price">
+										<view class="left-price">
+											<text class="price-tag">¥</text>
+											<text class="price-sale-price">{{ g.price }}</text>
 										</view>
+										<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 									</view>
 								</view>
 							</view>
 						</view>
-					</t-linkage>
+					</view>
 				</block>
-				<!--内容部分 end 自定义可删除-->
 			</scroll-view>
-
-			<!-- 回到顶部 -->
-			<view class="top-button" @click="ToTop">
-				<image src="../../static/images/index/icon/top.png" class="topimg"></image>
-			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import tLinkage from '@/component/views/t-linkage/t-linkage';
-	import {
-		getClassify,
-		getClassifyGoods
-	} from '@/api/index.js';
-	export default {
-		components: {
-			tLinkage
+import { getClassify, getClassifyGoods, getClassifyGoodsByAll } from '@/api/index.js';
+export default {
+	data() {
+		return {
+			scrollHeight: '500px',
+			leftArray: [],
+			mainArray: [],
+			topArr: [],
+			left_topArr: [],
+			leftIndex: 0,
+			isMainScroll: true,
+			scrollInto: '',
+			leftScrollInto: '',
+			tipsTop: '0px',
+			left_tipsTop: '0px',
+			is_click: false
+		};
+	},
+	onLoad() {
+		uni.getSystemInfo({
+			success: res => {
+				/* 设置当前滚动容器的高，若非窗口的告诉，请自行修改 */
+				this.scrollHeight = `${res.windowHeight}px`;
+			}
+		});
+	},
+	computed: {},
+	mounted() {
+		this.getListData();
+	},
+	methods: {
+		async getClassify() {
+			let classify = await getClassify(1000);
+			this.tabbar = classify.data;
+			this.getClassifyGoods(this.tabbar);
 		},
-		data() {
-			return {
-				tabbar: [],
-				is_goods: false,
-				height: 0, //scroll-view高度
-				top: 0,
-				currentTab: 0, //预设当前项的值
-				scrollView_leftId: 'left_0',
-				scrollView_rightId: 'right_0',
-				scrollTop: 0,
-				distanceTop: uni.upx2px(92),
-				isScroll: true,
-				isTap: true
-			};
+		async getClassifyGoods(tabbar) {
+			tabbar.map(async (v, k) => {
+				let classifyGoods = await getClassifyGoods(v.alias_code);
+				this.tabbar[k].goods = classifyGoods.data;
+			});
+			this.is_goods = true;
 		},
-		onLoad(options) {
-			setTimeout(() => {
-				uni.getSystemInfo({
-					success: res => {
-						let header = 92;
-						let top = 0;
-						//#ifdef H5
-						top = 44;
-						//#endif
-						this.height = res.windowHeight - uni.upx2px(header);
-						this.top = top + uni.upx2px(header);
-					}
-				});
-			}, 50);
-		},
-		created() {
-			this.getClassify();
-		},
-		methods: {
-			async getClassify() {
-				let classify = await getClassify(1000);
-				this.tabbar = classify.data;
-				this.getClassifyGoods(this.tabbar);
-			},
-			async getClassifyGoods(tabbar) {
-				tabbar.map(async (v, k) => {
-					let classifyGoods = await getClassifyGoods(v.alias_code);
-					this.tabbar[k].goods = classifyGoods.data;
-				});
-				console.log(this.tabbar);
-				this.is_goods = true;
-			},
-			// 点击标题切换当前页时改变样式
-			swichNav: function(e) {
-				let cur = e.currentTarget.dataset.current;
-				if (this.currentTab == cur) {
-					return false;
-				} else {
-					this.currentTab = cur;
-					this.checkCor();
-				}
-			},
+		/* 获取列表数据 */
+		async getListData() {
+			let classify = await getClassify();
+			let aliasCodes = [];
+			this.leftArray = classify.data;
 
-			//判断当前滚动超过一屏时，设置tab标题滚动条。
-			checkCor: function(isScroll) {
-				if (!isScroll) {
-					this.isScroll = false;
-					this.isTap = true;
-					// console.info(this.currentTab, 'currentTab');
-					if (this.currentTab > 6) {
-						this.scrollView_leftId = `left_${this.currentTab - 2}`;
-					} else {
-						this.scrollView_leftId = `left_0`;
-					}
-					this.scrollView_rightId = `right_${this.currentTab}`;
-				} else {
-					this.scrollView_leftId = `left_${this.currentTab}`;
-				}
-			},
-			productList(e) {
-				let key = e.currentTarget.dataset.key;
-				uni.navigateTo({
-					url: '/pages/template/mall/productList/productList?searchKey=' + key
+			this.leftArray.map(v => {
+				aliasCodes.push(v.alias_code);
+			});
+			let total_num_res = await getClassifyGoods('1051');
+			let classifys = await getClassifyGoodsByAll(aliasCodes);
+			this.leftArray.map((v, k) => {
+				v.goods = classifys.data[k];
+			});
+			this.leftArray[0].goods = total_num_res.data;
+
+			this.mainArray = this.leftArray;
+
+			this.$nextTick(() => {
+				this.getElementTop();
+			});
+		},
+		//获取距离顶部的高度
+		getScrollTop(selector) {
+			return new Promise((resolve, reject) => {
+				let query = uni.createSelectorQuery().in(this);
+				query
+					.select(selector + '')
+					.boundingClientRect(data => {
+						resolve(data.top);
+					})
+					.exec();
+			});
+		},
+		/* 获取元素顶部信息 */
+		async getElementTop() {
+			/* Promise 对象数组 */
+			let p_arr = [];
+			let l_arr = [];
+
+			/* 遍历数据，创建相应的 Promise 数组数据 */
+			for (let i = 0; i < this.mainArray.length; i++) {
+				const resu = await this.getScrollTop(`#item-${i}`);
+				const left_resu = await this.getScrollTop(`#left-${i}`);
+				p_arr.push(resu);
+				l_arr.push(left_resu);
+			}
+
+
+			/* 主区域滚动容器的顶部距离 */
+			this.getScrollTop('#scroll-el').then(res => {
+				let top = res;
+				// #ifdef H5
+				top += 43; //因固定提示块的需求，H5的默认标题栏是44px
+				// #endif
+
+				/* 所有节点信息返回后调用该方法 */
+				Promise.all(p_arr).then(data => {
+					this.tipsTop = `${data}px`;
+					this.topArr = data;
 				});
-			},
-			search: function() {
-				uni.navigateTo({
-					url: '/pages/template/news/search/search'
+			});
+			this.getScrollTop('#left_scroll-el').then(res => {
+				let top = res;
+				// #ifdef H5
+				top += 43; //因固定提示块的需求，H5的默认标题栏是44px
+				// #endif
+
+				/* 所有节点信息返回后调用该方法 */
+				Promise.all(l_arr).then(data => {
+					this.left_tipsTop = `${data}px`;
+					this.left_topArr = data;
 				});
-			},
-			scroll(e) {
-				//动画时长固定300ms
-				if (!this.isScroll) {
-					setTimeout(() => {
-						this.isScroll = true;
-					}, 150);
+			});
+		},
+
+		/* 主区域滚动监听 */
+		mainScroll(e) {
+			if (!this.isMainScroll) {
+				return;
+			}
+			let top = e.detail.scrollTop;
+			let index = -1;
+			if (top >= this.topArr[this.topArr.length - 1]) {
+				index = this.topArr.length - 1;
+			} else {
+				index = this.topArr.findIndex((item, index) => {
+					return this.topArr[index + 1] >= top;
+				});
+			}
+			if (this.is_click) {
+				index++;
+				this.is_click = false;
+			}
+			this.leftIndex = index < 0 ? 0 : index;
+			this.leftScrollInto = `left-${index}`;
+		},
+		/* 主区域触摸 */
+		mainTouch() {
+			this.isMainScroll = true;
+		},
+		/* 左侧导航点击 */
+		leftTap(e) {
+			this.is_click = true;
+			let index = e.currentTarget.dataset.index;
+			this.isMainScroll = true;
+			this.leftIndex = Number(index);
+			this.scrollInto = `item-${index}`;
+			if (index % 14 > 0) {
+				if (this.leftIndex > 6) {
+					this.leftScrollInto = `left_${this.leftIndex - 2}`;
 				} else {
-					this.scrollTop = e.detail.scrollTop;
+					this.leftScrollInto = `left_0`;
 				}
-			},
-			linkage(e) {
-				if (e.isLinkage && e.index != this.currentTab) {
-					this.isTap = false;
-					this.currentTab = e.index;
-					this.checkCor(true);
-				}
-			},
-			// 回到顶部
-			ToTop() {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 300
-				})
-			},
+				this.leftScrollInto = `right_${this.leftIndex}`;
+			} else {
+				this.leftScrollInto = `left_${this.leftIndex}`;
+			}
 		}
-	};
+	}
+};
 </script>
 
-<style lang="scss" scoped>
-	page {
-		background-color: #fcfcfc;
-	}
+<style lang="scss">
+.list_box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+	font-size: 28rpx;
+	font-family: Times, TimesNR, 'New Century Schoolbook', Georgia,'New York', serif;
 
-	.container {
-		display: flex;
-		width: 100vw;
-	}
-
-	.w-21 {
-		width: 33.3vw;
-	}
-
-	.active::before {
-		content: '';
-		position: absolute;
-		border-left: 6rpx solid #ff4444;
-		height: 110rpx;
-		left: 0;
-	}
-
-	/* 左侧导航布局 end*/
-	.page-view {
-		width: 74vw;
-		overflow: hidden;
+	.left {
+		width: 200rpx;
+		background-color: #f6f6f6;
+		line-height: 80rpx;
 		box-sizing: border-box;
-		padding-bottom: env(safe-area-inset-bottom);
+		font-size: 26rpx;
 
-		.g-container {
-			.g-box {
-				display: flex;
-				margin-bottom: 40rpx;
+		.item {
+			padding-left: 20rpx;
+			position: relative;
 
-				.left_img {
-					width: 176rpx;
-					height: 176rpx;
+			&:not(:first-child) {
+				margin-top: 1px;
+
+				&::after {
+					content: '';
+					display: block;
+					height: 0;
+					border-top: #d6d6d6 solid 1px;
+					width: 620upx;
+					position: absolute;
+					top: -1px;
+					right: 0;
+					transform: scaleY(0.5);
+					/* 1px像素 */
 				}
+			}
 
-				.right-content {
-					width: 290rpx;
-					margin-left: 20rpx;
+			&.active,
+			&:active {
+				font-size: 30rpx;
+				color: red;
+				font-weight: 600;
+				background-color: #fff;
+			}
+		}
+	}
 
-					.g-title {
-						margin-bottom: 4px;
-						height: 80rpx;
-						color: #323233;
-						line-height: 20px;
-						font-weight: bold;
-						max-height: 40px;
-						font-size: 14px;
-						display: -webkit-box;
-						/*设置为弹性盒子*/
-						-webkit-line-clamp: 2;
-						/*最多显示5行*/
-						overflow: hidden;
-						/*超出隐藏*/
-						text-overflow: ellipsis;
-						/*超出显示为省略号*/
-						-webkit-box-orient: vertical;
-						word-break: break-all;
-						/*强制英文单词自动换行*/
+	.main {
+		background-color: #fff;
+		padding-left: 20rpx;
+		width: 0;
+		flex-grow: 1;
+		box-sizing: border-box;
+
+		.tips {
+			line-height: 64rpx;
+			font-size: 24rpx;
+			font-weight: bold;
+			color: #666;
+			height: 64rpx;
+			position: fixed;
+			top: 44px;
+			right: 0;
+			width: 530rpx;
+			z-index: 10;
+			background-color: #fff;
+			padding-left: 10rpx;
+		}
+
+		.item {
+			margin-bottom: 20rpx;
+
+			.class-name {
+				color: #666;
+				margin-bottom: 22rpx;
+				font-size: 12px;
+				line-height: 30px;
+			}
+			.g-container {
+				.g-box {
+					display: flex;
+					margin-bottom: 40rpx;
+
+					.left_img {
+						width: 176rpx;
+						height: 176rpx;
 					}
 
-					.g-mask {
-						height: 30rpx;
-						margin: 10rpx 0;
-						color: #969799;
-						line-height: 16px;
-						font-size: 12px;
-						display: -webkit-box;
-						/*设置为弹性盒子*/
-						-webkit-line-clamp: 1;
-						/*最多显示5行*/
-						overflow: hidden;
-						/*超出隐藏*/
-						text-overflow: ellipsis;
-						/*超出显示为省略号*/
-						-webkit-box-orient: vertical;
-						word-break: break-all;
-						/*强制英文单词自动换行*/
-					}
+					.right-content {
+						width: 290rpx;
+						margin-left: 20rpx;
 
-					.g-price {
-						position: relative;
-						display: flex;
-						justify-content: space-between;
-
-						.left-price {
-							font-weight: 800;
-							color: rgb(255, 68, 68);
-
-							.price-tag {
-								align-self: center;
-								height: 14px;
-								margin-right: 2px;
-								font-size: 12px;
-							}
+						.g-title {
+							margin-bottom: 4px;
+							height: 80rpx;
+							color: #323233;
+							line-height: 20px;
+							font-weight: bold;
+							max-height: 40px;
+							font-size: 14px;
+							display: -webkit-box;
+							/*设置为弹性盒子*/
+							-webkit-line-clamp: 2;
+							/*最多显示5行*/
+							overflow: hidden;
+							/*超出隐藏*/
+							text-overflow: ellipsis;
+							/*超出显示为省略号*/
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+							/*强制英文单词自动换行*/
 						}
 
-						.btn_img {
-							position: absolute;
-							width: 44rpx;
-							height: 44rpx;
-							right: -26rpx;
+						.g-mask {
+							height: 30rpx;
+							margin: 10rpx 0;
+							color: #969799;
+							line-height: 16px;
+							font-size: 12px;
+							display: -webkit-box;
+							/*设置为弹性盒子*/
+							-webkit-line-clamp: 1;
+							/*最多显示5行*/
+							overflow: hidden;
+							/*超出隐藏*/
+							text-overflow: ellipsis;
+							/*超出显示为省略号*/
+							-webkit-box-orient: vertical;
+							word-break: break-all;
+							/*强制英文单词自动换行*/
+						}
+
+						.g-price {
+							position: relative;
+							display: flex;
+							justify-content: space-between;
+
+							.left-price {
+								font-weight: 800;
+								color: rgb(255, 68, 68);
+
+								.price-tag {
+									align-self: center;
+									height: 14px;
+									margin-right: 2px;
+									font-size: 12px;
+								}
+							}
+
+							.btn_img {
+								position: absolute;
+								width: 44rpx;
+								height: 44rpx;
+								right: -26rpx;
+							}
 						}
 					}
 				}
 			}
 		}
 	}
-
-	.class-name {
-		color: #666;
-		margin-bottom: 22rpx;
-		font-size: 12px;
-		line-height: 30px;
-	}
-
-	.left-view {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #f8f8f8;
-		font-size: 28rpx;
-	}
-
-	.right-view {
-		padding-left: 40rpx;
-	}
-
-	.bgc-select {
-
-		font-weight: 900;
-		background-color: #ffffff;
-	}
-
-	// 回到顶部
-	.top-button {
-		width: 70upx;
-		height: 70upx;
-		// 固定定位
-		position: fixed;
-		right: 40rpx;
-		bottom: 50rpx;
-		z-index: 5;
-
-		.topimg {
-			width: 100rpx;
-			height: 100rpx;
-		}
-	}
+}
 </style>
