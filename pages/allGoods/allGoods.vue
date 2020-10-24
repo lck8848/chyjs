@@ -23,7 +23,7 @@
 						<view class="class-name">{{ item.alias_name }}</view>
 						<view class="g-container">
 							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
-								<image :src="g.image_url" class="left_img"></image>
+								<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
 								<view class="right-content">
 									<view class="g-title">{{ g.title }}</view>
 									<view class="g-mask">{{ g.sell_point }}</view>
@@ -60,7 +60,8 @@ export default {
 			leftScrollInto: '',
 			tipsTop: '0px',
 			left_tipsTop: '0px',
-			is_click: false
+			is_click: false,
+			loadingIcon:""
 		};
 	},
 	onLoad() {
@@ -76,18 +77,6 @@ export default {
 		this.getListData();
 	},
 	methods: {
-		async getClassify() {
-			let classify = await getClassify(1000);
-			this.tabbar = classify.data;
-			this.getClassifyGoods(this.tabbar);
-		},
-		async getClassifyGoods(tabbar) {
-			tabbar.map(async (v, k) => {
-				let classifyGoods = await getClassifyGoods(v.alias_code);
-				this.tabbar[k].goods = classifyGoods.data;
-			});
-			this.is_goods = true;
-		},
 		/* 获取列表数据 */
 		async getListData() {
 			let classify = await getClassify();
@@ -105,7 +94,6 @@ export default {
 			this.leftArray[0].goods = total_num_res.data;
 
 			this.mainArray = this.leftArray;
-
 			this.$nextTick(() => {
 				this.getElementTop();
 			});
@@ -173,8 +161,13 @@ export default {
 			let index = -1;
 			if (top >= this.topArr[this.topArr.length - 1]) {
 				index = this.topArr.length - 1;
-			} else {
+			}else {
 				index = this.topArr.findIndex((item, index) => {
+					if(this.topArr[index + 1]-8848 <= top){
+						this.mainArray[index+1].goods.map(v=>{
+							v.show = true;
+						})
+					}
 					return this.topArr[index + 1] >= top;
 				});
 			}
