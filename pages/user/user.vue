@@ -6,7 +6,7 @@
 			<view class="info">
 				<view class="item">
 					<view class="img">
-						<image :src="infoData.img_url" mode=""></image>
+						<image :src="infoData.img_url"></image>
 					</view>
 					<view class="name">
 						<view class="info_name"> {{ infoData.name}} </view>
@@ -41,7 +41,7 @@
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
 	import orderShell from "../../component/order-shell/order-shell.vue";
-	import { wxlogin } from "../../api/index.js";
+	import { wxlogin, checkToken } from "../../api/index.js";
 	export default {
 		data() {
 			return {
@@ -49,7 +49,7 @@
 					name: "点击显示微信头像",
 					img_url: "/static/images/user/头像.png"
 				},
-				isShowinfo:false,
+				isLogin:false,
 			}
 		},
 		methods: {
@@ -63,7 +63,13 @@
 			
 			
 			// 登录
-			 getuserinfo(e) {
+			async getuserinfo(e) {
+				if(this.isLogin){
+					uni.navigateTo({
+						url: './userInfo/userInfo'
+					})
+					return;
+				}
 				var _this =this;
 				if (e.detail.errMsg === 'getUserInfo:ok') {
 					
@@ -75,11 +81,19 @@
 							
 							uni.login({
 								async success(res) {
-									console.log(res.code)
 									
 									var code = res.code;
-									var user = await wxlogin(code,userInfo);
-									console.log(user)
+									var {token, user} = await wxlogin(code,userInfo);
+									_this.$store.commit('saveUser', user);
+									uni.setStorage({
+										key: "token",
+										data: token
+									});
+									uni.setStorage({
+										key: "user",
+										data: JSON.stringify(user)
+									});
+									_this.isLogin = true;
 								}
 							})
 						}
@@ -98,17 +112,14 @@
 			
 			CheckAuth(){
 				// 查看微信小程序授权
+				let _this = this;
 				uni.getSetting({
-				   success:(res)=> {
+					async success(res){
 					  if(res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false){
-						  this.infoData.name = "点击显示微信头像"
-						  this.infoData.img_url = "/static/images/user/头像.png"
+						  _this.infoData.name = "点击显示微信头像"
+						  _this.infoData.img_url = "/static/images/user/头像.png"
 					  }
-					  console.log(res.authSetting)
-					  console.log(res.authSetting['scope.userInfo'])
-				   },
-				  
-				   
+				   }
 				})
 				
 			},
