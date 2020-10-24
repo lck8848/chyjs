@@ -63,28 +63,36 @@
 			
 			
 			// 登录
-			 getuserinfo:  function(e) {
-				console.log(e)
+			 getuserinfo(e) {
+				var _this =this;
 				if (e.detail.errMsg === 'getUserInfo:ok') {
-					console.log("同意")
-					uni.login({
-						success(res) {
-							console.log(res)
-						}
-					})
-					var _this =this
-					uni.getUserInfo({
-						success(res) {
-							// uni.setStorageSync("name",res.userInfo.nickName)
-							// uni.setStorageSync("img_url",res.userInfo.avatarUrl)
-							_this.infoData.name = res.userInfo.nickName;
-							_this.infoData.img_url = res.userInfo.avatarUrl;
-							console.log(res.userInfo)
-						}
-					})
-				} else {
-					console.log("用户拒绝授权")
 					
+					 uni.getUserInfo({
+						 success(res) {
+							 var { userInfo } =res
+							_this.infoData.name = userInfo.nickName;
+							_this.infoData.img_url = userInfo.avatarUrl;
+							
+							uni.login({
+								async success(res) {
+									console.log(res.code)
+									
+									var code = res.code;
+									var user = await wxlogin(code,userInfo);
+									console.log(user)
+								}
+							})
+						}
+						
+					})
+					
+					
+					
+				} else {
+					uni.showToast({
+						title: '授权失败，为了更好的体验请您先授权',
+						icon: 'none'
+					})
 				}
 			},
 			
@@ -92,7 +100,7 @@
 				// 查看微信小程序授权
 				uni.getSetting({
 				   success:(res)=> {
-					  if(res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == "false"){
+					  if(res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false){
 						  this.infoData.name = "点击显示微信头像"
 						  this.infoData.img_url = "/static/images/user/头像.png"
 					  }
@@ -148,14 +156,13 @@
 			height: 375rpx;
 
 			.item {
+				
 				display: flex;
 				align-items: center;
+				justify-content: center;
 				flex-direction: column;
-
+				width: 300rpx;
 				.img {
-					display: flex;
-					align-items: center;
-					margin-left: 50rpx;
 					width: 100rpx;
 					height: 100rpx;
 					border-radius: 50%;
@@ -168,7 +175,7 @@
 				}
 
 				.name {
-
+					width: 200px;
 					.info_name {
 						font-weight: 700;
 					}

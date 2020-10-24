@@ -90,9 +90,11 @@
 			</view>
 		</view>
 		<!-- 运费 服务 选择 -->
-		<view  v-html="goodDetailData.details">
-			
+	
+		<view class="g-detail" v-html="goodDetailData.details">
 		</view>
+		
+	
 	</view>
 </template>
 
@@ -107,6 +109,7 @@
 			}
 		},
 		methods:{
+			
 			toindex(){
 				uni.switchTab({
 					url:"/pages/index/index"
@@ -135,8 +138,9 @@
 					this.swiperdata.push(v.img_url)
 				});
 				this.goodDetailData = data;
-				console.log(data)
-				console.log(this.swiperdata)
+				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
+				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
+			
 			}
 		},
 		onLoad(option) {
@@ -146,7 +150,7 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.detail-container{
 		// 头部
 		.head{
@@ -350,13 +354,12 @@
 		// 运费 服务 选择
 		
 			
-			/deep/ .g-detail{
-				
-				/deep/ .js-richtext-lazy-img{
-					width: 200px;
-					height:200px;
-				}
+		/deep/ .g-detail{
+			
+			img {
+				width: 100%;
 			}
+		}
 			
 		
 	}

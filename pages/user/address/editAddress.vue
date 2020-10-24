@@ -54,7 +54,7 @@
 
 <script>
 	import cityData from "../../../utils/picker.city.js"
-
+	import { addAddr } from "../../../api/index.js"
 	export default {
 		data() {
 			return {
