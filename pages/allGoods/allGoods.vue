@@ -61,7 +61,7 @@ export default {
 			tipsTop: '0px',
 			left_tipsTop: '0px',
 			is_click: false,
-			loadingIcon:""
+			loadingIcon: ''
 		};
 	},
 	onLoad() {
@@ -124,7 +124,6 @@ export default {
 				l_arr.push(left_resu);
 			}
 
-
 			/* 主区域滚动容器的顶部距离 */
 			this.getScrollTop('#scroll-el').then(res => {
 				let top = res;
@@ -161,12 +160,16 @@ export default {
 			let index = -1;
 			if (top >= this.topArr[this.topArr.length - 1]) {
 				index = this.topArr.length - 1;
-			}else {
+			} else {
 				index = this.topArr.findIndex((item, index) => {
-					if(this.topArr[index + 1]-8848 <= top){
-						this.mainArray[index+1].goods.map(v=>{
-							v.show = true;
-						})
+					if (this.topArr[index + 1] - 8848 <= top) {
+						for (let i = index - 2; i <= index + 2; i++) {
+							if(i >= 0){
+								this.mainArray[i].goods.map(v => {
+									v.show = true;
+								});
+							}
+						}
 					}
 					return this.topArr[index + 1] >= top;
 				});
@@ -213,7 +216,7 @@ export default {
 	align-items: flex-start;
 	align-content: flex-start;
 	font-size: 28rpx;
-	font-family: Times, TimesNR, 'New Century Schoolbook', Georgia,'New York', serif;
+	font-family: Times, TimesNR, 'New Century Schoolbook', Georgia, 'New York', serif;
 
 	.left {
 		width: 200rpx;
