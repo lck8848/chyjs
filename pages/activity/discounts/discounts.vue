@@ -7,7 +7,7 @@
 
 		<view class="discounts_goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
-				
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 				<view class="img">
 					<image :src="item.image_url" mode=""></image>
 					<view class="tui-countdown">
@@ -16,7 +16,8 @@
 						 :days="true"></tui-countdown>
 					</view>
 				</view>
-
+				</navigator>
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 				<view class="text">
 					<view class="info">
 						<view class="title">
@@ -48,6 +49,7 @@
 
 					</view>
 				</view>
+				</navigator>
 			</view>
 		</view>
 
