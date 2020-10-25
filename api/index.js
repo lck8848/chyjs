@@ -35,6 +35,11 @@ export async function getGoodsByStatus(status, page=1, pageSize=10){
 	return await instance.get(`/getGoodsByStatus?status=${status}&page=${page}&pageSize=${pageSize}`); 
 }
 
+//根据状态获取轮播图 await getCarouselListByStatus(1);
+export function getCarouselListByStatus(is_show){
+    return instance.post("/getCarouselListByStatus",{is_show});
+}
+
 //笔记首页列表
 export async function getHomeNoteList(pageSize=10){
 	return await instance.get(`/getHomeNoteList?pageSize=${pageSize}`); 
