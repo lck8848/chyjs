@@ -47,7 +47,12 @@
 				<view class="name">
 					{{goodDetailData.title}}
 				</view>
-				<view class="share">
+
+
+
+				<view class="share" @tap="share">
+					
+
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
 					<text>分享</text>
 				</view>
@@ -90,11 +95,42 @@
 			</view>
 		</view>
 		<!-- 运费 服务 选择 -->
+
+		
+		<!-- 吃货研究所店铺 -->
+		<view class="shop-container">
+			<view class="img">
+				<image src="@/static/images/goods/detail/logo.webp" mode=""></image>
+			</view>
+			<view class="middle">
+				<view class="title">
+					吃货研究所店铺
+				</view>
+				<view class="image">
+					<image src="@/static/images/goods/detail/laodian.png" mode=""></image>
+				</view>
+			</view>
+			<view class="tail">
+				<view class="buttons">
+					进店逛逛
+				</view>
+			</view>
+		</view>
+		
+		<!-- 吃货研究所店铺 -->
+		
+		<!-- 细节 -->
+		<view  v-html="goodDetailData.details">
+			
+		</view>
+		<!-- 细节 -->
+
 	
 		<view class="g-detail" v-html="goodDetailData.details">
 		</view>
 		
 	
+
 	</view>
 </template>
 
@@ -105,7 +141,7 @@
 			return{
 				swiperdata:[],
 				goodDetailData:{},
-				
+				id:0
 			}
 		},
 		methods:{
@@ -138,10 +174,35 @@
 					this.swiperdata.push(v.img_url)
 				});
 				this.goodDetailData = data;
+
+				console.log(data)
+				console.log(this.swiperdata)
+			},
+			onShareAppMessage: function(e) {
+				let title = this.goodDetailData.title
+				let img = this.goodDetailData.images[0]
+				return {
+					title: title,
+					path: 'pages/goods/detail?g_id=' + this.id,
+					img_url: img
+					}
+			},
+			share(){
+				uni.showModal({
+					content:"请点击右上角三个点进行分享",
+					showCancel:false
+				})
+
 				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
 				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
 			
-			}
+			},
+
+		},
+		onLoad(option) {
+			this.getGoodsDetailData(option.id)
+			
+			 
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
@@ -353,11 +414,41 @@
 		}
 		// 运费 服务 选择
 		
+
+		// 吃货研究所店铺
+		 .shops-container{
+			 .img{
+				 image{
+					 
+				 }
+			 }
+			 .middle{
+				 .title{
+					 
+				 }
+				 .image{
+					 image{
+						 
+					 }
+				 }
+			 }
+			 .tail{
+				.buttons{
+					
+				} 
+			 }
+		 }
+		 
+		 // 吃货研究所店铺
+		 
+
+
 			
 		/deep/ .g-detail{
 			
 			img {
 				width: 100%;
+
 			}
 		}
 			

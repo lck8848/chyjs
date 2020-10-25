@@ -1,6 +1,6 @@
 <template>
 	<view class="tui-addr-box">
-		<form :report-submit="true">
+		<form @submit="formSubmit">
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">收货人</view>
@@ -18,32 +18,41 @@
 				<view class="tui-line-cell">
 					<view class="tui-title"><text class="tui-title-city-text">所在地区</text></view>
 					<picker :value="value" mode="multiSelector" @change="picker" @columnchange="columnPicker" :range="multiArray">
-						<input placeholder-class="tui-phcolor" class="tui-input" :value="text" disabled name="city" placeholder="请选择省/市/区" maxlength="50"
-						 type="text" />
+						<input placeholder-class="tui-phcolor" class="tui-input" :value="text" disabled name="city" placeholder="请选择省/市/区"
+						 maxlength="50" type="text" />
 					</picker>
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">详细地址</view>
-				
-					<input placeholder-class="tui-phcolor"  shape="circle" class="tui-input" name="address" placeholder="请输入详细地址" maxlength="50"
-					type="text" />
-					
+
+					<input placeholder-class="tui-phcolor" shape="circle" class="tui-input" name="address" placeholder="请输入详细地址"
+					 maxlength="50" type="text" />
+
 				</view>
 			</tui-list-cell>
 
+			<tui-list-cell :hover="false" padding="0">
+				<view class="tui-line-cell">
+					<view class="tui-title">门牌号</view>
+
+					<input placeholder-class="tui-phcolor" shape="circle" class="tui-input" name="house" placeholder="街道,门牌号等"
+					 maxlength="50" type="text" />
+
+				</view>
+			</tui-list-cell>
 
 			<!-- 默认地址 -->
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-swipe-cell">
 					<view>设为默认地址</view>
-					<switch checked color="#19be6b" class="tui-switch-small" />
+					<switch checked color="#19be6b" name="switch" class="tui-switch-small" />
 				</view>
 			</tui-list-cell>
 			<!-- 保存地址 -->
 			<view class="tui-addr-save">
-				<tui-button shadow type="danger" height="88rpx" shape="circle">保存收货地址</tui-button>
+				<tui-button shadow type="danger" formType="submit" height="88rpx" shape="circle">保存并使用</tui-button>
 			</view>
 			<view class="tui-del" v-if="false">
 				<tui-button shadow type="gray" height="88rpx" shape="circle">删除收货地址</tui-button>
@@ -53,8 +62,11 @@
 </template>
 
 <script>
-	import cityData from "../../../utils/picker.city.js"
-	import { addAddr } from "../../../api/index.js"
+	import cityData from "../../../utils/picker.city.js";
+
+	import {
+		addAddr
+	} from "../../../api/index.js"
 	export default {
 		data() {
 			return {
@@ -62,7 +74,14 @@
 				multiArray: [], //picker数据
 				value: [0, 0, 0],
 				text: "",
-				id: ""
+				id: "",
+				infoData: ["收货人",
+					"手机号码",
+					"所在地区",
+					"详情地址",
+					"门牌号",
+					"默认"
+				]
 			}
 		},
 		methods: {
@@ -75,15 +94,17 @@
 					this.text = provice + " " + city + " " + district;
 					this.id = this.selectList[value[0]].children[value[1]].children[value[2]].value
 				}
+				// console.log(this.id)
 			},
 			toArr(object) {
 				let arr = [];
 				for (let i in object) {
 					arr.push(object[i].text);
 				}
+				// console.log(arr)
 				return arr;
 			},
-			columnPicker: function(e) {
+			columnPicker:  function(e) {
 				//第几列 下标从0开始
 				let column = e.detail.column;
 				//第几行 下标从0开始
@@ -95,6 +116,7 @@
 						this.toArr(this.selectList[value].children[0].children)
 					];
 					this.value = [value, 0, 0]
+					// console.log(this.multiArray)
 				} else if (column === 1) {
 					this.multiArray = [
 						this.multiArray[0],
@@ -103,7 +125,47 @@
 					];
 					this.value = [this.value[0], value, 0]
 				}
-			}
+			},
+			// 添加地址
+			formSubmit:async function(e) {
+				console.log('form发生了submit事件，携带数据为：', e.detail)
+				let obj = e.detail.value;
+				let objArr = Object.keys(obj);
+				// 判断不能为空
+				objArr.some((v, index) => {
+					// console.log(this.infoData[index]);
+					if (obj[v] === "") {
+						
+						uni.showToast({
+							title: this.infoData[index] + '不能为空',
+							icon: 'none',
+						})
+						return true;
+					}else{
+						// 判断手机号
+						const reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+						if (reg.test(e.detail.value.mobile) == false) {
+							uni.showToast({
+								title: "手机格式错误，请输入正确的格式",
+								icon: 'none',
+							})
+						}else{
+							var user_id = this.$store.state.user.id
+							e.detail.value.user_id = user_id
+							console.log(e.detail.value);
+							var res =  addAddr(e.detail.value);
+							// console.log(res);
+							
+							 uni.navigateTo({
+								url:"/pages/user/address/address"
+							})
+						}
+						
+					}
+				})
+			},
+
+
 		},
 
 		onLoad: function() {

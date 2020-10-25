@@ -3,13 +3,15 @@
 			<view class="all_snack">
 				<image src="../../static/images/index/snack.webp" class="img" @click="toClassifyGoods"></image>
 				<view class="outside">
-						<view class="inside" v-for="item in snackData" :key="item.id" @click=toGoodsDetail(item.id)>
+						<view class="inside" v-for="item in snackData" :key="item.id">
+							<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 										  <image :src="item.image_url" class="small_item"></image>
 										  <text>{{item.title}}</text>
 										  <view class="money">
 										  	<text>￥{{item.price}}</text>
 											<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
-										  </view>		 
+										  </view>	
+							</navigator>
 						</view>
 				</view>
 			</view>
