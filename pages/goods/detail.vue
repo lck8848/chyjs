@@ -48,7 +48,7 @@
 					{{goodDetailData.title}}
 				</view>
 
-				<view class="share" @tap="onshare">
+				<view class="share" @tap="share">
 					
 
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
@@ -451,12 +451,7 @@
 		 
 		 // 吃货研究所店铺
 		 
-			/deep/ .g-detail{
-				
-				/deep/ .js-richtext-lazy-img{
-					width: 200px;
-					height:200px;
-				}
+
 
 			
 		/deep/ .g-detail{
