@@ -164,7 +164,7 @@ export default {
 				index = this.topArr.findIndex((item, index) => {
 					if (this.topArr[index + 1] - 8848 <= top) {
 						for (let i = index - 2; i <= index + 2; i++) {
-							if(i >= 0){
+							if(i >= 0 && i <= this.mainArray.length-1){
 								this.mainArray[i].goods.map(v => {
 									v.show = true;
 								});
@@ -198,7 +198,6 @@ export default {
 				} else {
 					this.leftScrollInto = `left_0`;
 				}
-				this.leftScrollInto = `right_${this.leftIndex}`;
 			} else {
 				this.leftScrollInto = `left_${this.leftIndex}`;
 			}
@@ -236,7 +235,6 @@ export default {
 					content: '';
 					display: block;
 					height: 0;
-					border-top: #d6d6d6 solid 1px;
 					width: 620upx;
 					position: absolute;
 					top: -1px;
