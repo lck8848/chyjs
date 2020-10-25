@@ -93,7 +93,9 @@ export async function addAddr(addr){
 export async function checkToken(token){
 	return await instance.get(`/checkToken?token=${token}`);
 }
-
+export async function getAddr(user_id){
+	return await instance.get(`/getAddr?token=${user_id}`);
+}
 
 //修改订单状态
 export async function updateOrderStatus(oid, status){

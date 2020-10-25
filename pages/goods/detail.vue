@@ -47,7 +47,7 @@
 				<view class="name">
 					{{goodDetailData.title}}
 				</view>
-				<view class="share" @tap="onshare">
+				<view class="share" @click="onshare">
 					
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
 					<text>分享</text>
@@ -143,40 +143,10 @@
 				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
 			
 			},
-			 onshare() {
-				uni.share({
-				    provider: 'weixin',
-				    scene: "WXSceneSession",
-				    type: 5,
-				    imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
-				    title: '欢迎体验uniapp',
-				    miniProgram: {
-				        id: 'gh_abcdefg',
-				        path: 'pages/index/index',
-				        type: 0,
-				        webUrl: 'http://uniapp.dcloud.io'
-				    },
-				    success: ret => {
-				        console.log(JSON.stringify(ret));
-				    }
-				})
-			    
-			}
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
-			uni.share({
-			    provider: "weixin",
-			    scene: "WXSceneSession",
-			    type: 2,
-			    imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-			    success: function (res) {
-			        console.log("success:" + JSON.stringify(res));
-			    },
-			    fail: function (err) {
-			        console.log("fail:" + JSON.stringify(err));
-			    }
-			});
+			
 		}
 	}
 </script>

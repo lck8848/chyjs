@@ -135,6 +135,7 @@
 				objArr.some((v, index) => {
 					// console.log(this.infoData[index]);
 					if (obj[v] === "") {
+						
 						uni.showToast({
 							title: this.infoData[index] + '不能为空',
 							icon: 'none',
@@ -149,8 +150,12 @@
 								icon: 'none',
 							})
 						}else{
-							// var res = await addAddr(e.detail.value);
+							var user_id = this.$store.state.user.id
+							e.detail.value.user_id = user_id
+							console.log(e.detail.value);
+							var res =  addAddr(e.detail.value);
 							// console.log(res);
+							
 							 uni.navigateTo({
 								url:"/pages/user/address/address"
 							})
