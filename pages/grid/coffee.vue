@@ -4,12 +4,14 @@
 			<image src="../../static/images/index/coffee.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in teaData" :key="item.id">
+					<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 					<image :src="item.image_url" class="small_item"></image>
 					<text>{{item.title}}</text>
 					<view class="money">
 						<text>￥{{item.price}}</text>
 						<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
 					</view>
+					</navigator>
 				</view>
 			</view>
 		</view>

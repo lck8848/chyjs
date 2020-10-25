@@ -1,18 +1,16 @@
 <template>
 	<view class="note_container">
 		<!-- 笔记内容 -->
-		<view class="note_details">
+		<view class="note_details" >
 			<view class="title">
-				十点过后的萨拉卡萨帝欧式的离开公司的公开的管理施蒂利克附近考！
+				{{NoteDetail.title}}
 			</view>
 			<view class="date">
 				9月14日
 			</view>
-			<view class="details">
-				据美联社报道，此次被美国国务院列为“外国使团”的中国媒体包括：“一财全球”（即第一财经英文版）、《解放日报》、《新民晚报》、中国社会科学杂志社（SSCP）、《北京周报》、《经济日报》。美国国务院将要求他们以“外国使团”身份登记。
-				美联社称，在21日的新闻发布会上，蓬佩奥宣称：“美国务院宣布（认定）六家总部位于中国的媒体为外国使团。这些媒体全部属于或者被外国政府控制。”
-				此前，美国国务院于6月22日宣布将中国中央电视台、中国新闻社、《人民日报》和《环球时报》共四家中国媒体的驻美机构列为“外国使团”。
-				在6月23日外交部例行记者会上，中国外交部发言人赵立坚对此表示，这是美方赤裸裸对中方媒体政治打压的又一例证，将进一步严重干扰中国媒体在美开展正常报道活动，也进一步暴露出美方标榜的所谓“新闻和言论自由”的虚伪性。中方强烈敦促美方摒弃冷战思维和意识形态偏见，立即停止和纠正这种损人不利己的错误做法，否则中方将不得不作出必要正当反应。
+			<!-- 因为是富文本，需要v-html来解析富文本 -->
+			<view  class="content" v-html="NoteDetail.content">
+				
 			</view>
 			<view class="official_Accounts">
 				可以关注我们的公众号“吃货研究所（Food_Lab）”，了解更多关于美食的知识和分享噢~
@@ -61,7 +59,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 图片详情页 -->
 			<view class="details">
 				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
@@ -81,7 +79,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<!-- 图片详情页 -->
 			<view class="details">
 				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
@@ -106,10 +104,14 @@
 </template>
 
 <script>
+	import {
+		getNoteDetail
+	} from "../../api/index.js";
 	export default {
 		data() {
 			return {
-				typeShow: false
+				typeShow: false,
+				NoteDetail:[],
 			}
 		},
 		methods: {
@@ -132,7 +134,19 @@
 			// 点击关闭图标，关闭弹出层
 			close() {
 				this.typeShow = false;
+			},
+			// 渲染笔记内容列表
+			async getNoteData(n_id){
+				var{data} = await getNoteDetail(n_id);
+				console.log(data)
+				this.NoteDetail = data;
+				// 因为富文本里存在!important，所以样式是改不了的，需要把!important替换成空的。（兼容小程序的方法）
+				this.NoteDetail.content = this.NoteDetail.content.replace(/width:677px !important;/g,'')
 			}
+		},
+		onLoad(options) {
+			this.getNoteData(options.n_id);
+			console.log(options)
 		}
 	}
 </script>
@@ -151,6 +165,15 @@
 			// 标题
 			.title {
 				font-size: 40rpx;
+			}
+			
+			//富文本
+			// /deep/深度解析
+			.content{
+				/deep/ img{
+					width: 100%;
+				}
+				
 			}
 
 			// 时间
@@ -238,8 +261,9 @@
 		// 弹出层
 		.tui-bottom-popup {
 			// backgroundColor: #F7F8FA;
-			background:red;
+			background: red;
 			height: 1000px;
+
 			// top
 			.top {
 				position: relative;
