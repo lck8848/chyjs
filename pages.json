@@ -192,7 +192,9 @@
         }
         ,{
             "path" : "pages/user/userInfo/userInfo",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "个人信息"
+			}
         }
     ],
 
@@ -225,9 +227,9 @@
 		}]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#007AFF",
+		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#FFFFFF",
 		"usingComponents": {
 			"van-search": "/wxcomponents/vant/search/index",
