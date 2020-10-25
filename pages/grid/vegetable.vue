@@ -4,12 +4,14 @@
 			<image src="../../static/images/index/vegetable.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in vegetableData" :key="item.id">
-					<image :src="item.image_url" class="small_item"></image>
-					<text>{{item.title}}</text>
-					<view class="money">
-						<text>￥{{item.price}}</text>
-						<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
-					</view>
+					<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+						<image :src="item.image_url" class="small_item"></image>
+						<text>{{item.title}}</text>
+						<view class="money">
+							<text>￥{{item.price}}</text>
+							<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
+						</view>
+					</navigator>
 				</view>
 			</view>
 		</view>
@@ -17,23 +19,27 @@
 </template>
 
 <script>
-	import {getClassifyGoods} from "@/api/index.js"
+	import {
+		getClassifyGoods
+	} from "@/api/index.js"
 	export default {
 		name: "vegetable",
 		data() {
 			return {
-				vegetableData:[]
+				vegetableData: []
 			}
 		},
 		methods: {
-			async getVegatableData(){
-				var {data} = await getClassifyGoods(1032);
+			async getVegatableData() {
+				var {
+					data
+				} = await getClassifyGoods(1032);
 				this.vegetableData = data;
 			},
 			// 点击果蔬生鲜跳转到相应页面
-			toClassifyGoods(){
+			toClassifyGoods() {
 				uni.navigateTo({
-					url:"/pages/index/classify?genre=fruits"
+					url: "/pages/index/classify?genre=fruits"
 				})
 			}
 		},
@@ -46,7 +52,8 @@
 <style lang="scss">
 	.vegetable_container {
 		.sendGift {
-			margin-top:280rpx;
+			margin-top: 280rpx;
+
 			.img {
 				width: 100%;
 				height: 180rpx;
