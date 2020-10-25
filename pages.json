@@ -196,7 +196,10 @@
 				"navigationBarTitleText": "个人信息"
 			}
         }
-        
+        ,{
+            "path" : "pages/user/userInfo/selfdom/selfdom",
+            "style" : {}
+        }
     ],
 
 
