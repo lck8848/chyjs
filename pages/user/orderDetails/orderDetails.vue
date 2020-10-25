@@ -11,7 +11,7 @@
 				</view>
 			</view>
 			
-			<view class="steps">
+			<view class="steps" v-if="data.status !== 5">
 				<order-steps :options="['买家付款', '商家发货', '买家收货', '交易完成']" :active="reStatus[data.status]"></order-steps>
 			</view>
 			
@@ -95,13 +95,29 @@
 			</view>
 			<view class="total">
 				<view class="shell">
-					合计：
+					实付款：
 					<view class="number">
-						{{(data.total_price+data.goods.postage).toFixed(2)}}
+						￥{{(data.total_price+data.goods.postage).toFixed(2)}}
 					</view>
 				</view>
 			</view>
 		</view>
+		
+		<view class="other">
+			<view class="row">
+				<view class="title">交易快照：</view>
+				<view>发生交易争议时，可作为判断依据</view>
+			</view>
+			<view class="row">
+				<view class="title">订单编号：</view>
+				<view>{{ data.orderNo }}</view>
+			</view>
+			<view class="row">
+				<view class="title">创建时间：</view>
+				<view>{{ data.create_time }}</view>
+			</view>
+		</view>
+		
 		<view class="pay-shell" v-if="reStatus[data.status] === 0">
 			<view class="pay">
 				<view class="shell">
@@ -115,6 +131,7 @@
 				</view>
 			</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -132,9 +149,10 @@
 					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"},
 					{img_url:'http://47.106.36.197:7000/source/other/send_goods.svg', title: '等待商家发货', text:"商家忙碌发货中"},
 					{img_url:'http://47.106.36.197:7000/source/other/take_goods.svg', title: '等待买家收货', text:"商家已发货，等待查收中"},
-					{img_url:'http://47.106.36.197:7000/source/other/after_salt.svg', title: '交易完成', text:"谢谢惠顾"}
+					{img_url:'http://47.106.36.197:7000/source/other/after_salt.svg', title: '交易完成', text:"谢谢惠顾"},
+					{img_url:'http://47.106.36.197:7000/source/other/shut_order.svg', title: '交易关闭', text:"订单已关闭"}
 				],
-				reStatus: {1: 0, 2: 2, 3: 1, 4: 3}
+				reStatus: {1: 0, 2: 2, 3: 1, 4: 3, 5: 4}
 			};
 		},
 		methods: {
@@ -183,6 +201,7 @@
 				.img {
 					vertical-align: sub;
 					width: 72%;
+					height: auto;
 				}
 			}
 			.status-info {
@@ -212,6 +231,7 @@
 				.icon {
 					vertical-align: text-top;
 					width: 100%;
+					height: auto;
 				}
 			}
 			.info {
@@ -243,6 +263,7 @@
 				margin: 0 16rpx;
 				.icon {
 					width: 100%;
+					height: auto;
 				}
 			}
 			.shop-name {
@@ -258,6 +279,7 @@
 				margin-right: 20rpx;
 				.img {
 					width: 100%;
+					height: auto;
 					border-radius: 16rpx;
 				}
 			}
@@ -324,7 +346,7 @@
 			justify-content: space-between;
 			padding: 16rpx;
 			font-size: 28rpx;
-			.msg {
+			.title {
 				color: #696969;
 			}
 		}
@@ -332,12 +354,15 @@
 	.o-price {
 		padding: 16rpx;
 		margin-top: 20rpx;
-		font-size: 24rpx;
+		font-size: 28rpx;
 		background-color: #fff;
 		.item {
 			display: flex;
 			justify-content: space-between;
-			padding: 8rpx 0;
+			padding: 12rpx 0;
+			.title {
+				color: #696969;
+			}
 		}
 		.p-item {
 			border-bottom: 0.5rpx solid #f8f8f8;
@@ -345,6 +370,8 @@
 		.total {
 			display: flex;
 			flex-direction: row-reverse;
+			padding: 20rpx 0;
+			color: #000;
 		}
 	}
 	.shell {
@@ -353,9 +380,26 @@
 		color: #696969;
 		font-size: 28rpx;
 		.number {
+			font-size: 32rpx;
+			font-weight: 500;
 			color: #f44;
 		}
 	}
+	
+	.other {
+		padding: 20rpx;
+		margin: 20rpx 0 100rpx;
+		font-size: 24rpx;
+		background-color: #fff;
+		.row {
+			display: flex;
+			padding: 4rpx 0;
+			.title {
+				color: #696969;
+			}
+		}
+	}
+	
 	.pay-shell {
 		position: fixed;
 		bottom: 0;

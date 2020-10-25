@@ -11,7 +11,8 @@
 				<view class="goods">
 					<view class="rank" v-if="index === 0" :style="'top:'+(g_index>2 ?16 :0)+'rpx;background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-64-27*(g_index-2))+'px;'"></view>
 					<view class="image">
-						<view class="img" :style="'background-image: url('+item.image_url+');'"></view>
+						<lazy-img class="img" :scrollTop="scrollTop" :img-url="item.image_url"></lazy-img>
+						<!-- <view class="img" :style="'background-image: url('+item.image_url+');'"></view> -->
 					</view>
 					<view class="content">
 						<view class="title">
@@ -35,11 +36,13 @@
 
 <script>
 	import { getHotGoods, getRecommend, getGoodsByIds, getFakingData } from '../../api/index.js';
+	import lazyImg from '@/component/lazy-img/lazy-img.vue';
 	export default {
 		data() {
 			return {
 				index: 0,
 				current: 0,
+				scrollTop: 0,
 				user_gods_ids:"23,45,21,75,35,74,27,3,38,67,32,12,62,84,97,54,34,43,53,64",
 				intervalId: "",
 				bg_list: ['http://47.106.36.197:7000/source/other/ranking_bg.png',
@@ -82,6 +85,9 @@
 				this.fakingData = data;
 			}
 		},
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
+		},
 		onLoad: function (option) {
 			this.index = option.index;
 		},
@@ -92,6 +98,9 @@
 		},
 		onHide(){
 			clearInterval(this.intervalId);
+		},
+		components:{
+			lazyImg
 		}
 	}
 </script>
@@ -169,10 +178,11 @@
 				}
 				.image {
 					padding: 24rpx;
+					width: 242rpx;
+					height: 242rpx;
 					.img {
-						width: 242rpx;
-						height: 242rpx;
-						background-size: cover;
+						width: 100%;
+						height: auto;
 					}
 				}
 				.content {

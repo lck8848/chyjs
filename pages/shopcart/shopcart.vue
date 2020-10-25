@@ -38,7 +38,7 @@
 			<!-- 复选框，primary-color设置主题色 -->
 			<!-- v-model是双向绑定 -->
 			<evan-checkbox v-model="selected" primary-color="red"></evan-checkbox>
-			<image src="../../static/images/note/todongzao2.jpg" class="goods_img"></image>
+			<image src="" class="goods_img"></image>
 			<view class="right">
 				<text class="title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</text>
 				<!-- 点击弹出弹出层 -->

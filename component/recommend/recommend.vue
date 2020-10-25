@@ -33,7 +33,6 @@
 				var {data} = await getRecommend();
 				// 把数据传给数组，进行渲染
 				this.recommendData = data;
-				console.log(this.recommendData);
 			}
 		},
 		created(){

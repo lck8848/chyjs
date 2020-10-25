@@ -33,7 +33,7 @@
 			return {
 				list: [
 					{ url: "http://47.106.36.197:7000/source/other/obligation.svg", text: "待付款"},
-					{ url: "http://47.106.36.197:7000/source/other/send_goods.svg", text: "待发货"},
+					{ url: "http://47.106.36.197:7000/source/other/send_out.svg", text: "待发货"},
 					{ url: "http://47.106.36.197:7000/source/other/receive_goods.svg", text: "待收货"},
 					{ url: "http://47.106.36.197:7000/source/other/finish.svg", text: "退款/售后"}
 				],
@@ -84,6 +84,7 @@
 				.img-shell {
 					.img {
 						width: 60rpx;
+						height: auto;
 					}
 				}
 				.text {

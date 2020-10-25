@@ -184,6 +184,17 @@
         ,{
             "path" : "pages/user/orderDetails/orderDetails",
             "style" : {}
+        },{
+            "path" : "pages/user/address/editAddress",
+            "style" : {
+				  "navigationBarTitleText": "新增地址"
+			}
+        }
+        ,{
+            "path" : "pages/user/userInfo/userInfo",
+            "style" : {
+				"navigationBarTitleText": "个人信息"
+			}
         }
     ],
 
@@ -216,9 +227,9 @@
 		}]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#007AFF",
+		"navigationBarBackgroundColor": "#fff",
 		"backgroundColor": "#FFFFFF",
 		"usingComponents": {
 			"van-search": "/wxcomponents/vant/search/index",
@@ -238,6 +249,7 @@
 			"van-toast": "/wxcomponents/vant/toast/index",
 			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index",
 			"van-skeleton": "/wxcomponents/vant/skeleton/index",
+			"van-stepper": "/wxcomponents/vant/stepper/index",
 			"van-button": "/wxcomponents/vant/button/index"
 			
 		}

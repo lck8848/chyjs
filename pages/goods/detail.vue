@@ -47,7 +47,10 @@
 				<view class="name">
 					{{goodDetailData.title}}
 				</view>
-				<view class="share" @click="share">
+
+				<view class="share" @tap="onshare">
+					
+
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
 					<text>分享</text>
 				</view>
@@ -90,6 +93,7 @@
 			</view>
 		</view>
 		<!-- 运费 服务 选择 -->
+
 		
 		<!-- 吃货研究所店铺 -->
 		<view class="shop-container">
@@ -118,6 +122,13 @@
 			
 		</view>
 		<!-- 细节 -->
+
+	
+		<view class="g-detail" v-html="goodDetailData.details">
+		</view>
+		
+	
+
 	</view>
 </template>
 
@@ -132,6 +143,7 @@
 			}
 		},
 		methods:{
+			
 			toindex(){
 				uni.switchTab({
 					url:"/pages/index/index"
@@ -160,6 +172,7 @@
 					this.swiperdata.push(v.img_url)
 				});
 				this.goodDetailData = data;
+
 				console.log(data)
 				console.log(this.swiperdata)
 			},
@@ -177,16 +190,38 @@
 					content:"请点击右上角三个点进行分享",
 					showCancel:false
 				})
+
+				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
+				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
+			
+			},
+			 onshare() {
+				uni.share({
+				    provider: 'weixin',
+				    scene: "WXSceneSession",
+				    type: 5,
+				    imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
+				    title: '欢迎体验uniapp',
+				    miniProgram: {
+				        id: 'gh_abcdefg',
+				        path: 'pages/index/index',
+				        type: 0,
+				        webUrl: 'http://uniapp.dcloud.io'
+				    },
+				    success: ret => {
+				        console.log(JSON.stringify(ret));
+				    }
+				})
 			}
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
-			this.id = option.id
+
 		}
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 	.detail-container{
 		// 头部
 		.head{
@@ -389,6 +424,7 @@
 		}
 		// 运费 服务 选择
 		
+
 		// 吃货研究所店铺
 		 .shops-container{
 			 .img{
@@ -421,7 +457,15 @@
 					width: 200px;
 					height:200px;
 				}
+
+			
+		/deep/ .g-detail{
+			
+			img {
+				width: 100%;
+
 			}
+		}
 			
 		
 	}

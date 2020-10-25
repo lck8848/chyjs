@@ -29,7 +29,7 @@
 							<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
 						</view>
 						<view class="goods_details">
-							<image src="../../static/images/note/luosifen-.jpg" mode=""></image>
+							<image src="" mode=""></image>
 							<view class="info">
 								<view class="title">
 									<text class="title_space"></text>
