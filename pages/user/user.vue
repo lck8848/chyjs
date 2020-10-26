@@ -16,11 +16,7 @@
 		</button>
 		<!-- 余额 -->
 		<view class="fees">
-<<<<<<< HEAD
-			<van-cell icon="balance-o" title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
-=======
 			<van-cell icon="balance-o"  title="查看余额" is-link @tap="getBalance"/>
->>>>>>> 99778806d4b8308c04cc7a0aa56b5598b217668a
 		</view>
 
 		<order-shell></order-shell>
