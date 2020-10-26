@@ -48,8 +48,6 @@
             "postcss" : true,
             "minified" : true
         },
-        "permission" : {},
-        "appid" : "wx2e515029d79bc280"
         "permission": {
             "scope.userLocation" : {
                 "desc" : ""
