@@ -27,7 +27,7 @@
 			<van-cell icon="location-o"  title="收货地址" is-link @tap="getAddress"/>
 		</view>
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop">
+		<view class="top-button" @click="ToTop"  @scroll="scroll" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
@@ -47,9 +47,18 @@
 			return {
 				infoData: {
 					name: "点击显示微信头像",
-					img_url: "/static/images/user/头像.png"
+					img_url: "/static/images/user/头像.png",
+					showtotop: false
 				},
 				isLogin:false,
+			}
+		},
+		onPageScroll(res){
+			console.log(res);
+			if(res.scrollTop >= 1700){
+				this.showtotop = true;
+			}else{
+				this.showtotop=false;
 			}
 		},
 		methods: {
@@ -99,6 +108,7 @@
 									var code = res.code;
 									var {token, user} = await wxlogin(code,userInfo);
 									_this.$store.commit('saveUser', user);
+									_this.$store.dispatch("asyncGetCartData");
 									uni.setStorage({
 										key: "token",
 										data: token
@@ -164,8 +174,8 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 40rpx;
-			bottom: 200upx;
+			right: 49rpx;
+			bottom: 150rpx;
 			z-index: 9999;
 
 			.topimg {

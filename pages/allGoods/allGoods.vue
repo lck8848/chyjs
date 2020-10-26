@@ -8,6 +8,8 @@
 				</view>
 			</scroll-view>
 		</view>
+
+		<!-- 数据右边 -->
 		<view class="main">
 			<scroll-view
 				scroll-y="true"
@@ -22,19 +24,19 @@
 					<view class="item" :id="'item-' + index">
 						<view class="class-name">{{ item.alias_name }}</view>
 						<view class="g-container">
-							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
-								<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
-								<view class="right-content">
-									<view class="g-title">{{ g.title }}</view>
-									<view class="g-mask">{{ g.sell_point }}</view>
-									<view class="g-price">
-										<view class="left-price">
-											<text class="price-tag">¥</text>
-											<text class="price-sale-price">{{ g.price }}</text>
+							<view class="g-box" @tap.stop="productList(g.id)" v-for="(g, i) in item.goods" :key="i">
+									<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
+									<view class="right-content">
+										<view class="g-title">{{ g.title }}</view>
+										<view class="g-mask">{{ g.sell_point }}</view>
+										<view class="g-price">
+											<view class="left-price">
+												<text class="price-tag">¥</text>
+												<text class="price-sale-price">{{ g.price }}</text>
+											</view>
+											<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 										</view>
-										<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
 									</view>
-								</view>
 							</view>
 						</view>
 					</view>
@@ -77,6 +79,11 @@ export default {
 		this.getListData();
 	},
 	methods: {
+		productList(goods_id){
+			uni.navigateTo({
+				url:"/pages/goods/detail?id="+goods_id
+			})
+		},
 		/* 获取列表数据 */
 		async getListData() {
 			let classify = await getClassify();
@@ -164,7 +171,7 @@ export default {
 				index = this.topArr.findIndex((item, index) => {
 					if (this.topArr[index + 1] - 8848 <= top) {
 						for (let i = index - 2; i <= index + 2; i++) {
-							if(i >= 0 && i <= this.mainArray.length-1){
+							if (i >= 0 && i <= this.mainArray.length - 1) {
 								this.mainArray[i].goods.map(v => {
 									v.show = true;
 								});

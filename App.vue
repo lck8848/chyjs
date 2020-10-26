@@ -12,7 +12,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+	@import "uview-ui/index.scss";
 	page{
 		background: #f8f8f8;
 	}

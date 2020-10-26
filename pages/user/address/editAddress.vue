@@ -56,7 +56,7 @@
 				<tui-button shadow type="danger" formType="submit" height="88rpx" shape="circle">保存并使用</tui-button>
 			</view>
 			<view class="tui-addr-save" v-show="isShow">
-				<tui-button updateAddr @tap="updateAddr(addrData.id)"  shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
+				<tui-button updateAddr @tap="updateAddrData(addrData.id)"  shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
 			</view>
 			<view class="tui-del" v-if="isShow">
 				<tui-button  @tap="delAddr(addrData.id)" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
@@ -187,6 +187,10 @@
 				})
 				
 			}
+			async updateAddrData(){
+				
+			}
+		
 		},
 		
 		onLoad: function(option) {
