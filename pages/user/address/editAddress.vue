@@ -57,7 +57,7 @@
 			<view class="tui-addr-save" v-show="isShow">
 				<tui-button updateAddr @tap="updateAddrData()"  shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>			</view>
 			<view class="tui-del" v-if="isShow">
-				<tui-button @tap="" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
+				<tui-button @tap="delAddr(addrData.id)" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
 			</view>
 		</form>
 	</view>
