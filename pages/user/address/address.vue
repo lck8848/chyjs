@@ -1,55 +1,92 @@
 <template>
 	<view class="tui-safe-area">
-		<view class="tui-address">
-			<block v-for="(item,index) in addressList" :key="index">
+		<view class="tui-address" v-if="isShow">
+			<block v-for="(item,index) in addressList" :key="item.id">
 				<tui-list-cell padding="0">
 					<view class="tui-address-flex">
 						<view class="tui-address-left">
 							<view class="tui-address-main">
-								<view class="tui-address-name tui-ellipsis">{{["echo.","王大大","大长腿"][index]}}</view>
-								<view class="tui-address-tel">138****7708</view>
+								<view class="tui-address-name tui-ellipsis">{{ item.nickname }}</view>
+								<view class="tui-address-tel">{{ item.phone.substring(0,3)+"****"+item.phone.substring(7) }}</view>
 							</view>
 							<view class="tui-address-detail">
-								<view class="tui-address-label" v-if="index===0">默认</view>
-								<text>广东省深圳市南山区高新科技园中区一路</text>
+								<view class="tui-address-label" v-if="item.id==addr_id">默认</view>
+								<text>{{item.addr_area+item.addr_detail+item.addr_house}}</text>
 							</view>
 						</view>
-						<view class="tui-address-imgbox" @tap="editAddr(id)">
+						<view class="tui-address-imgbox" @tap="editAddr(item.id,'edit')">
 							<image class="tui-address-img" src="@/static/images/user/icon_addr_edit.png" />
 						</view>
 					</view>
 				</tui-list-cell>
 			</block>
 		</view>
-		<!-- 新增地址 -->
+
 		<view class="tui-address-new">
-			<tui-button shadow shape="circle" type="danger" height="88rpx" @click="editAddr">新增地址</tui-button>
+			<tui-button shadow shape="circle" type="danger" height="88rpx" @tap="editAddr">新增地址</tui-button>
 		</view>
+	
 	</view>
 </template>
 
 <script>
+	import { getAddr } from "../../../api/index.js"
 	export default {
 		data() {
 			return {
-				addressList: [1,2,3]
+				addressList: [],
+				isShow:true,
+				addr_id:0
+			}
+		},
+		
+		onShow: function() {},
+		methods: {
+			editAddr(id, addressType="add") {
+				uni.navigateTo({
+					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`,
+					
+				})
+				if(addressType === "add"){
+					uni.setNavigationBarTitle({
+						title:"新增地址"
+					})
+				}else{
+					uni.setNavigationBarTitle({
+						title:"编辑地址"
+					})
+				}
+				
+				
+			},
+			async getAddrData(){
+				var user_id = this.$store.state.user.id
+				
+				// var addr_id = this.$store.state.user.id
+				console.log(user_id);
+				if(user_id === undefined){
+					 uni.showToast({
+						title:"亲,请先登录",
+						icon:"none",
+						mask:true,
+					})
+					
+				}
+
+				var res = await getAddr(user_id)
+				console.log(res);
+				this.addressList = res;
+				this.addr_id = this.$store.state.user.addr_id;
 			}
 		},
 		onLoad: function(options) {
-
+			
+			this.getAddrData()
 		},
-		onShow: function() {},
-		methods: {
-			editAddr(index, addressType) {
-				uni.navigateTo({
-					url: "/pages/user/address/editAddress"
-				})
-			}
-		}
 	}
 </script>
 
-<style>
+<style >
 	.tui-address {
 		width: 100%;
 		padding-top: 20rpx;
@@ -132,5 +169,6 @@
 	.tui-safe-area {
 		padding-bottom: env(safe-area-inset-bottom);
 	}
+	
 </style>
 

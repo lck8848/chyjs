@@ -52,7 +52,9 @@
 				<view class="item">
 					<view class="title">生日</view>
 					<view class="content">
-						{{ user.birthday ?user.birthday :"请选择生日" }}
+						<picker mode="date" :value="date" start="1900-01-01" :end="endDate" @change="bindDateChange">
+							<view class="">{{date}}</view>
+						</picker>
 					</view>
 				</view>
 			</list-cell>
@@ -60,7 +62,9 @@
 				<view class="item">
 					<view class="title">地区</view>
 					<view class="content">
-						{{ user.area ?user.area :"北京市-北京市-东城区" }}
+						<picker mode="region" @change="bindPickerChange" :value="index">
+							<view class="uni-input">{{addrValue}}</view>
+						</picker>
 					</view>
 				</view>
 			</list-cell>
@@ -72,7 +76,7 @@
 					</view>
 				</view>
 			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true">
+			<list-cell :arrow="true" padding="0" :unlined="true" @tap="address()">
 				<view class="item">
 					<view class="title">收货地址</view>
 					<view class="content"></view>
@@ -82,7 +86,7 @@
 		<view class="user-title">
 			通用设置
 		</view>
-		<list-cell :arrow="true" padding="0" :unlined="true">
+		<list-cell :arrow="true" padding="0" :unlined="true" :hover="true" @tap="selfdom()">
 			<view class="set">
 				<view class="info">
 					<view class="title">
@@ -107,7 +111,7 @@
 			</view>
 			<view class="btn-shell">
 				<view class="cancel btn" @tap="isShow=false">取消</view>
-				<view class="confirm btn" @tap="updateUser()">确定</view>
+				<view class="confirm btn" @tap="updateUser(mark, value)">确定</view>
 			</view>
 		</tui-modal>
 	</view>
@@ -123,7 +127,11 @@
 				user: {},
 				value: "",
 				isShow: false,
-				mark: "name"
+				mark: "",
+				date: "",
+				endDate: "" ,
+				index: 0,
+				addrValue: "",
 			};
 		},
 		methods: {
@@ -132,10 +140,10 @@
 				this.isShow = true;
 				this.value = this.user[mark];
 			},
-			async updateUser(){
+			async updateUser(mark, value){
 				let user = {id: this.user.id};
-				user[this.mark] = this.value;
-				this.user[this.mark] = this.value;
+				user[mark] = value;
+				this.user[mark] = value;
 				let {status} = await updateUser(user);
 				if(!status){
 					uni.showToast({
@@ -145,10 +153,50 @@
 					this.isShow = false;
 				}
 				
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value;
+				this.updateUser('birthday', this.date);
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+			 
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
+			},
+			bindPickerChange(e){
+				let addrArr = e.target.value;
+				this.addrValue = `${addrArr[0]}-${addrArr[1]}-${addrArr[2]}`;
+				this.updateUser('area', this.addrValue);
+			},
+			addrCode(index){
+				switch (index.length){
+					case 1:
+						break;
+					default:
+						break;
+				}
+			},
+			selfdom(){
+				uni.navigateTo({
+					url: './selfdom/selfdom'
+				})
+			},
+			address(){
+				uni.navigateTo({
+					url: '../address/address'
+				})
 			}
 		},
 		onShow() {
 			this.user = this.$store.state.user;
+			this.date = this.user.birthday ?this.user.birthday :"请选择生日";
+			this.endDate = this.getDate();
+			this.addrValue = this.user.area ?this.user.area :"北京市-北京市-东城区";
 		},
 		components: {
 			listCell,
@@ -207,6 +255,9 @@
 		font-size: 28rpx;
 		align-items: center;
 		background-color: #fff;
+		&:active {
+			background-color: #F2F3F5;
+		}
 		.info {
 			display: flex;
 			flex-direction: column;

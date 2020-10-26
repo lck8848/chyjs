@@ -1,11 +1,11 @@
 {
 
 	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
 		"autoscan": true,
 		"custom": {
 			"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue"
-		}
+		},
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [{
 			"path": "pages/index/index",
@@ -237,6 +237,7 @@
 			"van-submit-bar": "/wxcomponents/vant/submit-bar/index",
 			"van-checkbox": "/wxcomponents/vant/checkbox/index",
 			"van-checkbox-group": "/wxcomponents/vant/checkbox-group/index"
+
 		}
 	}
 }

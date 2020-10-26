@@ -1,0 +1,258 @@
+{
+	 
+	"easycom": {
+			"autoscan": true,
+			"custom": {
+				"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue"
+			}
+		},
+	"pages": [{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "首页"
+		}
+	}, {
+		"path": "pages/allGoods/allGoods",
+		"style": {
+			"navigationBarTitleText": "全部商品"
+		}
+	}, {
+		"path": "pages/shopcart/shopcart",
+		"style": {
+			"navigationBarTitleText": "购物车",
+			"app-plus":{
+							"titleNView":false  
+					   }
+		}
+	}, {
+		"path": "pages/user/user",
+		"style": {
+			"navigationBarTitleText": "我的"
+		}	
+	}  ,{
+            "path" : "pages/search/search",
+            "style" : {
+				"navigationBarTitleText": "首页"
+			}
+        
+	},
+	{
+		"path": "pages/activity/discounts/discounts",
+		"style": {
+			"navigationBarTitleText": "这些商品有优惠"
+		}
+	},
+	{
+		"path": "pages/activity/hot/hot",
+		"style": {
+			"navigationBarTitleText": "人气热销TOP20"
+		}
+	},
+	{
+		"path": "pages/activity/monnew/monnew",
+		"style": {
+			"navigationBarTitleText": "每周一上新"
+		}
+	},
+	{
+		"path": "pages/activity/vip/vip",
+		"style": {
+			"navigationBarTitleText": "老版会员专享优惠劵"
+		}
+	},{
+		"path": "pages/index/classify",
+		"style": {
+			
+		}
+	},{
+		"path" : "pages/user/address/address",
+		"style" : {
+			"navigationBarTitleText":"收货地址"
+		}
+	},{
+		"path": "pages/showcase/showcase",
+		"style": {
+			"navigationBarTitleText": "商品橱窗"
+		}
+	}
+        ,{
+            "path" : "pages/grid/coffee",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/alcohol",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/snack",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/grid/vegetable",
+            "style" : {}
+        }
+		
+        ,{
+            "path" : "pages/note/note",
+            "style" : {
+						"app-plus":{
+									"titleNView":false  
+								 }
+						
+			}
+        }
+		,{
+		    "path" : "pages/note/noteDetail",
+		    "style" : {
+						"app-plus":{
+									"titleNView":false  
+								 }
+						
+			}
+		}
+        ,{
+            "path" : "pages/user/balance/balance",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "店铺余额",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/balance/tooltip/tooltip",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "储值卡-使用指南",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/user/balance/shops/shops",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "储值卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/new/new",
+            "style" : {
+				  "navigationBarTitleText": "新品"
+			}
+        }
+        ,{
+            "path" : "pages/user/order/order",
+            "style" : {
+				"navigationBarTitleText": "我的订单"
+			}
+        }
+        ,{
+            "path" : "pages/user/balance/recharge/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "充值中心",
+                "enablePullDownRefresh": false
+            }
+            
+
+        },
+		{
+		    "path" : "pages/search/search-result",
+		    "style" : {
+				 "navigationBarTitleText": "搜索结果"
+			}
+		}
+		
+        ,{
+            "path" : "pages/user/balance/record/record",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易记录",
+                "enablePullDownRefresh": false
+            }
+        },
+		{
+			"path" : "pages/goods/detail",
+			"style" :                                                                                    
+			{
+			    "navigationBarTitleText": "商品详情"
+			}
+		}
+        ,{
+            "path" : "pages/user/orderDetails/orderDetails",
+            "style" : {}
+        },{
+            "path" : "pages/user/address/editAddress",
+            "style" : {
+				  "navigationBarTitleText": "新增地址"
+			}
+        }
+        ,{
+            "path" : "pages/user/userInfo/userInfo",
+            "style" : {
+				"navigationBarTitleText": "个人信息"
+			}
+        }
+        
+    ],
+
+
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#fd4646",
+		"borderStyle": "black",
+		"backgroundColor": "#F8F8F8",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/icon/index.png",
+			"selectedIconPath": "static/icon/index-select.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/allGoods/allGoods",
+			"iconPath": "static/icon/allGoods.png",
+			"selectedIconPath": "static/icon/allGoods-select.png",
+			"text": "全部商品"
+		}, {
+			"pagePath": "pages/shopcart/shopcart",
+			"iconPath": "static/icon/shopcart.png",
+			"selectedIconPath": "static/icon/shopcart-select.png",
+			"text": "购物车"
+		}, {
+			"pagePath": "pages/user/user",
+			"iconPath": "static/icon/user.png",
+			"selectedIconPath": "static/icon/user-select.png",
+			"text": "我的"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#FFFFFF",
+		"usingComponents": {
+			"van-search": "/wxcomponents/vant/search/index",
+			"van-grid": "/wxcomponents/vant/grid/index",
+			"van-grid-item": "/wxcomponents/vant/grid-item/index",
+			"van-cell": "/wxcomponents/vant/cell/index",
+			"van-divider": "/wxcomponents/vant/divider/index",
+			"van-icon": "/wxcomponents/vant/icon/index",
+			"van-cell-group": "/wxcomponents/vant/cell-group/index",
+			"van-field": "/wxcomponents/vant/field/index",
+			"van-tab": "/wxcomponents/vant/tab/index",
+			"van-tabs": "/wxcomponents/vant/tabs/index",
+			"van-area": "/wxcomponents/vant/area/index",
+			"van-sidebar": "/wxcomponents/vant/sidebar/index",
+			"van-popup": "/wxcomponents/vant/popup/index",
+			"van-tag": "/wxcomponents/vant/tag/index",
+			"van-toast": "/wxcomponents/vant/toast/index",
+			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index",
+			"van-skeleton": "/wxcomponents/vant/skeleton/index",
+			"van-stepper": "/wxcomponents/vant/stepper/index",
+			"van-button": "/wxcomponents/vant/button/index"
+			
+		}
+	}
+}
