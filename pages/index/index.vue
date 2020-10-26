@@ -136,9 +136,10 @@
 				<text class="note">种草笔记</text>
 				<text class="more" @click="toMore">查看更多></text>
 			</view>
-			<view class="scroll-container" @click="toNOteDetail">
+			<view class="scroll-container" >
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
-					<view id="demo1" class="item" v-for="item in notelist" :key="item.id">
+					<!-- 根据id显示不同的商品笔记 -->
+					<view id="demo1" class="item" v-for="item in notelist" :key="item.id" @click="toNOteDetail(item.id)">
 						<view class="note_img">
 							<image :src="item.img_url" class="luosifen"></image>
 						</view>
@@ -316,9 +317,9 @@
 				})
 			},
 			// 点击种草笔记列表，跳转到相应的笔记内容
-			toNOteDetail() {
+			toNOteDetail(id) {
 				uni.navigateTo({
-					url: "/pages/note/noteDetail"
+					url: "/pages/note/noteDetail?n_id=" + id
 				})
 			},
 			async init() {

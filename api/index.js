@@ -35,6 +35,11 @@ export async function getGoodsByStatus(status, page=1, pageSize=10){
 	return await instance.get(`/getGoodsByStatus?status=${status}&page=${page}&pageSize=${pageSize}`); 
 }
 
+//根据状态获取轮播图 await getCarouselListByStatus(1);
+export function getCarouselListByStatus(is_show){
+    return instance.post("/getCarouselListByStatus",{is_show});
+}
+
 //笔记首页列表
 export async function getHomeNoteList(pageSize=10){
 	return await instance.get(`/getHomeNoteList?pageSize=${pageSize}`); 
@@ -87,13 +92,15 @@ export async function wxlogin(code, userInfo){
 
 //添加地址
 export async function addAddr(addr){
-	return await instance.post('/addAddr', addr); 
+	return await instance.post('/addAddr', {addr}); 
 }
 
 export async function checkToken(token){
 	return await instance.get(`/checkToken?token=${token}`);
 }
-
+export async function getAddr(user_id){
+	return await instance.get(`/getAddr?user_id=${user_id}`);
+}
 
 //修改订单状态
 export async function updateOrderStatus(oid, status){

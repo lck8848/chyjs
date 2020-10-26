@@ -48,6 +48,8 @@
 					{{goodDetailData.title}}
 				</view>
 
+
+
 				<view class="share" @tap="share">
 					
 
@@ -224,24 +226,12 @@
 					showCancel:false
 				})
 			},
-			 onshare() {
-				uni.share({
-				    provider: 'weixin',
-				    scene: "WXSceneSession",
-				    type: 5,
-				    imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
-				    title: '欢迎体验uniapp',
-				    miniProgram: {
-				        id: 'gh_abcdefg',
-				        path: 'pages/index/index',
-				        type: 0,
-				        webUrl: 'http://uniapp.dcloud.io'
-				    },
-				    success: ret => {
-				        console.log(JSON.stringify(ret));
-				    }
-				})
-			}
+
+		},
+		onLoad(option) {
+			this.getGoodsDetailData(option.id)
+			
+			 
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
