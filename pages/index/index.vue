@@ -170,7 +170,7 @@
 		<!-- 分类宫格end -->
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop">
+		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
@@ -237,10 +237,23 @@
 
 				],
 				newgoods: [],
-				notelist: []
+				notelist: [],
+				showtotop:false
 
 			}
 		},
+		// 监听页面滚动，超过页面一半就显示回到顶部按钮
+		onPageScroll(res) {
+			console.log(res)
+			if(res.scrollTop >= 1700){
+				this.showtotop = true
+			}else{
+				this.showtotop = false
+			}
+			
+
+		},
+		
 		methods: {
 			Tosearch() {
 				this.$refs.search.search()
@@ -311,6 +324,7 @@
 					duration: 300
 				})
 			},
+			
 			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
@@ -648,8 +662,8 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 40rpx;
-			bottom: 300rpx;
+			right: 49rpx;
+			bottom: 150rpx;
 			z-index: 5;
 
 			.topimg {
