@@ -187,7 +187,7 @@
 		getGoodsByStatus,
 		getHomeNoteList,
 		getClassifyGoods,
-		getCarousel
+		getCarouselListByStatus
 	} from "@/api/index.js"
 
 
@@ -341,10 +341,8 @@
 
 			},
 			//轮播图
-			async lunbo() {
-				var {
-					data
-				} = await getCarousel()
+			async lunbo(){
+				var {data}  = await getCarouselListByStatus(1)
 				console.log(data)
 				this.carousellist = data
 			},

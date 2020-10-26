@@ -4,26 +4,23 @@
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">收货人</view>
-					<input placeholder-class="tui-phcolor" class="tui-input" name="nickname" placeholder="请输入收货人姓名" maxlength="15" type="text" />
+					<input placeholder-class="tui-phcolor" class="tui-input" name="nickname" :value="addrData.nickname" placeholder="请输入收货人姓名" maxlength="15" type="text" />
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title">手机号码</view>
-					<input placeholder-class="tui-phcolor" class="tui-input" name="phone" placeholder="请输入收货人手机号码" maxlength="11"
+					<input placeholder-class="tui-phcolor" class="tui-input" :value="addrData.phone" name="phone" placeholder="请输入收货人手机号码" maxlength="11"
 					 type="text" />
 				</view>
 			</tui-list-cell>
 			<tui-list-cell :arrow="true" padding="0">
 				<view class="tui-line-cell">
 					<view class="tui-title"><text class="tui-title-city-text">所在地区</text></view>
-					<!-- <picker :value="value" mode="multiSelector" @change="picker" @columnchange="columnPicker" >
-						
-					</picker> -->
+					
 					<picker mode="region" @change="bindPickerChange" :value="index">
-						<!-- <input placeholder-class="tui-phcolor" class="tui-input" :value="addrValue" disabled name="city" placeholder="请选择省/市/区"
-							 maxlength="50" type="text" /> -->
-						<view class="uni-input" >{{addrValue}}</view>
+					
+						<view class="uni-input"  >{{addrData.addr_area?addrData.addr_area:addrValue}}</view>
 					</picker>
 				</view>
 			</tui-list-cell>
@@ -31,7 +28,7 @@
 				<view class="tui-line-cell">
 					<view class="tui-title">详细地址</view>
 
-					<input placeholder-class="tui-phcolor" shape="circle" class="tui-input" name="addr_detail" placeholder="请输入详细地址"
+					<input placeholder-class="tui-phcolor" shape="circle" class="tui-input" :value="addrData.addr_detail" name="addr_detail" placeholder="请输入详细地址"
 					 maxlength="50" type="text" />
 
 				</view>
@@ -41,7 +38,7 @@
 				<view class="tui-line-cell">
 					<view class="tui-title">门牌号</view>
 
-					<input placeholder-class="tui-phcolor" shape="circle" class="tui-input" name="addr_house" placeholder="街道,门牌号等"
+					<input placeholder-class="tui-phcolor" :value="addrData.addr_house" shape="circle" class="tui-input" name="addr_house" placeholder="街道,门牌号等"
 					 maxlength="50" type="text" />
 
 				</view>
@@ -51,35 +48,40 @@
 			<tui-list-cell :hover="false" padding="0">
 				<view class="tui-swipe-cell">
 					<view>设为默认地址</view>
-					<switch checked color="#19be6b" name="switch" class="tui-switch-small" />
+					<switch :checked="isSwitch" color="#19be6b" name="switch" class="tui-switch-small" />
 				</view>
 			</tui-list-cell>
 			<!-- 保存地址 -->
-			<view class="tui-addr-save">
+			<view class="tui-addr-save" v-show="!isShow">
 				<tui-button shadow type="danger" formType="submit" height="88rpx" shape="circle">保存并使用</tui-button>
 			</view>
-			<view class="tui-del" v-if="false">
-				<tui-button shadow type="gray" height="88rpx" shape="circle">删除收货地址</tui-button>
+			<view class="tui-addr-save" v-show="isShow">
+				<tui-button shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
+			</view>
+			<view class="tui-del" v-if="isShow">
+				<tui-button @tap="" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
 			</view>
 		</form>
 	</view>
 </template>
 
 <script>
-	import {addAddr,updateUser} from "../../../api/index.js"
+	import {addAddr,updateUser,getOneAddr} from "../../../api/index.js"
 	export default {
 		data() {
 			return {
 				index: 0,
 				addrValue: "请选择省/市/区",
-				id: "",
+				isSwitch:true,
 				infoData: ["收货人",
 					"手机号码",
 					"所在地区",
 					"详情地址",
 					"门牌号",
 					"默认"
-				]
+				],
+				isShow:false,
+				addrData:""
 			}
 		},
 		methods: {
@@ -103,7 +105,6 @@
 				let objArr = Object.keys(obj);
 				// 判断不能为空
 				objArr.some((v, index) => {
-					// console.log(this.infoData[index]);
 					if (obj[v] === "") {
 
 						uni.showToast({
@@ -125,12 +126,13 @@
 					var user_id = this.$store.state.user.id
 					e.detail.value.user_id = user_id
 					e.detail.value.addr_area = this.addrValue
-					console.log(e.detail.value);
 					var {code,addr_id} = await addAddr(e.detail.value);
 					if(e.detail.value.switch === true){
 						var res = await updateUser({id:user_id,addr_id:addr_id})
+						let user = this.$store.state.user;
+						user.addr_id = addr_id;
+						this.$store.commit('saveUser', user);
 					}
-					console.log(res);
 					if(code == 0){
 						uni.showToast({
 							title:"添加地址成功",
@@ -145,16 +147,24 @@
 					
 				}
 			},
-
+			async getAddr(id){
+				var addr_id = this.$store.state.user.addr_id;
+				if(addr_id == id){
+					this.isSwitch = true
+				}else{
+					this.isSwitch =false
+				}
+				var data = await getOneAddr(id)
+				this.addrData = data
+			}
 
 		},
-
-		onLoad: function() {
-			this.multiArray = [
-				this.toArr(this.selectList),
-				this.toArr(this.selectList[0].children),
-				this.toArr(this.selectList[0].children[0].children)
-			]
+		
+		onLoad: function(option) {
+			if(option.id){
+				this.isShow = true;
+				this.getAddr(option.id)
+			}
 		},
 	}
 </script>

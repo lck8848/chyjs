@@ -22,9 +22,9 @@
 		<order-shell></order-shell>
 		
 		<view class="userInfoitem">
-			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/safety/safety"/>
 			<van-cell icon='user-o'  title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
-			<van-cell icon="location-o" title="收货地址" is-link link-type="navigateTo" url="/pages/user/address/address"/>
+			<van-cell icon="location-o"  title="收货地址" is-link @tap="getAddress"/>
 		</view>
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop"  @scroll="scroll" v-if="showtotop">
@@ -70,7 +70,21 @@
 				})
 			},
 			
-			
+			getAddress() {
+						
+				var user_id = this.$store.state.user.id
+				if (user_id === undefined) {
+					uni.showToast({
+						title: "亲,请先登录",
+						icon: "none",
+					})
+					return;
+				}
+				
+				uni.navigateTo({
+					url: "/pages/user/address/address"
+				})
+			},
 			// 登录
 			async getuserinfo(e) {
 				if(this.isLogin){
@@ -130,9 +144,14 @@
 					  }
 				   }
 				})
-				
+			
 			},
+			
+			
+		
+		
 		},
+		
 		components: {
 			recommend,
 			orderShell
