@@ -47,8 +47,8 @@
             "es6" : false,
             "postcss" : true,
             "minified" : true
-        }
-        "permission" : {
+        },
+        "permission": {
             "scope.userLocation" : {
                 "desc" : ""
             }
