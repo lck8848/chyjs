@@ -111,3 +111,8 @@ export async function updateOrderStatus(oid, status){
 export async function updateUser(user){
 	return await instance.post('/updateUser', {user});
 }
+
+//获取轮播图列表
+export async function getCarousel(){
+	return await instance.get('/getCarouselList');
+}
