@@ -106,9 +106,12 @@
 		<recommend></recommend>
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop">
+		<view class="top-button" @click="ToTop" v-if="showtopup">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
+		
+		<!-- 提交订单栏 -->
+		
 	</view>
 </template>
 
@@ -123,6 +126,13 @@
 				isShow: false,
 				edit: true,
 				typeShow: false
+			}
+		},
+		onPageScroll(res){
+			if(res.scrollTop >= 1700){
+				this.showtotop = true;
+			}else{
+				this.showtotop = false;
 			}
 		},
 		methods: {
@@ -476,9 +486,9 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 40rpx;
-			bottom: 50rpx;
-			z-index: 5;
+			right: 50rpx;
+			bottom: 150rpx;
+			z-index: 900;
 
 			.topimg {
 				width: 100rpx;
@@ -487,6 +497,7 @@
 		}
 
 		// 回到顶部到这
-
+		
+	
 	}
 </style>

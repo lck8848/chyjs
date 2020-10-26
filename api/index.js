@@ -92,21 +92,24 @@ export async function wxlogin(code, userInfo){
 
 //添加地址
 export async function addAddr(addr){
-	return await instance.post('/addAddr', addr); 
+	return await instance.post('/addAddr', {addr}); 
 }
 
 export async function checkToken(token){
 	return await instance.get(`/checkToken?token=${token}`);
 }
 export async function getAddr(user_id){
-	return await instance.get(`/getAddr?token=${user_id}`);
+	return await instance.get(`/getAddr?user_id=${user_id}`);
 }
 
 //修改订单状态
 export async function updateOrderStatus(oid, status){
 	return await instance.post('/updateOrderStatus', {oid, status});
 }
-
+//查询地址
+export async function getOneAddr(id){
+	return await instance.get(`/getOneAddr?id=${id}`);
+}
 //修改用户属性
 export async function updateUser(user){
 	return await instance.post('/updateUser', {user});
