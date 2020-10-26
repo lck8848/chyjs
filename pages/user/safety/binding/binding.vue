@@ -25,7 +25,7 @@
 					<view class="title">验证码</view>
 					<input class="input" type="text" placeholder="请输入6位验证码" maxlength="6" v-model="codeVal" />
 				</view>
-				<view class="code">获取验证码</view>
+				<view class="code" @tap="getVerifyCode()">获取验证码</view>
 			</view>
 		</view>
 	</view>
@@ -38,6 +38,19 @@
 				phoneVal: "",
 				codeVal: ""
 			};
+		},
+		methods: {
+			getVerifyCode(){
+				const reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+				if (!reg.test(this.phoneVal)) {
+					uni.showToast({
+						title: "手机格式错误，请输入正确的格式",
+						icon: 'none',
+					});
+					return;
+				}
+				
+			}
 		}
 	}
 </script>
