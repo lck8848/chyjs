@@ -16,18 +16,18 @@
 		</button>
 		<!-- 余额 -->
 		<view class="fees">
-			<van-cell icon="balance-o"  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="balance-o" title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
 		</view>
-			
+
 		<order-shell></order-shell>
-		
+
 		<view class="userInfoitem">
-			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/safety/safety"/>
-			<van-cell icon='user-o'  title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
-			<van-cell icon="location-o"  title="收货地址" is-link @tap="getAddress"/>
+			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/safety/safety" />
+			<van-cell icon='user-o' title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
+			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop"  @scroll="scroll" v-if="showtotop">
+		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
@@ -41,7 +41,10 @@
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
 	import orderShell from "../../component/order-shell/order-shell.vue";
-	import { wxlogin, checkToken } from "../../api/index.js";
+	import {
+		wxlogin,
+		checkToken
+	} from "../../api/index.js";
 	export default {
 		data() {
 			return {
@@ -50,15 +53,15 @@
 					img_url: "/static/images/user/头像.png",
 					showtotop: false
 				},
-				isLogin:false,
+				isLogin: false,
 			}
 		},
-		onPageScroll(res){
+		onPageScroll(res) {
 			console.log(res);
-			if(res.scrollTop >= 1700){
+			if (res.scrollTop >= 1700) {
 				this.showtotop = true;
-			}else{
-				this.showtotop=false;
+			} else {
+				this.showtotop = false;
 			}
 		},
 		methods: {
@@ -69,9 +72,9 @@
 					duration: 300
 				})
 			},
-			
+
 			getAddress() {
-						
+
 				var user_id = this.$store.state.user.id
 				if (user_id === undefined) {
 					uni.showToast({
@@ -80,33 +83,38 @@
 					})
 					return;
 				}
-				
+
 				uni.navigateTo({
 					url: "/pages/user/address/address"
 				})
 			},
 			// 登录
 			async getuserinfo(e) {
-				if(this.isLogin){
+				if (this.isLogin) {
 					uni.navigateTo({
 						url: './userInfo/userInfo'
 					})
 					return;
 				}
-				var _this =this;
+				var _this = this;
 				if (e.detail.errMsg === 'getUserInfo:ok') {
-					
-					 uni.getUserInfo({
-						 success(res) {
-							 var { userInfo } =res
+
+					uni.getUserInfo({
+						success(res) {
+							var {
+								userInfo
+							} = res
 							_this.infoData.name = userInfo.nickName;
 							_this.infoData.img_url = userInfo.avatarUrl;
-							
+
 							uni.login({
 								async success(res) {
-									
+
 									var code = res.code;
-									var {token, user} = await wxlogin(code,userInfo);
+									var {
+										token,
+										user
+									} = await wxlogin(code, userInfo);
 									_this.$store.commit('saveUser', user);
 									uni.setStorage({
 										key: "token",
@@ -120,11 +128,11 @@
 								}
 							})
 						}
-						
+
 					})
-					
-					
-					
+
+
+
 				} else {
 					uni.showToast({
 						title: '授权失败，为了更好的体验请您先授权',
@@ -132,26 +140,26 @@
 					})
 				}
 			},
-			
-			CheckAuth(){
+
+			CheckAuth() {
 				// 查看微信小程序授权
 				let _this = this;
 				uni.getSetting({
-					async success(res){
-					  if(res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false){
-						  _this.infoData.name = "点击显示微信头像"
-						  _this.infoData.img_url = "/static/images/user/头像.png"
-					  }
-				   }
+					async success(res) {
+						if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false) {
+							_this.infoData.name = "点击显示微信头像"
+							_this.infoData.img_url = "/static/images/user/头像.png"
+						}
+					}
 				})
-			
+
 			},
-			
-			
-		
-		
+
+
+
+
 		},
-		
+
 		components: {
 			recommend,
 			orderShell
@@ -173,15 +181,19 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 49rpx;
+			right: 50rpx;
 			bottom: 150rpx;
-			z-index: 9999;
+			z-index: 900;
 
 			.topimg {
 				width: 100rpx;
 				height: 100rpx;
+				background-color: #FFFFF0;
+				border-radius: 50rpx;
 			}
 		}
+
+		// 回到顶部到这
 
 		.info {
 			display: flex;
@@ -195,17 +207,19 @@
 			height: 375rpx;
 
 			.item {
-				
+
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				flex-direction: column;
 				width: 300rpx;
+
 				.img {
 					width: 100rpx;
 					height: 100rpx;
 					border-radius: 50%;
 					overflow: hidden;
+
 					image {
 						width: 100rpx;
 						height: 100rpx;
@@ -215,6 +229,7 @@
 
 				.name {
 					width: 200px;
+
 					.info_name {
 						font-weight: 700;
 					}
@@ -233,15 +248,15 @@
 
 		}
 
-		.fees{
+		.fees {
 			margin: auto;
 			border-radius: 40rpx;
 			width: 94vw;
 			margin-top: 10px;
 			margin-bottom: 10px;
 		}
-			
-		.userInfoitem{
+
+		.userInfoitem {
 			margin: auto;
 			border-radius: 40rpx;
 			width: 94vw;

@@ -1,5 +1,9 @@
 <template>
 	<view class="gift_classify">
+		<!-- 分割线 -->
+		<view class="divider">
+			<van-divider borderColor="#EBEBEB"></van-divider>
+		</view>
 		<view class="sendGift">
 			<image src="../../static/images/index/sendgift.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
@@ -8,7 +12,10 @@
 						<image :src="item.image_url" class="small_item"></image>
 						<text>{{item.title}}</text>
 						<view class="money">
-							<text>￥{{item.price}}</text>
+							<view class="all">
+								<text class="small">￥</text>
+								<text class="big">{{item.price}}</text>
+							</view>
 							<image src="../../static/icon/cart-circle-o.png" class="cart"></image>
 						</view>
 					</navigator>
@@ -53,7 +60,13 @@
 
 <style lang="scss" scoped>
 	.gift_classify {
+		// 分割线
+		.divider {
+			margin-top: -26rpx;
+			margin-bottom: -12rpx;
+		}
 		.sendGift {
+			margin-bottom: 480rpx;
 			.img {
 				width: 100%;
 				height: 180rpx;
@@ -74,9 +87,9 @@
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;
-					width: 30%;
-					height: 350rpx;
-					margin-bottom: 10rpx;
+					width: 31%;
+					height: 390rpx;
+					margin-bottom: 20rpx;
 					background-color: white;
 
 					text {
@@ -93,7 +106,7 @@
 
 					.small_item {
 						width: 100%;
-						height: 180rpx;
+						height: 220rpx;
 					}
 
 					.money {
@@ -101,9 +114,23 @@
 						justify-content: space-between;
 						align-items: center;
 						padding: 14rpx;
+						margin-top: 14rpx;
 						margin-left: -5rpx;
 						font-size: 32rpx;
 						color: #FF4444;
+
+						.all {
+							display: flex;
+							align-items: center;
+
+							.small {
+								font-size: 24rpx;
+							}
+
+							.big {
+								font-size: 32rpx;
+							}
+						}
 
 						.cart {
 							width: 35rpx;
