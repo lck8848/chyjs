@@ -109,9 +109,11 @@
 				</view>
 			</view>
 			<view class="tail">
+				<navigator url="/pages/index/index">
 				<view class="buttons">
 					进店逛逛
 				</view>
+				</navigator>
 			</view>
 		</view>
 		
@@ -123,12 +125,40 @@
 		</view>
 		<!-- 细节 -->
 
-	
-		<view class="g-detail" v-html="goodDetailData.details">
+		<!-- 底部栏 -->
+		<view class="bottom">
+			<view class="tui-operation">
+				<view class="tui-operation-left tui-col-5">
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+						<tui-icon name="kefu" :size="22" color="#333"></tui-icon>
+						<view class="tui-operation-text tui-scale-small">客服</view>
+					</view>
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+						<tui-icon name="shop" :size="22" color="#333"></tui-icon>
+						<view class="tui-operation-text tui-scale-small">店铺</view>
+					</view>
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+						<tui-icon name="cart" :size="22" color="#333"></tui-icon>
+						<view class="tui-operation-text tui-scale-small">购物车</view>
+						<tui-badge type="red" absolute :scaleRatio="0.8" right="10rpx" top="-4rpx">9</tui-badge>
+					</view>
+				</view>
+				
+				<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
+					<view class="tui-flex-1">
+						<tui-button height="68rpx" :size="26" type="danger" shape="circle" @click="showPopup">加入购物车</tui-button>
+					</view>
+					<view class="tui-flex-1">
+						<tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="submit">立即购买</tui-button>
+					</view>
+				</view>
+			</view>
+			
+			
 		</view>
+		<!-- 底部栏  -->
 		
-	
-
+		
 	</view>
 </template>
 
@@ -172,6 +202,9 @@
 					this.swiperdata.push(v.img_url)
 				});
 				this.goodDetailData = data;
+				
+				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
+				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
 
 				console.log(data)
 				console.log(this.swiperdata)
@@ -190,10 +223,6 @@
 					content:"请点击右上角三个点进行分享",
 					showCancel:false
 				})
-
-				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
-				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
-			
 			},
 			 onshare() {
 				uni.share({
@@ -426,34 +455,59 @@
 		
 
 		// 吃货研究所店铺
-		 .shops-container{
+		 .shop-container{
+			 width: 750rpx;
+			 box-sizing: border-box;
+			 display: flex;
+			 background-color: #FFFFFF;
+			 justify-content: space-between;
+			 padding: 32rpx;
+			 margin: 20rpx 0;
 			 .img{
+				 width: 96rpx;
+				 height: 96rpx;
 				 image{
-					 
+					 width: 100%;
+					 height: 100%;
 				 }
 			 }
 			 .middle{
+				 display: flex;
+				 flex-direction: column;
+				 justify-content: space-between;
 				 .title{
 					 
 				 }
 				 .image{
+					 width: 152rpx;
+					 height:32rpx;
 					 image{
-						 
+						 width: 100%;
+						 height: 100%;
 					 }
 				 }
 			 }
 			 .tail{
+				 display: flex;
+				justify-content: center;
+				align-items: center;
 				.buttons{
-					
+					height: 132rpx;
+					height: 54rpx;
+					border: 2rpx solid #FF4444;
+					text-align: center;
+					line-height: 54rpx;
+					border-radius: 1rem;
+					box-sizing: border-box;
+					color: #FF4444;
+					font-size: 24rpx;
+					padding: 0 16rpx;
 				} 
 			 }
 		 }
 		 
 		 // 吃货研究所店铺
-		 
-
-
-			
+		 	
 		/deep/ .g-detail{
 			
 			img {
@@ -461,6 +515,111 @@
 
 			}
 		}
+		
+		// 底部栏 
+		.bottom{
+			.tui-operation{
+				width: 100%;
+				height: 100rpx;
+				background: rgba(255, 255, 255, 0.98);
+				position: fixed;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				z-index: 10;
+				bottom: 0;
+				left: 0;
+				padding-bottom: env(safe-area-inset-bottom);
+				
+				&::before {
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						left: 0;
+						border-top: 1rpx solid #eaeef1;
+						-webkit-transform: scaleY(0.5);
+						transform: scaleY(0.5);
+					}
+					
+					.tui-col-5 {
+						width: 41.66666667%;
+					}
+					
+					
+				
+					
+					.tui-col-7 {
+						width: 58.33333333%;
+					}
+					
+					
+					
+					
+					.tui-safearea-bottom {
+						width: 100%;
+						height: env(safe-area-inset-bottom);
+					}
+					
+					
+					.tui-operation-right {
+						height: 100rpx;
+						padding-top: 0;
+						
+						.tui-flex-1 {
+							flex: 1;
+							padding: 16rpx;
+						}
+					}
+					
+					.tui-right-flex {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+					}
+					
+					.tui-operation-left {
+						display: flex;
+						align-items: center;
+						
+						
+						.tui-operation-item {
+							flex: 1;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							flex-direction: column;
+							position: relative;
+							
+							.tui-operation-text {
+								font-size: 22rpx;
+								color: #333;
+							}
+							
+							
+							
+							.tui-scale-small {
+								transform: scale(0.9);
+								transform-origin: center center;
+							}
+							
+						}
+						
+						.tui-opacity {
+							opacity: 0.5;
+						}
+						
+						
+						
+					}
+				
+				}
+				
+			
+			
+			
+		}
+		// 底部栏
 			
 		
 	}
