@@ -9,6 +9,9 @@ const store = new Vuex.Store({
 	mutations: {
 		saveUser (state, user) {
 			state.user = user;
+		},
+		updPhone(state, phone){
+			state.user.phone = phone;
 		}
 	},
 	getters: {

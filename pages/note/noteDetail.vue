@@ -1,7 +1,7 @@
 <template>
 	<view class="note_container">
 		<!-- 笔记内容 -->
-		<view class="note_details" >
+		<view class="note_details">
 			<view class="title">
 				{{NoteDetail.title}}
 			</view>
@@ -9,8 +9,8 @@
 				9月14日
 			</view>
 			<!-- 因为是富文本，需要v-html来解析富文本 -->
-			<view  class="content" v-html="NoteDetail.content">
-				
+			<view class="content" v-html="NoteDetail.content">
+
 			</view>
 			<view class="official_Accounts">
 				可以关注我们的公众号“吃货研究所（Food_Lab）”，了解更多关于美食的知识和分享噢~
@@ -111,7 +111,7 @@
 		data() {
 			return {
 				typeShow: false,
-				NoteDetail:[],
+				NoteDetail: [],
 			}
 		},
 		methods: {
@@ -136,12 +136,14 @@
 				this.typeShow = false;
 			},
 			// 渲染笔记内容列表
-			async getNoteData(n_id){
-				var{data} = await getNoteDetail(n_id);
+			async getNoteData(n_id) {
+				var {
+					data
+				} = await getNoteDetail(n_id);
 				console.log(data)
 				this.NoteDetail = data;
 				// 因为富文本里存在!important，所以样式是改不了的，需要把!important替换成空的。（兼容小程序的方法）
-				this.NoteDetail.content = this.NoteDetail.content.replace(/!important;/g,'')
+				this.NoteDetail.content = this.NoteDetail.content.replace(/!important;/g, '')
 				// this.NoteDetail.content = this.NoteDetail.content.replace(/img/g,'img style="width:100%"')
 			}
 		},
@@ -156,6 +158,7 @@
 	.note_container {
 		padding-top: 40rpx;
 		background-color: white;
+		height:4300rpx;
 
 		// 笔记内容
 		.note_details {
@@ -167,17 +170,18 @@
 			.title {
 				font-size: 40rpx;
 			}
-			
+
 			//富文本
 			// /deep/深度解析
-			.content{
-				/deep/ img{
+			.content {
+				/deep/ img {
 					width: 100%;
 				}
+
 				/deep/ .js-richtext-lazy-img {
 					width: 100%;
 				}
-				
+
 			}
 
 			// 时间
@@ -227,9 +231,10 @@
 					align-items: center;
 
 					.tag_first {
-						width: 135rpx;
+						width: 140rpx;
 						height: 48rpx;
 						line-height: 48rpx;
+						 margin-right: -10rpx;
 						text-align: center;
 						font-size: 26rpx;
 						border: 1px solid #FF7373;
@@ -238,7 +243,7 @@
 					}
 
 					.tag_second {
-						width: 135rpx;
+						width: 100rpx;
 						height: 48rpx;
 						line-height: 48rpx;
 						text-align: center;
@@ -255,6 +260,8 @@
 			.clickGoods {
 				width: 220rpx;
 				height: 80rpx;
+				margin-top:200rpx;
+				margin-right: 25rpx;
 				font-size: 28rpx;
 				color: white;
 				border-radius: 50rpx;
@@ -273,6 +280,7 @@
 				position: relative;
 				height: 100rpx;
 				margin-bottom: 40rpx;
+				margin-left:100rpx;
 				line-height: 100rpx;
 				text-align: center;
 				background-color: white;
