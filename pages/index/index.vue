@@ -8,7 +8,7 @@
 		<view class="swiper-container">
 			<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="5000" :duration="500"
 			 indicator-active-color="#FF4444" :circular="true">
-				<swiper-item v-for="item in carousellist.items" :key="item.id" v-if="item.is_show == 1 ? true:false">
+				<swiper-item v-for="item in carousellist.items" :key="item.id" >
 						<view class="swiper-item" @click="tourl(item.url)">
 							<image :src="item.image_url"  mode="" lazy-load="true"></image>
 						</view>
@@ -187,7 +187,7 @@
 		getGoodsByStatus,
 		getHomeNoteList,
 		getClassifyGoods,
-		getCarousel
+		getCarouselListByStatus
 	} from "@/api/index.js"
 
 
@@ -327,7 +327,7 @@
 			},
 			//轮播图
 			async lunbo(){
-				var {data}  = await getCarousel()
+				var {data}  = await getCarouselListByStatus(1)
 				console.log(data)
 				this.carousellist = data
 			},
