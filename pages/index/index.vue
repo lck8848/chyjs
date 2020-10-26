@@ -9,9 +9,9 @@
 			<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="5000" :duration="500"
 			 indicator-active-color="#FF4444" :circular="true">
 				<swiper-item v-for="item in carousellist.items" :key="item.id" v-if="item.is_show == 1 ? true:false">
-						<view class="swiper-item" @click="tourl(item.url)">
-							<image :src="item.image_url"  mode="" lazy-load="true"></image>
-						</view>
+					<view class="swiper-item" @click="tourl(item.url)">
+						<image :src="item.image_url" mode="" lazy-load="true"></image>
+					</view>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -126,7 +126,7 @@
 				<text class="note">种草笔记</text>
 				<text class="more" @click="toMore">查看更多></text>
 			</view>
-			<view class="scroll-container" >
+			<view class="scroll-container">
 				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
 					<!-- 根据id显示不同的商品笔记 -->
 					<view id="demo1" class="item" v-for="item in notelist" :key="item.id" @click="toNOteDetail(item.id)">
@@ -229,7 +229,7 @@
 				],
 				newgoods: [],
 				notelist: [],
-				showtotop:false,
+				showtotop: false,
 				carousellist: []
 
 
@@ -238,15 +238,15 @@
 		// 监听页面滚动，超过页面一半就显示回到顶部按钮
 		onPageScroll(res) {
 			console.log(res)
-			if(res.scrollTop >= 1700){
+			if (res.scrollTop >= 1700) {
 				this.showtotop = true
-			}else{
+			} else {
 				this.showtotop = false
 			}
-			
+
 
 		},
-		
+
 		methods: {
 			Tosearch() {
 				this.$refs.search.search()
@@ -317,14 +317,14 @@
 					duration: 300
 				})
 			},
-			
+
 			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
 				})
 			},
-			tourl(url){
-				 
+			tourl(url) {
+
 			},
 			// 点击种草笔记列表，跳转到相应的笔记内容
 			toNOteDetail(id) {
@@ -341,8 +341,10 @@
 
 			},
 			//轮播图
-			async lunbo(){
-				var {data}  = await getCarousel()
+			async lunbo() {
+				var {
+					data
+				} = await getCarousel()
 				console.log(data)
 				this.carousellist = data
 			},
