@@ -111,7 +111,7 @@ export async function getOneAddr(id){
 	return await instance.get(`/getOneAddr?id=${id}`);
 }
 //修改用户属性
-export async function updateUser(user){
+export async function updateUser(user){//   {id,phone}
 	return await instance.post('/updateUser', {user});
 }
 
