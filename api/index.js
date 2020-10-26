@@ -114,3 +114,4 @@ export async function getOneAddr(id){
 export async function updateUser(user){
 	return await instance.post('/updateUser', {user});
 }
+

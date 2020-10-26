@@ -8,20 +8,10 @@
 		<view class="swiper-container">
 			<swiper class="swiper" :indicator-dots="true" :autoplay="true" :interval="5000" :duration="500"
 			 indicator-active-color="#FF4444" :circular="true">
-				<swiper-item>
-					<view class="swiper-item">
-						<image src="@/static/images/swiper/swiper1.webp" mode=""></image>
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="swiper-item">
-						<image src="@/static/images/swiper/swiper2.webp" mode=""></image>
-					</view>
-				</swiper-item>
-				<swiper-item>
-					<view class="swiper-item">
-						<image src="@/static/images/swiper/swiper3.webp" mode=""></image>
-					</view>
+				<swiper-item v-for="item in carousellist.items" :key="item.id" >
+						<view class="swiper-item" @click="tourl(item.url)">
+							<image :src="item.image_url"  mode="" lazy-load="true"></image>
+						</view>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -59,7 +49,7 @@
 			<view class="item" v-for="item in activityData" :key="item.name">
 				<navigator :url="'/pages/activity/'+item.name+'/'+item.name" open-type="navigate">
 					<view class="img">
-						<image :src="item.img_url" mode=""></image>
+						<image lazy-load="true" :src="item.img_url" mode=""></image>
 					</view>
 				</navigator>
 			</view>
@@ -83,7 +73,7 @@
 					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
 
 						<view class="img">
-							<image :src="item.image_url" mode=""></image>
+							<image lazy-load="true" :src="item.image_url" mode=""></image>
 							<view class="label">
 								新品
 							</view>
@@ -141,7 +131,7 @@
 					<!-- 根据id显示不同的商品笔记 -->
 					<view id="demo1" class="item" v-for="item in notelist" :key="item.id" @click="toNOteDetail(item.id)">
 						<view class="note_img">
-							<image :src="item.img_url" class="luosifen"></image>
+							<image lazy-load="true" :src="item.img_url" class="luosifen"></image>
 						</view>
 						<view class="desc">
 							<text>
@@ -170,7 +160,7 @@
 		<!-- 分类宫格end -->
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop">
+		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
@@ -196,7 +186,8 @@
 	import {
 		getGoodsByStatus,
 		getHomeNoteList,
-		getClassifyGoods
+		getClassifyGoods,
+		getCarouselListByStatus
 	} from "@/api/index.js"
 
 
@@ -237,10 +228,25 @@
 
 				],
 				newgoods: [],
-				notelist: []
+				notelist: [],
+				showtotop:false,
+				carousellist: []
+
 
 			}
 		},
+		// 监听页面滚动，超过页面一半就显示回到顶部按钮
+		onPageScroll(res) {
+			console.log(res)
+			if(res.scrollTop >= 1700){
+				this.showtotop = true
+			}else{
+				this.showtotop = false
+			}
+			
+
+		},
+		
 		methods: {
 			Tosearch() {
 				this.$refs.search.search()
@@ -311,10 +317,14 @@
 					duration: 300
 				})
 			},
+			
 			tonew() {
 				uni.navigateTo({
 					url: "/pages/new/new"
 				})
+			},
+			tourl(url){
+				 
 			},
 			// 点击种草笔记列表，跳转到相应的笔记内容
 			toNOteDetail(id) {
@@ -326,10 +336,15 @@
 				var {
 					data
 				} = await getGoodsByStatus(3)
-				console.log(data)
 				this.newgoods = data.splice(0, 6)
 
 
+			},
+			//轮播图
+			async lunbo(){
+				var {data}  = await getCarouselListByStatus(1)
+				console.log(data)
+				this.carousellist = data
 			},
 			// 渲染种草笔记
 			async getnote() {
@@ -337,12 +352,12 @@
 					data
 				} = await getHomeNoteList()
 				this.notelist = data
-				console.log(this.notelist)
 			}
 		},
 		created() {
 			this.init()
 			this.getnote()
+			this.lunbo()
 		}
 
 	}
@@ -648,8 +663,8 @@
 			height: 70upx;
 			// 固定定位
 			position: fixed;
-			right: 40rpx;
-			bottom: 300rpx;
+			right: 49rpx;
+			bottom: 150rpx;
 			z-index: 5;
 
 			.topimg {
