@@ -106,7 +106,7 @@
 		<recommend></recommend>
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtopup">
+		<view class="top-button" @click="ToTop" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
@@ -125,11 +125,12 @@
 				cart: [],
 				isShow: false,
 				edit: true,
-				typeShow: false
+				typeShow: false,
+				showtotop:false
 			}
 		},
 		onPageScroll(res){
-			if(res.scrollTop >= 1700){
+			if(res.scrollTop >= 800){
 				this.showtotop = true;
 			}else{
 				this.showtotop = false;
@@ -493,6 +494,8 @@
 			.topimg {
 				width: 100rpx;
 				height: 100rpx;
+				background-color: #FFFFF0;
+				border-radius: 50rpx;
 			}
 		}
 

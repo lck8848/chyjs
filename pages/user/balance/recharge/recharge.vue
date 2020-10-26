@@ -2,7 +2,7 @@
 	<view class="recharge-container" >
 		<view class="fees" @tap="show()">
 			<text>选择充值余额</text>
-			<text class="money">当前余额:¥0.00</text>
+			<text class="money">当前余额:¥{{money}}</text>
 		</view>
 		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" :height="height" backgroundColor="#F7F8FA" @close="show()">
 
@@ -53,13 +53,15 @@
 <script>
 	import tuiBottomPopup from '@/components/thorui/tui-bottom-popup/tui-bottom-popup.vue';
 	import numberKeyboard from '@/components/number-keyboard/number-keyboard.vue'
+	import { updateUser } from "@/api/index.js"
 	export default {
 		data() {
 			return {
 				isShow: false,
 				height: 250,
 				fees: "", //输入的内容
-				isFoucs:true
+				isFoucs:true,
+				money:0
 			};
 		},
 		watch:{
@@ -78,9 +80,7 @@
 			//打开键盘
 			KeyboarOpen(e) {
 				console.log(e)
-				// if(this.isFoucs == ""){
-				// 	this.isFoucs = true;
-				// }
+			
 				this.isFoucs = false
 				this.$refs.KeyboarHid.open();
 				
@@ -90,9 +90,25 @@
 			  this.fees = val;
 			},
 			// 充值
-			topUp(){
+			async topUp(){
 				// todo
 				console.log(this.fees)
+				var user = this.$store.state.user
+				var newfees = Number(user.balance) + Number(this.fees);
+				var id = user.id;
+				
+				var {status} = await updateUser({id:user.id,balance:newfees})
+				user.balance = newfees;
+				this.$store.commit('saveUser', user);
+				if(status == 0){
+					uni.navigateTo({
+						url: "/pages/user/balance/balance"
+					})
+					uni.showToast({
+						title:"充值成功"
+					})
+		
+				}
 			},
 			
 		},
@@ -100,6 +116,10 @@
 			tuiBottomPopup,
 			numberKeyboard
 		},
+		onLoad() {
+			this.money = this.$store.state.user.balance;
+			console.log(this.$store.state.user)
+		}
 		
 	}
 </script>
@@ -187,15 +207,15 @@
 
 	.input{
 		width: 90%;
-		height: 80rpx;
+		// height: 80rpx;
 		border: 2px solid #CCCCCC;
 		padding: 10px;
 		margin: auto;
-		line-height: 80rpx;
+		// line-height: 80rpx;
 	}
 	.input2{
 		width: 90%;
-		height: 80rpx;
+		// height: 80rpx;
 		border: 2px solid #FF0000;
 		padding: 10px;
 		margin: auto;

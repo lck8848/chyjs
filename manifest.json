@@ -44,11 +44,13 @@
     "mp-weixin" : {
         "appid" : "wx2d6417ea98ec2d7a",
         "setting" : {
-            "es6" : false,
+            "es6" : true,
             "postcss" : true,
             "minified" : true
         },
-        "permission" : {
+        "permission" : {},
+        "appid" : "wx2e515029d79bc280"
+        "permission": {
             "scope.userLocation" : {
                 "desc" : ""
             }
