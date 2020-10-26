@@ -2,17 +2,16 @@
 	<view class="reommend_container">
 		<view class="outside">
 			<view class="inside" v-for="item in recommendData" :key="item.id">
-				<!-- 根据商品id跳转到不同商品详情页面 -->
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
-				<image :src="item.image_url" class="small_item" ></image>
-				<text class="title">{{item.title}}</text>
-				<view class="money">
-					<view class="rmb">
-						<text class="small">￥</text>
-						<text class="need">{{item.price}}</text>
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate">
+					<lazy-img :img-url="item.image_url" class="small_item" :scrollTop="scrollTop"></lazy-img>
+					<view class="info">
+						<text class="title">{{item.title}}</text>
+						<view class="money">
+							<text class="small">￥</text>
+							<text class="need">{{item.price.toFixed(2)}}</text>
+						</view>
 					</view>
-					<text class="hot">大家都在买</text>
-				</view>
+					
 				</navigator>
 			</view>
 			
@@ -23,11 +22,13 @@
 </template>
 
 <script>
+	import lazyImg from '../lazy-img/lazy-img.vue';
 	import {getRecommend} from"../../api/index.js";
 	export default{
 		data(){
 			return{
-				recommendData:[]
+				recommendData:[],
+				scrollTop: 0
 			}
 		},
 		methods:{
@@ -38,8 +39,14 @@
 				this.recommendData = data;
 			}
 		},
+		onPageScroll({scrollTop}) {
+			this.scrollTop = scrollTop;
+		},
 		created(){
 			this.getRecommendData();
+		},
+		components: {
+			lazyImg
 		}
 	}
 </script>
@@ -51,65 +58,52 @@
 		// width:750rpx;
 		.outside {
 			display: flex;
-			flex-wrap:wrap;
-			justify-content: space-around;
-			align-items: center;
-			width: 745rpx;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: 0 32rpx;
 
 			.inside {
-				display: flex;
-				flex-direction: column;
-				
-				justify-content: space-around;
-				width: 48%;
-				height: 550rpx;
-				background-color: white;
-				border-radius: 10rpx;
+				overflow: hidden;
+				width: 47%;
+				margin: 8rpx;
+				background-color: #fff;
+				border-radius: 16rpx;
 
 				.small_item {
 					width: 100%;
-					height: 350rpx;
+					height: auto;
 					border-radius: 10rpx;
 				}
-
-				.title {
-					padding: 5rpx;
-					margin-top: -14rpx;
-					font-size: 29rpx;
-					// 两行以后使用省略号
-					overflow: hidden;
-					text-overflow: ellipsis;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					-webkit-line-clamp: 2;
-				}
-
-				.money {
-					display: flex;
-					justify-content: space-around;
-
-					// 人民币
-					.rmb {
+				.info {
+					padding: 0 24rpx 8rpx;
+					.title {
+						font-size: 26rpx;
+						color: #323233;
+						
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
+					}
+					
+					.money {
 						display: flex;
-						align-items: center;
-
+						height: 88rpx;
+						line-height: 88rpx;
+						color: #f44;
 						.small {
-							color: red;
+							position: relative;
+							top: 6rpx;
+							margin-right: 4rpx;
 							font-size: 24rpx;
 						}
-
 						.need {
-							color: red;
 							font-size: 36rpx;
 						}
 					}
-
-					.hot {
-						margin-bottom: 6rpx;
-						color: red;
-						font-size: 24rpx;
-					}
 				}
+				
 			}
 		}
 
