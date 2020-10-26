@@ -94,21 +94,20 @@
 				// todo
 				console.log(this.fees)
 				var user = this.$store.state.user
-				var newfees = user.balance + this.fees;
+				var newfees = Number(user.balance) + Number(this.fees);
 				var id = user.id;
 				
-				var {status} = await updateUser({id:user.id,balance:newfees.trim()})
+				var {status} = await updateUser({id:user.id,balance:newfees})
 				user.balance = newfees;
 				this.$store.commit('saveUser', user);
 				if(status == 0){
-					uni.showToast({
-						title:"充值成功"
-					})
-					
 					uni.navigateTo({
 						url: "/pages/user/balance/balance"
 					})
-					
+					uni.showToast({
+						title:"充值成功"
+					})
+		
 				}
 			},
 			
