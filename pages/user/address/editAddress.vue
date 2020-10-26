@@ -55,17 +55,16 @@
 				<tui-button shadow type="danger" formType="submit" height="88rpx" shape="circle">保存并使用</tui-button>
 			</view>
 			<view class="tui-addr-save" v-show="isShow">
-				<tui-button @tap="updateAddrData()" shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
-			</view>
+				<tui-button updateAddr @tap="updateAddrData(addrData.id)"  shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>			</view>
 			<view class="tui-del" v-if="isShow">
-				<tui-button  @tap="delAddr(addrData.id)" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
+				<tui-button @tap="" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
 			</view>
 		</form>
 	</view>
 </template>
 
 <script>
-	import {addAddr,updateUser,getOneAddr,deleteAddr,updateAddr} from "../../../api/index.js"
+	import {addAddr,updateUser,getOneAddr} from "../../../api/index.js"
 	export default {
 		data() {
 			return {
@@ -143,7 +142,6 @@
 					
 				}
 			},
-			// 获取当前地址并回显
 			async getAddr(id){
 				var addr_id = this.$store.state.user.addr_id;
 				if(addr_id == id){
@@ -181,8 +179,6 @@
 						}
 					}
 				})
-		
-			},
 			async updateAddrData(){
 				if(this.addrValue !== ""){
 					this.addrData.addr_area = this.addrValue

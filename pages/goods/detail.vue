@@ -51,8 +51,6 @@
 
 
 				<view class="share" @tap="share">
-					
-
 					<image src="@/static/images/goods/detail/share.png" mode=""></image>
 					<text>分享</text>
 				</view>
@@ -85,10 +83,11 @@
 			</view>
 		</view>
 		
-		<view class="select">
+		<view class="select" @tap.stop="showPopup">
 			<view class="title">
 				<text class="first">选择</text>
-				<text class="second">规格</text>
+				<text class="second">已选择&ensp;{{goodDetailData.speclist[activeindex].spec_name }}</text>
+
 			</view>
 			<view class="img">
 				<image src="@/static/images/cart/right.png" mode=""></image>
@@ -112,9 +111,9 @@
 			</view>
 			<view class="tail">
 				<navigator url="/pages/index/index">
-				<view class="buttons">
-					进店逛逛
-				</view>
+						<view class="buttons" @tap="toindex">
+							进店逛逛
+						</view>
 				</navigator>
 			</view>
 		</view>
@@ -148,7 +147,7 @@
 				
 				<view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4">
 					<view class="tui-flex-1">
-						<tui-button height="68rpx" :size="26" type="danger" shape="circle" @click="showPopup">加入购物车</tui-button>
+						<tui-button height="68rpx" :size="26" type="danger" shape="circle" @click.stop="showPopup">加入购物车</tui-button>
 					</view>
 					<view class="tui-flex-1">
 						<tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="submit">立即购买</tui-button>
@@ -159,6 +158,50 @@
 			
 		</view>
 		<!-- 底部栏  -->
+		
+		<!-- 底部弹窗 -->
+		<tui-bottom-popup :show="popupShow" @close="hidePopup">
+			<view class="tui-popup-box">
+				<view class="tui-product-box tui-padding">
+					<image :src="goodDetailData.image_url" class="tui-popup-img"></image>
+					<view class="tui-popup-price">
+						<view class="tui-amount tui-bold">￥{{goodDetailData.speclist[activeindex].price }}</view>
+						<view class="tui-number">原价&ensp;{{goodDetailData.speclist[activeindex].original}}</view>
+						<view class="tui-number">剩余&ensp;{{goodDetailData.speclist[activeindex].stock_num}}件</view>
+						<view class="tui-number">已选择&ensp;{{goodDetailData.speclist[activeindex].spec_name}}</view>
+					</view>
+				</view>
+				<scroll-view scroll-y class="tui-popup-scroll">
+					<view class="tui-scrollview-box">
+						<view class="tui-bold tui-attr-title">规格</view>
+						<view class="tui-attr-box">
+							<view class="tui-attr-item" v-for="(item,index) in goodDetailData.speclist" :key="index" 
+							@click="changeindex(index)" :class="index===activeindex ? 'tui-attr-active' : ''">
+								{{item.spec_name}}
+							</view>
+						</view>
+		
+						<view class="tui-number-box tui-bold tui-attr-title">
+							<view class="tui-attr-title">数量</view>
+							<tui-numberbox :max="99" :min="1" :value="value" @change="change"></tui-numberbox>
+						</view>
+						
+					</view>
+				</scroll-view>
+				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
+					<view class="tui-flex-1">
+						<tui-button height="72rpx" :size="28" type="danger" shape="circle" @click="hidePopup">加入购物车</tui-button>
+					</view>
+					<view class="tui-flex-1">
+						<tui-button height="72rpx" :size="28" type="warning" shape="circle" @click="submit">立即购买</tui-button>
+					</view>
+				</view>
+				<view class="tui-right">
+					<tui-icon name="close-fill" color="#999" :size="20" @click="hidePopup"></tui-icon>
+				</view>
+			</view>
+		</tui-bottom-popup>
+		<!-- 底部弹窗 -->
 		
 		
 	</view>
@@ -171,7 +214,10 @@
 			return{
 				swiperdata:[],
 				goodDetailData:{},
-				id:0
+				id:0,
+				popupShow: false,
+				value:1,
+				activeindex:0,
 			}
 		},
 		methods:{
@@ -180,6 +226,19 @@
 				uni.switchTab({
 					url:"/pages/index/index"
 				})
+			},
+			changeindex(index){
+				this.activeindex = index
+				console.log(index)
+			},
+			showPopup: function() {
+				this.popupShow = true;
+			},
+			hidePopup: function() {
+				this.popupShow = false;
+			},
+			change: function(e) {
+				this.value = e.value;
 			},
 			touser(){
 				uni.switchTab({
@@ -230,13 +289,9 @@
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
-			
+			console.log(this.activeindex)
 			 
 		},
-		onLoad(option) {
-			this.getGoodsDetailData(option.id)
-
-		}
 	}
 </script>
 
@@ -611,7 +666,206 @@
 		}
 		// 底部栏
 			
-		
+		// 底部弹窗
+		.tui-popup-box {
+			position: relative;
+			padding: 30rpx 0 100rpx 0;
+			
+			.tui-product-box {
+				display: flex;
+				align-items: flex-end;
+				font-size: 24rpx;
+				padding-bottom: 30rpx;
+				
+				.tui-popup-img {
+					height: 200rpx;
+					width: 200rpx;
+					border-radius: 24rpx;
+					display: block;
+				}
+				
+				.tui-popup-price {
+					padding-left: 20rpx;
+					padding-bottom: 8rpx;
+					
+					.tui-amount {
+						color: #ff201f;
+						font-size: 36rpx;
+					}
+					.tui-bold {
+						font-weight: bold;
+					}
+					
+					.tui-number {
+						font-size: 24rpx;
+						line-height: 24rpx;
+						padding-top: 12rpx;
+						color: #999;
+					}
+				}
+			
+			}	
+			
+			.tui-padding {
+				padding: 0 30rpx;
+				box-sizing: border-box;
+			}
+			
+			.tui-popup-scroll {
+					height: 600rpx;
+					font-size: 26rpx;
+					
+					.tui-scrollview-box {
+						padding: 0 30rpx 60rpx 30rpx;
+						box-sizing: border-box;
+						
+						.tui-bold {
+							font-weight: bold;
+						}
+						
+						
+						.tui-attr-title {
+							padding: 10rpx 0;
+							color: #333;
+							
+							
+							.tui-attr-title {
+								padding: 10rpx 0;
+								color: #333;
+							}
+							
+							.tui-bold {
+								font-weight: bold;
+							}
+							
+							
+							
+						}
+					
+						
+						.tui-attr-box {
+							font-size: 0;
+							padding: 20rpx 0;
+							
+							.tui-attr-item {
+								max-width: 100%;
+								min-width: 200rpx;
+								height: 64rpx;
+								display: -webkit-inline-flex;
+								display: inline-flex;
+								align-items: center;
+								justify-content: center;
+								background: #f7f7f7;
+								padding: 0 26rpx;
+								box-sizing: border-box;
+								border-radius: 32rpx;
+								margin-right: 20rpx;
+								margin-bottom: 20rpx;
+								font-size: 26rpx;
+							}
+							
+							
+							.tui-attr-active {
+								background: #fcedea !important;
+								color: #e41f19;
+								font-weight: bold;
+								position: relative;
+								
+								&::after {
+									content: '';
+									position: absolute;
+									border: 1rpx solid #e41f19;
+									width: 100%;
+									height: 100%;
+									border-radius: 40rpx;
+									left: 0;
+									top: 0;
+								}
+							}
+						}
+					
+						.tui-number-box {
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+							padding: 20rpx 0 30rpx 0;
+							box-sizing: border-box;
+							
+							.tui-attr-title {
+								padding: 10rpx 0;
+								color: #333;
+							}
+							
+						}
+					}
+			
+			}
+			
+			.tui-operation{
+				width: 100%;
+				height: 100rpx;
+				background: rgba(255, 255, 255, 0.98);
+				position: fixed;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				z-index: 10;
+				bottom: 0;
+				left: 0;
+				padding-bottom: env(safe-area-inset-bottom);
+				
+				&::before {
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						left: 0;
+						border-top: 1rpx solid #eaeef1;
+						-webkit-transform: scaleY(0.5);
+						transform: scaleY(0.5);
+					}
+					
+					
+					.tui-flex-1 {
+						flex: 1;
+						padding: 16rpx;
+					}
+					
+					
+					
+					.tui-padding {
+						padding: 0 30rpx;
+						box-sizing: border-box;
+					}
+					
+			}
+			
+			.tui-operation-right {
+				height: 100rpx;
+				padding-top: 0;
+			}
+			
+			.tui-right-flex {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			
+			.tui-popup-btn {
+				width: 100%;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+			}
+			
+			.tui-right {
+				position: absolute;
+				right: 30rpx;
+				top: 30rpx;
+			}
+			
+		}
+		// 底部弹窗
 	}
 	
 
