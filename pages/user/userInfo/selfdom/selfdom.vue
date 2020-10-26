@@ -25,7 +25,7 @@
 				let user = this.$store.state.user;
 				user.selfdom = e.detail.value ?1 :0;
 				this.$store.commit('saveUser', user)
-				let {status} = await updateUser(user);
+				let {status} = await updateUser({id: user.id, selfdom: user.selfdom});
 				if(status){
 					uni.showToast({
 						icon: "success",

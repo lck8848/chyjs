@@ -106,9 +106,21 @@ export async function getAddr(user_id){
 export async function updateOrderStatus(oid, status){
 	return await instance.post('/updateOrderStatus', {oid, status});
 }
-
+//查询地址
+export async function getOneAddr(id){
+	return await instance.get(`/getOneAddr?id=${id}`);
+}
 //修改用户属性
 export async function updateUser(user){
 	return await instance.post('/updateUser', {user});
 }
 
+//修改地址
+export async function updateAddr(addr){
+	return await instance.post('/updateAddr', {addr});
+}
+
+//删除地址
+export async function deleteAddr(id){
+	return await instance.get(`/deleteAddr?id=${id}`);
+}
