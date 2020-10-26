@@ -48,7 +48,7 @@
             "postcss" : true,
             "minified" : true,
             "urlCheck" : false
-        },
+        }
     },
     "h5" : {
         "title" : "吃货研究所"

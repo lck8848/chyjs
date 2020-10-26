@@ -79,15 +79,16 @@
 		.balance-page {
 			margin: auto;
 			width: 88%;
-			height: 140px;
+			// height: 280rpx;
 			border-radius: 20rpx;
 			background-color: #ff5454;
 			margin-top: 10px;
 			color: #fff;
-			padding: 15px;
+			padding: 10px;
 
 			.chihuo {
-
+				font-size: 32rpx;
+				font-weight: 600;
 				height: 100px;
 			}
 

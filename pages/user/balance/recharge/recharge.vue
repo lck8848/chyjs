@@ -187,15 +187,15 @@
 
 	.input{
 		width: 90%;
-		height: 80rpx;
+		// height: 80rpx;
 		border: 2px solid #CCCCCC;
 		padding: 10px;
 		margin: auto;
-		line-height: 80rpx;
+		// line-height: 80rpx;
 	}
 	.input2{
 		width: 90%;
-		height: 80rpx;
+		// height: 80rpx;
 		border: 2px solid #FF0000;
 		padding: 10px;
 		margin: auto;
