@@ -43,11 +43,13 @@
     "quickapp" : {},
     "mp-weixin" : {
         "setting" : {
-            "es6" : false,
+            "es6" : true,
             "postcss" : true,
-            "minified" : true
+            "minified" : true,
+            "urlCheck" : false
         },
-        "permission" : {}
+        "permission" : {},
+        "appid" : "wx2d6417ea98ec2d7a"
     },
     "h5" : {
         "title" : "吃货研究所"

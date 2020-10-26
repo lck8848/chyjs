@@ -10,7 +10,7 @@
 								<view class="tui-address-tel">{{ item.phone.substring(0,3)+"****"+item.phone.substring(7) }}</view>
 							</view>
 							<view class="tui-address-detail">
-								<view class="tui-address-label" v-if="item.id==addr_id">默认</view>
+								<view class="tui-address-label" v-if="item.id===addr_id">默认</view>
 								<text>{{item.addr_area+item.addr_detail+item.addr_house}}</text>
 							</view>
 						</view>

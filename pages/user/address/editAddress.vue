@@ -56,17 +56,17 @@
 				<tui-button shadow type="danger" formType="submit" height="88rpx" shape="circle">保存并使用</tui-button>
 			</view>
 			<view class="tui-addr-save" v-show="isShow">
-				<tui-button shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
+				<tui-button updateAddr @tap="updateAddr(addrData.id)"  shadow type="danger" height="88rpx" shape="circle">编辑</tui-button>
 			</view>
 			<view class="tui-del" v-if="isShow">
-				<tui-button @tap="" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
+				<tui-button  @tap="delAddr(addrData.id)" shadow type="gray"  height="88rpx" shape="circle">删除收货地址</tui-button>
 			</view>
 		</form>
 	</view>
 </template>
 
 <script>
-	import {addAddr,updateUser,getOneAddr} from "../../../api/index.js"
+	import {addAddr,updateUser,getOneAddr,deleteAddr,updateAddr} from "../../../api/index.js"
 	export default {
 		data() {
 			return {
@@ -147,6 +147,7 @@
 					
 				}
 			},
+			// 获取当前地址并回显
 			async getAddr(id){
 				var addr_id = this.$store.state.user.addr_id;
 				if(addr_id == id){
@@ -156,8 +157,36 @@
 				}
 				var data = await getOneAddr(id)
 				this.addrData = data
+			},
+			// 删除
+			async delAddr(id){
+				uni.showModal({
+					content:"确定要删除吗?",
+					async success(e) {
+						console.log(e.cancel);
+						if(e.cancel === true){
+							return
+						}else{
+							var { status } = await deleteAddr(id);
+							if(!status){
+								await uni.navigateTo({
+									url:"/pages/user/address/address"
+								}),
+								await uni.showToast({
+									title:"删除成功",
+									duration:2000
+								})
+							}else{
+								uni.showToast({
+									title:"删除失败",
+									icon:"none"
+								})
+							}
+						}
+					}
+				})
+				
 			}
-
 		},
 		
 		onLoad: function(option) {
