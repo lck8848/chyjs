@@ -141,7 +141,8 @@
 				console.log(data)
 				this.NoteDetail = data;
 				// 因为富文本里存在!important，所以样式是改不了的，需要把!important替换成空的。（兼容小程序的方法）
-				this.NoteDetail.content = this.NoteDetail.content.replace(/width:677px !important;/g,'')
+				this.NoteDetail.content = this.NoteDetail.content.replace(/!important;/g,'')
+				// this.NoteDetail.content = this.NoteDetail.content.replace(/img/g,'img style="width:100%"')
 			}
 		},
 		onLoad(options) {
@@ -171,6 +172,9 @@
 			// /deep/深度解析
 			.content{
 				/deep/ img{
+					width: 100%;
+				}
+				/deep/ .js-richtext-lazy-img {
 					width: 100%;
 				}
 				
