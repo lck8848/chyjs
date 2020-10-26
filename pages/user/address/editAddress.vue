@@ -64,7 +64,7 @@
 </template>
 
 <script>
-	import {addAddr,updateUser,getOneAddr} from "../../../api/index.js"
+	import {addAddr,updateUser,getOneAddr,updateAddr,deleteAddr} from "../../../api/index.js"
 	export default {
 		data() {
 			return {
