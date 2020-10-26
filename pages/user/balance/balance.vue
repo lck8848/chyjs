@@ -10,23 +10,7 @@
 						店铺余额(元)
 					</view>
 					<view class="fees">
-						0.00
-					</view>
-				</view>
-				<view class="benjin">
-					<view class="name">
-						本金(元)
-					</view>
-					<view class="fees">
-						0.00
-					</view>
-				</view>
-				<view class="dianpu">
-					<view class="name">
-						赠送金(元)
-					</view>
-					<view class="fees">
-						0.00
+						{{fees}}
 					</view>
 				</view>
 			</view>
@@ -51,9 +35,9 @@
 		<view class="lianjie">
 			<van-cell is-link icon="bag-o" title="去商城购物" link-type="switchTab" url="/pages/index/index" />
 			<van-cell is-link title="适用店铺" icon="send-gift-o" link-type="navigateTo" url="/pages/user/balance/shops/shops" />
-			<van-cell icon="clock-o" value="永久有效" title="有效期"  />
+			<van-cell icon="clock-o" value="永久有效" title="有效期" />
 		</view>
-		
+
 		<view class="lianjie">
 			<van-cell is-link icon="question-o" title="使用帮助" link-type="navigateTo" url="/pages/user/balance/tooltip/tooltip" />
 		</view>
@@ -64,8 +48,12 @@
 	export default {
 		data() {
 			return {
-
+				fees:0.00
 			};
+		},
+		onLoad() {
+			this.fees = this.$store.state.user.balance;
+			console.log(this.$store.state.user)
 		}
 	}
 </script>
@@ -82,7 +70,7 @@
 			// height: 280rpx;
 			border-radius: 20rpx;
 			background-color: #ff5454;
-			margin-top: 10px;
+			// margin-top: 10px;
 			color: #fff;
 			padding: 10px;
 
@@ -94,13 +82,14 @@
 
 			.balance {
 				display: flex;
-				justify-content: center;
-				justify-content: space-between;
 				align-items: center;
+				justify-content: center;
+				
 
 				.dianpu {
 					display: flex;
-
+					justify-content: center;
+					align-items: center;
 					flex-direction: column;
 
 				}
@@ -158,8 +147,8 @@
 				}
 			}
 		}
-	
-		.lianjie{
+
+		.lianjie {
 			margin: auto;
 			border-radius: 20rpx;
 			width: 94%;

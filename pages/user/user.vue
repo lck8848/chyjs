@@ -16,7 +16,7 @@
 		</button>
 		<!-- 余额 -->
 		<view class="fees">
-			<van-cell icon="balance-o"  title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance"/>
+			<van-cell icon="balance-o"  title="查看余额" is-link @tap="getBalance"/>
 		</view>
 			
 		<order-shell></order-shell>
@@ -69,7 +69,19 @@
 					duration: 300
 				})
 			},
-			
+			getBalance(){
+				var user_id = this.$store.state.user.id
+				if (user_id === undefined) {
+					uni.showToast({
+						title: "亲,请先登录",
+						icon: "none",
+					})
+					return;
+				}
+				uni.navigateTo({
+					url: "/pages/user/balance/balance"
+				})
+			},
 			getAddress() {
 						
 				var user_id = this.$store.state.user.id

@@ -2,7 +2,7 @@
 	<view class="recharge-container" >
 		<view class="fees" @tap="show()">
 			<text>选择充值余额</text>
-			<text class="money">当前余额:¥0.00</text>
+			<text class="money">当前余额:¥{{money}}</text>
 		</view>
 		<tui-bottom-popup class="showcase" :show="isShow" :radius="true" :height="height" backgroundColor="#F7F8FA" @close="show()">
 
@@ -53,13 +53,15 @@
 <script>
 	import tuiBottomPopup from '@/components/thorui/tui-bottom-popup/tui-bottom-popup.vue';
 	import numberKeyboard from '@/components/number-keyboard/number-keyboard.vue'
+	import { updateUser } from "@/api/index.js"
 	export default {
 		data() {
 			return {
 				isShow: false,
 				height: 250,
 				fees: "", //输入的内容
-				isFoucs:true
+				isFoucs:true,
+				money:0
 			};
 		},
 		watch:{
@@ -78,9 +80,7 @@
 			//打开键盘
 			KeyboarOpen(e) {
 				console.log(e)
-				// if(this.isFoucs == ""){
-				// 	this.isFoucs = true;
-				// }
+			
 				this.isFoucs = false
 				this.$refs.KeyboarHid.open();
 				
@@ -90,9 +90,26 @@
 			  this.fees = val;
 			},
 			// 充值
-			topUp(){
+			async topUp(){
 				// todo
 				console.log(this.fees)
+				var user = this.$store.state.user
+				var newfees = user.balance + this.fees;
+				var id = user.id;
+				
+				var {status} = await updateUser({id:user.id,balance:newfees.trim()})
+				user.balance = newfees;
+				this.$store.commit('saveUser', user);
+				if(status == 0){
+					uni.showToast({
+						title:"充值成功"
+					})
+					
+					uni.navigateTo({
+						url: "/pages/user/balance/balance"
+					})
+					
+				}
 			},
 			
 		},
@@ -100,6 +117,10 @@
 			tuiBottomPopup,
 			numberKeyboard
 		},
+		onLoad() {
+			this.money = this.$store.state.user.balance;
+			console.log(this.$store.state.user)
+		}
 		
 	}
 </script>

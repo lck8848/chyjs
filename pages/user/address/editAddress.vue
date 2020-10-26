@@ -168,7 +168,6 @@
 								}),
 								await uni.showToast({
 									title:"删除成功",
-									duration:2000
 								})
 							}else{
 								uni.showToast({
