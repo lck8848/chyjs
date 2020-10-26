@@ -200,6 +200,14 @@
             "path" : "pages/user/userInfo/selfdom/selfdom",
             "style" : {}
         }
+        ,{
+            "path" : "pages/user/safety/safety",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/user/safety/binding/binding",
+            "style" : {}
+        }
     ],
 
 

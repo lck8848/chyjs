@@ -76,7 +76,7 @@
 					</view>
 				</view>
 			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true">
+			<list-cell :arrow="true" padding="0" :unlined="true" @tap="address()">
 				<view class="item">
 					<view class="title">收货地址</view>
 					<view class="content"></view>
@@ -185,6 +185,11 @@
 				uni.navigateTo({
 					url: './selfdom/selfdom'
 				})
+			},
+			address(){
+				uni.navigateTo({
+					url: '../address/address'
+				})
 			}
 		},
 		onShow() {
@@ -250,6 +255,9 @@
 		font-size: 28rpx;
 		align-items: center;
 		background-color: #fff;
+		&:active {
+			background-color: #F2F3F5;
+		}
 		.info {
 			display: flex;
 			flex-direction: column;
