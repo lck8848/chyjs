@@ -108,7 +108,6 @@
 									var code = res.code;
 									var {token, user} = await wxlogin(code,userInfo);
 									_this.$store.commit('saveUser', user);
-									_this.$store.dispatch("asyncGetCartData");
 									uni.setStorage({
 										key: "token",
 										data: token
