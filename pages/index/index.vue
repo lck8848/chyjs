@@ -178,7 +178,7 @@
 	import vegetable from "../grid/vegetable.vue";
 	import coffee from "../grid/coffee.vue";
 	import alcohol from "../grid/alcohol.vue";
-
+	import throttle from "@/utils/throttle.js"
 	// 渲染种草笔记列表
 	// import 
 
@@ -236,14 +236,11 @@
 		},
 		// 监听页面滚动，超过页面一半就显示回到顶部按钮
 		onPageScroll(res) {
-			console.log(res)
-			if (res.scrollTop >= 1700) {
+			if (res.scrollTop >= 300) {
 				this.showtotop = true
 			} else {
 				this.showtotop = false
 			}
-
-
 		},
 
 		methods: {
@@ -668,7 +665,7 @@
 			// 固定定位
 			position: fixed;
 			right: 49rpx;
-			bottom: 150rpx;
+			bottom: 60rpx;
 			z-index: 5;
 
 			.topimg {

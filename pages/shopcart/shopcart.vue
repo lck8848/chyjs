@@ -162,9 +162,8 @@
 
 <style lang="scss" scoped>
 	.container {
-		height: 3000rpx;
+		height: 4600rpx;
 		background-color: #F7F8FA;
-
 		.navigator {
 			display: flex;
 			justify-content: space-between;

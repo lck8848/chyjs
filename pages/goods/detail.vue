@@ -130,15 +130,15 @@
 		<view class="bottom">
 			<view class="tui-operation">
 				<view class="tui-operation-left tui-col-5">
-					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150" >
 						<tui-icon name="kefu" :size="22" color="#333"></tui-icon>
 						<view class="tui-operation-text tui-scale-small">客服</view>
 					</view>
-					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150" @tap="toindex">
 						<tui-icon name="shop" :size="22" color="#333"></tui-icon>
 						<view class="tui-operation-text tui-scale-small">店铺</view>
 					</view>
-					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
+					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150" @tap="topcarshop">
 						<tui-icon name="cart" :size="22" color="#333"></tui-icon>
 						<view class="tui-operation-text tui-scale-small">购物车</view>
 						<tui-badge type="red" absolute :scaleRatio="0.8" right="10rpx" top="-4rpx">9</tui-badge>
@@ -192,9 +192,6 @@
 					<view class="tui-flex-1">
 						<tui-button height="72rpx" :size="28" type="danger" shape="circle" @click="hidePopup">加入购物车</tui-button>
 					</view>
-					<view class="tui-flex-1">
-						<tui-button height="72rpx" :size="28" type="warning" shape="circle" @click="submit">立即购买</tui-button>
-					</view>
 				</view>
 				<view class="tui-right">
 					<tui-icon name="close-fill" color="#999" :size="20" @click="hidePopup"></tui-icon>
@@ -225,6 +222,11 @@
 			toindex(){
 				uni.switchTab({
 					url:"/pages/index/index"
+				})
+			},
+			topcarshop(){
+				uni.switchTab({
+					url:"/pages/shopcart/shopcart"
 				})
 			},
 			changeindex(index){
