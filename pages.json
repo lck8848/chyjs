@@ -188,7 +188,16 @@
 				"navigationBarTitleText": "身份验证"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/user/safety/security/security",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "安全中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 
 
 	"tabBar": {

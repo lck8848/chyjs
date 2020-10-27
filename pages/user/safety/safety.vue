@@ -37,10 +37,12 @@
 		</view>
 		<view class="block">
 			<list-cell :arrow="true" padding="0" :unlined="true">
-				<view class="item">
-					<view class="title">安全中心</view>
-					<view class="content"></view>
-				</view>
+				<navigator url="/pages/user/safety/security/security" open-type="navigate">
+					<view class="item">
+						<view class="title">安全中心</view>
+						<view class="content"></view>
+					</view>
+				</navigator>
 			</list-cell>
 		</view>
 	</view>

@@ -52,6 +52,7 @@
 				},
 				isLogin:false,
 				scrollTop: 0
+				
 			}
 		},
 		onPageScroll({scrollTop}){
@@ -154,6 +155,11 @@
 			CheckAuth() {
 				// 查看微信小程序授权
 				let _this = this;
+				let userInfo = this.$store.state.user
+				if(userInfo===""){
+					this.infoData.name = "点击显示微信头像"
+					this.infoData.img_url = "/static/images/user/头像.png"
+				}
 				uni.getSetting({
 					async success(res) {
 						if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false) {
