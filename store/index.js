@@ -12,6 +12,9 @@ const store = new Vuex.Store({
 		},
 		updPhone(state, phone){
 			state.user.phone = phone;
+		},
+		delUser(state){
+			state.user = ""
 		}
 	},
 	getters: {
