@@ -29,6 +29,9 @@ const store = new Vuex.Store({
 			if(!status){
 				dispatch('getCartList');
 			}
+		},
+		delUser(state){
+			state.user = ""
 		}
 	},
 	getters: {

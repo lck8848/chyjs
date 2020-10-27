@@ -18,7 +18,7 @@
 		
 		<!-- 笔记宫格 -->
 		<view class="note_container">
-			<view class="note_grid" v-for="item in NoteLIst" :key="item.id">
+			<view class="note_grid" v-for="(item,index) in NoteLIst" :key="item.id">
 						<view class="top">
 							<text class="date">9月14日</text>
 							<text class="title">{{item.title}}</text>
@@ -28,14 +28,14 @@
 						<view class="img_grid">
 							<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
 						</view>
-						<view class="goods_details">
-							<image src="" mode=""></image>
+						<view class="goods_details" @click="todetail(goodslist[index].id)">
+							<image :src="goodslist[index].image_url" mode=""></image>
 							<view class="info">
 								<view class="title">
 									<text class="title_space"></text>
-									[嘻螺会麻辣味袋装螺蛳粉]麻辣鲜香Q弹爽滑 300g/袋
+									{{goodslist[index].title}}
 								</view>
-								<view class="info_price">￥56.80</view>
+								<view class="info_price">￥{{goodslist[index].price}}</view>
 							</view>
 							<!-- right -->
 							<image src="../../static/images/showcase/right.png" class="Right"></image>
@@ -47,11 +47,14 @@
 </template>
 
 <script>
-	import {getNoteList} from "../../api/index.js";
+	import {getNoteList,getGoodsByIds} from "../../api/index.js";
 	export default {
 		data() {
 			return {
-				NoteLIst:[]
+				NoteLIst:[],
+				goodslist:[],
+				ids:"40,55,90,54"
+				
 			};
 		},
 		methods:{
@@ -64,12 +67,24 @@
 					}
 				})
 			},
+			todetail(id){
+				uni.navigateTo({
+					url:"/pages/goods/detail?id=" + id
+				})
+			},
 			// 获取渲染更多笔记列表数据
 			async getNoteListData(){
 				var {data} = await getNoteList();
 				console.log(data);
 				this.NoteLIst = data;
-				// console.log(this.NoteLIst)
+				
+				
+			},
+			async getGoodsinfo(){
+				var {data} =await getGoodsByIds(this.ids)
+				this.goodslist = data
+				console.log(this.goodslist)
+				
 			}
 		},
 		components: {
@@ -77,6 +92,7 @@
 		},
 		created() {
 			this.getNoteListData();
+			this.getGoodsinfo()
 		}
 	}
 </script>

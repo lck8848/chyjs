@@ -9,7 +9,7 @@
 						<image :src="infoData.img_url"></image>
 					</view>
 					<view class="name">
-						<view class="info_name"> {{ infoData.name}} </view>
+						<view class="info_name"> {{ infoData.name }} </view>
 					</view>
 				</view>
 			</view>
@@ -22,7 +22,7 @@
 		<order-shell></order-shell>
 
 		<view class="userInfoitem">
-			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/safety/safety" />
+			<van-cell icon="setting-o" title="账号设置" is-link @tap="getSafety"/>
 			<van-cell icon='user-o' title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
 			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
@@ -52,6 +52,7 @@
 				},
 				isLogin:false,
 				scrollTop: 0
+				
 			}
 		},
 		onPageScroll({scrollTop}){
@@ -68,6 +69,19 @@
 				uni.pageScrollTo({
 					scrollTop: 0,
 					duration: 300
+				})
+			},
+			getSafety(){
+				var user_id = this.$store.state.user.id
+				if (user_id === undefined) {
+					uni.showToast({
+						title: "亲,请先登录",
+						icon: "none",
+					})
+					return;
+				}
+				uni.navigateTo({
+					url: "/pages/user/safety/safety"
 				})
 			},
 			getBalance(){
@@ -155,6 +169,12 @@
 			CheckAuth() {
 				// 查看微信小程序授权
 				let _this = this;
+				let userInfo = this.$store.state.user
+				if(userInfo===""){
+					this.infoData.name = "点击显示微信头像"
+					this.infoData.img_url = "/static/images/user/头像.png"
+					this.isLogin =false
+				}
 				uni.getSetting({
 					async success(res) {
 						if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false) {
@@ -184,7 +204,7 @@
 <style lang="scss" scoped>
 	.container {
 		background-color: #F9F9F9;
-		height: 3000rpx;
+		height: 5270rpx;
 
 		// 回到顶部
 		.top-button {
