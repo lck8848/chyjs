@@ -6,22 +6,24 @@
 		
 		<view class="monnew-goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
-				<view class="img">
-					<image :src="item.image_url" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						{{item.title}}
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+					<view class="img">
+						<image :src="item.image_url" mode=""></image>
 					</view>
-					<view class="details">
-						<view class="price">
-							 ￥{{item.price}}
+					<view class="text">
+						<view class="title">
+							{{item.title}}
 						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
+						<view class="details">
+							<view class="price">
+								 ￥{{item.price}}
+							</view>
+							<view class="img">
+								<image src="@/static/icon/cart-circle-o.png" mode=""></image>
+							</view>
 						</view>
 					</view>
-				</view>
+				</navigator>
 			</view>
 			</view>
 		<view class="monnew">
