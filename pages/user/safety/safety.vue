@@ -24,12 +24,6 @@
 		<view class="block">
 			<list-cell :arrow="true" padding="0" :unlined="true">
 				<view class="item">
-					<view class="title">登录密码</view>
-					<view class="content">修改</view>
-				</view>
-			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true">
-				<view class="item">
 					<view class="title">登录设备管理</view>
 					<view class="content"></view>
 				</view>
@@ -37,7 +31,7 @@
 		</view>
 		<view class="block">
 			<list-cell :arrow="true" padding="0" :unlined="true">
-				<navigator url="/pages/user/safety/security/security" open-type="navigate">
+				<navigator url="./centre/centre">
 					<view class="item">
 						<view class="title">安全中心</view>
 						<view class="content"></view>
@@ -60,22 +54,10 @@ export default {
 		listCell
 	},
 	onShow() {
-		if (!this.$store.state.user) {
-			uni.showToast({
-				title: '请先登录',
-				icon: 'none'
-			});
-			setTimeout(() => {
-				uni.navigateBack({
-					delta:1
-				})
-			}, 1500);
-		}else{
-			let phone = this.$store.state.user.phone; 
-			if(phone){
-				var dh = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
-				this.phoneStatus = dh;
-			}
+		let phone = this.$store.state.user.phone;
+		if (phone) {
+			var dh = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+			this.phoneStatus = dh;
 		}
 	}
 };

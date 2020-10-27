@@ -179,7 +179,6 @@
 	import vegetable from "../grid/vegetable.vue";
 	import coffee from "../grid/coffee.vue";
 	import alcohol from "../grid/alcohol.vue";
-	import throttle from "@/utils/throttle.js"
 	// 渲染种草笔记列表
 	// import 
 
