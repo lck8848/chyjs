@@ -139,7 +139,7 @@
 
 				.text {
 					.info {
-						height: 240rpx;
+						height: 300rpx;
 						padding: 20rpx;
 						display: flex;
 						flex-direction: column;
@@ -148,7 +148,7 @@
 						overflow: hidden;
 
 						.title {
-
+							height: 150rpx;
 							.biaoti {
 								font-size: 26rpx;
 								margin-bottom: 10rpx;
@@ -205,6 +205,7 @@
 								border: 1px solid #FF0000;
 								border-radius: 40rpx;
 								color: #f00000;
+								font-size: 32rpx;
 							}
 						}
 

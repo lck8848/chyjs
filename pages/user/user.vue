@@ -31,10 +31,7 @@
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
-
-		<!-- 更多精选商品 -->
-		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
-		<recommend></recommend>
+		<recommend :scrollTop="scrollTop"></recommend>
 	</view>
 </template>
 
@@ -53,12 +50,14 @@
 					img_url: "/static/images/user/头像.png",
 					showtotop: false
 				},
-				isLogin: false,
+				isLogin:false,
+				scrollTop: 0
+				
 			}
 		},
-		onPageScroll(res) {
-			console.log(res);
-			if (res.scrollTop >= 1700) {
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
+			if (scrollTop >= 1700) {
 				this.showtotop = true;
 			} else {
 				this.showtotop = false;
@@ -169,6 +168,12 @@
 			CheckAuth() {
 				// 查看微信小程序授权
 				let _this = this;
+				let userInfo = this.$store.state.user
+				if(userInfo===""){
+					this.infoData.name = "点击显示微信头像"
+					this.infoData.img_url = "/static/images/user/头像.png"
+					this.isLogin =false
+				}
 				uni.getSetting({
 					async success(res) {
 						if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false) {
@@ -198,7 +203,7 @@
 <style lang="scss" scoped>
 	.container {
 		background-color: #F9F9F9;
-		height: 3000rpx;
+		height: 5270rpx;
 
 		// 回到顶部
 		.top-button {

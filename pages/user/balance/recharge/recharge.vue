@@ -105,7 +105,8 @@
 						url: "/pages/user/balance/balance"
 					})
 					uni.showToast({
-						title:"充值成功"
+						title:"充值成功",
+						duration:2000
 					})
 		
 				}
