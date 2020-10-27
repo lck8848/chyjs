@@ -159,6 +159,7 @@
 				if(userInfo===""){
 					this.infoData.name = "点击显示微信头像"
 					this.infoData.img_url = "/static/images/user/头像.png"
+					this.isLogin =false
 				}
 				uni.getSetting({
 					async success(res) {
