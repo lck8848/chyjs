@@ -139,7 +139,6 @@
 							</text>
 						</view>
 					</view>
-
 				</scroll-view>
 			</view>
 		</view>
@@ -338,8 +337,10 @@
 
 			},
 			//轮播图
-			async lunbo(){
-				var {data}  = await getCarouselListByStatus(1)
+			async lunbo() {
+				var {
+					data
+				} = await getCarouselListByStatus(1)
 				console.log(data)
 				this.carousellist = data
 			},
@@ -580,9 +581,11 @@
 				justify-content: space-between;
 				align-items: center;
 				// padding:20rpx;
-				padding: 0 20rpx;
+				margin-top:-15rpx;
+				padding: 0 33rpx;
 
 				.note {
+					// padding: 0 24rpx;
 					font-size: 32rpx;
 					color: #323233;
 				}
@@ -590,17 +593,18 @@
 				.more {
 
 					font-size: 24rpx;
-					color: #c7c7d1;
+					color: #969799;
 				}
 			}
 
 			.scroll-container {
+				margin-left: 24rpx;
+
 				.scroll-view {
 					white-space: nowrap;
 					height: 450rpx;
 					width: 100%;
 					margin-top: 20rpx;
-					border: 1px solid #E5E5E5;
 					overflow: hidden;
 
 					.item {
@@ -667,6 +671,8 @@
 			.topimg {
 				width: 100rpx;
 				height: 100rpx;
+				background-color: #FFFFF0;
+				border-radius: 50rpx;
 			}
 		}
 

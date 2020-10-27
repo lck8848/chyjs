@@ -7,26 +7,28 @@
 		<!-- 列表 -->
 		<view class="hot-goods">
 			<view class="item" v-for="item in hotGoodsData" :key="item.id">
-				<view class="img">
-					<image :src="item.image_url" mode=""></image>
-				</view>
-				<view class="text">
-					<view class="title">
-						{{ item.title }}
+				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+					<view class="img">
+						<image :src="item.image_url" mode=""></image>
 					</view>
-					<view class="vip_price">
-						{{item.sell_point}}
-					</view>
-					<view class="details">
-						<view class="price">
-							 ￥{{item.price}}
+					<view class="text">
+						<view class="title">
+							{{ item.title }}
 						</view>
-						<view class="img">
-							<image src="@/static/icon/cart-circle-o.png" mode=""></image>
+						<view class="vip_price">
+							{{item.sell_point}}
 						</view>
+						<view class="details">
+							<view class="price">
+								 ￥{{item.price}}
+							</view>
+							<view class="img">
+								<image src="@/static/icon/cart-circle-o.png" mode=""></image>
+							</view>
+						</view>
+						
 					</view>
-					
-				</view>
+				</navigator>
 			</view>
 		
 			
