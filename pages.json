@@ -1,213 +1,194 @@
 {
-	 
+
 	"easycom": {
-			"autoscan": true,
-			"custom": {
-				"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue"
-			}
-		},
+		"autoscan": true,
+		"custom": {
+			"tui-(.*)": "@/components/thorui/tui-$1/tui-$1.vue"
+		}
+	},
 	"pages": [{
-		"path": "pages/index/index",
-		"style": {
-			"navigationBarTitleText": "首页"
-		}
-	}, {
-		"path": "pages/allGoods/allGoods",
-		"style": {
-			"navigationBarTitleText": "全部商品"
-		}
-	}, {
-		"path": "pages/shopcart/shopcart",
-		"style": {
-			"navigationBarTitleText": "购物车",
-			"app-plus":{
-							"titleNView":false  
-					   }
-		}
-	}, {
-		"path": "pages/user/user",
-		"style": {
-			"navigationBarTitleText": "我的"
-		}	
-	}  ,{
-            "path" : "pages/search/search",
-            "style" : {
+			"path": "pages/index/index",
+			"style": {
 				"navigationBarTitleText": "首页"
 			}
-        
-	},
-	{
-		"path": "pages/activity/discounts/discounts",
-		"style": {
-			"navigationBarTitleText": "这些商品有优惠"
-		}
-	},
-	{
-		"path": "pages/activity/hot/hot",
-		"style": {
-			"navigationBarTitleText": "人气热销TOP20"
-		}
-	},
-	{
-		"path": "pages/activity/monnew/monnew",
-		"style": {
-			"navigationBarTitleText": "每周一上新"
-		}
-	},
-	{
-		"path": "pages/activity/vip/vip",
-		"style": {
-			"navigationBarTitleText": "老版会员专享优惠劵"
-		}
-	},{
-		"path": "pages/index/classify",
-		"style": {
-			
-		}
-	},{
-		"path" : "pages/user/address/address",
-		"style" : {
-			"navigationBarTitleText":"收货地址"
-		}
-	},{
-		"path": "pages/showcase/showcase",
-		"style": {
-			"navigationBarTitleText": "商品橱窗"
-		}
-	}
-        ,{
-            "path" : "pages/grid/coffee",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/grid/alcohol",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/grid/snack",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/grid/vegetable",
-            "style" : {}
-        }
-		
-        ,{
-            "path" : "pages/note/note",
-            "style" : {
-						"app-plus":{
-									"titleNView":false  
-								 }
-						
+		}, {
+			"path": "pages/allGoods/allGoods",
+			"style": {
+				"navigationBarTitleText": "全部商品"
 			}
-        }
-		,{
-		    "path" : "pages/note/noteDetail",
-		    "style" : {
-						"app-plus":{
-									"titleNView":false  
-								 }
-						
+		}, {
+			"path": "pages/shopcart/shopcart",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"app-plus": {
+					"titleNView": false
+				}
 			}
+		}, {
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+
+		},
+		{
+			"path": "pages/activity/discounts/discounts",
+			"style": {
+				"navigationBarTitleText": "这些商品有优惠"
+			}
+		},
+		{
+			"path": "pages/activity/hot/hot",
+			"style": {
+				"navigationBarTitleText": "人气热销TOP20"
+			}
+		},
+		{
+			"path": "pages/activity/monnew/monnew",
+			"style": {
+				"navigationBarTitleText": "每周一上新"
+			}
+		},
+		{
+			"path": "pages/activity/vip/vip",
+			"style": {
+				"navigationBarTitleText": "老版会员专享优惠劵"
+			}
+		}, {
+			"path": "pages/index/classify",
+			"style": {
+
+			}
+		}, {
+			"path": "pages/user/address/address",
+			"style": {
+				"navigationBarTitleText": "收货地址"
+			}
+		}, {
+			"path": "pages/showcase/showcase",
+			"style": {
+				"navigationBarTitleText": "商品橱窗"
+			}
+		}, {
+			"path": "pages/grid/coffee",
+			"style": {}
+		}, {
+			"path": "pages/grid/alcohol",
+			"style": {}
+		}, {
+			"path": "pages/grid/snack",
+			"style": {}
+		}, {
+			"path": "pages/grid/vegetable",
+			"style": {}
 		}
-        ,{
-            "path" : "pages/user/balance/balance",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "店铺余额",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/balance/tooltip/tooltip",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "储值卡-使用指南",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/balance/shops/shops",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "储值卡",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/new/new",
-            "style" : {
-				  "navigationBarTitleText": "新品"
+
+		, {
+			"path": "pages/note/note",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+
 			}
-        }
-        ,{
-            "path" : "pages/user/order/order",
-            "style" : {
+		}, {
+			"path": "pages/note/noteDetail",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+
+			}
+		}, {
+			"path": "pages/user/balance/balance",
+			"style": {
+				"navigationBarTitleText": "店铺余额",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user/balance/tooltip/tooltip",
+			"style": {
+				"navigationBarTitleText": "储值卡-使用指南",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user/balance/shops/shops",
+			"style": {
+				"navigationBarTitleText": "储值卡",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/new/new",
+			"style": {
+				"navigationBarTitleText": "新品"
+			}
+		}, {
+			"path": "pages/user/order/order",
+			"style": {
 				"navigationBarTitleText": "我的订单"
 			}
-        }
-        ,{
-            "path" : "pages/user/balance/recharge/recharge",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "充值中心",
-                "enablePullDownRefresh": false
-            }
-            
+		}, {
+			"path": "pages/user/balance/recharge/recharge",
+			"style": {
+				"navigationBarTitleText": "充值中心",
+				"enablePullDownRefresh": false
+			}
 
-        },
+
+		},
 		{
-		    "path" : "pages/search/search-result",
-		    "style" : {
-				 "navigationBarTitleText": "搜索结果"
+			"path": "pages/search/search-result",
+			"style": {
+				"navigationBarTitleText": "搜索结果"
 			}
 		}
-		
-        ,{
-            "path" : "pages/user/balance/record/record",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "交易记录",
-                "enablePullDownRefresh": false
-            }
-        },
+
+		, {
+			"path": "pages/user/balance/record/record",
+			"style": {
+				"navigationBarTitleText": "交易记录",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
-			"path" : "pages/goods/detail",
-			"style" :                                                                                    
-			{
-			    "navigationBarTitleText": "商品详情"
+			"path": "pages/goods/detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
 			}
-		}
-        ,{
-            "path" : "pages/user/orderDetails/orderDetails",
-            "style" : {}
-        },{
-            "path" : "pages/user/address/editAddress",
-            "style" : {
-			}
-        }
-        ,{
-            "path" : "pages/user/userInfo/userInfo",
-            "style" : {
+		}, {
+			"path": "pages/user/orderDetails/orderDetails",
+			"style": {}
+		}, {
+			"path": "pages/user/address/editAddress",
+			"style": {}
+		}, {
+			"path": "pages/user/userInfo/userInfo",
+			"style": {
 				"navigationBarTitleText": "个人信息"
 			}
-        }
-        ,{
-            "path" : "pages/user/userInfo/selfdom/selfdom",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/user/safety/safety",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/user/safety/binding/binding",
-            "style" : {}
-        }
-    ],
+		}, {
+			"path": "pages/user/userInfo/selfdom/selfdom",
+			"style": {}
+		}, {
+			"path": "pages/user/safety/safety",
+			"style": {
+				"navigationBarTitleText": "账号与安全"
+			}
+		}, {
+			"path": "pages/user/safety/binding/binding",
+			"style": {
+				"navigationBarTitleText": "身份验证"
+			}
+		}
+	],
 
 
 	"tabBar": {
@@ -262,7 +243,7 @@
 			"van-skeleton": "/wxcomponents/vant/skeleton/index",
 			"van-stepper": "/wxcomponents/vant/stepper/index",
 			"van-button": "/wxcomponents/vant/button/index"
-			
+
 		}
 	}
 }

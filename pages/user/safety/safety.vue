@@ -5,9 +5,7 @@
 				<navigator url="./binding/binding">
 					<view class="item">
 						<view class="title">手机号</view>
-						<view class="content">
-							未绑定
-						</view>
+						<view class="content">{{ phoneStatus }}</view>
 					</view>
 				</navigator>
 			</list-cell>
@@ -49,17 +47,36 @@
 </template>
 
 <script>
-	import listCell from '../../../components/thorui/tui-list-cell/tui-list-cell.vue';
-	export default {
-		data() {
-			return {
-				
-			};
-		},
-		components: {
-			listCell
+import listCell from '../../../components/thorui/tui-list-cell/tui-list-cell.vue';
+export default {
+	data() {
+		return {
+			phoneStatus: '未绑定'
+		};
+	},
+	components: {
+		listCell
+	},
+	onShow() {
+		if (!this.$store.state.user) {
+			uni.showToast({
+				title: '请先登录',
+				icon: 'none'
+			});
+			setTimeout(() => {
+				uni.navigateBack({
+					delta:1
+				})
+			}, 1500);
+		}else{
+			let phone = this.$store.state.user.phone; 
+			if(phone){
+				var dh = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
+				this.phoneStatus = dh;
+			}
 		}
 	}
+};
 </script>
 
 <style lang="scss">
@@ -74,7 +91,7 @@
 			border-bottom: 0.5rpx solid #f8f8f8;
 			background-color: #fff;
 			&:active {
-				background-color: #F2F3F5;
+				background-color: #f2f3f5;
 			}
 			.title {
 				color: #323233;
@@ -90,6 +107,5 @@
 			}
 		}
 	}
-	
 }
 </style>

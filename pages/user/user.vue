@@ -16,11 +16,7 @@
 		</button>
 		<!-- 余额 -->
 		<view class="fees">
-<<<<<<< HEAD
-			<van-cell icon="balance-o" title="查看余额" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
-=======
 			<van-cell icon="balance-o"  title="查看余额" is-link @tap="getBalance"/>
->>>>>>> 99778806d4b8308c04cc7a0aa56b5598b217668a
 		</view>
 
 		<order-shell></order-shell>
@@ -35,10 +31,7 @@
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
-
-		<!-- 更多精选商品 -->
-		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
-		<recommend></recommend>
+		<recommend :scrollTop="scrollTop"></recommend>
 	</view>
 </template>
 
@@ -57,12 +50,13 @@
 					img_url: "/static/images/user/头像.png",
 					showtotop: false
 				},
-				isLogin: false,
+				isLogin:false,
+				scrollTop: 0
 			}
 		},
-		onPageScroll(res) {
-			console.log(res);
-			if (res.scrollTop >= 1700) {
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
+			if (scrollTop >= 1700) {
 				this.showtotop = true;
 			} else {
 				this.showtotop = false;
