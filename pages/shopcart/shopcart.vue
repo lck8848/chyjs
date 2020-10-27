@@ -1,31 +1,22 @@
 <template>
 	<view class="container">
-		<!-- 自定义头部导航 -->
 		<view class="navigator">
 			<view class="info">
-				<!-- 点击logo跳转回首页 -->
-				<view class="left" @click="toIndex">
-					<image src="../../static/images/cart/shop.png"></image>
-				</view>
-				<view class="title">
-					<text>吃货研究所店铺</text>
-					<image src="../../static/images/cart/right.png" class="img"></image>
-				</view>
+				<image class="img" src="http://47.106.36.197:7000/source/other/shop.svg" mode="widthFix"></image>
+				<view class="text">吃货研究所店铺</view>
+				<image class="img" src="http://47.106.36.197:7000/source/other/right.svg" mode="widthFix"></image>
 			</view>
 			<!-- 编辑购物车 -->
-			<view class="right" @click="show" v-if="edit">
-				编辑
-			</view>
-			<!-- 点击编辑之后，变成完成 -->
-			<view class="right" @click="show" v-if="!edit">
-				完成
+			<view class="edit" @tap="isEdit=!isEdit">
+				<view class="btn" v-show="isEdit">编辑</view>
+				<view class="btn" v-show="!isEdit">完成</view>
 			</view>
 		</view>
 
 		<!-- 购物车为空时 -->
 		<view class="empty_cart" v-if="isShow">
 			<!-- <i class="iconfont">&#xe621;</i> -->
-			<image src="../../static/images/cart/shopping-cart-full.png" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/goodsCover/Fogky6TVqL1JpAp04JMY-5bvoEVl.png" mode=""></image>
 			<view class="empty_info">
 				<text>购物车还是空的</text>
 				<text class="hurry">赶紧买点宝贝慰劳下自己吧</text>
@@ -34,47 +25,52 @@
 		</view>
 
 		<!-- 购物车不为空有商品时 -->
-		<view class="order_card" v-if="!isShow">
-			<!-- 复选框，primary-color设置主题色 -->
-			<!-- v-model是双向绑定 -->
-			<evan-checkbox v-model="selected" primary-color="red"></evan-checkbox>
-			<image src="" class="goods_img"></image>
-			<view class="right">
-				<text class="title">［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选</text>
-				<!-- 点击弹出弹出层 -->
-				<view class="details" @click="typeClick">
-					琯溪白柚，2粒装（4.5-5斤）
-					<image src="../../static/images/cart/bottom.png" class="bottom"></image>
+		<view class="cart-list">
+			<view class="cart" v-if="!isShow">
+				<view class="check-shell">
+					<evan-checkbox class="check" v-model="selected" primary-color="red"></evan-checkbox>
 				</view>
-				<view class="bottom">
-					<view class="price">
-						<text>￥</text>
-						<text class="big">26</text>
+				<view class="goods">
+					<view class="img-shell">
+						<image class="img" src="http://47.106.36.197:7000/source/goodsCover/Fogky6TVqL1JpAp04JMY-5bvoEVl.png" mode="widthFix"></image>
 					</view>
-					<!-- 步进器 -->
-					<van-stepper value="1" step="1" />
-
+					<view class="content">
+						<view class="title">
+							［琯溪蜜柚礼盒装］柔嫩饱满 果香四溢 三种蜜柚 2粒/4粒可选
+						</view>
+						<view class="spec" @click="typeShow=true;">
+							<view class="text">
+								琯溪白柚，2粒装（4.5-5斤）
+							</view>
+							<image src="http://47.106.36.197:7000/source/other/bottom.svg" class="bottom" mode="widthFix"></image>
+						</view>
+						<view class="price-count">
+							<view class="price">
+								<view class="icon">￥</view>88
+							</view>
+							<van-stepper value="1" step="1" />
+						</view>
+					</view>
 				</view>
 			</view>
 		</view>
+		
 		<!-- 弹出层 -->
-		<tui-bottom-popup :show="typeShow" @close="hidePopup" height="750">
-			<!-- 图片详情页 -->
-			<view class="details">
-				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
-				<image src="../../static/images/index/crab.webp" class="img"></image>
+		<tui-bottom-popup class="goods-info" :show="typeShow" @close="hidePopup" height="750">
+			<view class="goods">
+				<image class="img" src="http://47.106.36.197:7000/source/goodsCover/Fogky6TVqL1JpAp04JMY-5bvoEVl.png" mode="widthFix"></image>
 				<view class="info">
 					<view class="price">
-						<text>￥</text>
-						<text class="big">26.00</text>
+						<text class="icon">￥</text>
+						<text class="num">26.00</text>
 					</view>
-					<text class="rest">剩余1255件</text>
-					<text>已选 琯溪白柚 2粒装（4.5-5斤）</text>
+					<view class="rest">剩余 1255 件</view>
+					<view class="rest">已选 琯溪白柚2粒装（4.5-5斤）</view>
 				</view>
 			</view>
 			<!-- 关闭x -->
 			<!-- 给图标加点击事件，点击后隐藏弹出层 -->
-			<image src="../../static/images/cart/error.png" class="close" @click="close"></image>
+			<image src="../../static/images/cart/error.png" class="close" @click="typeShow=false"></image>
 
 			<!-- 分割线 -->
 			<view class="divider">
@@ -100,18 +96,12 @@
 		</tui-bottom-popup>
 
 
-		<!-- 更多精选商品 -->
-		<!-- 分割线 -->
-		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
-		<recommend></recommend>
-
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtotop">
+		<view class="top-button" @click="ToTop" v-if="showtopup">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
-		<!-- 提交订单栏 -->
-		
+		<recommend :scrollTop="scrollTop"></recommend>
 	</view>
 </template>
 
@@ -124,13 +114,14 @@
 				selected: false,
 				cart: [],
 				isShow: false,
-				edit: true,
+				isEdit: true,
 				typeShow: false,
-				showtotop:false
+				scrollTop: 0
 			}
 		},
-		onPageScroll(res){
-			if(res.scrollTop >= 800){
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
+			if(scrollTop >= 1700){
 				this.showtotop = true;
 			}else{
 				this.showtotop = false;
@@ -148,21 +139,6 @@
 						console.log(err);
 					}
 				})
-			},
-			show() {
-				// console.log("1111")
-				this.edit = !this.edit;
-
-			},
-			// 点击规格，弹出弹出层
-			typeClick() {
-				this.typeShow = true;
-			},
-			hidePopup() {
-				this.typeShow = false;
-			},
-			close() {
-				this.hidePopup();
 			},
 			// 回到顶部
 			ToTop() {
@@ -189,52 +165,33 @@
 		height: 3000rpx;
 		background-color: #F7F8FA;
 
-		// 自定义头部导航
 		.navigator {
 			display: flex;
-			// flex-direction: column;
-			// justify-content: space-between;
-			align-items: center;
-			width: 740rpx;
-			height: 100rpx;
-			// padding:10rpx;
-			padding-left: 20rpx;
-			background-color: white;
+			justify-content: space-between;
+			background-color: #fff;
 
 			.info {
 				display: flex;
-
-				// 名字
-				.title {
-					display: flex;
-					// justify-content: space-around;
-					margin-left: 20rpx;
-					align-items: center;
-
-					// right
-					.img {
-						width: 40rpx;
-						height: 40rpx;
-					}
-
-					text {
-						color: #4E4E4E;
-					}
+				height: 96rpx;
+				line-height: 96rpx;
+				align-items: center;
+				.img {
+					width: 32rpx;
+					height: auto;
+					margin: 0 16rpx 0 8rpx;
 				}
-
-				// shopicon
-				.left {
-					image {
-						width: 40rpx;
-						height: 40rpx;
-					}
+				
+				.text {
+					font-size: 32rpx;
+					color: #333;
 				}
 			}
-
-			// 编辑
-			.right {
+			.edit {
+				padding-right: 24rpx;
+				height: 96rpx;
+				line-height: 96rpx;
+				color: #323233;
 				font-size: 28rpx;
-				margin-left: 280rpx;
 			}
 		}
 
@@ -281,138 +238,118 @@
 		//空的购物车到这
 
 		// 购物车有商品时
-		.order_card {
-			display: flex;
-			align-items: center;
-			width: 700rpx;
-			height: 250rpx;
-			margin-top: 20rpx;
-			margin-left: 22rpx;
-			border-radius: 10rpx;
-			background-color: white;
-
-			// 复选框
-			.evan-checkbox {
-				margin: 20rpx;
-			}
-
-			// 商品图片
-			.goods_img {
-				width: 50%;
-				height: 180rpx;
-				border-radius: 10rpx;
-			}
-
-			// 商品详情
-			.right {
+		.cart-list {
+			padding: 24rpx 24rpx 0;
+			.cart {
 				display: flex;
-				flex-direction: column;
-				margin-left: 20rpx;
-
-				// justify-content: space-between;
-				// align-items: center;
-				// 标题
-				.title {
-					overflow: hidden;
-					text-overflow: ellipsis;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					-webkit-line-clamp: 2;
-
-					font-size: 28rpx;
-					color: #323233;
+				padding: 24rpx;
+				align-items: center;
+				background-color: #fff;
+				
+				.check-shell {
+					margin-right: 24rpx;
 				}
-
-				// 商品描述（点击可弹出弹出层）
-				.details {
+				// 商品图片
+				.goods {
 					display: flex;
-					justify-content: space-around;
-					width: 400rpx;
-					height: 40rpx;
-					margin-top: 10rpx;
-					font-size: 24rpx;
-					color: #969799;
-
-					// 下拉图片
-					.bottom {
-						width: 30rpx;
-						height: 30rpx;
-					}
-				}
-
-				// 商品价格和数量
-				.bottom {
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					margin-top: 16rpx;
-
-					// 商品价格
-					.price {
-						text {
-							color: red;
-						}
-
-						.big {
-							font-size: 32rpx;
+					.img-shell {
+						overflow: hidden;
+						width: 192rpx;
+						height: 192rpx;
+						border-radius: 16rpx;
+						.img {
+							width: 100%;
+							height: auto;
 						}
 					}
-
-					// 步进器
-					.van-stepper {}
+					.content {
+						flex: 1;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						margin-left: 16rpx;
+						.title {
+							margin-bottom: 16rpx;
+							font-size: 28rpx;
+							color: #323233;
+							
+							overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							-webkit-box-orient: vertical;
+							-webkit-line-clamp: 2;
+						}
+						.spec {
+							display: flex;
+							padding: 8rpx 16rpx;
+							border-radius: 8rpx;
+							background-color: #f7f8fa;
+							.text {
+								margin-right: 16rpx;
+								font-size: 24rpx;
+								color: #969799;
+							}
+							.bottom {
+								width: 24rpx;
+								height: auto;
+							}
+						}
+						.price-count {
+							display: flex;
+							justify-content: space-between;
+							width: 100%;
+							align-items: center;
+							.price {
+								display: flex;
+								color: #f44;
+								font-weight: 500;
+								font-size: 32rpx;
+								.icon {
+									margin-right: 4rpx;
+									font-size: 24rpx;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
-
-		// 有商品到这
-
+		
 		// 弹出层
-		.tui-bottom-popup {
+		.goods-info {
 
-			// 商品详情
-			.details {
+			.goods {
 				display: flex;
-				position: relative;
-				margin: 20rpx;
+				margin: 0 32rpx;
+				align-items: center;
 
-				// 商品图片
 				.img {
-					width: 230rpx;
-					height: 220rpx;
-					border-radius: 10rpx;
+					width: 192rpx;
+					height: auto;
+					margin: 24rpx 24rpx 24rpx;
+					border-radius: 8rpx;
 				}
 
-				// 商品信息
 				.info {
+					flex: 1;
 					display: flex;
 					flex-direction: column;
-					margin-top: 4rpx;
-					margin-left: 20rpx;
+					justify-content: space-between;
+					padding: 24rpx 40rpx 0 0;
+					line-height: 62rpx;
 
-					// 价格
 					.price {
-						text {
+						color: #f44;
+						.icon {
 							font-size: 32rpx;
-							color: red;
 						}
-
-						.big {
+						.num {
 							font-size: 44rpx;
-							color: red;
 						}
 					}
-
-					// 商品剩余数量和规格
 					.rest {
-						font-size: 32rpx;
+						font-size: 24rpx;
 						color: #969799;
-						margin-top: 20rpx;
-					}
-
-					text {
-						font-size: 32rpx;
-						color: #969799;
-						margin-top: 20rpx;
 					}
 				}
 			}
@@ -494,8 +431,6 @@
 			.topimg {
 				width: 100rpx;
 				height: 100rpx;
-				background-color: #FFFFF0;
-				border-radius: 50rpx;
 			}
 		}
 

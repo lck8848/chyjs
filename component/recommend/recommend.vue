@@ -1,9 +1,18 @@
 <template>
 	<view class="reommend_container">
+		<view class="rec-title">
+			<view class="line"></view>
+			<view class="text">
+				更多精选商品
+			</view>
+			<view class="line"></view>
+		</view>
 		<view class="outside">
 			<view class="inside" v-for="item in recommendData" :key="item.id">
 				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate">
-					<lazy-img :img-url="item.image_url" class="small_item" :scrollTop="scrollTop"></lazy-img>
+					<view class="img-shell">
+						<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
+					</view>
 					<view class="info">
 						<text class="title">{{item.title}}</text>
 						<view class="money">
@@ -11,13 +20,9 @@
 							<text class="need">{{item.price.toFixed(2)}}</text>
 						</view>
 					</view>
-					
 				</navigator>
 			</view>
-			
-			
 		</view>
-
 	</view>
 </template>
 
@@ -25,10 +30,10 @@
 	import lazyImg from '../lazy-img/lazy-img.vue';
 	import {getRecommend} from"../../api/index.js";
 	export default{
+		props: ["scrollTop"],
 		data(){
 			return{
-				recommendData:[],
-				scrollTop: 0
+				recommendData:[]
 			}
 		},
 		methods:{
@@ -38,9 +43,6 @@
 				// 把数据传给数组，进行渲染
 				this.recommendData = data;
 			}
-		},
-		onPageScroll({scrollTop}) {
-			this.scrollTop = scrollTop;
 		},
 		created(){
 			this.getRecommendData();
@@ -53,9 +55,23 @@
 
 <style lang="scss">
 	.reommend_container {
-		// 给顶部点空间，不会被tabbar遮到
-		margin-bottom:200rpx;
-		// width:750rpx;
+		margin-bottom:10rpx;
+		.rec-title {
+			display: flex;
+			padding: 32rpx 38rpx 22rpx;
+			height: 36rpx;
+			align-items: center;
+			.text {
+				margin: 0 32rpx;
+				color: #333;
+				font-size: 28rpx;
+			}
+			.line {
+				flex: 1;
+				height: 1rpx;
+				background-color: #dcdee0;
+			}
+		}
 		.outside {
 			display: flex;
 			flex-wrap: wrap;
@@ -69,10 +85,12 @@
 				background-color: #fff;
 				border-radius: 16rpx;
 
-				.small_item {
+				.shell-img {
 					width: 100%;
-					height: auto;
-					border-radius: 10rpx;
+					.img {
+						width: 100%;
+						height: auto;
+					}
 				}
 				.info {
 					padding: 0 24rpx 8rpx;

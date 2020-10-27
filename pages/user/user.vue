@@ -31,10 +31,7 @@
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
-
-		<!-- 更多精选商品 -->
-		<van-divider content-position="center" textColor="#333333">更多精选商品</van-divider>
-		<recommend></recommend>
+		<recommend :scrollTop="scrollTop"></recommend>
 	</view>
 </template>
 
@@ -53,12 +50,13 @@
 					img_url: "/static/images/user/头像.png",
 					showtotop: false
 				},
-				isLogin: false,
+				isLogin:false,
+				scrollTop: 0
 			}
 		},
-		onPageScroll(res) {
-			console.log(res);
-			if (res.scrollTop >= 1700) {
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
+			if (scrollTop >= 1700) {
 				this.showtotop = true;
 			} else {
 				this.showtotop = false;
