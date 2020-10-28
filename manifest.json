@@ -48,7 +48,7 @@
             "postcss" : true,
             "minified" : true
         },
-        "permission": {
+        "permission" : {
             "scope.userLocation" : {
                 "desc" : ""
             }

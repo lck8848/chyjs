@@ -22,22 +22,21 @@
 				<view class="top">
 					<text class="date">9月14日</text>
 					<text class="title">{{item.title}}</text>
-					<text class="host">#{{item.label}}#</text>
+					<text class="host">{{item.label}}</text>
 				</view>
 				<!-- 循环图片不要在view元素循环，会换行 -->
 				<view class="img_grid">
 					<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
 				</view>
-				<!-- <navigator url=" '/pages/goods/detail?id='+item.id"  open-type="navigate"></navigator> -->
-				<view class="goods_details">
-					<image src="" mode=""></image>
+				<view class="goods_details" @click="todetail(goodslist[index].id)">
+					<image :src="goodslist[index].image_url"></image>
 					<view class="info">
 						<view class="title">
-							<text class="title_space"></text>
-							[嘻螺会麻辣味袋装螺蛳粉]麻辣鲜香Q弹爽滑 300g/袋
+							<text class="title_space">{{goodslist[index].title}}</text>
 						</view>
-						<view class="info_price">￥56.80</view>
+						<view class="info_price">￥{{goodslist[index].price}}</view>
 					</view>
+
 					<!-- right -->
 					<image src="../../static/images/showcase/right.png" class="Right"></image>
 				</view>
@@ -50,12 +49,15 @@
 
 <script>
 	import {
-		getNoteList
+		getNoteList,
+		getGoodsByIds
 	} from "../../api/index.js";
 	export default {
 		data() {
 			return {
-				NoteLIst: []
+				NoteLIst: [],
+				goodslist: [],
+				ids: "40,55,90,54"
 			};
 		},
 		methods: {
@@ -69,9 +71,15 @@
 				})
 			},
 			// <!-- 根据id不同,渲染不同的笔记内容 -->
-			toDetail(id){
+			toDetail(id) {
 				uni.navigateTo({
-					url:`/pages/note/noteDetail?n_id=${id}`
+					url: `/pages/note/noteDetail?n_id=${id}`
+				})
+			},
+			//根据商品index，渲染商品列表
+			todetail(id) {
+				uni.navigateTo({
+					url: "/pages/goods/detail?id=" +id
 				})
 			},
 			// 获取渲染更多笔记列表数据
@@ -81,7 +89,16 @@
 				} = await getNoteList();
 				console.log(data);
 				this.NoteLIst = data;
-				// console.log(this.NoteLIst)
+
+
+			},
+			async getGoodsinfo() {
+				var {
+					data
+				} = await getGoodsByIds(this.ids)
+				this.goodslist = data
+				console.log(this.goodslist)
+
 			}
 		},
 		components: {
@@ -89,6 +106,7 @@
 		},
 		created() {
 			this.getNoteListData();
+			this.getGoodsinfo()
 		}
 	}
 </script>
@@ -191,7 +209,7 @@
 					.host {
 						padding-top: 20rpx;
 						font-size: 30rpx;
-						color: red;
+						color: #D5797C;
 					}
 				}
 
@@ -223,8 +241,8 @@
 
 					image {
 						margin-left: 10rpx;
-						width: 110rpx;
-						height: 110rpx;
+						width: 130rpx;
+						height: 100rpx;
 					}
 
 					.info {
@@ -241,6 +259,11 @@
 
 							.title_space {
 								padding-left: 14rpx;
+								max-height:80rpx;
+								display: -webkit-box;
+								-webkit-box-orient: vertical;
+								-webkit-line-clamp: 2;
+								overflow: hidden;
 							}
 						}
 
@@ -253,8 +276,8 @@
 
 					// 右键
 					.Right {
-						width: 40rpx;
-						height: 40rpx;
+						width: 30rpx;
+						height: 30rpx;
 					}
 				}
 

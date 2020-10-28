@@ -187,8 +187,23 @@
 			"style": {
 				"navigationBarTitleText": "身份验证"
 			}
+		}, {
+			"path": "pages/user/safety/centre/centre",
+			"style": {
+				"navigationBarTitleText": "安全中心"
+			}
+		}, {
+			"path": "pages/user/safety/centre/cancel/cancel",
+			"style": {
+				"navigationBarTitleText": "注销账号"
+			}
+		}, {
+			"path": "pages/user/safety/centre/problem/problem",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
 		}
-	],
+    ],
 
 
 	"tabBar": {
@@ -242,7 +257,8 @@
 			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index",
 			"van-skeleton": "/wxcomponents/vant/skeleton/index",
 			"van-stepper": "/wxcomponents/vant/stepper/index",
-			"van-button": "/wxcomponents/vant/button/index"
+			"van-button": "/wxcomponents/vant/button/index",
+			"van-checkbox": "/wxcomponents/vant/checkbox/index"
 
 		}
 	}

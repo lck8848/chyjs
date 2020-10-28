@@ -124,3 +124,18 @@ export async function updateAddr(addr){
 export async function deleteAddr(id){
 	return await instance.get(`/deleteAddr?id=${id}`);
 }
+
+//获取购物车列表
+export async function getCartList(userId){
+	return await instance.get(`/getCartList?userId=${userId}`);
+}
+
+//根据id获取规格
+export async function getSpec(goodsId){
+	return await instance.get(`/getSpec?goodsId=${goodsId}`);
+}
+
+//修改购物车
+export async function updateCart(cart){
+	return await instance.post('/updateCart', {cart});
+}

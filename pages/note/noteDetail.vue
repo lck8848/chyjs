@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			<!-- 文中商品按钮 -->
-			<button type="danger" @click="typeClick" class="clickGoods">文中商品(3)</button>
+			<!-- <button type="danger" @click="typeClick" class="clickGoods">文中商品(3)</button> -->
 		</view>
 
 
@@ -229,6 +229,7 @@
 				.tags {
 					display: flex;
 					align-items: center;
+					margin-bottom: 100rpx;
 
 					.tag_first {
 						width: 140rpx;
