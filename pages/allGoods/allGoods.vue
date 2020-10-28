@@ -91,18 +91,24 @@
 			/* 获取列表数据 */
 			async getListData() {
 				let classify = await getClassify();
+				
 				let aliasCodes = [];
 				this.leftArray = classify.data;
 
 				this.leftArray.map(v => {
 					aliasCodes.push(v.alias_code);
 				});
-				let total_num_res = await getClassifyGoods('1051');
-				let classifys = await getClassifyGoodsByAll(aliasCodes);
+				
+				
+				let total_num_res = getClassifyGoods('1051');
+				let classifys = getClassifyGoodsByAll(aliasCodes);
+				let listData = await Promise.all([total_num_res,classifys])
+				
+				
 				this.leftArray.map((v, k) => {
-					v.goods = classifys.data[k];
+					v.goods = listData[1].data[k];
 				});
-				this.leftArray[0].goods = total_num_res.data;
+				this.leftArray[0].goods = listData[0].data;
 
 				this.mainArray = this.leftArray;
 				this.$nextTick(() => {
