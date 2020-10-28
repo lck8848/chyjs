@@ -8,14 +8,16 @@
 		<view class="discounts_goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
 				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
-				<view class="img">
-					<image :src="item.image_url" mode=""></image>
-					<view class="tui-countdown">
-						<view class="tui-countdown-text">距结束</view>
-						<tui-countdown :time="timeList[0]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
-						 :days="true"></tui-countdown>
+					<view class="img">
+						<image :src="item.image_url" mode=""></image>
+						<view class="tui-countdown">
+							<view class="tui-countdown-text">距结束</view>
+							<tui-countdown :time="timeList[0]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
+							 :days="true"></tui-countdown>
+						</view>
+						
 					</view>
-				</view>
+					
 				</navigator>
 				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 				<view class="text">
@@ -83,7 +85,7 @@
 				var timestamp = new Date().getTime();
 				console.log(timestamp)
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.create_time)/1000);
+					this.timeList.push((timestamp - v.create_time));
 				})
 				console.log(this.goodsData)
 				console.log(this.timeList)
@@ -135,8 +137,10 @@
 						width: 145px;
 						height: 100%;
 					}
+					
 				}
-
+					
+				
 				.text {
 					.info {
 						height: 300rpx;

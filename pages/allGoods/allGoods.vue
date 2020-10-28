@@ -13,22 +13,30 @@
 			<scroll-view scroll-y="true" :style="{ height: scrollHeight }" @scroll="mainScroll" :scroll-into-view="scrollInto"
 			 scroll-with-animation="true" @touchstart="mainTouch" id="scroll-el">
 				<block v-for="(item, index) in mainArray" :key="index">
+					<navigator url=""></navigator>
 					<view class="item" :id="'item-' + index">
 						<view class="class-name">{{ item.alias_name }}</view>
 						<view class="g-container">
-							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
-								<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
-								<view class="right-content">
-									<view class="g-title">{{ g.title }}</view>
-									<view class="g-mask">{{ g.sell_point }}</view>
-									<view class="g-price">
-										<view class="left-price">
-											<text class="price-tag">¥</text>
-											<text class="price-sale-price">{{ g.price }}</text>
+							
+							<view class="g-box"  v-for="(g, i) in item.goods" :key="i">
+									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
+									
+										<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
+									
+									</navigator>
+									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
+										<view class="right-content">
+											<view class="g-title">{{ g.title }}</view>
+											<view class="g-mask">{{ g.sell_point }}</view>
+											<view class="g-price">
+												<view class="left-price">
+													<text class="price-tag">¥</text>
+													<text class="price-sale-price">{{ g.price }}</text>
+												</view>
+												<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
+											</view>
 										</view>
-										<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
-									</view>
-								</view>
+									</navigator>
 							</view>
 						</view>
 					</view>
@@ -214,6 +222,7 @@
 					duration: 300
 				})
 			},
+			
 		},
 		// 监听页面滚动
 		onPageScroll(res) {
@@ -310,10 +319,14 @@
 					.g-box {
 						display: flex;
 						margin-bottom: 40rpx;
-
+						
 						.left_img {
 							width: 176rpx;
 							height: 176rpx;
+							image{
+								width: 100%;
+								height: 100%;
+							}
 						}
 
 						.right-content {
