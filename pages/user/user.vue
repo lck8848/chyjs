@@ -140,6 +140,7 @@
 										user
 									} = await wxlogin(code, userInfo);
 									_this.$store.commit('saveUser', user);
+									console.log(user)
 									uni.setStorage({
 										key: "token",
 										data: token

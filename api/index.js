@@ -124,3 +124,8 @@ export async function updateAddr(addr){
 export async function deleteAddr(id){
 	return await instance.get(`/deleteAddr?id=${id}`);
 }
+
+//删除地址
+export async function deleteUser(id){
+	return await instance.get(`/deleteUser?id=${id}`);
+}
