@@ -158,11 +158,11 @@
 	.note_container {
 		padding-top: 40rpx;
 		background-color: white;
-		height:4300rpx;
+		// height:4300rpx;
 
 		// 笔记内容
 		.note_details {
-			height: 3000rpx;
+			// height: 3000rpx;
 			padding: 0 20rpx;
 			background-color: white;
 
