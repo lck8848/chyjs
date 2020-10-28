@@ -42,11 +42,6 @@
 			</scroll-view>
 		</view>
 
-		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtotop">
-			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
-		</view>
-
 	</view>
 </template>
 
@@ -72,7 +67,8 @@
 				left_tipsTop: '0px',
 				is_click: false,
 				loadingIcon: '',
-				showtotop:false
+				showtotop: false,
+				scrollTop: 0
 			};
 		},
 		onLoad() {
@@ -87,6 +83,7 @@
 		mounted() {
 			this.getListData();
 		},
+
 		methods: {
 			/* 获取列表数据 */
 			async getListData() {
@@ -219,24 +216,10 @@
 					this.leftScrollInto = `left_${this.leftIndex}`;
 				}
 			},
-			// 回到顶部
-			ToTop() {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 300
-				})
-			},
-			
-		},
-		// 监听页面滚动
-		onPageScroll(res) {
-			if (res.scrollTop >= 800) {
-				this.showtotop = true;
-			} else {
-				this.showtotop = false;
-			}
-		},
-	};
+
+		}
+	}
+
 </script>
 
 <style lang="scss">
@@ -414,7 +397,7 @@
 			// 固定定位
 			position: fixed;
 			right: 50rpx;
-			bottom: 150rpx;
+			bottom: 60rpx;
 			z-index: 900;
 
 			.topimg {

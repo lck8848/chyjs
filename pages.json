@@ -91,18 +91,14 @@
 		, {
 			"path": "pages/note/note",
 			"style": {
-				"app-plus": {
-					"titleNView": false
-				}
+				"navigationBarTitleText": "店铺笔记"
 
 			}
 		}, {
 			"path": "pages/note/noteDetail",
 			"style": {
-				"app-plus": {
-					"titleNView": false
-				}
-
+				"navigationBarTitleText": ""
+				
 			}
 		}, {
 			"path": "pages/user/balance/balance",
