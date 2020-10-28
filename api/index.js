@@ -144,3 +144,13 @@ export async function getSpec(goodsId){
 export async function updateCart(cart){
 	return await instance.post('/updateCart', {cart});
 }
+
+//删除购物车
+export async function delCart(ids){
+	return await instance.post(`/delCart?ids=${ids}`);
+}
+
+//添加购物车
+export async function addCart(cart){	//{ userId, goodsId, count, specId }
+	return await instance.post(`/addCart`, cart);
+}

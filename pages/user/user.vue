@@ -63,8 +63,8 @@ export default {
 			});
 		},
 		getSafety() {
-			var user_id = this.$store.state.user.id;
-			if (user_id === undefined) {
+			var user = this.$store.state.user
+			if (user === "") {
 				uni.showToast({
 					title: '亲,请先登录',
 					icon: 'none'
@@ -76,8 +76,8 @@ export default {
 			});
 		},
 		getBalance() {
-			var user_id = this.$store.state.user.id;
-			if (user_id === undefined) {
+			var user = this.$store.state.user
+			if (user === "") {
 				uni.showToast({
 					title: '亲,请先登录',
 					icon: 'none'
@@ -89,8 +89,8 @@ export default {
 			});
 		},
 		getAddress() {
-			var user_id = this.$store.state.user.id;
-			if (user_id === undefined) {
+			var user = this.$store.state.user
+			if (user === "") {
 				uni.showToast({
 					title: '亲,请先登录',
 					icon: 'none'
@@ -104,8 +104,8 @@ export default {
 		},
 
 		goUserinfo() {
-			var user_id = this.$store.state.user.id;
-			if (user_id === undefined) {
+			var user = this.$store.state.user
+			if (user === "") {
 				uni.showToast({
 					title: '亲,请先登录',
 					icon: 'none'
