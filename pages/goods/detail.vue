@@ -150,7 +150,7 @@
 						<tui-button height="68rpx" :size="26" type="danger" shape="circle" @click.stop="showPopup">加入购物车</tui-button>
 					</view>
 					<view class="tui-flex-1">
-						<tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="submit">立即购买</tui-button>
+						<tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="showPopup1">立即购买</tui-button>
 					</view>
 				</view>
 			</view>
@@ -159,8 +159,8 @@
 		</view>
 		<!-- 底部栏  -->
 		
-		<!-- 底部弹窗 -->
-		<tui-bottom-popup :show="popupShow" @close="hidePopup">
+		<!-- 底部弹窗(加入购物车) -->
+		<tui-bottom-popup :show="popupShow" @close.stop="closePopup">
 			<view class="tui-popup-box">
 				<view class="tui-product-box tui-padding">
 					<image :src="goodDetailData.image_url" class="tui-popup-img"></image>
@@ -190,22 +190,66 @@
 				</scroll-view>
 				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
 					<view class="tui-flex-1">
-						<tui-button height="72rpx" :size="28" type="danger" shape="circle" @click="hidePopup">加入购物车</tui-button>
+						<tui-button height="72rpx" :size="28" type="danger" shape="circle" @click.stop="hidePopup">加入购物车</tui-button>
 					</view>
 				</view>
 				<view class="tui-right">
-					<tui-icon name="close-fill" color="#999" :size="20" @click="hidePopup"></tui-icon>
+					<tui-icon name="close-fill" color="#999" :size="20" @click.stop="closePopup"></tui-icon>
 				</view>
 			</view>
 		</tui-bottom-popup>
-		<!-- 底部弹窗 -->
+		<!-- 底部弹窗(加入购物车) -->
+		
+		
+		
+		<!-- 底部弹窗(直接购买) -->
+		<tui-bottom-popup :show="popupShow1" @close="closePopup1">
+			<view class="tui-popup-box">
+				<view class="tui-product-box tui-padding">
+					<image :src="goodDetailData.image_url" class="tui-popup-img"></image>
+					<view class="tui-popup-price">
+						<view class="tui-amount tui-bold">￥{{goodDetailData.speclist[activeindex1].price }}</view>
+						<view class="tui-number">原价&ensp;{{goodDetailData.speclist[activeindex1].original}}</view>
+						<view class="tui-number">剩余&ensp;{{goodDetailData.speclist[activeindex1].stock_num}}件</view>
+						<view class="tui-number">已选择&ensp;{{goodDetailData.speclist[activeindex1].spec_name}}</view>
+					</view>
+				</view>
+				<scroll-view scroll-y class="tui-popup-scroll">
+					<view class="tui-scrollview-box">
+						<view class="tui-bold tui-attr-title">规格</view>
+						<view class="tui-attr-box">
+							<view class="tui-attr-item" v-for="(item,index) in goodDetailData.speclist" :key="index" 
+							@click="changeindex(index)" :class="index===activeindex ? 'tui-attr-active' : ''">
+								{{item.spec_name}}
+							</view>
+						</view>
+		
+						<view class="tui-number-box tui-bold tui-attr-title">
+							<view class="tui-attr-title">数量</view>
+							<tui-numberbox :max="99" :min="1" :value="value1" @change="change1"></tui-numberbox>
+						</view>
+						
+					</view>
+				</scroll-view>
+				<view class="tui-operation tui-operation-right tui-right-flex tui-popup-btn">
+					<view class="tui-flex-1">
+						<tui-button height="72rpx" :size="28" type="danger" shape="circle" @click="hidePopup1">下一步</tui-button>
+					</view>
+				</view>
+				<view class="tui-right">
+					<tui-icon name="close-fill" color="#999" :size="20" @click="closePopup1"></tui-icon>
+				</view>
+			</view>
+		</tui-bottom-popup>
+		
+		<!-- 底部弹窗(直接购买) -->
 		
 		
 	</view>
 </template>
 
 <script>
-	import { getGoodsDetail } from "@/api/index.js"
+	import { getGoodsDetail,addCart } from "@/api/index.js"
 	export default{
 		data(){
 			return{
@@ -214,7 +258,10 @@
 				id:0,
 				popupShow: false,
 				value:1,
+				value1:1,
 				activeindex:0,
+				activeindex1:0,
+				popupShow1: false,
 			}
 		},
 		methods:{
@@ -235,12 +282,65 @@
 			},
 			showPopup: function() {
 				this.popupShow = true;
+				
 			},
-			hidePopup: function() {
-				this.popupShow = false;
+			showPopup1: function() {
+				this.popupShow1 = true;
+				
+			},
+			closePopup(){
+				this.popupShow = false
+			},
+			closePopup1(){
+				this.popupShow1 = false
+			},
+			 hidePopup1: function(){
+				 this.popupShow1 = false;
+			 },
+			 hidePopup:async function() {
+				this.popupShow = false
+				var user = this.$store.state.user
+				if(!user){
+					uni.switchTab({
+						url:"/pages/user/user"
+					})
+					uni.showToast({
+						title:"亲，请先登录",
+						icon:"none",
+						duration:2000
+					})
+					return
+				}
+				console.log(user)
+				var user_id = this.$store.state.user.id
+				var goods_id = this.goodDetailData.id
+				var spec_id = this.goodDetailData.speclist[this.activeindex].id
+				var obj = {
+					userId:user_id,
+					goodsId:goods_id, 
+					count:this.value, 
+					specId:spec_id,
+				}
+				
+				console.log(obj)
+				var res = await addCart(obj)
+				if(res.status != 0){
+					uni.showToast({
+						title:"添加购物车失败",
+						icon:"none"
+					})
+					return
+				}
+				uni.showToast({
+					title:"添加购物车成功",
+					duration:1000
+				})
 			},
 			change: function(e) {
 				this.value = e.value;
+			},
+			change1: function(e) {
+				this.value1 = e.value;
 			},
 			touser(){
 				uni.switchTab({
