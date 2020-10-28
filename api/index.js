@@ -125,6 +125,11 @@ export async function deleteAddr(id){
 	return await instance.get(`/deleteAddr?id=${id}`);
 }
 
+//删除地址
+export async function deleteUser(id){
+	return await instance.get(`/deleteUser?id=${id}`);
+}
+
 //获取购物车列表
 export async function getCartList(userId){
 	return await instance.get(`/getCartList?userId=${userId}`);
@@ -138,4 +143,14 @@ export async function getSpec(goodsId){
 //修改购物车
 export async function updateCart(cart){
 	return await instance.post('/updateCart', {cart});
+}
+
+//删除购物车
+export async function delCart(ids){
+	return await instance.post(`/delCart?ids=${ids}`);
+}
+
+//添加购物车
+export async function addCart(cart){	//{ userId, goodsId, count, specId }
+	return await instance.post(`/addCart`, cart);
 }
