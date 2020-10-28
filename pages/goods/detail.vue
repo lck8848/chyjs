@@ -141,7 +141,7 @@
 					<view class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150" @tap="topcarshop">
 						<tui-icon name="cart" :size="22" color="#333"></tui-icon>
 						<view class="tui-operation-text tui-scale-small">购物车</view>
-						<tui-badge type="red" absolute :scaleRatio="0.8" right="10rpx" top="-4rpx">9</tui-badge>
+						<tui-badge type="red" absolute :scaleRatio="0.8" right="10rpx" top="-4rpx" v-if="carnumshow">{{carnum}}</tui-badge>
 					</view>
 				</view>
 				
@@ -207,7 +207,7 @@
 </template>
 
 <script>
-	import { getGoodsDetail,addCart } from "@/api/index.js"
+	import { getGoodsDetail,addCart,getCartList } from "@/api/index.js"
 	export default{
 		data(){
 			return{
@@ -218,6 +218,8 @@
 				value:1,
 				// value1:1,
 				activeindex:0,
+				carnum:0,
+				carnumshow:true
 				// activeindex1:0,
 				// popupShow1: false,
 			}
@@ -289,10 +291,19 @@
 					})
 					return
 				}
+				var res = await getCartList(user_id)
+				this.carnum = res.data.length
+				console.log(this.carnum)
+				if(this.carnumshow>0){
+					this.carnumshow = true
+				}else{
+					this.carnumshow = false
+				}
 				uni.showToast({
 					title:"添加购物车成功",
 					duration:1000
 				})
+				
 			},
 			change: function(e) {
 				this.value = e.value;
@@ -352,6 +363,22 @@
 			console.log(this.activeindex)
 			 
 		},
+		async onShow() {
+			var userid = this.$store.state.user.id
+			if(!userid){
+				this.carnumshow = false
+				return
+			}
+			var {data} = await getCartList(userid)
+			this.carnum = data.length
+			console.log(this.carnum)
+			if(this.carnumshow>0){
+				this.carnumshow = true
+			}else{
+				this.carnumshow = false
+			}
+			
+		}
 	}
 </script>
 
