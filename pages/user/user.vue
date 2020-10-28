@@ -23,7 +23,7 @@
 
 		<view class="userInfoitem">
 			<van-cell icon="setting-o" title="账号设置" is-link @tap="getSafety"/>
-			<van-cell icon='user-o' title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
+			<van-cell icon='user-o' title="个人信息" is-link @tap="goUserinfo" />
 			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
 		<!-- 回到顶部 -->
@@ -112,6 +112,22 @@
 					url: "/pages/user/address/address"
 				})
 			},
+				
+			goUserinfo(){
+				var user_id = this.$store.state.user.id
+				if (user_id === undefined) {
+					uni.showToast({
+						title: "亲,请先登录",
+						icon: "none",
+					})
+					return;
+				}
+				
+				uni.navigateTo({
+					url: "/pages/user/userInfo/userInfo"
+				})
+			},
+			
 			// 登录
 			async getuserinfo(e) {
 				if (this.isLogin) {

@@ -1,6 +1,6 @@
 import Request from 'luch-request'
 const http = new Request({
-  baseURL: 'http://localhost:7001/api/',
+  baseURL: 'http://47.106.36.197:7001/api/',
   timeout: 5000
 });
 

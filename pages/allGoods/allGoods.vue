@@ -20,9 +20,7 @@
 							
 							<view class="g-box"  v-for="(g, i) in item.goods" :key="i">
 									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
-									
 										<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
-									
 									</navigator>
 									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
 										<view class="right-content">

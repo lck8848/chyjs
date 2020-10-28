@@ -1,8 +1,0 @@
-
-      try{
-        (function (window) {
-          window.__TRACKER_VERSION__ = "v1.0";
-        })(window)
-      } catch(e){
-        console.log(e);
-      }
