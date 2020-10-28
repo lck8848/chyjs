@@ -125,6 +125,11 @@ export async function deleteAddr(id){
 	return await instance.get(`/deleteAddr?id=${id}`);
 }
 
+//删除地址
+export async function deleteUser(id){
+	return await instance.get(`/deleteUser?id=${id}`);
+}
+
 //获取购物车列表
 export async function getCartList(userId){
 	return await instance.get(`/getCartList?userId=${userId}`);
