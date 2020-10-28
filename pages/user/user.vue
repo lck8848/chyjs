@@ -140,7 +140,7 @@
 										user
 									} = await wxlogin(code, userInfo);
 									_this.$store.commit('saveUser', user);
-									console.log(user)
+									_this.$store.dispatch('getCartList');
 									uni.setStorage({
 										key: "token",
 										data: token
