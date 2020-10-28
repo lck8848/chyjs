@@ -203,6 +203,10 @@
 				"navigationBarTitleText": "常见问题"
 			}
 		}
+        ,{
+            "path" : "pages/user/order/addOrder/addOrder",
+            "style" : {}
+        }
     ],
 
 
