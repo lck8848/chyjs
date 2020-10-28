@@ -95,7 +95,7 @@
 
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtopup">
+		<view class="top-button" @click="ToTop" v-if="showtotop">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
@@ -116,7 +116,8 @@
 				scrollTop: 0,
 				specArr: [],
 				current: 0,
-				index: 0
+				index: 0,
+				showtotop:false
 			}
 		},
 		methods: {
@@ -160,7 +161,7 @@
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
-			if(scrollTop >= 1700){
+			if(scrollTop >= 300){
 				this.showtotop = true;
 			}else{
 				this.showtotop = false;

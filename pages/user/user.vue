@@ -48,16 +48,17 @@
 				infoData: {
 					name: "点击显示微信头像",
 					img_url: "/static/images/user/头像.png",
-					showtotop: false
 				},
 				isLogin:false,
-				scrollTop: 0
+				scrollTop: 0,
+				showtotop:false
 				
 			}
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
-			if (scrollTop >= 1700) {
+			// console.log(scrollTop)
+			if (scrollTop >= 300) {
 				this.showtotop = true;
 			} else {
 				this.showtotop = false;
