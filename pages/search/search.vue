@@ -23,12 +23,12 @@
 			</view>
 		</view>
 		
-		<view class="tui-search-history" >
+		<view class="tui-search-history"  v-if="history.length > 0" >
 			<view class="tui-history-header">
-				<view class="tui-search-title">搜索历史</view>
+				<view class="tui-search-title" >搜索历史</view>
 				<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
 			</view>
-			<view class="tui-history-content" v-show="history.length > 0">
+			<view class="tui-history-content">
 				<block v-for="(item,index) in history" :key="index" >
 					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
 				</block>
