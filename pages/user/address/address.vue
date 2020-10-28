@@ -10,7 +10,14 @@
 								<view class="tui-address-tel">{{ item.phone.substring(0,3)+"****"+item.phone.substring(7) }}</view>
 							</view>
 							<view class="tui-address-detail">
-								<view class="tui-address-label" v-if="item.id==addr_id">默认</view>
+								
+								<view class="tui-address-label" v-if="item.id==addr_id">
+									
+									<view class=""v-show="addr_id">
+										默认
+									</view>
+								</view>
+							
 								<text>{{item.addr_area+item.addr_detail+item.addr_house}}</text>
 							</view>
 						</view>
@@ -36,7 +43,7 @@
 			return {
 				addressList: [],
 				isShow:true,
-				addr_id:0
+				addr_id:""
 			}
 		},
 		
@@ -77,6 +84,7 @@
 				console.log(res);
 				this.addressList = res;
 				this.addr_id = this.$store.state.user.addr_id;
+				console.log(this.addr_id)
 			}
 		},
 		onLoad: function(options) {

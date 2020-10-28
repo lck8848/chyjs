@@ -43,9 +43,13 @@
 			<list-cell :arrow="true" padding="0" :unlined="true">
 				<view class="item">
 					<view class="title">性别</view>
-					<view class="content">
+					<picker mode="selector" :range="array" :value="sex"  @change="bindSexChange">
+						<view class="">{{ user.sex ?user.sex :"保密" }}</view>
+					</picker>
+				
+					<!-- <view class="content">
 						{{ user.sex ?user.sex :"保密" }}
-					</view>
+					</view> -->
 				</view>
 			</list-cell>
 			<list-cell :arrow="true" padding="0" :unlined="true">
@@ -128,7 +132,9 @@
 				value: "",
 				isShow: false,
 				mark: "",
+				array:["保密","男","女"],
 				date: "",
+				sex:"",
 				endDate: "" ,
 				index: 0,
 				addrValue: "",
@@ -154,9 +160,14 @@
 				}
 				
 			},
+			
 			bindDateChange: function(e) {
 				this.date = e.target.value;
 				this.updateUser('birthday', this.date);
+			},
+			bindSexChange:function(e){
+				this.sex = this.array[e.target.value];
+				this.updateUser('sex', this.sex);
 			},
 			getDate(type) {
 				const date = new Date();
