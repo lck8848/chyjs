@@ -116,6 +116,10 @@
 			},
 		},
 		methods:{
+			cleanKey(){
+				this.key = ""
+			},
+				
 			async  screen(e){
 				this.selected = 1
 				this.showload = true
@@ -236,7 +240,7 @@
 					flex-wrap: nowrap;
 					
 					.tui-input {
-						// flex: 1;
+						flex: 1;
 						color: #333;
 						padding: 0 16rpx;
 						font-size: 28rpx;

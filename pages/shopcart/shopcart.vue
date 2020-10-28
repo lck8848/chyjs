@@ -114,7 +114,7 @@
 
 
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtopup">
+		<view class="top-button" @click="ToTop" v-if="showtotop" @sroll="scroll">
 			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
@@ -133,6 +133,8 @@
 				isEdit: false,	//判断是否处于编辑
 				isShow: false,	//控制弹出层
 				scrollTop: 0,
+				// 回到顶部初始值
+				showtotop:false,
 				specArr: [],	//当前商品的规格
 				current: 0,		//当前弹出的购物车下标
 				index: 0,		//所选择规格的下标
@@ -213,7 +215,7 @@
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
-			if(scrollTop >= 1700){
+			if(scrollTop >= 1000){
 				this.showtotop = true;
 			}else{
 				this.showtotop = false;
@@ -537,7 +539,7 @@
 			// 固定定位
 			position: fixed;
 			right: 50rpx;
-			bottom: 150rpx;
+			bottom: 60rpx;
 			z-index: 900;
 
 			.topimg {

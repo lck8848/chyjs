@@ -13,78 +13,92 @@
 				</view>
 			</view>
 			<!-- 点击进店标签，进入首页 -->
-				<uni-tag text="进店" @click="toIndex" type="error" :inverted="true" circle="true" ></uni-tag>
+			<uni-tag text="进店" @click="toIndex" type="error" :inverted="true" circle="true"></uni-tag>
 		</view>
-		
+
 		<!-- 笔记宫格 -->
 		<view class="note_container">
-			<view class="note_grid" v-for="(item,index) in NoteLIst" :key="item.id">
-						<view class="top">
-							<text class="date">9月14日</text>
-							<text class="title">{{item.title}}</text>
-							<text class="host">#{{item.label}}#</text>
+			<view class="note_grid" v-for="(item,index) in NoteLIst" :key="item.id" @click="toDetail(item.id)">
+				<view class="top">
+					<text class="date">9月14日</text>
+					<text class="title">{{item.title}}</text>
+					<text class="host">{{item.label}}</text>
+				</view>
+				<!-- 循环图片不要在view元素循环，会换行 -->
+				<view class="img_grid">
+					<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
+				</view>
+				<view class="goods_details" @click="todetail(goodslist[index].id)">
+					<image :src="goodslist[index].image_url"></image>
+					<view class="info">
+						<view class="title">
+							<text class="title_space">{{goodslist[index].title}}</text>
 						</view>
-						<!-- 循环图片不要在view元素循环，会换行 -->
-						<view class="img_grid">
-							<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
-						</view>
-						<view class="goods_details" @click="todetail(goodslist[index].id)">
-							<image :src="goodslist[index].image_url" mode=""></image>
-							<view class="info">
-								<view class="title">
-									<text class="title_space"></text>
-									{{goodslist[index].title}}
-								</view>
-								<view class="info_price">￥{{goodslist[index].price}}</view>
-							</view>
-							<!-- right -->
-							<image src="../../static/images/showcase/right.png" class="Right"></image>
-						</view>
+						<view class="info_price">￥{{goodslist[index].price}}</view>
+					</view>
+
+					<!-- right -->
+					<image src="../../static/images/showcase/right.png" class="Right"></image>
+				</view>
+				<!-- </navigator> -->
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
 <script>
-	import {getNoteList,getGoodsByIds} from "../../api/index.js";
+	import {
+		getNoteList,
+		getGoodsByIds
+	} from "../../api/index.js";
 	export default {
 		data() {
 			return {
-				NoteLIst:[],
-				goodslist:[],
-				ids:"40,55,90,54"
-				
+				NoteLIst: [],
+				goodslist: [],
+				ids: "40,55,90,54"
 			};
 		},
-		methods:{
+		methods: {
 			// 跳转到首页
-			toIndex(){
+			toIndex() {
 				uni.switchTab({
-					url:"/pages/index/index",
-					fail(err){
+					url: "/pages/index/index",
+					fail(err) {
 						console.log(err);
 					}
 				})
 			},
-			todetail(id){
+			// <!-- 根据id不同,渲染不同的笔记内容 -->
+			toDetail(id) {
 				uni.navigateTo({
-					url:"/pages/goods/detail?id=" + id
+					url: `/pages/note/noteDetail?n_id=${id}`
+				})
+			},
+			//根据商品index，渲染商品列表
+			todetail(id) {
+				uni.navigateTo({
+					url: "/pages/goods/detail?id=" +id
 				})
 			},
 			// 获取渲染更多笔记列表数据
-			async getNoteListData(){
-				var {data} = await getNoteList();
+			async getNoteListData() {
+				var {
+					data
+				} = await getNoteList();
 				console.log(data);
 				this.NoteLIst = data;
-				
-				
+
+
 			},
-			async getGoodsinfo(){
-				var {data} =await getGoodsByIds(this.ids)
+			async getGoodsinfo() {
+				var {
+					data
+				} = await getGoodsByIds(this.ids)
 				this.goodslist = data
 				console.log(this.goodslist)
-				
+
 			}
 		},
 		components: {
@@ -101,151 +115,175 @@
 	.note_container {
 		margin-top: 150rpx;
 		background-color: #F8F8F8;
-		height:3000rpx;
+		height: 3000rpx;
 		width: 750rpx;
-		
+
 		// 自定义头部导航
 		.navigator {
 			display: flex;
 			// flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
-			position:fixed;
-			top:0;
-			left:0;
+			position: fixed;
+			top: 0;
+			left: 0;
 			z-index: 999;
 			width: 100%;
 			height: 120rpx;
 			// padding:10rpx;
-			padding-left:20rpx;
-			background-color: white;	
-			.info{
+			padding-left: 20rpx;
+			background-color: white;
+
+			.info {
 				display: flex;
+
 				// 名字
 				.title {
 					display: flex;
 					flex-direction: column;
 					justify-content: space-around;
-					margin-left:20rpx;
+					margin-left: 20rpx;
+
 					// 3年有赞
 					.img {
 						width: 120rpx;
 						height: 30rpx;
 					}
-					text{
-						color:#4E4E4E;
+
+					text {
+						color: #4E4E4E;
 						font-weight: bold;
 					}
 				}
+
 				// 吃货研究所logo
 				.left {
 					image {
-						width:100rpx;
+						width: 100rpx;
 						height: 100rpx;
 					}
 				}
 			}
+
 			// 逛一逛标签
-			.uni-tag{
-				width:80rpx;
-				height:50rpx;
+			.uni-tag {
+				width: 80rpx;
+				height: 50rpx;
 				line-height: 50rpx;
-				margin-right:40rpx;
+				margin-right: 40rpx;
 			}
 		}
+
 		// 笔记宫格
-		.note_container{
-			.note_grid{
+		.note_container {
+			.note_grid {
 				// width:710rpx;
 				// height:1000rpx;。
 				// margin-top:54rpx;
-				margin:20rpx 25rpx 0 25rpx;
+				margin: 20rpx 25rpx 0 25rpx;
 				background-color: white;
 				padding-bottom: 10rpx;
-				.top{
+
+				.top {
 					display: flex;
 					flex-direction: column;
 					// 上右下左
 					padding: 0rpx 40rpx;
-					padding-top:20rpx;
+					padding-top: 20rpx;
+
 					// padding: 0 40rpx 0 40rpx;
 					// padding-left: 40rpx;
 					// padding-right: 40rpx;
-					.date{
-						font-size:24rpx;
+					.date {
+						font-size: 24rpx;
 						color: #929799;
 						padding-bottom: 20rpx;
 					}
-					.title{
-						font-size:32rpx;
+
+					.title {
+						font-size: 32rpx;
 						font-weight: bold;
-						color:#363636;
+						color: #363636;
 					}
-					.host{
+
+					.host {
 						padding-top: 20rpx;
-						font-size:30rpx;
-						color:red;
+						font-size: 30rpx;
+						color: #D5797C;
 					}
 				}
-				.img_grid{
+
+				.img_grid {
 					display: flex;
 					// flex-direction: column;
 					flex-wrap: wrap;
 					margin: 0rpx 13rpx 0rpx 20rpx;
+
 					// margin-left: 40rpx;
-					image{
-						width:200rpx;
-						height:200rpx;
+					image {
+						width: 200rpx;
+						height: 200rpx;
 						// 上 右 下 左
 						margin: 10rpx 10rpx 10rpx 10rpx;
 					}
-					
+
 				}
+
 				// 商品卡片
-				.goods_details{
+				.goods_details {
 					display: flex;
 					margin: 30rpx 60rpx 30rpx 30rpx;
 					align-items: center;
-					width:600rpx;
-					height:150rpx;
+					width: 600rpx;
+					height: 150rpx;
 					background-color: #F9F9F9;
-					padding:0px 20rpx 0px 20rpx;
-					image{
+					padding: 0px 20rpx 0px 20rpx;
+
+					image {
 						margin-left: 10rpx;
-						width:110rpx;
-						height:110rpx;
+						width: 130rpx;
+						height: 100rpx;
 					}
-						.info{
-							
-							display: flex;
-							flex-direction: column;
-							flex-wrap: wrap;
-							justify-content: space-between;
-							
-							.title{
-								margin-left: 20rpx;
-								font-size:24rpx;
-								color:#323232;
-								.title_space{
-									padding-left: 14rpx;
-								}
-							}
-							.info_price{
-								margin-left: 20rpx;
-								margin-top: 20rpx;
-								font-size:24rpx;
+
+					.info {
+
+						display: flex;
+						flex-direction: column;
+						flex-wrap: wrap;
+						justify-content: space-between;
+
+						.title {
+							margin-left: 20rpx;
+							font-size: 24rpx;
+							color: #323232;
+
+							.title_space {
+								padding-left: 14rpx;
+								max-height:80rpx;
+								display: -webkit-box;
+								-webkit-box-orient: vertical;
+								-webkit-line-clamp: 2;
+								overflow: hidden;
 							}
 						}
+
+						.info_price {
+							margin-left: 20rpx;
+							margin-top: 20rpx;
+							font-size: 24rpx;
+						}
+					}
+
 					// 右键
-					.Right{
-						width:40rpx;
-						height:40rpx;
+					.Right {
+						width: 30rpx;
+						height: 30rpx;
 					}
 				}
-				
+
 			}
 		}
-				
-				// 笔记宫格到这
+
+		// 笔记宫格到这
 	}
 </style>
