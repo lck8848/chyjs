@@ -26,7 +26,7 @@
 				</view>
 			</view>
 			<!-- 文中商品按钮 -->
-			<button type="danger" @click="typeClick" class="clickGoods">文中商品(3)</button>
+			<!-- <button type="danger" @click="typeClick" class="clickGoods">文中商品(3)</button> -->
 		</view>
 
 
@@ -158,11 +158,11 @@
 	.note_container {
 		padding-top: 40rpx;
 		background-color: white;
-		height:4300rpx;
+		// height:4300rpx;
 
 		// 笔记内容
 		.note_details {
-			height: 3000rpx;
+			// height: 3000rpx;
 			padding: 0 20rpx;
 			background-color: white;
 
@@ -229,6 +229,7 @@
 				.tags {
 					display: flex;
 					align-items: center;
+					margin-bottom: 100rpx;
 
 					.tag_first {
 						width: 140rpx;

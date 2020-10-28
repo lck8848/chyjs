@@ -85,7 +85,7 @@
 				var timestamp = new Date().getTime();
 				console.log(timestamp)
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.create_time));
+					this.timeList.push((timestamp - v.create_time)/12);
 				})
 				console.log(this.goodsData)
 				console.log(this.timeList)

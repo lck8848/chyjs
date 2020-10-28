@@ -127,7 +127,7 @@
 				<text class="more" @click="toMore">查看更多></text>
 			</view>
 			<view class="scroll-container">
-				<scroll-view class="scroll-view" :scroll-x="true" @scroll="scroll" :show-scrollbar="true">
+				<scroll-view class="scroll-view" :scroll-x="true" :show-scrollbar="true">
 					<!-- 根据id显示不同的商品笔记 -->
 					<view id="demo1" class="item" v-for="item in notelist" :key="item.id" @click="toNOteDetail(item.id)">
 						<view class="note_img">
@@ -248,14 +248,7 @@
 			Tosearch() {
 				this.$refs.search.search()
 			},
-
-			scroll: function(e) {
-				// console.log(e)
-				this.old.scrollTop = e.detail.scrollTop
-			},
-
 			// 点击查看更多>(种草笔记)
-
 			toMore() {
 				console.log("more")
 				uni.navigateTo({
@@ -669,8 +662,8 @@
 				height: 100rpx;
 			}
 		}
-
 		// 回到顶部到这
+		
 		.grid-container {
 			display: flex;
 			justify-content: center;

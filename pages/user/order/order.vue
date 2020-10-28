@@ -86,7 +86,6 @@
 		</view>
 		
 		<view class="recommend" v-if="current !== 0">
-			<view class="rec-title">更多精选商品</view>
 			<recommend></recommend>
 		</view>
 		
@@ -206,6 +205,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		z-index: 1;
 		.search-container {
 			display: flex;
 			padding: 16rpx 32rpx;
