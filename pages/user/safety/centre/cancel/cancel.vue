@@ -14,7 +14,7 @@
 				</ul>
 			</view>
 			<view class="btn_wrapper">
-				<button :disabled="disabled" :class="['btn',!disabled?'select':'']" @click="cancelUser"><span class="van-button__text">申请注销</span></button>
+				<button :disabled="disabled" :class="['btn', !disabled ? 'select' : '']" @click="cancelUser"><span class="van-button__text">申请注销</span></button>
 			</view>
 			<view class="remand">
 				<van-checkbox icon-size="18px" :value="checked" checked-color="#07c160" @change="onChange">勾选即表示已阅读并同意</van-checkbox>
@@ -25,29 +25,37 @@
 </template>
 
 <script>
-import { updateUser } from '@/api/index.js';
+import { updateUser, deleteUser } from '@/api/index.js';
 export default {
 	data() {
 		return {
 			checked: false,
-			disabled:true
+			disabled: true
 		};
 	},
 	methods: {
 		onChange(event) {
 			this.checked = event.detail;
-			console.log(this.checked);
-			if(this.checked){
+			if (this.checked) {
 				this.disabled = false;
-			}else{
+			} else {
 				this.disabled = true;
 			}
 		},
-		cancelUser(){
-			console.log("注销账号")
+		async cancelUser() {
+			let res = await deleteUser(this.$store.state.user.id);
+			this.$store.commit('delUser');
+			if (this.$store.state.user == '' && res.status == 0) {
+				uni.switchTab({
+					url: '/pages/user/user'
+				});
+				uni.showToast({
+					title: '注销成功'
+				});
+			}
 		},
 		navTo() {
-			uni.navigateTo({});
+			// uni.navigateTo({});
 		}
 	},
 	onShow() {}
@@ -118,8 +126,8 @@ export default {
 				-webkit-appearance: none;
 				text-align: center;
 			}
-			.select{
-				opacity:1;
+			.select {
+				opacity: 1;
 			}
 		}
 		.remand {

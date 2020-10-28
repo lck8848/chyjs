@@ -13,22 +13,28 @@
 			<scroll-view scroll-y="true" :style="{ height: scrollHeight }" @scroll="mainScroll" :scroll-into-view="scrollInto"
 			 scroll-with-animation="true" @touchstart="mainTouch" id="scroll-el">
 				<block v-for="(item, index) in mainArray" :key="index">
+					<navigator url=""></navigator>
 					<view class="item" :id="'item-' + index">
 						<view class="class-name">{{ item.alias_name }}</view>
 						<view class="g-container">
-							<view class="g-box" @tap.stop="productList" v-for="(g, i) in item.goods" :key="i">
-								<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
-								<view class="right-content">
-									<view class="g-title">{{ g.title }}</view>
-									<view class="g-mask">{{ g.sell_point }}</view>
-									<view class="g-price">
-										<view class="left-price">
-											<text class="price-tag">¥</text>
-											<text class="price-sale-price">{{ g.price }}</text>
+							
+							<view class="g-box"  v-for="(g, i) in item.goods" :key="i">
+									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
+										<image :src="g.show ? g.image_url : loadingIcon" class="left_img"></image>
+									</navigator>
+									<navigator :url="'/pages/goods/detail?id='+g.id" open-type="navigate" hover-class="none">
+										<view class="right-content">
+											<view class="g-title">{{ g.title }}</view>
+											<view class="g-mask">{{ g.sell_point }}</view>
+											<view class="g-price">
+												<view class="left-price">
+													<text class="price-tag">¥</text>
+													<text class="price-sale-price">{{ g.price }}</text>
+												</view>
+												<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
+											</view>
 										</view>
-										<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
-									</view>
-								</view>
+									</navigator>
 							</view>
 						</view>
 					</view>
@@ -85,18 +91,24 @@
 			/* 获取列表数据 */
 			async getListData() {
 				let classify = await getClassify();
+				
 				let aliasCodes = [];
 				this.leftArray = classify.data;
 
 				this.leftArray.map(v => {
 					aliasCodes.push(v.alias_code);
 				});
-				let total_num_res = await getClassifyGoods('1051');
-				let classifys = await getClassifyGoodsByAll(aliasCodes);
+				
+				
+				let total_num_res = getClassifyGoods('1051');
+				let classifys = getClassifyGoodsByAll(aliasCodes);
+				let listData = await Promise.all([total_num_res,classifys])
+				
+				
 				this.leftArray.map((v, k) => {
-					v.goods = classifys.data[k];
+					v.goods = listData[1].data[k];
 				});
-				this.leftArray[0].goods = total_num_res.data;
+				this.leftArray[0].goods = listData[0].data;
 
 				this.mainArray = this.leftArray;
 				this.$nextTick(() => {
@@ -214,6 +226,7 @@
 					duration: 300
 				})
 			},
+			
 		},
 		// 监听页面滚动
 		onPageScroll(res) {
@@ -310,10 +323,14 @@
 					.g-box {
 						display: flex;
 						margin-bottom: 40rpx;
-
+						
 						.left_img {
 							width: 176rpx;
 							height: 176rpx;
+							image{
+								width: 100%;
+								height: 100%;
+							}
 						}
 
 						.right-content {

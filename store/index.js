@@ -17,6 +17,9 @@ const store = new Vuex.Store({
 		},
 		saveCart (state, {data}) {
 			state.cart = data;
+		},
+		delUser(state){
+			state.user = ""
 		}
 	},
 	actions: {
@@ -43,7 +46,7 @@ const store = new Vuex.Store({
 			}
 		},
 		delUser(state){
-			state.user = ""
+			state.user = "";
 		}
 	},
 	getters: {
