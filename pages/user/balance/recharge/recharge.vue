@@ -195,7 +195,7 @@
 			width: 90vw;
 			
 			// left: 0px;
-			bottom: 0;
+			bottom: 10rpx;
 			right: 0;
 			left: 0;
 			border-radius: 40px;
