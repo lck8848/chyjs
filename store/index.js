@@ -17,6 +17,9 @@ const store = new Vuex.Store({
 		},
 		saveCart (state, {data}) {
 			state.cart = data;
+		},
+		delUser(state){
+			state.user = ""
 		}
 	},
 	actions: {
@@ -29,9 +32,6 @@ const store = new Vuex.Store({
 			if(!status){
 				dispatch('getCartList');
 			}
-		},
-		delUser(state){
-			state.user = ""
 		}
 	},
 	getters: {
