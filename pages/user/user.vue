@@ -9,7 +9,7 @@
 						<image :src="infoData.img_url"></image>
 					</view>
 					<view class="name">
-						<view class="info_name"> {{ infoData.name}} </view>
+						<view class="info_name"> {{ infoData.name }} </view>
 					</view>
 				</view>
 			</view>
@@ -22,7 +22,7 @@
 		<order-shell></order-shell>
 
 		<view class="userInfoitem">
-			<van-cell icon="setting-o" title="账号与安全" is-link link-type="navigateTo" url="/pages/user/safety/safety" />
+			<van-cell icon="setting-o" title="账号设置" is-link @tap="getSafety"/>
 			<van-cell icon='user-o' title="个人信息" is-link link-type="navigateTo" url="/pages/user/balance/balance" />
 			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
@@ -69,6 +69,19 @@
 				uni.pageScrollTo({
 					scrollTop: 0,
 					duration: 300
+				})
+			},
+			getSafety(){
+				var user_id = this.$store.state.user.id
+				if (user_id === undefined) {
+					uni.showToast({
+						title: "亲,请先登录",
+						icon: "none",
+					})
+					return;
+				}
+				uni.navigateTo({
+					url: "/pages/user/safety/safety"
 				})
 			},
 			getBalance(){
@@ -127,6 +140,7 @@
 										user
 									} = await wxlogin(code, userInfo);
 									_this.$store.commit('saveUser', user);
+									_this.$store.dispatch('getCartList');
 									uni.setStorage({
 										key: "token",
 										data: token
