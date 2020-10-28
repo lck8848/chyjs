@@ -18,16 +18,16 @@
 				</navigator>
 				
 				<!-- 编辑购物车 -->
-				<view class="edit" @tap="isEdit=!isEdit">
-					<view class="btn" v-show="isEdit">编辑</view>
-					<view class="btn" v-show="!isEdit">完成</view>
+				<view class="edit" @tap="editCart">
+					<view class="btn" v-show="!isEdit">编辑</view>
+					<view class="btn" v-show="isEdit">完成</view>
 				</view>
 			</view>
 		
 			<view class="cart-list">
 				<view class="cart" v-for="(item, index) in cart" :key="item.id">
 					<view class="check-shell">
-						<evan-checkbox class="check" v-model="item.checked" primary-color="red"></evan-checkbox>
+						<evan-checkbox class="check" v-model="isEdit ?false :item.checked" primary-color="red" @change="changeCheck($event, index)"></evan-checkbox>
 					</view>
 					<view class="goods">
 						<view class="img-shell">
@@ -40,7 +40,7 @@
 							<view class="spec-shell">
 								<view class="spec" @tap="chooseSpec(index)">
 									<view class="text">
-										{{ item.spec.spec_name }}
+										{{ item.spec_name }}
 									</view>
 									<image src="http://47.106.36.197:7000/source/other/bottom.svg" class="bottom" mode="widthFix"></image>
 								</view>
@@ -49,12 +49,31 @@
 							<view class="price-count">
 								<view class="price">
 									<view class="icon">￥</view>
-									{{ item.spec.price }}
+									{{ item.price }}
 								</view>
-								<van-stepper :value="item.count" step="1" @change="changeCount(index)" />
+								<van-stepper v-model="item.count" step="1" @change="changeCount($event, index)" />
 							</view>
 						</view>
 					</view>
+				</view>
+			</view>
+			
+			<view class="operate">
+				<view class="left">
+					<evan-checkbox class="all-check" v-model="isEdit ?edit :normal" primary-color="red" @change="allChecked()"></evan-checkbox>
+					全选
+				</view>
+				<view class="buy">
+					<view class="total-price">
+						<view class="price">
+							<view class="text">合计：</view>
+							<view class="number"><text class="icon">￥</text>{{totalPrice}}</view>
+						</view>
+						<view class="postage">
+							不含运费
+						</view>
+					</view>
+					<button class="buy-btn">结算</button>
 				</view>
 			</view>
 		</view>
@@ -106,21 +125,34 @@
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
 	import { getSpec } from "../../api/index.js";
+	import { mapGetters, mapActions } from "vuex";
 	export default {
 		data() {
 			return {
-				selected: false,
 				cart: [],
-				isEdit: true,
-				isShow: false,
+				isEdit: false,	//判断是否处于编辑
+				isShow: false,	//控制弹出层
 				scrollTop: 0,
-				specArr: [],
-				current: 0,
-				index: 0
+				specArr: [],	//当前商品的规格
+				current: 0,		//当前弹出的购物车下标
+				index: 0,		//所选择规格的下标
+				delArr:[],		//要删除的购物车id
+				allCheck: false,//全选
+				normal: false,	//正常状态的全选
+				edit: false,
+				totalPrice: 0	//总金额
+			}
+		},
+		computed: {
+			...mapGetters(['getCarts'])
+		},
+		watch: {
+			getCarts(){
+				this.cart = this.$store.getters.getCarts;
 			}
 		},
 		methods: {
-			// 回到顶部
+			...mapActions(['updateCart', 'delCart']),
 			ToTop() {
 				uni.pageScrollTo({
 					scrollTop: 0,
@@ -132,7 +164,7 @@
 				let { data } = await getSpec(this.cart[cIndex].goods_id);
 				this.specArr = data;
 				this.specArr.some((v,index) => {
-					if(v.id === this.cart[cIndex].spec.id){
+					if(v.id === this.cart[cIndex].id){
 						this.index = index;
 						return true;
 					}
@@ -140,19 +172,40 @@
 				this.isShow = true;
 			},
 			toggleSpec(){
-				this.$store.dispatch('updateCart', {
+				this.updateCart({
 					id: this.cart[this.current].id,
 					spec_id: this.specArr[this.index].id
 				});
-				this.cart = this.$store.getters.getCarts;
 				this.isShow = false;
 			},
-			changeCount({detail}, index){
-				console.log(detail, index);
-				this.$store.dispatch('updateCart', {
+			changeCount(e, index){
+				this.updateCart({
 					id: this.cart[index].id,
-					count: this.cart[index].count
+					count: e.detail
 				});
+			},
+			changeCheck(value, index){
+				if(this.isEdit){
+					value ?this.delArr.push(index) :this.delArr.splice(this.delArr.indexOf(index), 1);
+					return;
+				}
+				this.updateCart({
+					id: this.cart[index].id,
+					checked: value ?1 :0
+				});
+			},
+			editCart(){
+				this.isEdit = !this.isEdit;
+				if(!this.isEdit){
+					this.edit = false;
+				}
+				// if(this.isEdit && this.delArr.length !== 0){
+				// 	this.delCart(this.delArr.join(','));
+				// }
+			},
+			allChecked(){
+				console.log(this.allCheck);
+				this.allCheck = !this.isEdit ?this.normal :this.edit;
 			}
 		},
 		onShow() {
@@ -319,6 +372,68 @@
 					}
 				}
 			}
+			
+			.operate {
+				position: fixed;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: space-between;
+				padding: 14rpx 24rpx;
+				height: 72rpx;
+				align-items: center;
+				background-color: #fff;
+				z-index: 99;
+				.left {
+					display: flex;
+					color: #333333;
+					align-items: center;
+					font-size: 28rpx;
+					.all-check {
+						margin-right: 10rpx;
+					}
+				}
+				.buy {
+					display: flex;
+					.total-price {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						.price {
+							display: flex;
+							.text {
+								color: #323233;
+								font-size: 28rpx;
+							}
+							.number {
+								color: #f44;
+								font-size: 32rpx;
+								font-weight: 600;
+								.icon {
+									margin-right: 4rpx;
+									font-size: 24rpx;
+									font-weight: 400;
+								}
+							}
+						}
+						.postage {
+							color: #969799;
+							font-size: 24rpx;
+						}
+					}
+					.buy-btn {
+						width: 192rpx;
+						height: 72rpx;
+						margin-left: 24rpx;
+						line-height: 72rpx;
+						border-radius: 999rpx;
+						color: #fff;
+						font-size: 28rpx;
+						background-color: #F44;
+					}
+				}
+			}
 		}
 		
 		// 弹出层
@@ -430,5 +545,6 @@
 				height: 100rpx;
 			}
 		}
+		
 	}
 </style>
