@@ -322,7 +322,7 @@
 
 							.g-title {
 								margin-bottom: 4px;
-								height: 80rpx;
+								height: 100rpx;
 								color: #323233;
 								line-height: 20px;
 								font-weight: bold;
