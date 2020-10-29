@@ -65,7 +65,7 @@
 	}
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 	.hot-container {
 		background-color: #f9f9f9;
 		.hot{
