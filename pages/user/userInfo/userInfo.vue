@@ -216,7 +216,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-info-container {
 	.user-title {
 		padding: 30rpx 30rpx 10rpx;
