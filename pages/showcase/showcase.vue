@@ -14,8 +14,7 @@
 						<lazy-img class="img" :scrollTop="scrollTop" :img-url="item.image_url"></lazy-img>
 						<!-- <view class="img" :style="'background-image: url('+item.image_url+');'"></view> -->
 					</view>
-					<view class="content">
-						<view class="title">
+					<view class="content">3 
 							{{ item.title }}
 						</view>
 						<view class="info">
