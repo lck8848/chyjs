@@ -25,7 +25,7 @@
 		</view>
 		
 		<view class="order-list">
-			<view class="order" v-for="item in orderList" :key="item.id">
+			<view class="order" v-for="(item, index) in orderList" :key="item.id">
 				<navigator :url="'/pages/user/orderDetails/orderDetails?oid='+item.id">
 					<view class="head">
 						<view class="left">
@@ -37,7 +37,6 @@
 					<view class="goods">
 						<view class="img-shell">
 							<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
-							<!-- <image class="img" :src="item.image_url" mode="widthFix"></image> -->
 						</view>
 						<view class="info">
 							<view class="info-top">
@@ -57,15 +56,15 @@
 						<view class="total-price">
 							需付款
 							<view class="mini">￥</view>
-							<view class="big">{{ (item.total_price.toString()).split('.')[0] }}</view>
-							<view class="mini">.{{ (item.total_price.toFixed(2).toString()).split('.')[1] }}</view>
+							<view class="big">{{ ((item.total_price+item.postage).toString()).split('.')[0] }}</view>
+							<view class="mini">.{{ ((item.total_price+item.postage).toFixed(2).toString()).split('.')[1] }}</view>
 						</view>
 					</view>
 				</navigator>
 				<view class="shell" v-if="item.status === 1">
 					<view class="button">
 						<view class="btn cancel" @tap="cancel(item.id)">取消订单</view>
-						<view class="btn pay"  @tap="atOnce(item.id)">立即付款</view>
+						<view class="btn pay"  @tap="atOnce(item, index)">立即付款</view>
 					</view>
 				</view>
 				<view class="shell" v-if="item.status === 2">
@@ -93,7 +92,7 @@
 </template>
 
 <script>
-	import { getOrderByUserId, updateOrderStatus } from '@/api/index.js';
+	import { getOrderByUserId, updateOrderStatus, updateUser } from '@/api/index.js';
 	import recommend from '../../../component/recommend/recommend.vue';
 	import lazyImg from '@/component/lazy-img/lazy-img.vue';
 	export default {
@@ -143,8 +142,36 @@
 					this.checked(this.current);
 				}
 			},
-			atOnce(oid){
-				console.log("立即付款");
+			atOnce(order, index){
+				let balance = this.$store.getters.getUser.balance;
+				let buyPrice = order.total_price+order.postage;
+				let price = balance-buyPrice;
+				uni.showModal({
+					content: `支付商品所需金额${buyPrice}元，确认支付`,
+					confirmText: '确认',
+					confirmColor: '#ff4444',
+					success: async ({confirm}) => {
+						if(confirm){
+							if(balance<buyPrice){
+								uni.showToast({
+									title: '余额不足',
+									icon: 'none'
+								});
+								return;
+							}
+							let arr = [updateUser({id:this.userId, balance: price}), updateOrderStatus(order.id, 3)];
+							let data = await Promise.all(arr);
+							this.orderList[index].status = 3;
+							if(!data[0].status){
+								this.$store.commit('updateBalance', price);
+								uni.showToast({
+									title: '订单支付成功',
+									icon: 'none'
+								});
+							}
+						}
+					}
+				});
 			},
 			async takeGoods(oid){
 				let {status} = await updateOrderStatus(oid, 4);

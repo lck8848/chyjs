@@ -193,7 +193,7 @@
 						spec_id: v.spec_id,
 						message: this.msg,
 						total_num: v.count,
-						total_price: this.totalPrice,
+						total_price: v.price*v.count,
 						orderNo: this.createOrderNo()
 					}
 					arr.push(addOrder(order));

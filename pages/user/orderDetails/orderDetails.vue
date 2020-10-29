@@ -126,7 +126,7 @@
 						￥{{(data.total_price+data.goods.postage).toFixed(2)}}
 					</view>
 				</view>
-				<view class="pay-btn">
+				<view class="pay-btn" @tap="payment()">
 					去支付
 				</view>
 			</view>
@@ -136,12 +136,12 @@
 </template>
 
 <script>
-	import { getOrderDetails } from '@/api/index.js';
+	import { getOrderDetails, updateOrderStatus, updateUser } from '@/api/index.js';
 	import orderSteps from '@/component/order-steps/order-steps.vue';
 	export default {
 		data() {
 			return {
-				oid: 5,
+				oid: '',
 				price: '',
 				isShow: false,
 				data: {},
@@ -162,8 +162,38 @@
 					this.data = data;
 					this.price = this.data.goods.price.toFixed(2).toString();
 					this.isShow = true;
-					console.log(this.data);
 				}
+			},
+			payment(){
+				let balance = this.$store.getters.getUser.balance;
+				let buyPrice = this.data.total_price+this.data.goods.postage;
+				let price = balance-buyPrice;
+				uni.showModal({
+					content: `支付商品所需金额${buyPrice}元，确认支付`,
+					confirmText: '确认',
+					confirmColor: '#ff4444',
+					success: async ({confirm}) => {
+						if(confirm){
+							if(balance<buyPrice){
+								uni.showToast({
+									title: '余额不足',
+									icon: 'none'
+								});
+								return;
+							}
+							let arr = [updateUser({id:this.$store.getters.getUser.id, balance: price}), updateOrderStatus(this.data.id, 3)];
+							let data = await Promise.all(arr);
+							this.data.status = 3;
+							if(!data[0].status){
+								this.$store.commit('updateBalance', price);
+								uni.showToast({
+									title: '订单支付成功',
+									icon: 'none'
+								});
+							}
+						}
+					}
+				});
 			}
 		},
 		onLoad(option){

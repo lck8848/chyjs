@@ -15,6 +15,12 @@ const store = new Vuex.Store({
 		updPhone(state, phone){
 			state.user.phone = phone;
 		},
+		updateBalance(state, balance){
+			state.user.balance = balance;
+		},
+		updateGoodsIds(state, goodsIds){
+			state.user.goods_ids = goodsIds;
+		},
 		saveCart (state, {data}) {
 			state.cart = data;
 		},

@@ -12,9 +12,9 @@
 					<view class="rank" v-if="index === 0" :style="'top:'+(g_index>2 ?16 :0)+'rpx;background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-64-27*(g_index-2))+'px;'"></view>
 					<view class="image">
 						<lazy-img class="img" :scrollTop="scrollTop" :img-url="item.image_url"></lazy-img>
-						<!-- <view class="img" :style="'background-image: url('+item.image_url+');'"></view> -->
 					</view>
-					<view class="content">3 
+					<view class="content">
+						<view class="title">
 							{{ item.title }}
 						</view>
 						<view class="info">
@@ -42,7 +42,6 @@
 				index: 0,
 				current: 0,
 				scrollTop: 0,
-				user_gods_ids:"23,45,21,75,35,74,27,3,38,67,32,12,62,84,97,54,34,43,53,64",
 				intervalId: "",
 				bg_list: ['http://47.106.36.197:7000/source/other/ranking_bg.png',
 				'http://47.106.36.197:7000/source/other/recommend_bg.png',
@@ -67,7 +66,11 @@
 						res = await getRecommend(20);
 						break;
 					default:
-						res = await getGoodsByIds(this.user_gods_ids);
+						let goodsIds = this.$store.getters.getUser.goods_ids.split(',');
+						res = await getGoodsByIds(goodsIds);
+						res.data.sort((v1, v2) => {
+							return goodsIds.indexOf(v2.id) - goodsIds.indexOf(v1.id);
+						});
 						break;
 				}
 				if(!res.status){
@@ -110,8 +113,7 @@
 </script>
 
 <style lang="scss" scoped>
-@keyframes move
-{
+@keyframes move{
 	from {
 		opacity: 0;
 		top: 40rpx;

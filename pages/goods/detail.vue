@@ -207,7 +207,7 @@
 </template>
 
 <script>
-	import { getGoodsDetail,addCart,getCartList } from "@/api/index.js"
+	import { getGoodsDetail,addCart,getCartList, updateUser } from "@/api/index.js"
 	export default{
 		data(){
 			return{
@@ -216,12 +216,9 @@
 				id:0,
 				popupShow: false,
 				value:1,
-				// value1:1,
 				activeindex:0,
 				carnum:0,
 				carnumshow:true
-				// activeindex1:0,
-				// popupShow1: false,
 			}
 		},
 		methods:{
@@ -244,19 +241,9 @@
 				this.popupShow = true;
 				
 			},
-			// showPopup1: function() {
-			// 	this.popupShow1 = true;
-				
-			// },
 			closePopup(){
 				this.popupShow = false
 			},
-			// closePopup1(){
-			// 	this.popupShow1 = false
-			// },
-			 // hidePopup1: function(){
-				//  this.popupShow1 = false;
-			 // },
 			 hidePopup:async function() {
 				this.popupShow = false
 				var user = this.$store.state.user
@@ -271,7 +258,6 @@
 					})
 					return
 				}
-				console.log(user)
 				var user_id = this.$store.state.user.id
 				var goods_id = this.goodDetailData.id
 				var seller_id = this.goodDetailData.seller_id
@@ -319,9 +305,7 @@
 				})
 			},
 			previewImage: function(e) {
-				console.log(e)
 				let index = e.currentTarget.dataset.index;
-				console.log(index)
 				
 				uni.previewImage({
 					current: this.swiperdata[index],
@@ -330,8 +314,6 @@
 			},
 			async getGoodsDetailData(id){
 				var { data } = await getGoodsDetail(Number(id));
-				
-				
 				data.images.map(v=>{
 					this.swiperdata.push(v.img_url)
 				});
@@ -339,9 +321,22 @@
 				
 				this.goodDetailData.details = this.goodDetailData.details.replace(/view/g,'div')
 				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
-
-				console.log(data)
-				console.log(this.swiperdata)
+				
+				//将商品id记录到用户里
+				let goodsIds = this.$store.getters.getUser.goods_ids.split(',');
+				let gid = this.goodDetailData.id;
+				
+				let index = goodsIds.indexOf(gid);
+				if(index === -1){
+					if(goodsIds.length >= 20){
+						goodsIds.length = 19;
+					}
+				}else {
+					goodsIds.splice(index, 1);
+				}
+				goodsIds.unshift(gid);
+				this.$store.commit("updateGoodsIds", goodsIds.join(','));
+				updateUser({id:this.$store.getters.getUser.id, goods_ids: goodsIds.join(',')});
 			},
 			onShareAppMessage: function(e) {
 				let title = this.goodDetailData.title
@@ -362,24 +357,23 @@
 		},
 		onLoad(option) {
 			this.getGoodsDetailData(option.id)
-			console.log(this.activeindex)
 			 
 		},
 		async onShow() {
+			
+			
 			var userid = this.$store.state.user.id
 			if(!userid){
 				this.carnumshow = false
 				return
 			}
-			var {data} = await getCartList(userid)
-			this.carnum = data.length
-			console.log(this.carnum)
+			var {data} = await getCartList(userid);
+			this.carnum = data.length;
 			if(this.carnumshow>0){
 				this.carnumshow = true
 			}else{
 				this.carnumshow = false
 			}
-			
 		}
 	}
 </script>

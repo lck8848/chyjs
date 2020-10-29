@@ -47,7 +47,6 @@
 		data(){
 			return {
 				isShow: false,
-				user_gods_ids:"23,45,21,75,35,74,27,3,38,67,32,12,62,84,97,54,34,43,53,64",
 				list: [
 					{title: "店铺热榜", icon: "/static/images/showcase/hot.png", mark: "hot"},
 					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
@@ -61,16 +60,15 @@
 				this.isShow = !this.isShow;
 			},
 			async getGoodsList(){
-				let ids = this.user_gods_ids.split(',');
+				let ids = this.$store.getters.getUser.goods_ids.split(',');
 				if(ids.length > 10){
 					ids.length = 10;
 				}
-				let hotRes = await getHotGoods();
-				let recRes = await getRecommend(10);
-				let traRes = await getGoodsByIds(ids.join(','));
-				this.goodsList[0] = hotRes.data;
-				this.goodsList[1] = recRes.data;
-				this.goodsList[2] = traRes.data;
+				let arr = [getHotGoods(), getRecommend(10), getGoodsByIds(ids.join(','))];
+				let res = await Promise.all(arr);
+				this.goodsList[0] = res[0].data;
+				this.goodsList[1] = res[1].data;
+				this.goodsList[2] = res[2].data;
 			}
 		},
 		created(){
@@ -180,6 +178,7 @@
 								height: 174rpx;
 								.image {
 									width: 100%;
+									height: auto;
 									border-radius: 16rpx;
 								}
 							}
