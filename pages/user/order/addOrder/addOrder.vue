@@ -74,7 +74,7 @@
 			<textarea class="msg" :auto-height="true" @input="inputMsg" placeholder="留言建议提前协商 (250字以内)" :maxlength="250"/>
 		</view>
 		
-		<view class="add-order">
+		<view class="add-order" v-if="!isShow">
 			<view class="price-shell">
 				应付：
 				<text class="price">
@@ -87,6 +87,37 @@
 				<button class="submit" @click="addOrder()">提交订单</button>
 			</view>
 		</view>
+		
+		<!-- 弹出地址列表 -->
+		<tui-bottom-popup class="addr-list-shell" :show="isShow" @close="isShow=false" backgroundColor="#f8f8f8" height="850">
+			<view class="addr-list">
+				<view class="show-title">
+					选择收货地址
+					<view class="cancel" @tap="isShow=false"></view>
+				</view>
+				<scroll-view scroll-y="true" class="addr-content" >
+					<view class="addr" v-for="(item, index) in addrList" :key="item.id">
+						<view class="shell">
+							<evan-checkbox class="check" v-model="addr.id === item.id" primary-color="red" @change="changeCheck(index)"></evan-checkbox>
+							<view class="info">
+								<view class="user">
+									{{item.nickname}} {{item.phone}}
+								</view>
+								<view class="area">
+									{{item.addr_area+item.addr_detail+item.addr_house}}
+								</view>
+							</view>
+						</view>
+						<view class="edit-shell" @tap="editAddr(item.id)">
+							<image class="edit-img" src="@/static/images/user/icon_addr_edit.png" mode="widthFix" />
+						</view>
+					</view>
+				</scroll-view>
+				<view class="btn-shell">
+					<button class="add-btn" @click="editAddr()">新增地址</button>
+				</view>
+			</view>
+		</tui-bottom-popup>
 	</view>
 </template>
 
@@ -99,10 +130,12 @@
 			return {
 				isNoAddr: false,
 				goodsList: [],
-				addr: {},
+				addrList: [],
+				addr: "",
 				totalPrice: 0,
 				strPrice: "",
-				msg: ""
+				msg: "",
+				isShow: false
 			};
 		},
 		computed: {
@@ -110,26 +143,34 @@
 		},
 		methods: {
 			async getAddr(){
+				this.isNoAddr = false;
+				let arr = [getAddr(this.getUser.id), this.$store.dispatch('getCheckGoods')];
+				let data = await Promise.all(arr);
+				this.addrList = data[0];
+				this.goodsList = data[1];
 				if(this.getUser.addr_id){
 					this.addr = await getOneAddr(this.getUser.addr_id);
 				}else {
-					let data = await getAddr(this.getUser.id);
-					if(data.length !== 0){
-						this.addr = data[data.length-1];
+					if(this.addrList.length !== 0){
+						this.addr = this.addrList[this.addrList.length-1];
 					}else {
 						this.isNoAddr = true;
 					}
 				}
-				this.goodsList = await this.$store.dispatch('getCheckGoods');
 				this.totalPrice = this.goodsList.reduce((total, v) => {
 					return total + v.price*v.count;
 				}, 0);
 				this.strPrice = this.totalPrice.toFixed(2).toString();
 			},
 			updateAddr(){
-				uni.navigateTo({
-					url:'/pages/user/address/editAddress'
-				})
+				if(this.isNoAddr){
+					uni.navigateTo({
+						url:'/pages/user/address/editAddress'
+					})
+				}else {
+					this.isShow = true;
+				}
+				
 			},
 			inputMsg(e){
 				this.msg = e.detail.value;
@@ -165,13 +206,15 @@
 						isSuccess = false;
 					}
 				})
+				let _this = this;
 				if(isSuccess){
-					uni.showToast({
-						title: "提交订单成功",
-						icon: "none",
+					_this.$store.dispatch('delCart', ids);
+					uni.navigateBack({
 						success(){
-							this.$store.dispatch('delCart', ids);
-							uni.navigateBack();
+							uni.showToast({
+								title: "提交订单成功",
+								icon: "none"
+							});
 						}
 					});
 				}
@@ -186,6 +229,14 @@
 				let seconds = date.getSeconds();
 				let random = Math.random().toString().split('.');
 				return "E"+year+month+day+hours+minute+seconds+random[1].substring(0, 10);
+			},
+			changeCheck(index){
+				this.addr = this.addrList[index];
+			},
+			editAddr(id){
+				uni.navigateTo({
+					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`
+				})
 			}
 		},
 		onShow() {
@@ -380,6 +431,84 @@
 				font-weight: 500;
 				border-radius: 999rpx;
 				background-color: #f44;
+			}
+		}
+	}
+	.addr-list-shell {
+		.addr-list {
+			.show-title {
+				position: relative;
+				
+				padding: 24rpx;
+				text-align: center;
+				color: #333;
+				font-size: 32rpx;
+				background-color: #fff;
+				
+				.cancel {
+					position: absolute;
+					top: 24rpx;
+					right: 24rpx;
+					width: 44rpx;
+					height: 44rpx;
+					background-image: url(/static/images/showcase/cancel.png);
+					background-size: cover;
+				}
+			}
+			.addr-content {
+				height: 640rpx;
+				padding-top: 24rpx;
+				.addr {
+					display: flex;
+					justify-content: space-between;
+					padding: 24rpx;
+					margin: 0 24rpx 24rpx 24rpx;
+					align-items: center;
+					border-radius: 16rpx;
+					background-color: #fff;
+					.shell {
+						display: flex;
+						.check {
+							margin: auto;
+						}
+						.info {
+							margin-left: 24rpx;
+							color: #323233;
+							.user {
+								font-size: 32rpx;
+								margin-bottom: 16rpx;
+							}
+							.area {
+								font-size: 26rpx;
+							}
+						}
+					}
+					.edit-shell {
+						width: 40rpx;
+						height: 40rpx;
+						margin-right: 30rpx;
+						.edit-img {
+							width: 100%;
+							height: auto;
+						}
+					}
+				}
+			}
+			.btn-shell {
+				position: fixed;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				padding: 10rpx 32rpx;
+				align-items: center;
+				.add-btn {
+					height: 80rpx;
+					line-height: 80rpx;
+					color: #fff;
+					font-size: 28rpx;
+					border-radius: 999rpx;
+					background-color: #f44;
+				}
 			}
 		}
 	}

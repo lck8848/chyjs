@@ -92,11 +92,9 @@
 			// 开关
 			switchChange:function(e){
 				this.isSwitch = e.target.value
-				console.log( e.target.value);
 			},
 			// 添加地址
 			formSubmit: async function(e) {
-				console.log('form发生了submit事件，携带数据为：', e.detail)
 				let obj = e.detail.value;
 				let objArr = Object.keys(obj);
 				// 判断不能为空
@@ -129,15 +127,15 @@
 						this.$store.commit('saveUser', user);
 					}
 					if(code == 0){
-						uni.showToast({
-							title:"添加地址成功",
-							icon:"none",
-							mask:true,
-						})
-						
-						uni.navigateTo({
-							url: "/pages/user/address/address"
-						})
+						uni.navigateBack({
+							success(){
+								uni.showToast({
+									title:"添加地址成功",
+									icon:"none",
+									mask:true,
+								})
+							}
+						});
 					}
 					
 				}
@@ -174,11 +172,12 @@
 							var { status } = await deleteAddr(id);
 							
 							if(!status){
-								await uni.navigateTo({
-									url:"/pages/user/address/address"
-								}),
-								await uni.showToast({
-									title:"删除成功",
+								uni.navigateBack({
+									success(){
+										uni.showToast({
+											title:"删除成功",
+										})
+									}
 								})
 							}else{
 								uni.showToast({
@@ -216,8 +215,6 @@
 					var {status} = await updateAddr(addrData);
 					var user_id = this.$store.state.user.id;
 					var addr_id = this.$store.state.user.addr_id;
-					console.log("user_id======"+user_id);
-					console.log("addr_id======="+addrData.id)
 					
 					if(this.isSwitch == true){
 						var res = await updateUser({id:user_id,addr_id:addrData.id})
@@ -227,26 +224,23 @@
 						
 					}else{
 						if(addrData.id == addr_id){
-							console.log("333333334")
 							var res = await updateUser({id:user_id,addr_id:"0"})
 							let user = this.$store.state.user;
 							user.addr_id = 0;
 							this.$store.commit('saveUser', user);
-							console.log(user)
-							
 						}
 					}
 					
 					if(status == 0){
-						uni.showToast({
-							title:"地址修改成功",
-							icon:"none",
-							mask:true,
-						})
-						
-						uni.navigateTo({
-							url: "/pages/user/address/address"
-						})
+						uni.navigateBack({
+							success(){
+								uni.showToast({
+									title:"地址修改成功",
+									icon:"none",
+									mask:true,
+								})
+							}
+						});
 					}
 				}
 			}

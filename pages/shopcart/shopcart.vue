@@ -85,7 +85,7 @@
 		</view>
 		
 		<!-- 弹出层 -->
-		<tui-bottom-popup class="goods-info" :show="isShow" @close="isShow=false" height="750">
+		<tui-bottom-popup class="goods-info" :show="isShow" @close="isShow=false" :height="height">
 			<view class="popup-shell">
 				<image src="http://47.106.36.197:7000/source/other/close.svg" class="close" @click="isShow=false"></image>
 				<view class="goods">
@@ -149,7 +149,8 @@
 				isAllCheck: false,
 				tempCheck: false,//切换编辑后，保留原先的全选
 				isNoneAll: false,//进入编辑，判断是否有选择
-				totalPrice: 0	//总金额
+				totalPrice: 0,	//总金额
+				height: 550
 			}
 		},
 		computed: {
@@ -172,6 +173,9 @@
 					this.tempCheck = this.allCheck;
 					this.isAllCheck = false;
 				}
+			},
+			specArr(){
+				this.height = this.specArr.length>4 ?750 :550;
 			}
 		},
 		methods: {
@@ -545,7 +549,7 @@
 				// 规格
 				.spec {
 					flex: 1;
-					padding: 24rpx 32rpx 0;
+					padding: 24rpx 32rpx 132rpx;
 					.name {
 						padding-bottom: 24rpx;
 						color: #323233;
@@ -573,7 +577,12 @@
 					}
 				}
 				.btn-shell {
+					position: fixed;
+					left: 0;
+					right: 0;
+					bottom: 0;
 					padding: 16rpx 32rpx;
+					background-color: #fff;
 					.confirm-btn {
 						height: 80rpx;
 						line-height: 80rpx;
