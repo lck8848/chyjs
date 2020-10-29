@@ -154,14 +154,25 @@
 			},
 			// 删除
 			async delAddr(id){
+				var _this = this;
 				uni.showModal({
 					content:"确定要删除吗?",
 					async success(e) {
-						console.log(e.cancel);
 						if(e.cancel === true){
 							return
 						}else{
+							
+							var user_id = _this.$store.state.user.id;
+							var addr_id = _this.$store.state.user.addr_id;
+							
+							if(id == addr_id){
+								var res = await updateUser({id:user_id,addr_id:"0"})
+								let user = _this.$store.state.user;
+								user.addr_id = 0;
+								_this.$store.commit('saveUser', user);
+							}
 							var { status } = await deleteAddr(id);
+							
 							if(!status){
 								await uni.navigateTo({
 									url:"/pages/user/address/address"
