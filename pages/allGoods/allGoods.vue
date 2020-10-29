@@ -222,7 +222,7 @@
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.list_box {
 		display: flex;
 		flex-direction: row;

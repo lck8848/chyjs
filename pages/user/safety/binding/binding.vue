@@ -227,7 +227,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .bind-container {
 	.info {
 		margin-top: 90rpx;

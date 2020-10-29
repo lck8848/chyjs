@@ -78,7 +78,7 @@
 			// height:1000rpx;
 			.outside {
 				display: flex;
-				justify-content: space-around;
+				// justify-content: space-around;
 				flex-wrap: wrap;
 				height: 800rpx;
 				border: 1px solid #F9F9F9;
@@ -86,9 +86,9 @@
 				.inside {
 					display: flex;
 					flex-direction: column;
-					justify-content: space-between;
 					width: 31%;
 					height: 390rpx;
+					margin:0 8rpx;
 					margin-bottom: 20rpx;
 					background-color: white;
 
