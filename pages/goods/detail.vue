@@ -378,7 +378,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.detail-container{
 		// 头部
 		.head{
