@@ -19,7 +19,7 @@
 					<view class="title">验证码</view>
 					<input class="input" type="text" placeholder="请输入4位验证码" maxlength="4" v-model="codeVal" @input="ChangeCode" />
 				</view>
-				<view :class="['code', disabledCode ? 'getCode' : '']" @tap="getVerifyCode()" :disabled="disabledCode">{{ getCode }}</view>
+				<view :class="['code', disabledCode ? 'getCode' : '']" @tap="getVerifyCode()">{{ getCode }}</view>
 			</view>
 		</view>
 		<view class="bottom_btn"><button :disabled="!disabled" @click="submit" :class="['btn_style', disabled ? 'verify' : '']">确定</button></view>
@@ -43,10 +43,11 @@ export default {
 			disabled: false,
 			disabledCode: false, //是否可以点击
 			getCode: '获取验证码', //显示文字
-			placeholderPhone:"请输入手机号",
+			placeholderPhone: '请输入手机号',
 			inputHide: true,
 			show: false,
-			i:""
+			i: '',
+			oldPhone: ''
 		};
 	},
 	methods: {
@@ -107,19 +108,20 @@ export default {
 			//验证用户输入的验证码是否正确
 			var result = zhenzisms.client.validateCode(this.phoneVal, this.codeVal);
 			if (result == 'ok') {
-				if(!this.inputHide){
+				if (!this.inputHide) {
 					uni.showToast({
 						title: '加载中',
-						icon: 'loading',
+						icon: 'loading'
 					});
-					this.phoneVal = "";
-					this.codeVal = "";
+					this.oldPhone = this.phoneVal;
+					this.phoneVal = '';
+					this.codeVal = '';
 					this.inputHide = true;
 					this.title = '验证新手机号';
 					clearInterval(this.i);
 					this.disabledCode = false;
 					this.getCode = '获取验证码';
-					this.placeholderPhone = "请输入新手机号";
+					this.placeholderPhone = '请输入新手机号';
 					this.tips = '更新后，新手机号将用于登录有赞其他应用，如有赞微商城、有赞买家版、有赞批发、有赞收银';
 					return;
 				}
@@ -161,6 +163,9 @@ export default {
 		},
 		//获取验证码按钮点击事件
 		getVerifyCode() {
+			if(this.disabledCode){
+				return;
+			}
 			//判断手机号是否为空
 			if (!this.phoneVal) {
 				uni.showToast({
@@ -178,11 +183,21 @@ export default {
 				});
 				return;
 			}
-			if(this.i && !this.disabledCode){
+			
+			console.log(this.oldPhone,this.phoneVal)
+			if (this.oldPhone && this.oldPhone == this.phoneVal) {
+				uni.showToast({
+					title: '不可使用旧手机号',
+					icon: 'none'
+				});
+				return;
+			}
+
+			if (this.i && !this.disabledCode) {
 				this.verifySuccess();
 				return;
 			}
-			if(!this.i){
+			if (!this.i) {
 				this.show = true;
 			}
 		},

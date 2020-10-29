@@ -6,16 +6,23 @@
 
 
 		<view class="discounts_goods">
-			<view class="item" v-for="item in goodsData" :key="item.id">
+			<view class="item" v-for="(item,index) in goodsData" :key="item.id">
 				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 					<view class="img">
 						<image :src="item.image_url" mode=""></image>
 						<view class="tui-countdown">
-							<view class="tui-countdown-text">距结束</view>
-							<tui-countdown :time="timeList[0]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
-							 :days="true"></tui-countdown>
+							<block v-if="flashow[index]">
+								<view class="tui-countdown-text">距结束</view>
+								<tui-countdown :time="timeList[0]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
+								:days="true"></tui-countdown>
+							 </block>
+							
 						</view>
-						
+						<block v-if="!flashow[index]">
+							<view class="jiesu_img">
+								<image src="../../../static/images/user/已结束.png" mode=""></image>
+							</view>
+						</block>
 					</view>
 					
 				</navigator>
@@ -71,7 +78,9 @@
 		data() {
 			return {
 				timeList: [],
-				goodsData: []
+				goodsData: [],
+				flashow:[],
+				
 			}
 		},
 		methods: {
@@ -85,10 +94,17 @@
 				var timestamp = new Date().getTime();
 				console.log(timestamp)
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.create_time));
+					this.timeList.push((timestamp - v.create_time)/1000);
+				})
+				this.timeList.map(v=>{
+						
+					if(v == 0 || v>0){
+						this.flashow.push("false")
+					}
 				})
 				console.log(this.goodsData)
-				console.log(this.timeList)
+				console.log(this.timeList);
+				console.log(this.flashow)
 			}
 		},
 		onLoad() {
@@ -235,6 +251,16 @@
 			font-size: 30rpx;
 			line-height: 30rpx;
 			color: #fff;
+		}
+		.jiesu_img{
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 9999;
+			background-color: #ccc;
+			opacity: 0.5;
 		}
 	}
 </style>

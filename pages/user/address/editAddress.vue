@@ -154,14 +154,25 @@
 			},
 			// 删除
 			async delAddr(id){
+				var _this = this;
 				uni.showModal({
 					content:"确定要删除吗?",
 					async success(e) {
-						console.log(e.cancel);
 						if(e.cancel === true){
 							return
 						}else{
+							
+							var user_id = _this.$store.state.user.id;
+							var addr_id = _this.$store.state.user.addr_id;
+							
+							if(id == addr_id){
+								var res = await updateUser({id:user_id,addr_id:"0"})
+								let user = _this.$store.state.user;
+								user.addr_id = 0;
+								_this.$store.commit('saveUser', user);
+							}
 							var { status } = await deleteAddr(id);
+							
 							if(!status){
 								await uni.navigateTo({
 									url:"/pages/user/address/address"
@@ -204,14 +215,28 @@
 				}else{
 					var {status} = await updateAddr(addrData);
 					var user_id = this.$store.state.user.id;
-					console.log("user_id"+user_id);
-					console.log("addr_id"+addrData.id)
+					var addr_id = this.$store.state.user.addr_id;
+					console.log("user_id======"+user_id);
+					console.log("addr_id======="+addrData.id)
+					
 					if(this.isSwitch == true){
 						var res = await updateUser({id:user_id,addr_id:addrData.id})
 						let user = this.$store.state.user;
 						user.addr_id = addrData.id;
 						this.$store.commit('saveUser', user);
+						
+					}else{
+						if(addrData.id == addr_id){
+							console.log("333333334")
+							var res = await updateUser({id:user_id,addr_id:"0"})
+							let user = this.$store.state.user;
+							user.addr_id = 0;
+							this.$store.commit('saveUser', user);
+							console.log(user)
+							
+						}
 					}
+					
 					if(status == 0){
 						uni.showToast({
 							title:"地址修改成功",

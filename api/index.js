@@ -147,10 +147,15 @@ export async function updateCart(cart){
 
 //删除购物车
 export async function delCart(ids){
-	return await instance.post(`/delCart?ids=${ids}`);
+	return await instance.post('/delCart',{ids});
 }
 
 //添加购物车
 export async function addCart(cart){	//{ userId, goodsId, count, specId }
 	return await instance.post(`/addCart`, cart);
+}
+
+//修改全部购物车选择状态
+export async function updateAllCart({userId, checked}){
+	return await instance.post(`/updateAllCart`, {userId, checked});
 }

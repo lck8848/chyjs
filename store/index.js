@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getCartList, updateCart, delCart, addCart } from '../api/index.js';
+import { getCartList, updateCart, delCart, addCart, updateAllCart } from '../api/index.js';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -20,6 +20,15 @@ const store = new Vuex.Store({
 		},
 		delUser(state){
 			state.user = ""
+		},
+		isCartAllCheck(state){
+			let allCheck = true;
+			state.cart.map(v => {
+				if(!v.checked){
+					allCheck = false;
+				}
+			});
+			return allCheck;
 		}
 	},
 	actions: {
@@ -44,6 +53,21 @@ const store = new Vuex.Store({
 			if(!status){
 				dispatch('getCartList');
 			}
+		},
+		async updateAllCart({dispatch,state}, checked){
+			let { status } = await updateAllCart({userId:state.user.id, checked});
+			if(!status){
+				dispatch('getCartList');
+			}
+		},
+		getCheckGoods({state}){
+			let arr = [];
+			state.cart.map(v => {
+				if(v.checked){
+					arr.push(v);
+				}
+			});
+			return arr;
 		},
 		delUser(state){
 			state.user = "";

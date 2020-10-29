@@ -27,7 +27,8 @@
 			<view class="cart-list">
 				<view class="cart" v-for="(item, index) in cart" :key="item.id">
 					<view class="check-shell">
-						<evan-checkbox class="check" v-model="isEdit ?false :item.checked" primary-color="red" @change="changeCheck($event, index)"></evan-checkbox>
+						<evan-checkbox class="check" v-model="checkArr[index]" primary-color="red" @change="changeCheck($event, index)" v-if="isEdit"></evan-checkbox>
+						<evan-checkbox class="check" v-model="item.checked" primary-color="red" @change="changeCheck($event, index)" v-else></evan-checkbox>
 					</view>
 					<view class="goods">
 						<view class="img-shell">
@@ -60,10 +61,10 @@
 			
 			<view class="operate">
 				<view class="left">
-					<evan-checkbox class="all-check" v-model="isEdit ?edit :normal" primary-color="red" @change="allChecked()"></evan-checkbox>
+					<evan-checkbox class="all-check" v-model="allCheck" primary-color="red" @change="allChecked()"></evan-checkbox>
 					全选
 				</view>
-				<view class="buy">
+				<view class="buy" v-if="!isEdit">
 					<view class="total-price">
 						<view class="price">
 							<view class="text">合计：</view>
@@ -73,7 +74,12 @@
 							不含运费
 						</view>
 					</view>
-					<button class="buy-btn">结算</button>
+					<navigator url="../user/order/addOrder/addOrder" open-type="navigate">
+						<button :class="['be-btn', totalPrice===0 ?'none-btn' :'']">结算</button>
+					</navigator>
+				</view>
+				<view v-else>
+					<button :class="['be-btn', isNoneAll ?'none-btn' :'']" @click="deleteCart()">删除</button>
 				</view>
 			</view>
 		</view>
@@ -125,7 +131,7 @@
 <script>
 	import recommend from "../../component/recommend/recommend.vue";
 	import { getSpec } from "../../api/index.js";
-	import { mapGetters, mapActions } from "vuex";
+	import { mapGetters, mapActions, mapMutations } from "vuex";
 	export default {
 		data() {
 			return {
@@ -138,10 +144,11 @@
 				specArr: [],	//当前商品的规格
 				current: 0,		//当前弹出的购物车下标
 				index: 0,		//所选择规格的下标
-				delArr:[],		//要删除的购物车id
+				checkArr: [],
 				allCheck: false,//全选
-				normal: false,	//正常状态的全选
-				edit: false,
+				isAllCheck: false,
+				tempCheck: false,//切换编辑后，保留原先的全选
+				isNoneAll: false,//进入编辑，判断是否有选择
 				totalPrice: 0	//总金额
 			}
 		},
@@ -151,10 +158,24 @@
 		watch: {
 			getCarts(){
 				this.cart = this.$store.getters.getCarts;
+				this.totalPrice = this.cart.reduce((total, v) => {
+					return total + (v.checked ?v.price*v.count :0);
+				}, 0);
+				this.totalPrice = this.totalPrice.toFixed(2);
+				if(this.isAllCheck){
+					this.allCheck = true;
+					this.cart.map(v => {
+						if(!v.checked){
+							this.allCheck = false;
+						}
+					});
+					this.tempCheck = this.allCheck;
+					this.isAllCheck = false;
+				}
 			}
 		},
 		methods: {
-			...mapActions(['updateCart', 'delCart']),
+			...mapActions(['getCartList', 'updateCart', 'delCart', 'updateAllCart']),
 			ToTop() {
 				uni.pageScrollTo({
 					scrollTop: 0,
@@ -188,30 +209,59 @@
 			},
 			changeCheck(value, index){
 				if(this.isEdit){
-					value ?this.delArr.push(index) :this.delArr.splice(this.delArr.indexOf(index), 1);
+					this.allCheck = this.checkArr.every(v => v===true);
+					this.isNoneAll = this.checkArr.every(v => v===false);
 					return;
 				}
 				this.updateCart({
 					id: this.cart[index].id,
 					checked: value ?1 :0
 				});
+				this.isAllCheck = true;
 			},
 			editCart(){
 				this.isEdit = !this.isEdit;
-				if(!this.isEdit){
-					this.edit = false;
+				if(this.isEdit){
+					this.checkArr = Array(this.cart.length).fill(false);
+					this.allCheck = false;
+					this.isNoneAll = true;
+				}else {
+					this.allCheck = this.tempCheck;
 				}
-				// if(this.isEdit && this.delArr.length !== 0){
-				// 	this.delCart(this.delArr.join(','));
-				// }
 			},
 			allChecked(){
-				console.log(this.allCheck);
-				this.allCheck = !this.isEdit ?this.normal :this.edit;
+				if(this.isEdit){
+					this.isNoneAll = !this.allCheck;
+					this.checkArr = Array(this.cart.length).fill(this.allCheck);
+				}else {
+					this.updateAllCart(this.allCheck ?1 :0);
+				}
+			},
+			deleteCart(){
+				if(this.isNoneAll)return;
+				let arr = [];
+				this.checkArr.map((v, index) => {
+					if(v){
+						arr.push(this.cart[index].id);
+					}
+				});
+				uni.showModal({
+					content: `确定删除所选店铺的${arr.length}个商品`,
+					confirmText: '确认',
+					confirmColor: '#ff4444',
+					success: ({confirm}) => {
+						if(confirm){
+							this.delCart(arr.join(','));
+							this.checkArr = Array(this.cart.length).fill(false);
+							this.isNoneAll = true;
+						}
+					}
+				});
 			}
 		},
 		onShow() {
-			this.cart = this.$store.getters.getCarts;
+			this.getCartList();
+			this.isAllCheck = true;
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
@@ -420,20 +470,24 @@
 							}
 						}
 						.postage {
+							text-align: right;
 							color: #969799;
 							font-size: 24rpx;
 						}
 					}
-					.buy-btn {
-						width: 192rpx;
-						height: 72rpx;
-						margin-left: 24rpx;
-						line-height: 72rpx;
-						border-radius: 999rpx;
-						color: #fff;
-						font-size: 28rpx;
-						background-color: #F44;
-					}
+				}
+				.be-btn {
+					width: 192rpx;
+					height: 72rpx;
+					margin-left: 24rpx;
+					line-height: 72rpx;
+					border-radius: 999rpx;
+					color: #fff;
+					font-size: 28rpx;
+					background-color: #F44;
+				}
+				.none-btn {
+					background-color: #c8c9cc;
 				}
 			}
 		}
