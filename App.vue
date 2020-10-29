@@ -15,6 +15,7 @@ export default {
 <style>
 	page{
 		background: #f8f8f8;
+		-webkit-font-smoothing: antialiased;
 		font-family: YouYuan, Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
 	}
 /* 解决头条小程序组件内引入字体不生效的问题 */
