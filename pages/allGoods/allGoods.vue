@@ -241,7 +241,7 @@
 			font-size: 26rpx;
 
 			.item {
-				padding-left: 20rpx;
+				padding-left: 25rpx;
 				position: relative;
 
 				&:not(:first-child) {
@@ -266,6 +266,7 @@
 					color: red;
 					font-weight: 600;
 					background-color: #fff;
+					border-left: 4rpx solid red;
 				}
 			}
 		}
@@ -322,7 +323,7 @@
 
 							.g-title {
 								margin-bottom: 4px;
-								height: 80rpx;
+								height: 100rpx;
 								color: #323233;
 								line-height: 20px;
 								font-weight: bold;
