@@ -128,6 +128,7 @@
 		}
 
 		.ka {
+			margin-top: 40rpx;
 			width: 100%;
 			height: 400rpx;
 
