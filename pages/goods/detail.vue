@@ -274,10 +274,12 @@
 				console.log(user)
 				var user_id = this.$store.state.user.id
 				var goods_id = this.goodDetailData.id
+				var seller_id = this.goodDetailData.seller_id
 				var spec_id = this.goodDetailData.speclist[this.activeindex].id
 				var obj = {
 					userId:user_id,
 					goodsId:goods_id, 
+					sellerId: seller_id,
 					count:this.value, 
 					specId:spec_id,
 				}

@@ -99,7 +99,7 @@
 	export default {
 		data() {
 			return {
-				userId: 1,
+				userId: this.$store.getters.getUser.id,
 				current: 0,
 				value: "",
 				scrollTop: 0,

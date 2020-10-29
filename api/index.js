@@ -151,11 +151,21 @@ export async function delCart(ids){
 }
 
 //添加购物车
-export async function addCart(cart){	//{ userId, goodsId, count, specId }
+export async function addCart(cart){	//{ userId, goodsId, sellerId, count, specId }
 	return await instance.post(`/addCart`, cart);
 }
 
 //修改全部购物车选择状态
 export async function updateAllCart({userId, checked}){
 	return await instance.post(`/updateAllCart`, {userId, checked});
+}
+
+//根据商品id获得商家id
+export async function getSellerIdByGoodsIds(ids){
+	return await instance.post(`/getSellerIdByGoodsIds?ids=${ids}`);
+}
+
+//添加订单
+export async function addOrder(order){
+	return await instance.post(`/addOrder`, {order});
 }
