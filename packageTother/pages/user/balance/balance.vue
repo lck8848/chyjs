@@ -17,15 +17,15 @@
 		</view>
 
 		<view class="grid">
-			<navigator url="/pages/user/balance/recharge/recharge" open-type="navigate">
+			<navigator url="/packageTother/pages/user/balance/recharge/recharge" open-type="navigate">
 				<view class="recharge">
-					<image src="@/static/images/user/充值.png" mode=""></image>
+					<image src="@/packageTother/static/images/user/充值.png" mode=""></image>
 					<text>充值</text>
 				</view>
 			</navigator>
-			<navigator url="/pages/user/balance/record/record" open-type="navigate">
+			<navigator url="/packageTother/pages/user/balance/record/record" open-type="navigate">
 				<view class="bill ">
-					<image src="@/static/images/user/账单.png" mode=""></image>
+					<image src="@/packageTother/static/images/user/账单.png" mode=""></image>
 					<text>账单</text>
 				</view>
 
@@ -34,12 +34,12 @@
 
 		<view class="lianjie">
 			<van-cell is-link icon="bag-o" title="去商城购物" link-type="switchTab" url="/pages/index/index" />
-			<van-cell is-link title="适用店铺" icon="send-gift-o" link-type="navigateTo" url="/pages/user/balance/shops/shops" />
+			<van-cell is-link title="适用店铺" icon="send-gift-o" link-type="navigateTo" url="/packageTother/pages/user/balance/shops/shops" />
 			<van-cell icon="clock-o" value="永久有效" title="有效期" />
 		</view>
 
 		<view class="lianjie">
-			<van-cell is-link icon="question-o" title="使用帮助" link-type="navigateTo" url="/pages/user/balance/tooltip/tooltip" />
+			<van-cell is-link icon="question-o" title="使用帮助" link-type="navigateTo" url="/packageTother/pages/user/balance/tooltip/tooltip" />
 		</view>
 	</view>
 </template>

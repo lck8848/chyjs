@@ -22,7 +22,7 @@
 							</view>
 						</view>
 						<view class="tui-address-imgbox" @tap="editAddr(item.id,'edit')">
-							<image class="tui-address-img" src="@/static/images/user/icon_addr_edit.png" />
+							<image class="tui-address-img" src="@/packageTother/static/images/user/icon_addr_edit.png" />
 						</view>
 					</view>
 				</tui-list-cell>
@@ -51,7 +51,7 @@
 		methods: {
 			editAddr(id, addressType="add") {
 				uni.navigateTo({
-					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`,
+					url: `/packageTother/pages/user/address/editAddress?${id ?'id='+id :''}`,
 					
 				})
 				if(addressType === "add"){
