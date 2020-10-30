@@ -384,6 +384,7 @@
 
 <style lang="scss" scoped>
 	.detail-container{
+		padding-bottom: 100rpx;
 		// 头部
 		.head{
 			width: 750rpx;
