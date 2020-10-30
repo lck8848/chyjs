@@ -42,8 +42,8 @@
 </template>
 
 <script>
-	import tuiBottomPopup from '../../components/thorui/tui-bottom-popup/tui-bottom-popup.vue'; 
-	import { getHotGoods, getRecommend, getGoodsByIds } from '../../api/index.js';
+	import tuiBottomPopup from '@/components/thorui/tui-bottom-popup/tui-bottom-popup.vue'; 
+	import { getHotGoods, getRecommend, getGoodsByIds } from '@/api/index.js';
 	export default {
 		name: "show-case",
 		props:['goodsIds'],

@@ -28,7 +28,7 @@
 
 <script>
 	import lazyImg from '../lazy-img/lazy-img.vue';
-	import {getRecommend} from"../../api/index.js";
+	import {getRecommend} from"@/api/index.js";
 	export default{
 		props: ["scrollTop"],
 		data(){
