@@ -26,7 +26,7 @@
 		
 		<view class="order-list">
 			<view class="order" v-for="(item, index) in orderList" :key="item.id">
-				<navigator :url="'/pages/user/orderDetails/orderDetails?oid='+item.id">
+				<view @tap="goOrderDetail(index)">
 					<view class="head">
 						<view class="left">
 							{{ item.shop_name }}
@@ -34,42 +34,42 @@
 						</view>
 						<view class="right">{{ status[reStatus[item.status]] }}</view>
 					</view>
-					<view class="goods">
+					<view class="goods" v-for="goods in item.goods" :key="goods.id">
 						<view class="img-shell">
-							<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
+							<lazy-img class="img" :img-url="goods.image_url" :scrollTop="scrollTop"></lazy-img>
 						</view>
 						<view class="info">
 							<view class="info-top">
 								<view class="info-left">
-									{{ item.title }}
+									{{ goods.title }}
 								</view>
 								<view class="info-right">
-									<view class="price">￥{{ item.price.toFixed(2) }}</view>
-									<view class="count">x{{ item.total_num }}</view>
+									<view class="price">￥{{ goods.price.toFixed(2) }}</view>
+									<view class="count">x{{ goods.count }}</view>
 								</view>
 							</view>
-							<view class="info-bottom">{{ item.spec_name }}</view>
+							<view class="info-bottom">{{ goods.spec_name }}</view>
 						</view>
 					</view>
-					
-					<view class="shell">
-						<view class="total-price">
-							需付款
-							<view class="mini">￥</view>
-							<view class="big">{{ ((item.total_price+item.postage).toString()).split('.')[0] }}</view>
-							<view class="mini">.{{ ((item.total_price+item.postage).toFixed(2).toString()).split('.')[1] }}</view>
-						</view>
+				</view>
+				
+				<view class="shell">
+					<view class="total-price">
+						需付款
+						<view class="mini">￥</view>
+						<view class="big">{{ ((item.total_price+item.postage).toString()).split('.')[0] }}</view>
+						<view class="mini">.{{ ((item.total_price+item.postage).toFixed(2).toString()).split('.')[1] }}</view>
 					</view>
-				</navigator>
+				</view>
 				<view class="shell" v-if="item.status === 1">
 					<view class="button">
-						<view class="btn cancel" @tap="cancel(item.id)">取消订单</view>
+						<view class="btn cancel" @tap="cancel(item.ids)">取消订单</view>
 						<view class="btn pay"  @tap="atOnce(item, index)">立即付款</view>
 					</view>
 				</view>
 				<view class="shell" v-if="item.status === 2">
 					<view class="button">
-						<view class="btn pay"  @tap="takeGoods(item.id)">确认收货</view>
+						<view class="btn pay"  @tap="takeGoods(item.ids)">确认收货</view>
 					</view>
 				</view>
 			</view>
@@ -115,8 +115,53 @@
 			async search(){
 				let { status, data } = await getOrderByUserId(this.userId, this.tabList[this.current].status,this.value);
 				if(!status){
-					this.orderList = data;
+					this.orderList = this.disposeData(data);
 				}
+			},
+			disposeData(data){
+				let arr = [];
+				data.map(v => {
+					let arrIndex = -1;
+					arr.some((o, index) => {
+						if(o.orderNo === v.orderNo ){
+							arrIndex = index;
+							return true;
+						}
+					})
+					if(arrIndex === -1){
+						arr.push({
+							id:v.id,
+							ids: [v.id],
+							status:v.status,
+							orderNo: v.orderNo,
+							shop_name: v.shop_name,
+							postage: v.postage,
+							goods: [{
+								count: v.total_num,
+								price: v.price,
+								total_price: v.total_price,
+								title: v.title,
+								image_url: v.image_url,
+								spec_name: v.spec_name
+							}]
+						});
+					}else {
+						arr[arrIndex].ids.push(v.id);
+						arr[arrIndex].goods.push({
+							count: v.total_num,
+							price: v.price,
+							total_price: v.total_price,
+							title: v.title,
+							image_url: v.image_url,
+							spec_name: v.spec_name
+						})
+					}
+				});
+				arr.map(v => {
+					v.ids = v.ids.join(',');
+					v.total_price = v.goods.reduce((total, p) => {return total+p.total_price}, 0);
+				});
+				return arr;
 			},
 			show(msg){
 				if(msg === 'cancel'){
@@ -130,11 +175,11 @@
 				this.current = index;
 				let { status, data } = await getOrderByUserId(this.userId, this.tabList[index].status, this.value);
 				if(!status){
-					this.orderList = data;
+					this.orderList = this.disposeData(data);
 				}
 			},
-			async cancel(oid){
-				let {status} = await updateOrderStatus(oid, 5);
+			async cancel(oids){
+				let {status} = await updateOrderStatus(oids, 5);
 				if(!status){
 					uni.showToast({
 						title: '订单已取消'
@@ -159,28 +204,34 @@
 								});
 								return;
 							}
-							let arr = [updateUser({id:this.userId, balance: price}), updateOrderStatus(order.id, 3)];
+							let arr = [updateUser({id:this.userId, balance: price}), updateOrderStatus(order.ids, 3)];
 							let data = await Promise.all(arr);
-							this.orderList[index].status = 3;
 							if(!data[0].status){
 								this.$store.commit('updateBalance', price);
 								uni.showToast({
 									title: '订单支付成功',
 									icon: 'none'
 								});
+								this.checked(this.current);
 							}
 						}
 					}
 				});
 			},
-			async takeGoods(oid){
-				let {status} = await updateOrderStatus(oid, 4);
+			async takeGoods(oids){
+				let {status} = await updateOrderStatus(oids, 4);
 				if(!status){
 					uni.showToast({
 						title: '确认收货'
 					});
 					this.checked(this.current);
 				}
+			},
+			goOrderDetail(index){
+				this.$store.commit('saveOrder', this.orderList[index]);
+				uni.navigateTo({
+					url: "../orderDetails/orderDetails?oid="+this.orderList[index].id
+				});
 			}
 		},
 		onPageScroll({scrollTop}){
@@ -339,6 +390,7 @@
 			}
 			.goods {
 				display: flex;
+				margin-bottom: 20rpx;
 				.img-shell {
 					margin-right: 20rpx;
 					width: 140rpx;

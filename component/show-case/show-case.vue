@@ -22,15 +22,17 @@
 					</view>
 					
 					<scroll-view class="list" :scroll-x="true">
-						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @click="navTo(goods.id)">
-							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
-							<view class="shell">
-								<image class="image" :src="goods.image_url" mode="widthFix"></image>
-							</view>
-							<view class="price">
-								<view class="price-icon">￥</view>
-								{{ (goods.price).toFixed(2) }}
-							</view>
+						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id">
+							<navigator :url="'/pages/goods/detail?id='+goods.id">
+								<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
+								<view class="shell">
+									<image class="image" :src="goods.image_url" mode="widthFix"></image>
+								</view>
+								<view class="price">
+									<view class="price-icon">￥</view>
+									{{ (goods.price).toFixed(2) }}
+								</view>
+							</navigator>
 						</view>
 					</scroll-view>
 				</view>
@@ -64,11 +66,6 @@
 			}
 		},
 		methods: {
-			navTo(id){
-				uni.navigateTo({
-					url:"/pages/goods/detail?id="+id
-				})
-			},
 			show(){
 				this.isShow = !this.isShow;
 			},

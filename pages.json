@@ -129,7 +129,7 @@
 		}, {
 			"path": "pages/user/order/order",
 			"style": {
-				"navigationBarTitleText": "我的订单"
+				"navigationBarTitleText": "订单列表"
 			}
 		}, {
 			"path": "pages/user/balance/recharge/recharge",
@@ -161,10 +161,14 @@
 			}
 		}, {
 			"path": "pages/user/orderDetails/orderDetails",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
 		}, {
 			"path": "pages/user/address/editAddress",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "地址编辑"
+			}
 		}, {
 			"path": "pages/user/userInfo/userInfo",
 			"style": {
@@ -172,7 +176,9 @@
 			}
 		}, {
 			"path": "pages/user/userInfo/selfdom/selfdom",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "个性化推荐"
+			}
 		}, {
 			"path": "pages/user/safety/safety",
 			"style": {
@@ -201,7 +207,9 @@
 		}
         ,{
             "path" : "pages/user/order/addOrder/addOrder",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "确认订单"
+			}
         }
     ],
 

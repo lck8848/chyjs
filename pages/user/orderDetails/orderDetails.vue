@@ -3,16 +3,16 @@
 		<view class="head">
 			<view class="status">
 				<view class="status-icon">
-					<image class="img" :src="statusList[reStatus[data.status]].img_url" mode="widthFix"></image>
+					<image class="img" :src="statusList[reStatus[order.status]].img_url" mode="widthFix"></image>
 				</view>
 				<view class="status-info">
-					<view class="title">{{statusList[reStatus[data.status]].title}}</view>
-					<view class="text">{{statusList[reStatus[data.status]].text}}</view>
+					<view class="title">{{statusList[reStatus[order.status]].title}}</view>
+					<view class="text">{{statusList[reStatus[order.status]].text}}</view>
 				</view>
 			</view>
 			
-			<view class="steps" v-if="data.status !== 5">
-				<order-steps :options="['买家付款', '商家发货', '买家收货', '交易完成']" :active="reStatus[data.status]"></order-steps>
+			<view class="steps" v-if="order.status !== 5">
+				<order-steps :options="['买家付款', '商家发货', '买家收货', '交易完成']" :active="reStatus[order.status]"></order-steps>
 			</view>
 			
 			<view class="addr">
@@ -37,29 +37,29 @@
 					<image class="icon" src="http://47.106.36.197:7000/source/other/shop.svg" mode="widthFix"></image>
 				</view>
 				<view class="shop-name">
-					{{ data.goods.shop_name }}
+					{{ order.shop_name }}
 				</view>
 			</view>
-			<view class="goods">
+			<view class="goods" v-for="item in order.goods" :key="item.id">
 				<view class="goods-img">
-					<image class="img" :src="data.goods.image_url" mode="widthFix"></image>
+					<image class="img" :src="item.image_url" mode="widthFix"></image>
 				</view>
 				<view class="goods-info">
 					<view class="top">
 						<view class="goods-title">
-							{{data.goods.title}}
+							{{item.title}}
 						</view>
 						<view class="goods-spec">
-							{{data.goods.spec_name}}
+							{{item.spec_name}}
 						</view>
 					</view>
 					<view class="bottom">
 						<view class="price">
 							<text class="price-tiny">￥</text>
-							<text class="price-big">{{ price.split('.')[0] }}</text>
-							<text class="price-tiny">.{{ price.split('.')[1] }}</text>
+							<text class="price-big">{{ item.price.toFixed(2).split('.')[0] }}</text>
+							<text class="price-tiny">.{{ item.price.toFixed(2).split('.')[1] }}</text>
 						</view>
-						<view class="count">x {{data.total_num}}</view>
+						<view class="count">x {{item.count}}</view>
 					</view>
 				</view>
 			</view>
@@ -67,7 +67,7 @@
 				<view class="top">
 					<view class="title">配送方式</view>
 					<view>
-						{{data.goods.postage === 0 ?'免运费' :'￥'+data.goods.postage}}
+						{{order.postage === 0 ?'免运费' :'￥'+order.postage}}
 					</view>
 				</view>
 				<view class="bottom">快递发货</view>
@@ -84,20 +84,20 @@
 			<view class="item">
 				<view class="title">商品金额</view>
 				<view class="price">
-					￥{{ data.total_price.toFixed(2) }}
+					￥{{ order.total_price.toFixed(2) }}
 				</view>
 			</view>
 			<view class="item p-item">
 				<view class="title">运费</view>
 				<view class="price">
-					+ ￥{{ data.goods.postage === 0 ?'0.00' :data.goods.postage }}
+					+ ￥{{ order.postage === 0 ?'0.00' :order.postage }}
 				</view>
 			</view>
 			<view class="total">
 				<view class="shell">
 					实付款：
 					<view class="number">
-						￥{{(data.total_price+data.goods.postage).toFixed(2)}}
+						￥{{(order.total_price+order.postage).toFixed(2)}}
 					</view>
 				</view>
 			</view>
@@ -118,12 +118,12 @@
 			</view>
 		</view>
 		
-		<view class="pay-shell" v-if="reStatus[data.status] === 0">
+		<view class="pay-shell" v-if="reStatus[order.status] === 0">
 			<view class="pay">
 				<view class="shell">
 					合计：
 					<view class="number">
-						￥{{(data.total_price+data.goods.postage).toFixed(2)}}
+						￥{{(order.total_price+order.postage).toFixed(2)}}
 					</view>
 				</view>
 				<view class="pay-btn" @tap="payment()">
@@ -141,9 +141,8 @@
 	export default {
 		data() {
 			return {
-				oid: '',
-				price: '',
 				isShow: false,
+				order: "",
 				data: {},
 				statusList: [
 					{img_url:'http://47.106.36.197:7000/source/other/await_pay.svg', title: '等待买家付款', text:"早付款早发货"},
@@ -160,13 +159,13 @@
 				let { status, data } = await getOrderDetails(oid);
 				if(!status){
 					this.data = data;
-					this.price = this.data.goods.price.toFixed(2).toString();
 					this.isShow = true;
 				}
+				this.order = this.$store.getters.getOrder;
 			},
 			payment(){
 				let balance = this.$store.getters.getUser.balance;
-				let buyPrice = this.data.total_price+this.data.goods.postage;
+				let buyPrice = this.order.total_price+this.order.postage;
 				let price = balance-buyPrice;
 				uni.showModal({
 					content: `支付商品所需金额${buyPrice}元，确认支付`,
@@ -181,9 +180,9 @@
 								});
 								return;
 							}
-							let arr = [updateUser({id:this.$store.getters.getUser.id, balance: price}), updateOrderStatus(this.data.id, 3)];
+							let arr = [updateUser({id:this.$store.getters.getUser.id, balance: price}), updateOrderStatus(this.order.ids, 3)];
 							let data = await Promise.all(arr);
-							this.data.status = 3;
+							this.order.status = 3;
 							if(!data[0].status){
 								this.$store.commit('updateBalance', price);
 								uni.showToast({
@@ -197,15 +196,7 @@
 			}
 		},
 		onLoad(option){
-			if(option.oid){
-				this.oid = option.oid;
-			}
-			this.getOrderDetails(this.oid);
-		},
-		onShow(){
-			if(!this.data){
-				this.getOrderDetails(this.oid);
-			}
+			this.getOrderDetails(option.oid);
 		},
 		components: {
 			orderSteps
@@ -302,7 +293,7 @@
 		}
 		.goods {
 			display: flex;
-			padding: 16rpx;
+			padding: 20rpx;
 			background-color: #f8f8f8;
 			.goods-img {
 				width: 188rpx;
@@ -357,7 +348,7 @@
 		.postage {
 			display: flex;
 			flex-direction: column;
-			padding: 16rpx;
+			padding: 16rpx 20rpx;
 			border-bottom: 0.5rpx solid #f8f8f8;
 			line-height: 40rpx;
 			font-size: 28rpx;
@@ -375,7 +366,7 @@
 		.message {
 			display: flex;
 			justify-content: space-between;
-			padding: 16rpx;
+			padding: 16rpx 20rpx;
 			font-size: 28rpx;
 			.title {
 				color: #696969;
@@ -383,7 +374,7 @@
 		}
 	}
 	.o-price {
-		padding: 16rpx;
+		padding: 16rpx 20rpx;
 		margin-top: 20rpx;
 		font-size: 28rpx;
 		background-color: #fff;

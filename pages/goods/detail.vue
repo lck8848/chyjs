@@ -330,7 +330,7 @@
 				let goodsIds = ids.split(',');
 				let gid = this.goodDetailData.id;
 				
-				let index = goodsIds.indexOf(gid);
+				let index = goodsIds.indexOf(gid.toString() || gid);
 				if(index === -1){
 					if(goodsIds.length >= 20){
 						goodsIds.length = 19;
@@ -360,8 +360,7 @@
 
 		},
 		onLoad(option) {
-			this.getGoodsDetailData(option.id)
-			 
+			this.getGoodsDetailData(option.id);
 		},
 		async onShow() {
 			
