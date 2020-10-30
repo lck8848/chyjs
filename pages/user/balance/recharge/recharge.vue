@@ -92,6 +92,7 @@
 			// 充值
 			async topUp(){
 				// todo
+				var _this = this;
 				console.log(this.fees)
 				var user = this.$store.state.user
 				var newfees = (Number(user.balance) + Number(this.fees)).toFixed(2);
@@ -104,8 +105,9 @@
 						success(){
 							uni.showToast({
 								title:"充值成功",
-								duration:2000
+								duration:1500
 							})
+							
 						}
 					})
 					
