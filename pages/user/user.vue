@@ -72,7 +72,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/user/safety/safety'
+				url: '/packageTother/pages/user/safety/safety'
 			});
 		},
 		getBalance() {
