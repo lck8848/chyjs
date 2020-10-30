@@ -51,7 +51,7 @@
 				fees:0.00
 			};
 		},
-		onLoad() {
+		onShow() {
 			this.fees = this.$store.state.user.balance;
 			console.log(this.$store.state.user)
 		}

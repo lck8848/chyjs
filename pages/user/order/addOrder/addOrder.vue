@@ -184,7 +184,18 @@
 					return;
 				}
 				let arr = [];
+				let sellerArr = [];
+				let orderNoArr = [];
 				let ids = this.goodsList.map(v => {
+					let index = sellerArr.indexOf(v.seller_id);
+					let orderNo = "";
+					if(index === -1){
+						sellerArr.push(v.seller_id);
+						orderNo = this.createOrderNo();
+						orderNoArr.push(orderNo);
+					}else {
+						orderNo = orderNoArr[index];
+					}
 					let order = {
 						seller_id: v.seller_id,
 						user_id: this.getUser.id,
@@ -194,7 +205,7 @@
 						message: this.msg,
 						total_num: v.count,
 						total_price: v.price*v.count,
-						orderNo: this.createOrderNo()
+						orderNo: orderNo
 					}
 					arr.push(addOrder(order));
 					return v.id;

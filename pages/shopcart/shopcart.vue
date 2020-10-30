@@ -74,9 +74,7 @@
 							不含运费
 						</view>
 					</view>
-					<navigator url="../user/order/addOrder/addOrder" open-type="navigate">
-						<button :class="['be-btn', totalPrice===0 ?'none-btn' :'']">结算</button>
-					</navigator>
+					<button :class="['be-btn', totalPrice===0 ?'none-btn' :'']" @tap="addOrder">结算</button>
 				</view>
 				<view v-else>
 					<button :class="['be-btn', isNoneAll ?'none-btn' :'']" @click="deleteCart()">删除</button>
@@ -146,7 +144,7 @@
 				index: 0,		//所选择规格的下标
 				checkArr: [],
 				allCheck: false,//全选
-				isAllCheck: false,
+				isAllCheck: false,//判断check是否有改变
 				tempCheck: false,//切换编辑后，保留原先的全选
 				isNoneAll: false,//进入编辑，判断是否有选择
 				totalPrice: 0,	//总金额
@@ -239,6 +237,7 @@
 					this.checkArr = Array(this.cart.length).fill(this.allCheck);
 				}else {
 					this.updateAllCart(this.allCheck ?1 :0);
+					this.tempCheck = this.allCheck;
 				}
 			},
 			deleteCart(){
@@ -261,6 +260,18 @@
 						}
 					}
 				});
+			},
+			addOrder(){
+				if(this.totalPrice === 0){
+					uni.showToast({
+						title: "请选择商品",
+						icon: "none"
+					});
+					return;
+				}
+				uni.navigateTo({
+					url: "../user/order/addOrder/addOrder"
+				})
 			}
 		},
 		onShow() {
