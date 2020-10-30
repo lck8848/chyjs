@@ -323,7 +323,11 @@
 				this.goodDetailData.details = this.goodDetailData.details.replace(/image/g,'img style="width:100%"')
 				
 				//将商品id记录到用户里
-				let goodsIds = this.$store.getters.getUser.goods_ids.split(',');
+				let ids = this.$store.getters.getUser.goods_ids;
+				if(!ids){
+					return;
+				}
+				let goodsIds = ids.split(',');
 				let gid = this.goodDetailData.id;
 				
 				let index = goodsIds.indexOf(gid);

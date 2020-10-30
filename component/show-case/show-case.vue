@@ -44,6 +44,7 @@
 	import { getHotGoods, getRecommend, getGoodsByIds } from '../../api/index.js';
 	export default {
 		name: "show-case",
+		props:['goodsIds'],
 		data(){
 			return {
 				isShow: false,
@@ -60,12 +61,15 @@
 				this.isShow = !this.isShow;
 			},
 			async getGoodsList(){
-				let ids = this.$store.getters.getUser.goods_ids.split(',');
-				if(ids.length > 10){
-					ids.length = 10;
+				let goodsIds = this.goodsIds.split(',');
+				if(goodsIds.length > 10){
+					goodsIds.length = 10;
 				}
-				let arr = [getHotGoods(), getRecommend(10), getGoodsByIds(ids.join(','))];
+				let arr = [getHotGoods(), getRecommend(10), getGoodsByIds(goodsIds.join(','))];
 				let res = await Promise.all(arr);
+				res[2].data = res[2].data.sort((v1, v2) => {
+					return goodsIds.indexOf(v1.id+"") - goodsIds.indexOf(v2.id+"");
+				});
 				this.goodsList[0] = res[0].data;
 				this.goodsList[1] = res[1].data;
 				this.goodsList[2] = res[2].data;

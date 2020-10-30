@@ -66,10 +66,14 @@
 						res = await getRecommend(20);
 						break;
 					default:
-						let goodsIds = this.$store.getters.getUser.goods_ids.split(',');
+						let ids = this.$store.getters.getUser.goods_ids;
+						if(!ids){
+							ids = "45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94";
+						}
+						let goodsIds = ids.split(',');
 						res = await getGoodsByIds(goodsIds);
 						res.data.sort((v1, v2) => {
-							return goodsIds.indexOf(v2.id) - goodsIds.indexOf(v1.id);
+							return goodsIds.indexOf(v1.id+"") - goodsIds.indexOf(v2.id+"");
 						});
 						break;
 				}

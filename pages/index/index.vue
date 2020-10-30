@@ -166,7 +166,7 @@
 
 
 		<!-- 弹出橱窗 -->
-		<show-case></show-case>
+		<show-case :goodsIds="goodsIds"></show-case>
 		<!-- 弹出橱窗 -->
 	</view>
 </template>
@@ -203,10 +203,7 @@
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
-				// scrollTop: 0,
-				// old: {
-				// 	scrollTop: 0
-				// },
+				goodsIds: "45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94",
 				activityData: [{
 						name: "monnew",
 						img_url: "../../static/images/index/monnew.webp"
@@ -343,6 +340,10 @@
 				} = await getHomeNoteList()
 				this.notelist = data
 			}
+		},
+		onShow(){
+			let ids = this.$store.getters.getUser.goods_ids;
+			this.goodsIds = ids ?ids :"45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94";
 		},
 		created() {
 			this.init()
