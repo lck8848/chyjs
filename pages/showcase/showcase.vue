@@ -8,7 +8,7 @@
 		</view>
 		<view class="list">
 			<view class="goods-shell" v-for="(item, g_index) in goodsList" :key="g_index">
-				<view class="goods" @click="navTo(item)">
+				<view class="goods" @click="navTo(item.id)">
 					<view class="rank" v-if="index === 0" :style="'top:'+(g_index>2 ?16 :0)+'rpx;background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-64-27*(g_index-2))+'px;'"></view>
 					<view class="image">
 						<lazy-img class="img" :scrollTop="scrollTop" :img-url="item.image_url"></lazy-img>
@@ -51,9 +51,9 @@
 			}
 		},
 		methods: {
-			navTo(item){
+			navTo(id){
 				uni.navigateTo({
-					url:"/pages/goods/detail?id="+item.id
+					url:"/pages/goods/detail?id="+id
 				})
 			},
 			async getGoodsList(index){

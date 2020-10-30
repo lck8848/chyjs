@@ -87,12 +87,17 @@
 		</view>
 		
 		
-		<!-- 商品列表 -->
+		<!-- 推荐商品 -->
+		<view class="recommend">
+			<recommend :scrollTop="scrollTop"></recommend>
+		</view>
+		
 	</view>
 </template>
 
 <script>
 	import {getSearchResult} from "@/api/index.js"
+	import recommend from '../../component/recommend/recommend.vue';
 	export default {
 		data() {
 			return {
@@ -102,7 +107,8 @@
 				showload:false,
 				keyword :"",
 				key: "",
-				history:JSON.parse(uni.getStorageSync("history"))
+				history:JSON.parse(uni.getStorageSync("history")),
+				scrollTop: 0
 			};
 		},
 		computed:{
@@ -172,7 +178,6 @@
 				
 			},
 			async search(val){
-				console.log(val)
 				this.keyword = val
 				var obj = {keyword:this.keyword,page:1,pageSize:10}
 				var {data} = await getSearchResult(obj)
@@ -180,14 +185,12 @@
 				var data = this.key
 				this.history.push_unique(data)
 				uni.setStorageSync('history',JSON.stringify(this.history))
-				console.log(this.goods)
 				
 			},
 			async init(obj){
 				var {data} = await getSearchResult(obj)
 				this.goods = data
 				this.yuangoods = data
-				console.log(this.goods)
 				
 			},
 			todetail(id){
@@ -195,6 +198,9 @@
 					url:"/pages/goods/detail?id=" + id
 				})
 			}
+		},
+		onPageScroll({scrollTop}){
+			this.scrollTop = scrollTop;
 		},
 		onLoad(options){
 			console.log(options.keyword)
@@ -209,6 +215,9 @@
 			this.keyword = options.keyword
 			var obj = {keyword:options.keyword,page:1,pageSize:10}
 			this.init(obj)
+		},
+		components: {
+			recommend
 		}
 	}
 </script>
@@ -421,6 +430,8 @@
 			}
 		}
 		
-		// 商品列表
+		.recommend {
+			margin-top: 30rpx;
+		}
 	}
 </style>
