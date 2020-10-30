@@ -119,7 +119,7 @@
 
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop" v-if="showtotop" @sroll="scroll">
-			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
+			<image src="/static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
 		<recommend :scrollTop="scrollTop"></recommend>
@@ -127,8 +127,8 @@
 </template>
 
 <script>
-	import recommend from "../../component/recommend/recommend.vue";
-	import { getSpec } from "../../api/index.js";
+	import recommend from "@/component/recommend/recommend.vue";
+	import { getSpec } from "@/api/index.js";
 	import { mapGetters, mapActions, mapMutations } from "vuex";
 	export default {
 		data() {
@@ -189,7 +189,7 @@
 				let { data } = await getSpec(this.cart[cIndex].goods_id);
 				this.specArr = data;
 				this.specArr.some((v,index) => {
-					if(v.id === this.cart[cIndex].id){
+					if(v.id === this.cart[cIndex].spec_id){
 						this.index = index;
 						return true;
 					}
@@ -270,7 +270,7 @@
 					return;
 				}
 				uni.navigateTo({
-					url: "../user/order/addOrder/addOrder"
+					url: "/packageTother/pages/user/order/addOrder/addOrder"
 				})
 			}
 		},

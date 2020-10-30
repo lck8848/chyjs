@@ -9,7 +9,7 @@
 		</view>
 		<view class="outside">
 			<view class="inside" v-for="item in recommendData" :key="item.id">
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate">
+				<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate">
 					<view class="img-shell">
 						<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
 					</view>
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-	import lazyImg from '../lazy-img/lazy-img.vue';
-	import {getRecommend} from"../../api/index.js";
+	import lazyImg from '@/component/lazy-img/lazy-img.vue';
+	import {getRecommend} from"@/api/index.js";
 	export default{
 		props: ["scrollTop"],
 		data(){

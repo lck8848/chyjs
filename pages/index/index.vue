@@ -47,7 +47,7 @@
 		<!--开始 活动  -->
 		<view class="activity">
 			<view class="item" v-for="item in activityData" :key="item.name">
-				<navigator :url="'/pages/activity/'+item.name+'/'+item.name" open-type="navigate">
+				<navigator :url="'/packageTother/pages/activity/'+item.name+'/'+item.name" open-type="navigate">
 					<view class="img">
 						<image lazy-load="true" :src="item.img_url" mode=""></image>
 					</view>
@@ -172,13 +172,13 @@
 </template>
 
 <script>
-	import search from "../../component/search/search";
-	import showCase from "../../component/show-case/show-case.vue";
-	import gift from "../grid/gift.vue";
-	import snack from "../grid/snack.vue";
-	import vegetable from "../grid/vegetable.vue";
-	import coffee from "../grid/coffee.vue";
-	import alcohol from "../grid/alcohol.vue";
+	import search from "@/component/search/search";
+	import showCase from "@/component/show-case/show-case.vue";
+	import gift from "@/component/pages/grid/gift.vue";
+	import snack from "@/component/pages/grid/snack.vue";
+	import vegetable from "@/component/pages/grid/vegetable.vue";
+	import coffee from "@/component/pages/grid/coffee.vue";
+	import alcohol from "@/component/pages/grid/alcohol.vue";
 	// 渲染种草笔记列表
 	// import 
 
@@ -249,7 +249,7 @@
 			toMore() {
 				console.log("more")
 				uni.navigateTo({
-					url: "/pages/note/note",
+					url: "/packageTother/pages/note/note",
 					fail(err) {
 						console.log(err);
 					}
@@ -258,36 +258,36 @@
 
 			Todetail(id) {
 				uni.navigateTo({
-					url: "/pages/goods/detail?id=" + id
+					url: "/packageTother/pages/goods/detail?id=" + id
 				})
 			},
 
 			Tosend() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=gift"
+					url: "/packageTother/pages/index/classify?genre=gift"
 				})
 			},
 			Tofruit() {
 				console.log("fruit")
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=fruits"
+					url: "/packageTother/pages/index/classify?genre=fruits"
 				})
 			},
 			Tosnack() {
 				console.log("snack")
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=snacks"
+					url: "/packageTother/pages/index/classify?genre=snacks"
 				})
 			},
 			Totea() {
 				console.log("tea")
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=tea"
+					url: "/packageTother/pages/index/classify?genre=tea"
 				})
 			},
 			Towine() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=liquor"
+					url: "/packageTother/pages/index/classify?genre=liquor"
 				})
 			},
 			Toall() {
@@ -305,7 +305,7 @@
 
 			tonew() {
 				uni.navigateTo({
-					url: "/pages/new/new"
+					url: "/packageTother/pages/new/new"
 				})
 			},
 			tourl(url) {
@@ -314,7 +314,7 @@
 			// 点击种草笔记列表，跳转到相应的笔记内容
 			toNOteDetail(id) {
 				uni.navigateTo({
-					url: "/pages/note/noteDetail?n_id=" + id
+					url: "/packageTother/pages/note/noteDetail?n_id=" + id
 				})
 			},
 			async init() {

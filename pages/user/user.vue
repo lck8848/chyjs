@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import recommend from '../../component/recommend/recommend.vue';
-import orderShell from '../../component/order-shell/order-shell.vue';
-import { wxlogin, checkToken } from '../../api/index.js';
+import recommend from '@/component/recommend/recommend.vue';
+import orderShell from '@/component/order-shell/order-shell.vue';
+import { wxlogin, checkToken } from '@/api/index.js';
 export default {
 	data() {
 		return {
@@ -72,7 +72,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/user/safety/safety'
+				url: '/packageTother/pages/user/safety/safety'
 			});
 		},
 		getBalance() {

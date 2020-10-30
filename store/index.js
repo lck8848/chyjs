@@ -1,16 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getCartList, updateCart, delCart, addCart, updateAllCart } from '../api/index.js';
+import { getCartList, updateCart, delCart, addCart, updateAllCart } from '@/api/index.js';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
 		user: "",
+		order: "",
 		cart: []
 	},
 	mutations: {
 		saveUser (state, user) {
 			state.user = user;
+		},
+		saveOrder(state, order){
+			state.order = order;
 		},
 		updPhone(state, phone){
 			state.user.phone = phone;
@@ -85,6 +89,9 @@ const store = new Vuex.Store({
 		},
 		getCarts(state){
 			return state.cart;
+		},
+		getOrder(state){
+			return state.order;
 		}
 	}
 });

@@ -15,22 +15,24 @@
 							<view class="icon" :style="'background-image: url('+item.icon+');background-size: cover'"></view>
 							<view class="title">{{ item.title }}</view>
 						</view>
-						<navigator class="right" :url="'/pages/showcase/showcase?index='+index">
+						<navigator class="right" :url="'/packageTother/pages/showcase/showcase?index='+index">
 							<view class="more">查看更多</view>
 							<view class="right-icon"></view>
 						</navigator>
 					</view>
 					
 					<scroll-view class="list" :scroll-x="true">
-						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id" @click="navTo(goods.id)">
-							<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
-							<view class="shell">
-								<image class="image" :src="goods.image_url" mode="widthFix"></image>
-							</view>
-							<view class="price">
-								<view class="price-icon">￥</view>
-								{{ (goods.price).toFixed(2) }}
-							</view>
+						<view class="goods" v-for="(goods, g_index) in goodsList[index]" :key="goods.id">
+							<navigator :url="'/packageTother/pages/goods/detail?id='+goods.id">
+								<view class="rank" v-if="item.mark === 'hot'" :style="'background-position: 0 '+(g_index<=2 ?(g_index*-31)-2 :-62-28*(g_index-2))+'px;'"></view>
+								<view class="shell">
+									<image class="image" :src="goods.image_url" mode="widthFix"></image>
+								</view>
+								<view class="price">
+									<view class="price-icon">￥</view>
+									{{ (goods.price).toFixed(2) }}
+								</view>
+							</navigator>
 						</view>
 					</scroll-view>
 				</view>
@@ -40,8 +42,8 @@
 </template>
 
 <script>
-	import tuiBottomPopup from '../../components/thorui/tui-bottom-popup/tui-bottom-popup.vue'; 
-	import { getHotGoods, getRecommend, getGoodsByIds } from '../../api/index.js';
+	import tuiBottomPopup from '@/components/thorui/tui-bottom-popup/tui-bottom-popup.vue'; 
+	import { getHotGoods, getRecommend, getGoodsByIds } from '@/api/index.js';
 	export default {
 		name: "show-case",
 		props:['goodsIds'],
@@ -50,9 +52,9 @@
 				isShow: false,
 				gids: "",
 				list: [
-					{title: "店铺热榜", icon: "/static/images/showcase/hot.png", mark: "hot"},
-					{title: "为你推荐", icon: "/static/images/showcase/recommend.png", mark: "recommend"},
-					{title: "历史足迹", icon: "/static/images/showcase/record.png", mark: "record"}
+					{title: "店铺热榜", icon: "http://47.106.36.197:7000/source/other/hot.png", mark: "hot"},
+					{title: "为你推荐", icon: "http://47.106.36.197:7000/source/other/recommend.png", mark: "recommend"},
+					{title: "历史足迹", icon: "http://47.106.36.197:7000/source/other/record.png", mark: "record"}
 				],
 				goodsList: []
 			}
@@ -64,11 +66,6 @@
 			}
 		},
 		methods: {
-			navTo(id){
-				uni.navigateTo({
-					url:"/pages/goods/detail?id="+id
-				})
-			},
 			show(){
 				this.isShow = !this.isShow;
 			},
@@ -102,7 +99,7 @@
 			bottom: 140rpx;
 			width: 96rpx;
 			height: 96rpx;
-			background-image: url(/static/images/showcase/showcase.webp);
+			background-image: url(http://47.106.36.197:7000/source/other/showcase.webp);
 			background-size: cover;
 		}
 		
@@ -121,7 +118,7 @@
 					right: 0rpx;
 					width: 44rpx;
 					height: 44rpx;
-					background-image: url(/static/images/showcase/cancel.png);
+					background-image: url(http://47.106.36.197:7000/source/other/cancel.png);
 					background-size: cover;
 				}
 			}
@@ -162,7 +159,7 @@
 							.right-icon {
 								width: 32rpx;
 								height: 32rpx;
-								background-image: url(/static/images/showcase/right.png);
+								background-image: url(http://47.106.36.197:7000/source/other/right.png);
 								background-size: cover;
 							}
 						}

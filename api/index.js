@@ -103,8 +103,8 @@ export async function getAddr(user_id){
 }
 
 //修改订单状态
-export async function updateOrderStatus(oid, status){
-	return await instance.post('/updateOrderStatus', {oid, status});
+export async function updateOrderStatus(oids, status){
+	return await instance.post('/updateOrderStatus', {oids, status});
 }
 //查询地址
 export async function getOneAddr(id){
