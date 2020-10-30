@@ -84,7 +84,7 @@
 				</text>
 			</view>
 			<view class="btn-shell">
-				<button class="submit" @click="addOrder()">提交订单</button>
+				<button :class="{'submit':true, 'none-btn': isNoAddr}" @click="addOrder()">提交订单</button>
 			</view>
 		</view>
 		
@@ -176,7 +176,7 @@
 				this.msg = e.detail.value;
 			},
 			async addOrder(){
-				if(!this.addr){
+				if(this.isNoAddr){
 					uni.showToast({
 						title: '未选择地址',
 						icon: 'none'
@@ -442,6 +442,9 @@
 				font-weight: 500;
 				border-radius: 999rpx;
 				background-color: #f44;
+			}
+			.none-btn {
+				background-color: #c8c9cc;
 			}
 		}
 	}

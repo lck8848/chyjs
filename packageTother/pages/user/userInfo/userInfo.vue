@@ -22,7 +22,7 @@
 					</view>
 				</view>
 			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true">
+			<list-cell :arrow="true" padding="0" :unlined="true" @tap="goQrcode(user.img_url)">
 				<view class="item">
 					<view class="title">会员码</view>
 					<view class="content">
@@ -141,6 +141,11 @@
 				this.mark = mark;
 				this.isShow = true;
 				this.value = this.user[mark];
+			},
+			goQrcode(imgUrl){
+				// uni.navigateTo({
+				// 	url: "/packageTother/pages/user/qrCode/qrCode?type="+4
+				// })
 			},
 			async updateUser(mark, value){
 				let user = {id: this.user.id};

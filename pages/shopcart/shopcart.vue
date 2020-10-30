@@ -68,7 +68,7 @@
 					<view class="total-price">
 						<view class="price">
 							<view class="text">合计：</view>
-							<view class="number"><text class="icon">￥</text>{{totalPrice}}</view>
+							<view class="number"><text class="icon">￥</text>{{totalPrice.toFixed(2)}}</view>
 						</view>
 						<view class="postage">
 							不含运费
@@ -160,7 +160,6 @@
 				this.totalPrice = this.cart.reduce((total, v) => {
 					return total + (v.checked ?v.price*v.count :0);
 				}, 0);
-				this.totalPrice = this.totalPrice.toFixed(2);
 				if(this.isAllCheck){
 					this.allCheck = true;
 					this.cart.map(v => {
@@ -188,6 +187,7 @@
 				this.current = cIndex;
 				let { data } = await getSpec(this.cart[cIndex].goods_id);
 				this.specArr = data;
+				
 				this.specArr.some((v,index) => {
 					if(v.id === this.cart[cIndex].spec_id){
 						this.index = index;
@@ -197,6 +197,23 @@
 				this.isShow = true;
 			},
 			toggleSpec(){
+				//判断是否有相同的商品并选择相同的规格
+				let isSame = this.cart.some((v, index) => {
+					if(v.goods_id === this.cart[this.current].goods_id 
+					&& this.current !== index
+					&& v.spec_id === this.specArr[this.index].id){
+						this.updateCart({
+							id: v.id,
+							count: v.count+this.cart[this.current].count
+						});
+						this.delCart(this.cart[this.current].id);
+						return true;
+					}
+				});
+				if(isSame){
+					this.isShow = false;
+					return;
+				}
 				this.updateCart({
 					id: this.cart[this.current].id,
 					spec_id: this.specArr[this.index].id
