@@ -207,7 +207,7 @@
 </template>
 
 <script>
-	import { getGoodsDetail,addCart,getCartList, updateUser } from "@/api/index.js"
+	import { getGoodsDetail,addCart,getCartList, updateUser , updateCart ,delCart} from "@/api/index.js"
 	export default{
 		data(){
 			return{
@@ -280,7 +280,50 @@
 					return
 				}
 				var res = await getCartList(user_id)
-				this.carnum = res.data.length
+				console.log(res.data)
+				var goodscount = res.data
+				var updobj = {}
+
+				var result = goodscount.filter(function (item) {
+				    return (item.goods_id== obj.goodsId) && (item.spec_id == obj.specId);
+				});
+				
+				if(result.length>0){
+					for(var i = 0; i < result.length;i++){
+					        for(var j = result.length-1;j>i;j--){
+					                result[i].count += result[j].count  
+					            }
+					      }
+						  
+					var ids = result.filter(function (item) {
+				    return item.id;
+				});
+					console.log(ids)
+					 ids.splice(0,1)
+					 result.splice(1,result.length-1)
+					var obj1 = {
+						id:result[0].id,
+						count:result[0].count
+					}
+					
+					
+					console.log(obj1)
+					console.log(ids)
+					var arr2=[]
+					for(var k=0;k<ids.length;k++){
+						arr2.push(ids[k].id)
+					}
+					console.log(arr2)
+					var obj2 = arr2.join(",")
+					console.log(obj2)
+					await updateCart(obj1)
+					if(ids.length>0){
+						await delCart(obj2)
+					}
+					
+				}
+				var res1 = await getCartList(user_id)
+				this.carnum = res1.data.length
 				console.log(this.carnum)
 				if(this.carnumshow>0){
 					this.carnumshow = true
