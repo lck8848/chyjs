@@ -165,7 +165,7 @@
 			updateAddr(){
 				if(this.isNoAddr){
 					uni.navigateTo({
-						url:'/pages/user/address/editAddress'
+						url:'/packageTother/pages/user/address/editAddress'
 					})
 				}else {
 					this.isShow = true;
@@ -246,7 +246,7 @@
 			},
 			editAddr(id){
 				uni.navigateTo({
-					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`
+					url: `/packageTother/pages/user/address/editAddress?${id ?'id='+id :''}`
 				})
 			}
 		},
@@ -462,7 +462,7 @@
 					right: 24rpx;
 					width: 44rpx;
 					height: 44rpx;
-					background-image: url(/static/images/showcase/cancel.png);
+					background-image: url(http://47.106.36.197:7000/source/other/cancel.png);
 					background-size: cover;
 				}
 			}

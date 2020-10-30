@@ -46,10 +46,6 @@
 					<picker mode="selector" :range="array" :value="sex"  @change="bindSexChange">
 						<view class="">{{ user.sex ?user.sex :"保密" }}</view>
 					</picker>
-				
-					<!-- <view class="content">
-						{{ user.sex ?user.sex :"保密" }}
-					</view> -->
 				</view>
 			</list-cell>
 			<list-cell :arrow="true" padding="0" :unlined="true">
@@ -194,12 +190,12 @@
 			},
 			selfdom(){
 				uni.navigateTo({
-					url: './selfdom/selfdom'
+					url: '/packageTother/pages/user/userInfo/selfdom/selfdom'
 				})
 			},
 			address(){
 				uni.navigateTo({
-					url: '../address/address'
+					url: '/packageTother/pages/user/address/address'
 				})
 			}
 		},

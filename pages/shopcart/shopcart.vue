@@ -119,7 +119,7 @@
 
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop" v-if="showtotop" @sroll="scroll">
-			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
+			<image src="/static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 		
 		<recommend :scrollTop="scrollTop"></recommend>
@@ -270,7 +270,7 @@
 					return;
 				}
 				uni.navigateTo({
-					url: "../user/order/addOrder/addOrder"
+					url: "/packageTother/pages/user/order/addOrder/addOrder"
 				})
 			}
 		},

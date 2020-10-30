@@ -2,7 +2,7 @@
 	<view class="order-shell-container">
 		<view class="title">
 			<view class="left">我的订单</view>
-			<navigator url="/pages/user/order/order">
+			<navigator url="/packageTother/pages/user/order/order">
 				<view class="right">
 					<view class="more">
 						查看全部订单
@@ -13,7 +13,7 @@
 		</view>
 		<view class="container">
 			<view class="order-case" v-for="(item, index) in list" :key="index">
-				<navigator :url="'/pages/user/order/order?index='+index">
+				<navigator :url="'/packageTother/pages/user/order/order?index='+index">
 					<view class="img-shell">
 						<image class="img" :src="item.url" mode="widthFix"></image>
 					</view>
@@ -69,7 +69,7 @@
 				.right-icon {
 					width: 20rpx;
 					height: 24rpx;
-					background-image: url(/static/images/showcase/right.png);
+					background-image: url(http://47.106.36.197:7000/source/other/right.png);
 					background-size: cover;
 				}
 			}
