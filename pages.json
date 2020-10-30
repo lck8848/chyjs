@@ -79,18 +79,6 @@
 				"style": {
 					"navigationBarTitleText": "商品橱窗"
 				}
-			}, {
-				"path": "pages/grid/coffee",
-				"style": {}
-			}, {
-				"path": "pages/grid/alcohol",
-				"style": {}
-			}, {
-				"path": "pages/grid/snack",
-				"style": {}
-			}, {
-				"path": "pages/grid/vegetable",
-				"style": {}
 			}
 			
 			, {
