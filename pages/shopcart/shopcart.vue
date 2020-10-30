@@ -613,7 +613,7 @@
 			// 固定定位
 			position: fixed;
 			right: 50rpx;
-			bottom: 60rpx;
+			bottom: 120rpx;
 			z-index: 900;
 
 			.topimg {
