@@ -24,7 +24,7 @@
 				</view>
 			</navigator>
 			<navigator url="/packageTother/pages/user/balance/record/record" open-type="navigate">
-				<view class="bill ">
+				<view class="bill">
 					<image src="@/packageTother/static/images/user/账单.png" mode=""></image>
 					<text>账单</text>
 				</view>
@@ -125,7 +125,7 @@
 				}
 
 				text {
-					margin-left: 10px;
+					// margin-left: 10px;
 				}
 			}
 
@@ -135,6 +135,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				// margin-right: 20px;
 
 				image {
 					width: 28px;
@@ -143,7 +144,7 @@
 				}
 
 				text {
-					margin-left: 10px;
+					margin-right: 30px;
 				}
 			}
 		}
