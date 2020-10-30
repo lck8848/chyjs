@@ -189,7 +189,7 @@
 				let { data } = await getSpec(this.cart[cIndex].goods_id);
 				this.specArr = data;
 				this.specArr.some((v,index) => {
-					if(v.id === this.cart[cIndex].id){
+					if(v.id === this.cart[cIndex].spec_id){
 						this.index = index;
 						return true;
 					}
