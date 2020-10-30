@@ -286,13 +286,11 @@
 				})
 			},
 			Towine() {
-				console.log("wine")
 				uni.navigateTo({
 					url: "/pages/index/classify?genre=liquor"
 				})
 			},
 			Toall() {
-				console.log("all")
 				uni.switchTab({
 					url: "/pages/allGoods/allGoods"
 				})
