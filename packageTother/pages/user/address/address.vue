@@ -1,0 +1,182 @@
+<template>
+	<view class="tui-safe-area">
+		<view class="tui-address" v-if="isShow">
+			<block v-for="(item,index) in addressList" :key="item.id">
+				<tui-list-cell padding="0">
+					<view class="tui-address-flex">
+						<view class="tui-address-left">
+							<view class="tui-address-main">
+								<view class="tui-address-name tui-ellipsis">{{ item.nickname }}</view>
+								<view class="tui-address-tel">{{ item.phone.substring(0,3)+"****"+item.phone.substring(7) }}</view>
+							</view>
+							<view class="tui-address-detail">
+								
+								<view class="tui-address-label" v-if="item.id==addr_id">
+									
+									<view class=""v-show="addr_id">
+										默认
+									</view>
+								</view>
+							
+								<text>{{item.addr_area+item.addr_detail+item.addr_house}}</text>
+							</view>
+						</view>
+						<view class="tui-address-imgbox" @tap="editAddr(item.id,'edit')">
+							<image class="tui-address-img" src="@/static/images/user/icon_addr_edit.png" />
+						</view>
+					</view>
+				</tui-list-cell>
+			</block>
+		</view>
+
+		<view class="tui-address-new">
+			<tui-button shadow shape="circle" type="danger" height="88rpx" @tap="editAddr">新增地址</tui-button>
+		</view>
+	
+	</view>
+</template>
+
+<script>
+	import { getAddr } from "@/api/index.js"
+	export default {
+		data() {
+			return {
+				addressList: [],
+				isShow:true,
+				addr_id:""
+			}
+		},
+		
+		onShow: function() {},
+		methods: {
+			editAddr(id, addressType="add") {
+				uni.navigateTo({
+					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`,
+					
+				})
+				if(addressType === "add"){
+					uni.setNavigationBarTitle({
+						title:"新增地址"
+					})
+				}else{
+					uni.setNavigationBarTitle({
+						title:"编辑地址"
+					})
+				}
+				
+				
+			},
+			async getAddrData(){
+				var user_id = this.$store.state.user.id
+				
+				// var addr_id = this.$store.state.user.id
+				console.log(user_id);
+				if(user_id === undefined){
+					 uni.showToast({
+						title:"亲,请先登录",
+						icon:"none",
+						mask:true,
+					})
+					
+				}
+
+				var res = await getAddr(user_id)
+				console.log(res);
+				this.addressList = res;
+				this.addr_id = this.$store.state.user.addr_id;
+				console.log(this.addr_id)
+			}
+		},
+		onLoad: function(options) {
+			
+			this.getAddrData()
+		},
+	}
+</script>
+
+<style >
+	.tui-address {
+		width: 100%;
+		padding-top: 20rpx;
+		padding-bottom: 160rpx;
+	}
+	.tui-address-flex {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.tui-address-main {
+		width: 600rpx;
+		height: 70rpx;
+		display: flex;
+		font-size: 30rpx;
+		line-height: 86rpx;
+		padding-left: 30rpx;
+	}
+
+	.tui-address-name {
+		width: 120rpx;
+		height: 60rpx;
+	}
+
+	.tui-address-tel {
+		margin-left: 10rpx;
+	}
+
+	.tui-address-detail {
+		font-size: 24rpx;
+		word-break: break-all;
+		padding-bottom: 25rpx;
+		padding-left: 25rpx;
+		padding-right: 120rpx;
+	}
+
+	.tui-address-label {
+		padding: 5rpx 8rpx;
+		flex-shrink: 0;
+		background: #e41f19;
+		border-radius: 6rpx;
+		color: #fff;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 25rpx;
+		line-height: 25rpx;
+		transform: scale(0.8);
+		transform-origin: center center;
+		margin-right: 6rpx;
+	}
+
+	.tui-address-imgbox {
+		width: 80rpx;
+		height: 100rpx;
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		right: 10rpx;
+	}
+
+	.tui-address-img {
+		width: 36rpx;
+		height: 36rpx;
+	}
+
+	.tui-address-new {
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
+		padding: 20rpx 25rpx 30rpx;
+		box-sizing: border-box;
+		background: #fafafa;
+	}
+
+	.tui-safe-area {
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+	
+</style>
+

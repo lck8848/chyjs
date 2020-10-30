@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getCartList, updateCart, delCart, addCart, updateAllCart } from '../api/index.js';
+import { getCartList, updateCart, delCart, addCart, updateAllCart } from '@/api/index.js';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({

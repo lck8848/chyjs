@@ -127,8 +127,8 @@
 </template>
 
 <script>
-	import recommend from "../../component/recommend/recommend.vue";
-	import { getSpec } from "../../api/index.js";
+	import recommend from "@/component/recommend/recommend.vue";
+	import { getSpec } from "@/api/index.js";
 	import { mapGetters, mapActions, mapMutations } from "vuex";
 	export default {
 		data() {
