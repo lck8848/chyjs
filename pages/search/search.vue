@@ -89,6 +89,13 @@
 				console.log(key)
 				var data = key
 				this.history.push_unique(data)
+				
+				for(var i = 0;i<this.history.length;i++){
+				    if(this.history[i]==""||this.history[i]==null||typeof(this.history[i])==undefined){
+				        this.history.splice(i,1);
+				        i=i-1;
+				    }
+				}
 				console.log(this.history)
 				uni.setStorageSync('history',JSON.stringify(this.history))
 				uni.navigateTo({
