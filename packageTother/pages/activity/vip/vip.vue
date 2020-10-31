@@ -55,7 +55,6 @@
 				this.goodsData = data
 
 
-				console.log(this.goodsData)
 			}
 		},
 		onLoad() {

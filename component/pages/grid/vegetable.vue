@@ -47,7 +47,7 @@
 			// 点击果蔬生鲜跳转到相应页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=fruits"
+					url: "/packageTother/pages/index/classify?genre=fruits"
 				})
 			}
 		},

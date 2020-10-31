@@ -184,7 +184,6 @@ export default {
 				return;
 			}
 			
-			console.log(this.oldPhone,this.phoneVal)
 			if (this.oldPhone && this.oldPhone == this.phoneVal) {
 				uni.showToast({
 					title: '不可使用旧手机号',

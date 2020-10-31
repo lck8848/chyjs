@@ -45,7 +45,6 @@
 				// 用slice方法筛选出九个产品
 				data = data.slice(0, 9)
 				this.snackData = data;
-				console.log(this.snackData);
 			},
 			toGoodsDetail(id) {
 				uni.navigateTo({
@@ -55,7 +54,7 @@
 			// 点击各种零食图片跳转到相应的页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=snacks"
+					url: "/packageTother/pages/index/classify?genre=snacks"
 				})
 			}
 		},

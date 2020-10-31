@@ -38,7 +38,7 @@
 					</view>
 
 					<!-- right -->
-					<image src="../../static/images/showcase/right.png" class="Right"></image>
+					<image src="/packageTother/static/images/cart/right.png" class="Right"></image>
 				</view>
 				<!-- </navigator> -->
 			</view>
@@ -89,7 +89,6 @@
 				var {
 					data
 				} = await getNoteList();
-				console.log(data);
 				this.NoteLIst = data;
 
 
@@ -99,7 +98,6 @@
 					data
 				} = await getGoodsByIds(this.ids)
 				this.goodslist = data
-				console.log(this.goodslist)
 
 			}
 		},
