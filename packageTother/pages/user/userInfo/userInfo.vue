@@ -22,7 +22,7 @@
 					</view>
 				</view>
 			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true">
+			<list-cell :arrow="true" padding="0" :unlined="true" @tap="goQrcode(user.img_url)">
 				<view class="item">
 					<view class="title">会员码</view>
 					<view class="content">
@@ -46,10 +46,6 @@
 					<picker mode="selector" :range="array" :value="sex"  @change="bindSexChange">
 						<view class="">{{ user.sex ?user.sex :"保密" }}</view>
 					</picker>
-				
-					<!-- <view class="content">
-						{{ user.sex ?user.sex :"保密" }}
-					</view> -->
 				</view>
 			</list-cell>
 			<list-cell :arrow="true" padding="0" :unlined="true">
@@ -146,6 +142,11 @@
 				this.isShow = true;
 				this.value = this.user[mark];
 			},
+			goQrcode(imgUrl){
+				// uni.navigateTo({
+				// 	url: "/packageTother/pages/user/qrCode/qrCode?type="+4
+				// })
+			},
 			async updateUser(mark, value){
 				let user = {id: this.user.id};
 				user[mark] = value;
@@ -194,12 +195,12 @@
 			},
 			selfdom(){
 				uni.navigateTo({
-					url: './selfdom/selfdom'
+					url: '/packageTother/pages/user/userInfo/selfdom/selfdom'
 				})
 			},
 			address(){
 				uni.navigateTo({
-					url: '../address/address'
+					url: '/packageTother/pages/user/address/address'
 				})
 			}
 		},

@@ -314,7 +314,7 @@
 			// 点击种草笔记列表，跳转到相应的笔记内容
 			toNOteDetail(id) {
 				uni.navigateTo({
-					url: "/packageTother/pages/note/noteDetail?n_id=" + id
+					url: `/packageTother/pages/note/noteDetail?n_id=${id}`
 				})
 			},
 			async init() {

@@ -204,6 +204,10 @@
 					"navigationBarTitleText": "确认订单"
 				}
 			}
+			,{
+			    "path" : "pages/user/qrCode/qrCode",
+			    "style" : {}
+			}
 		]
 	}],
 
