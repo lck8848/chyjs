@@ -224,7 +224,13 @@
 					})
 					return
 				}
-			
+				if (this.addrData.addr_detail == "") {
+					uni.showToast({
+						title: "详情地址为空",
+						icon: 'none',
+					})
+					return
+				}
 				if (this.addrData.addr_house == "") {
 					uni.showToast({
 						title: "门牌号为空",
@@ -232,13 +238,7 @@
 					})
 					return
 				}
-				if (this.addrValue == "") {
-					uni.showToast({
-						title: "地区为空",
-						icon: 'none',
-					})
-					return
-				}
+				
 				const reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
 				if (reg.test(addrData.phone) == false) {
 					uni.showToast({
