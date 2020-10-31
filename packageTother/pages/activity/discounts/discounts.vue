@@ -13,7 +13,7 @@
 						<view class="tui-countdown">
 							<block v-if="flashow[index]">
 								<view class="tui-countdown-text">距结束</view>
-								<tui-countdown :time="timeList[0]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
+								<tui-countdown :time="timeList[index]" :scale="true" :isColon="true" color="#e41f19" borderColor="#e41f19" colonColor="#e41f19"
 								:days="true"></tui-countdown>
 							 </block>
 							
@@ -92,7 +92,7 @@
 				this.goodsData = data
 				var timestamp = new Date().getTime();
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.activ_end_time)/1000);
+					this.timeList.push((v.activ_end_time - timestamp)/1000);
 				})
 				this.timeList.map(v=>{
 					if(v == 0 || v>=0 ){
