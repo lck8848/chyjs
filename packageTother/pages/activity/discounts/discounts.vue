@@ -92,17 +92,17 @@
 				this.goodsData = data
 				var timestamp = new Date().getTime();
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.create_time)/1000);
+					this.timeList.push((timestamp - v.activ_end_time)/1000);
 				})
 				this.timeList.map(v=>{
-					if(v == 0 || v>1 ){
+					if(v == 0 || v>=0 ){
 						this.flashow.push("false")
 					}
 				})
-				// console.log(timestamp)
-				// console.log(this.goodsData);
-				// console.log(this.flashow)
-				// console.log(this.timeList)
+				console.log(timestamp)
+				console.log(this.goodsData);
+				console.log(this.flashow)
+				console.log(this.timeList)
 			}
 		},
 		onShow() {
