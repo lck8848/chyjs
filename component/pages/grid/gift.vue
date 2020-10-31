@@ -48,7 +48,7 @@
 			// 点击送他礼物跳转到相应页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=gift"
+					url: "/packageTother/pages/index/classify?genre=gift"
 				})
 			}
 		},

@@ -38,7 +38,7 @@
 					</view>
 
 					<!-- right -->
-					<image src="../../static/images/showcase/right.png" class="Right"></image>
+					<image src="/packageTother/static/images/cart/right.png" class="Right"></image>
 				</view>
 				<!-- </navigator> -->
 			</view>

@@ -118,7 +118,7 @@
 			// 点击更多笔记标签，跳转到更多笔记内容
 			toNote() {
 				uni.navigateTo({
-					url: "/pages/note/note"
+					url: "/packageTother/pages/note/note"
 				})
 			},
 			// 点击进店标签，跳转到首页
