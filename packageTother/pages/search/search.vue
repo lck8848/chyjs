@@ -99,7 +99,7 @@
 				console.log(this.history)
 				uni.setStorageSync('history',JSON.stringify(this.history))
 				uni.navigateTo({
-					url:"/pages/search/search-result?keyword=" + key
+					url:"/packageTother/pages/search/search-result?keyword=" + key
 				})
 				
 				
