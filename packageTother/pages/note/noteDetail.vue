@@ -32,74 +32,74 @@
 
 
 		<!-- 弹出层 -->
-		<tui-bottom-popup :show="typeShow" @close="hidePopup" height="1000">
+		<!-- <tui-bottom-popup :show="typeShow" @close="hidePopup" height="1000"> -->
 			<!-- 文中商品 -->
-			<view class="top">
-				<text>文中商品</text>
+			<!-- <view class="top"> -->
+				<!-- <text>文中商品</text> -->
 				<!-- 关闭x -->
 				<!-- 给图标加点击事件，点击后隐藏弹出层 -->
-				<image src="../../static/images/cart/error.png" class="close" @click="close"></image>
-			</view>
+				<!-- <image src="../../static/images/cart/error.png" class="close" @click="close"></image> -->
+			<!-- </view> -->
 			<!-- 图片详情页 -->
-			<view class="details">
+			<!-- <view class="details"> -->
 				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
-				<image src="../../static/images/index/crab.webp" class="img" c></image>
+				<!-- <image src="/packageTother/static/images/index/crab.webp" class="img" c></image>
 				<view class="info">
 					<view class="title">
 						[嘻螺会麻辣味袋装螺蛳粉] 麻辣鲜香 Q弹爽滑 300g/袋
 					</view>
 					<view class="buy">
 						<!-- 价格 -->
-						<view class="price">
-							<text>￥</text>
-							<text class="big">56.80</text>
-						</view>
+						<!-- <view class="price"> -->
+							<!-- <text>￥</text> -->
+							<!-- <text class="big">56.80</text> -->
+						<!-- </view> -->
 						<!-- button去购买 -->
-						<button type="danger">去购买</button>
-					</view>
-				</view>
-			</view>
+						<!-- <button type="danger">去购买</button> -->
+					<!-- </view> -->
+				<!-- </view> -->
+			<!-- </view> -->
 
 			<!-- 图片详情页 -->
-			<view class="details">
+			<!-- <view class="details"> -->
 				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
-				<image src="../../static/images/index/crab.webp" class="img" c></image>
+				<!-- <image src="../../static/images/index/crab.webp" class="img" c></image>
 				<view class="info">
 					<view class="title">
 						[嘻螺会麻辣味袋装螺蛳粉] 麻辣鲜香 Q弹爽滑 300g/袋
 					</view>
 					<view class="buy">
 						<!-- 价格 -->
-						<view class="price">
-							<text>￥</text>
-							<text class="big">56.80</text>
-						</view>
+						<!-- <view class="price"> -->
+							<!-- <text>￥</text> -->
+							<!-- <text class="big">56.80</text> -->
+						<!-- </view> -->
 						<!-- button去购买 -->
-						<button type="danger">去购买</button>
-					</view>
-				</view>
-			</view>
-
+						<!-- <button type="danger">去购买</button> -->
+					<!-- </view> -->
+				<!-- </view> -->
+			<!-- </view> -->
+ 
 			<!-- 图片详情页 -->
-			<view class="details">
+			<!-- <view class="details"> -->
 				<!-- <image src="../../static/images/note/dongzao.jpg" class="img"></image> -->
-				<image src="../../static/images/index/crab.webp" class="img" c></image>
+				<!-- <image src="../../static/images/index/crab.webp" class="img" c></image>
 				<view class="info">
 					<view class="title">
 						[嘻螺会麻辣味袋装螺蛳粉] 麻辣鲜香 Q弹爽滑 300g/袋
 					</view>
 					<view class="buy">
 						<!-- 价格 -->
-						<view class="price">
+						<!-- <view class="price">
 							<text>￥</text>
 							<text class="big">56.80</text>
 						</view>
 						<!-- button去购买 -->
-						<button type="danger">去购买</button>
-					</view>
-				</view>
-			</view>
-		</tui-bottom-popup>
+						<!-- <button type="danger">去购买</button>
+					</view> -->
+				<!-- </view> -->
+		<!-- 	</view>
+		</tui-bottom-popup> -->
 	</view>
 </template>
 
