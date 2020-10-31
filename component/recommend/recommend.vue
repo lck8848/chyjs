@@ -9,7 +9,7 @@
 		</view>
 		<view class="outside">
 			<view class="inside" v-for="item in recommendData" :key="item.id">
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate">
+				<navigator :url="'../../packageTother/pages/goods/detail?id='+item.id" open-type="navigate">
 					<view class="img-shell">
 						<lazy-img class="img" :img-url="item.image_url" :scrollTop="scrollTop"></lazy-img>
 					</view>
