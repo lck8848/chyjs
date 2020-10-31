@@ -120,9 +120,9 @@
 					})
 					return
 				}
-				if (reg.test(e.detail.value.phone) == false) {
+				if (this.addrValue == "") {
 					uni.showToast({
-						title: "手机格式错误，请输入正确的格式",
+						title: "地区为空",
 						icon: 'none',
 					})
 					return
@@ -217,15 +217,28 @@
 				let addrData = this.addrData;
 				let objArr = Object.keys(addrData);
 				// 判断不能为空
-				objArr.some((v, index) => {
-					if (addrData[v] === "") {
-						uni.showToast({
-							title:'不能为空,请填写',
-							icon: 'none',
-						})
-						return true;
-					}
-				})
+				if (this.addrData.nickname == "") {
+					uni.showToast({
+						title: "收货人为空",
+						icon: 'none',
+					})
+					return
+				}
+			
+				if (this.addrData.addr_house == "") {
+					uni.showToast({
+						title: "门牌号为空",
+						icon: 'none',
+					})
+					return
+				}
+				if (this.addrValue == "") {
+					uni.showToast({
+						title: "地区为空",
+						icon: 'none',
+					})
+					return
+				}
 				const reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
 				if (reg.test(addrData.phone) == false) {
 					uni.showToast({
