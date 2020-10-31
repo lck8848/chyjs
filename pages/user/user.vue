@@ -125,6 +125,10 @@ export default {
 				});
 				return;
 			}
+			uni.showLoading({
+				title: "登录中...",
+				mask: true
+			})
 			var _this = this;
 			if (e.detail.errMsg === 'getUserInfo:ok') {
 				uni.getUserInfo({
@@ -148,6 +152,7 @@ export default {
 								// 	data: JSON.stringify(user)
 								// });
 								_this.isLogin = true;
+								uni.hideLoading();
 							}
 						});
 					}
