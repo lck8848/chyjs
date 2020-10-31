@@ -45,7 +45,6 @@
 			 async getGoodsData(){
 				 var {data} = await getGoodsByStatus(3);
 				 this.goodsData = data
-				 console.log(this.goodsData)
 			 }
 		},
 		onLoad() {

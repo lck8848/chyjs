@@ -100,7 +100,6 @@
 					delete v.alias_name
 					return v.name,v.id
 				})
-				console.log(data)
 				
 				
 				
@@ -111,7 +110,6 @@
 				this.goodlist(code)
 			},
 			tabClick(e) {
-				console.log(e)
 				let index = e.target.dataset.current || e.currentTarget.dataset.current;
 				let code = e.target.dataset.code || e.currentTarget.dataset.code;
 				this.switchTab(index);

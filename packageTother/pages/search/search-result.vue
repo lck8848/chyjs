@@ -130,7 +130,6 @@
 				this.selected = 1
 				this.showload = true
 				var obj = {keyword:this.keyword,page:1,pageSize:10}
-				// console.log(updata)
 				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
 					this.goods = data
@@ -145,7 +144,6 @@
 				this.selected = 2
 				this.showload = true
 				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"asc"}
-				// console.log(updata)
 				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
 					this.goods = data
@@ -157,7 +155,6 @@
 				this.selected = 3
 				this.showload = true
 				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"desc"}
-				// console.log(updata)
 				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
 					this.goods = data
@@ -169,7 +166,6 @@
 				this.selected = 4
 				this.showload = true
 				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"new"}
-				// console.log(updata)
 				var {data} = await getSearchResult(obj)
 				setTimeout(()=>{
 					this.goods = data
@@ -210,7 +206,6 @@
 			this.scrollTop = scrollTop;
 		},
 		onLoad(options){
-			console.log(options.keyword)
 			Array.prototype.push_unique = function () {
 				for (var i = 0; i < arguments.length; i++) {
 					var ele = arguments[i];

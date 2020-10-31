@@ -49,7 +49,7 @@
 			// 点击各种酒水跳转到相应页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=liquor"
+					url: "/packageTother/pages/index/classify?genre=liquor"
 				})
 			}
 		},
