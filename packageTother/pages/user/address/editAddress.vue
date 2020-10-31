@@ -249,7 +249,9 @@
 		
 		
 		},
-		
+		onShow(option) {
+			console.log("onshow",option)
+		},
 		onLoad: function(option) {
 			if(option.id){
 				this.isShow = true;

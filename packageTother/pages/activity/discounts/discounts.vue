@@ -20,7 +20,7 @@
 						</view>
 						<block v-if="!flashow[index]">
 							<view class="jiesu_img">
-								<image src="@/packageTother/static/images/user/已结束.png" mode=""></image>
+								<image src="@/static/images/user/已结束.png" mode=""></image>
 							</view>
 						</block>
 					</view>

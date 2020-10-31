@@ -87,7 +87,7 @@
 				console.log(this.addr_id)
 			}
 		},
-		onLoad: function(options) {
+		onShow: function(options) {
 			
 			this.getAddrData()
 		},
