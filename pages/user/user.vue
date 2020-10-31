@@ -38,7 +38,7 @@ export default {
 		return {
 			infoData: {
 				name: '点击显示微信头像',
-				img_url: '/static/images/user/头像.png'
+				img_url: 'http://47.106.36.197:7000/source/userImages/other/avatar.png'
 			},
 			isLogin: false,
 			scrollTop: 0,
@@ -72,7 +72,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/user/safety/safety'
+				url: '/packageTother/pages/user/safety/safety'
 			});
 		},
 		getBalance() {
@@ -85,7 +85,7 @@ export default {
 				return;
 			}
 			uni.navigateTo({
-				url: '/pages/user/balance/balance'
+				url: "/packageTother/pages/user/balance/balance"
 			});
 		},
 		getAddress() {
@@ -99,7 +99,7 @@ export default {
 			}
 
 			uni.navigateTo({
-				url: '/pages/user/address/address'
+				url: '/packageTother/pages/user/address/address'
 			});
 		},
 
@@ -114,7 +114,7 @@ export default {
 			}
 
 			uni.navigateTo({
-				url: '/pages/user/userInfo/userInfo'
+				url: '/packageTother/pages/user/userInfo/userInfo'
 			});
 		},
 
@@ -122,7 +122,7 @@ export default {
 		async getuserinfo(e) {
 			if (this.isLogin) {
 				uni.navigateTo({
-					url: './userInfo/userInfo'
+					url: '/packageTother/pages/user/userInfo/userInfo'
 				});
 				return;
 			}
@@ -167,14 +167,14 @@ export default {
 			let userInfo = this.$store.state.user;
 			if (userInfo === '') {
 				this.infoData.name = '点击显示微信头像';
-				this.infoData.img_url = '/static/images/user/头像.png';
+				this.infoData.img_url = 'http://47.106.36.197:7000/source/userImages/other/avatar.png';
 				this.isLogin = false;
 			}
 			uni.getSetting({
 				async success(res) {
 					if (res.authSetting['scope.userInfo'] === undefined || res.authSetting['scope.userInfo'] == false) {
 						_this.infoData.name = '点击显示微信头像';
-						_this.infoData.img_url = '/static/images/user/头像.png';
+						_this.infoData.img_url = 'http://47.106.36.197:7000/source/userImages/other/avatar.png';
 					}
 				}
 			});

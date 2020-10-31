@@ -230,7 +230,7 @@
 			goOrderDetail(index){
 				this.$store.commit('saveOrder', this.orderList[index]);
 				uni.navigateTo({
-					url: "../orderDetails/orderDetails?oid="+this.orderList[index].id
+					url: "/packageTother/pages/user/orderDetails/orderDetails?oid="+this.orderList[index].id
 				});
 			}
 		},
@@ -379,7 +379,7 @@
 						width: 20rpx;
 						height: 24rpx;
 						margin-left: 8rpx;
-						background-image: url(/static/images/showcase/right.png);
+						background-image: url(http://47.106.36.197:7000/source/other/right.png);
 						background-size: cover;
 					}
 				}

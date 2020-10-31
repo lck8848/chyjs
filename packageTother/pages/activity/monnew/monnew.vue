@@ -1,12 +1,12 @@
 <template>
 	<view class="monnew-container">
 		<view class="monnew">
-			<image src="@/static/images/activity/monnew.webp" mode=""></image>
+			<image src="@/packageTother/static/images/activity/monnew.webp" mode=""></image>
 		</view>
 		
 		<view class="monnew-goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+				<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 					<view class="img">
 						<image :src="item.image_url" mode=""></image>
 					</view>
@@ -19,7 +19,7 @@
 								 ￥{{item.price}}
 							</view>
 							<view class="img">
-								<image src="@/static/icon/cart-circle-o.png" mode=""></image>
+								<image src="@/packageTother/static/icon/cart-circle-o.png" mode=""></image>
 							</view>
 						</view>
 					</view>
@@ -28,7 +28,7 @@
 			</view>
 		<view class="monnew">
 
-			<image src="@/static/images/activity/ka.webp" mode=""></image>
+			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>

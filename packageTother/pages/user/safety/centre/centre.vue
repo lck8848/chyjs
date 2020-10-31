@@ -7,9 +7,9 @@
 		</view>
 		<view class="content">
 			<view class="item">
-				<van-cell title="注销账号" label="提交申请,删除所有数据,注销账号" link-type="navigateTo" url="/pages/user/safety/centre/cancel/cancel" is-link />
+				<van-cell title="注销账号" label="提交申请,删除所有数据,注销账号" link-type="navigateTo" url="/packageTother/pages/user/safety/centre/cancel/cancel" is-link />
 			</view>
-			<view class="item"><van-cell title="常见问题" label="点击可查看相关安全问题" link-type="navigateTo" url="/pages/user/safety/centre/problem/problem" is-link /></view>
+			<view class="item"><van-cell title="常见问题" label="点击可查看相关安全问题" link-type="navigateTo" url="/packageTother/pages/user/safety/centre/problem/problem" is-link /></view>
 		</view>
 	</view>
 </template>

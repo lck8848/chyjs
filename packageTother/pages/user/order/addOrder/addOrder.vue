@@ -84,7 +84,7 @@
 				</text>
 			</view>
 			<view class="btn-shell">
-				<button class="submit" @click="addOrder()">提交订单</button>
+				<button :class="{'submit':true, 'none-btn': isNoAddr}" @click="addOrder()">提交订单</button>
 			</view>
 		</view>
 		
@@ -165,7 +165,7 @@
 			updateAddr(){
 				if(this.isNoAddr){
 					uni.navigateTo({
-						url:'/pages/user/address/editAddress'
+						url:'/packageTother/pages/user/address/editAddress'
 					})
 				}else {
 					this.isShow = true;
@@ -176,7 +176,7 @@
 				this.msg = e.detail.value;
 			},
 			async addOrder(){
-				if(!this.addr){
+				if(this.isNoAddr){
 					uni.showToast({
 						title: '未选择地址',
 						icon: 'none'
@@ -246,7 +246,7 @@
 			},
 			editAddr(id){
 				uni.navigateTo({
-					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`
+					url: `/packageTother/pages/user/address/editAddress?${id ?'id='+id :''}`
 				})
 			}
 		},
@@ -443,6 +443,9 @@
 				border-radius: 999rpx;
 				background-color: #f44;
 			}
+			.none-btn {
+				background-color: #c8c9cc;
+			}
 		}
 	}
 	.addr-list-shell {
@@ -462,7 +465,7 @@
 					right: 24rpx;
 					width: 44rpx;
 					height: 44rpx;
-					background-image: url(/static/images/showcase/cancel.png);
+					background-image: url(http://47.106.36.197:7000/source/other/cancel.png);
 					background-size: cover;
 				}
 			}

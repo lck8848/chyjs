@@ -1,13 +1,13 @@
 <template>
 	<view class="discounts-container">
 		<view class="discounts">
-			<image src="@/static/images/activity/discounts.webp" mode=""></image>
+			<image src="@/packageTother/static/images/activity/discounts.webp" mode=""></image>
 		</view>
 
 
 		<view class="discounts_goods">
 			<view class="item" v-for="(item,index) in goodsData" :key="item.id">
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+				<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 					<view class="img">
 						<image :src="item.image_url" mode=""></image>
 						<view class="tui-countdown">
@@ -20,13 +20,13 @@
 						</view>
 						<block v-if="!flashow[index]">
 							<view class="jiesu_img">
-								<image src="../../../static/images/user/已结束.png" mode=""></image>
+								<image src="@/packageTother/static/images/user/已结束.png" mode=""></image>
 							</view>
 						</block>
 					</view>
 					
 				</navigator>
-				<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+				<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 				<view class="text">
 					<view class="info">
 						<view class="title">
@@ -65,7 +65,7 @@
 
 
 		<view class="ka">
-			<image src="@/static/images/activity/ka.webp" mode=""></image>
+			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>

@@ -51,7 +51,7 @@
 		methods: {
 			editAddr(id, addressType="add") {
 				uni.navigateTo({
-					url: `/pages/user/address/editAddress?${id ?'id='+id :''}`,
+					url: `/packageTother/pages/user/address/editAddress?${id ?'id='+id :''}`,
 					
 				})
 				if(addressType === "add"){

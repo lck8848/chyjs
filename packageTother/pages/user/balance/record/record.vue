@@ -2,7 +2,7 @@
 	<view class="record-container">
 		<view v-show="isEmpty" class="empty">
 			<view class="img">
-				<image src="@/static/images/user/buy-record.png" mode=""></image>
+				<image src="@/packageTother/static/images/user/buy-record.png" mode=""></image>
 			</view>
 			<view class="button">
 				暂无账单记录
