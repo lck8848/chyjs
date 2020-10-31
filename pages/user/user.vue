@@ -23,7 +23,7 @@
 			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
 		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop"><image src="../../static/images/index/icon/top.png" class="topimg"></image></view>
+		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop"><image src="/static/images/index/icon/top.png" class="topimg"></image></view>
 
 		<recommend :scrollTop="scrollTop"></recommend>
 	</view>
@@ -47,7 +47,6 @@ export default {
 	},
 	onPageScroll({ scrollTop }) {
 		this.scrollTop = scrollTop;
-		// console.log(scrollTop)
 		if (scrollTop >= 300) {
 			this.showtotop = true;
 		} else {

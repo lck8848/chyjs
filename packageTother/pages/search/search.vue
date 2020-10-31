@@ -86,7 +86,6 @@
 			},
 			detail(key){
 				
-				console.log(key)
 				var data = key
 				this.history.push_unique(data)
 				
@@ -96,7 +95,6 @@
 				        i=i-1;
 				    }
 				}
-				console.log(this.history)
 				uni.setStorageSync('history',JSON.stringify(this.history))
 				uni.navigateTo({
 					url:"/packageTother/pages/search/search-result?keyword=" + key
@@ -119,9 +117,7 @@
 				
 			},
 			itemClick: function(e) {
-				// console.log(e)
 				let index = e.index;
-				// console.log(index)
 				if (index == 0) {
 					this.showActionSheet = false;
 					uni.removeStorageSync('history')

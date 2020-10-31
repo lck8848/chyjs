@@ -161,7 +161,7 @@
 
 		<!-- 回到顶部 -->
 		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop">
-			<image src="../../static/images/index/icon/top.png" class="topimg"></image>
+			<image src="/static/images/index/icon/top.png" class="topimg"></image>
 		</view>
 
 
@@ -233,7 +233,6 @@
 		},
 		// 监听页面滚动，超过页面一半就显示回到顶部按钮
 		onPageScroll(res){
-			// console.log(res)
 			if (res.scrollTop >= 300) {
 				this.showtotop = true
 			} else {
@@ -247,7 +246,6 @@
 			},
 			// 点击查看更多>(种草笔记)
 			toMore() {
-				console.log("more")
 				uni.navigateTo({
 					url: "/packageTother/pages/note/note",
 					fail(err) {
@@ -268,19 +266,16 @@
 				})
 			},
 			Tofruit() {
-				console.log("fruit")
 				uni.navigateTo({
 					url: "/packageTother/pages/index/classify?genre=fruits"
 				})
 			},
 			Tosnack() {
-				console.log("snack")
 				uni.navigateTo({
 					url: "/packageTother/pages/index/classify?genre=snacks"
 				})
 			},
 			Totea() {
-				console.log("tea")
 				uni.navigateTo({
 					url: "/packageTother/pages/index/classify?genre=tea"
 				})
@@ -314,7 +309,7 @@
 			// 点击种草笔记列表，跳转到相应的笔记内容
 			toNOteDetail(id) {
 				uni.navigateTo({
-					url: "/packageTother/pages/note/noteDetail?n_id=" + id
+					url: `/packageTother/pages/note/noteDetail?n_id=${id}`
 				})
 			},
 			async init() {
@@ -328,7 +323,6 @@
 			//轮播图
 			async lunbo(){
 				var {data}  = await getCarouselListByStatus(1)
-				console.log(data)
 				this.carousellist = data
 			},
 			// 渲染种草笔记

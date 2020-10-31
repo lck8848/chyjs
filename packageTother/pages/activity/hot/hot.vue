@@ -55,7 +55,6 @@
 			async gethotGoods(){
 				var { data } = await getHotGoods(this.pageSzie);
 				this.hotGoodsData = data;
-				console.log(this.hotGoodsData)
 			}
 		},
 		

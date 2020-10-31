@@ -87,7 +87,6 @@
 				this.selected = 2
 				this.showload = true
 				let updata = this.goods.slice(0)
-				// console.log(updata)
 				updata.sort(function(a,b){
 					return a.price - b.price
 				})
@@ -101,7 +100,6 @@
 				this.selected = 3
 				this.showload = true
 				let downdata = this.goods.slice(0)
-				// console.log(updata)
 				downdata.sort(function(a,b){
 					return b.price - a.price
 				})

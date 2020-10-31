@@ -235,7 +235,6 @@
 			},
 			changeindex(index){
 				this.activeindex = index
-				console.log(index)
 			},
 			showPopup: function() {
 				this.popupShow = true;
@@ -270,7 +269,6 @@
 					specId:spec_id,
 				}
 				
-				console.log(obj)
 				var res = await addCart(obj)
 				if(res.status != 0){
 					uni.showToast({
@@ -280,7 +278,6 @@
 					return
 				}
 				var res = await getCartList(user_id)
-				console.log(res.data)
 				var goodscount = res.data
 				var updobj = {}
 
@@ -298,7 +295,6 @@
 					var ids = result.filter(function (item) {
 				    return item.id;
 				});
-					console.log(ids)
 					 ids.splice(0,1)
 					 result.splice(1,result.length-1)
 					var obj1 = {
@@ -307,15 +303,11 @@
 					}
 					
 					
-					console.log(obj1)
-					console.log(ids)
 					var arr2=[]
 					for(var k=0;k<ids.length;k++){
 						arr2.push(ids[k].id)
 					}
-					console.log(arr2)
 					var obj2 = arr2.join(",")
-					console.log(obj2)
 					await updateCart(obj1)
 					if(ids.length>0){
 						await delCart(obj2)
@@ -324,7 +316,6 @@
 				}
 				var res1 = await getCartList(user_id)
 				this.carnum = res1.data.length
-				console.log(this.carnum)
 				if(this.carnumshow>0){
 					this.carnumshow = true
 				}else{

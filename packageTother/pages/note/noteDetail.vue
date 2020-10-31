@@ -118,7 +118,7 @@
 			// 点击更多笔记标签，跳转到更多笔记内容
 			toNote() {
 				uni.navigateTo({
-					url: "/pages/note/note"
+					url: "/packageTother/pages/note/note"
 				})
 			},
 			// 点击进店标签，跳转到首页
@@ -140,7 +140,6 @@
 				var {
 					data
 				} = await getNoteDetail(n_id);
-				console.log(data)
 				this.NoteDetail = data;
 				// 因为富文本里存在!important，所以样式是改不了的，需要把!important替换成空的。（兼容小程序的方法）
 				this.NoteDetail.content = this.NoteDetail.content.replace(/!important;/g, '')
@@ -149,7 +148,6 @@
 		},
 		onLoad(options) {
 			this.getNoteData(options.n_id);
-			console.log(options)
 		}
 	}
 </script>

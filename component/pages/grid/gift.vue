@@ -8,7 +8,7 @@
 			<image src="@/static/images/index/sendgift.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in giftData" :key="item.id">
-					<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+					<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 						<image :src="item.image_url" class="small_item"></image>
 						<text>{{item.title}}</text>
 						<view class="money">
@@ -43,12 +43,11 @@
 					data
 				} = await getGift();
 				this.giftData = data;
-				console.log(this.giftData);
 			},
 			// 点击送他礼物跳转到相应页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=gift"
+					url: "/packageTother/pages/index/classify?genre=gift"
 				})
 			}
 		},

@@ -28,7 +28,7 @@
 				<view class="img_grid">
 					<image v-for="imgItem in item.imgs" :src="imgItem" mode=""></image>
 				</view>
-				<view class="goods_details" @click="todetail(goodslist[index].id)">
+				<view class="goods_details" @click.stop="toGoodsDetail(goodslist[index].id)">
 					<image :src="goodslist[index].image_url"></image>
 					<view class="info">
 						<view class="title">
@@ -38,7 +38,7 @@
 					</view>
 
 					<!-- right -->
-					<image src="../../static/images/showcase/right.png" class="Right"></image>
+					<image src="/packageTother/static/images/cart/right.png" class="Right"></image>
 				</view>
 				<!-- </navigator> -->
 			</view>
@@ -73,21 +73,22 @@
 			// <!-- 根据id不同,渲染不同的笔记内容 -->
 			toDetail(id) {
 				uni.navigateTo({
-					url: `/pages/note/noteDetail?n_id=${id}`
+					// pages/note/noteDetail?n_id=${id}
+					url: `/packageTother/pages/note/noteDetail?n_id=${id}`
 				})
 			},
 			//根据商品index，渲染商品列表
-			todetail(id) {
+			toGoodsDetail(id) {
 				uni.navigateTo({
-					url: "/pages/goods/detail?id=" +id
+					url:`/packageTother/pages/goods/detail?id=${id}`
 				})
+				
 			},
 			// 获取渲染更多笔记列表数据
 			async getNoteListData() {
 				var {
 					data
 				} = await getNoteList();
-				console.log(data);
 				this.NoteLIst = data;
 
 
@@ -97,7 +98,6 @@
 					data
 				} = await getGoodsByIds(this.ids)
 				this.goodslist = data
-				console.log(this.goodslist)
 
 			}
 		},

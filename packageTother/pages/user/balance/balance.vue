@@ -53,7 +53,6 @@
 		},
 		onShow() {
 			this.fees = this.$store.state.user.balance;
-			console.log(this.$store.state.user)
 		}
 	}
 </script>

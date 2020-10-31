@@ -8,7 +8,7 @@
 			<image src="@/static/images/index/vegetable.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in vegetableData" :key="item.id">
-					<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+					<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 						<image :src="item.image_url" class="small_item"></image>
 						<text>{{item.title}}</text>
 						<view class="money">
@@ -47,7 +47,7 @@
 			// 点击果蔬生鲜跳转到相应页面
 			toClassifyGoods() {
 				uni.navigateTo({
-					url: "/pages/index/classify?genre=fruits"
+					url: "/packageTother/pages/index/classify?genre=fruits"
 				})
 			}
 		},
