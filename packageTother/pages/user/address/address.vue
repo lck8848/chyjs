@@ -70,7 +70,6 @@
 				var user_id = this.$store.state.user.id
 				
 				// var addr_id = this.$store.state.user.id
-				console.log(user_id);
 				if(user_id === undefined){
 					 uni.showToast({
 						title:"亲,请先登录",
@@ -81,10 +80,8 @@
 				}
 
 				var res = await getAddr(user_id)
-				console.log(res);
 				this.addressList = res;
 				this.addr_id = this.$store.state.user.addr_id;
-				console.log(this.addr_id)
 			}
 		},
 		onLoad: function(options) {

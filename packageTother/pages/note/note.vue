@@ -89,7 +89,6 @@
 				var {
 					data
 				} = await getNoteList();
-				console.log(data);
 				this.NoteLIst = data;
 
 
@@ -99,7 +98,6 @@
 					data
 				} = await getGoodsByIds(this.ids)
 				this.goodslist = data
-				console.log(this.goodslist)
 
 			}
 		},
