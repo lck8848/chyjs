@@ -47,7 +47,6 @@ export default {
 	},
 	onPageScroll({ scrollTop }) {
 		this.scrollTop = scrollTop;
-		// console.log(scrollTop)
 		if (scrollTop >= 300) {
 			this.showtotop = true;
 		} else {

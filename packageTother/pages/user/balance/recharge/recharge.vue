@@ -79,7 +79,6 @@
 
 			//打开键盘
 			KeyboarOpen(e) {
-				console.log(e)
 			
 				this.isFoucs = false
 				this.$refs.KeyboarHid.open();
@@ -93,7 +92,6 @@
 			async topUp(){
 				// todo
 				var _this = this;
-				console.log(this.fees)
 				var user = this.$store.state.user
 				var newfees = (Number(user.balance) + Number(this.fees)).toFixed(2);
 				var id = user.id;
@@ -122,7 +120,6 @@
 		},
 		onLoad() {
 			this.money = this.$store.state.user.balance;
-			console.log(this.$store.state.user)
 		}
 		
 	}

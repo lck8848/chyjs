@@ -43,7 +43,6 @@
 					data
 				} = await getGift();
 				this.giftData = data;
-				console.log(this.giftData);
 			},
 			// 点击送他礼物跳转到相应页面
 			toClassifyGoods() {

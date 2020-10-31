@@ -45,7 +45,6 @@
 				// 用slice方法筛选出九个产品
 				data = data.slice(0, 9)
 				this.snackData = data;
-				console.log(this.snackData);
 			},
 			toGoodsDetail(id) {
 				uni.navigateTo({

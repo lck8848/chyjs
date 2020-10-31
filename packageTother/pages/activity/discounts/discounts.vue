@@ -92,7 +92,6 @@
 				
 				this.goodsData = data
 				var timestamp = new Date().getTime();
-				console.log(timestamp)
 				this.goodsData.map(v=>{
 					this.timeList.push((timestamp - v.create_time)/1000);
 				})
@@ -102,9 +101,6 @@
 						this.flashow.push("false")
 					}
 				})
-				console.log(this.goodsData)
-				console.log(this.timeList);
-				console.log(this.flashow)
 			}
 		},
 		onLoad() {
