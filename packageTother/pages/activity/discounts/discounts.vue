@@ -20,7 +20,7 @@
 						</view>
 						<block v-if="!flashow[index]">
 							<view class="jiesu_img">
-								<image src="@/packageTother/static/images/user/已结束.png" mode=""></image>
+								<image src="@/static/images/user/已结束.png" mode=""></image>
 							</view>
 						</block>
 					</view>
@@ -89,21 +89,23 @@
 					data
 				} = await getGoodsByStatus(2);
 				
-				
 				this.goodsData = data
 				var timestamp = new Date().getTime();
 				this.goodsData.map(v=>{
-					this.timeList.push((timestamp - v.create_time)/1000);
+					this.timeList.push((timestamp - v.activ_end_time)/1000);
 				})
 				this.timeList.map(v=>{
-						
-					if(v == 0 || v>0){
+					if(v == 0 || v>=0 ){
 						this.flashow.push("false")
 					}
 				})
+				console.log(timestamp)
+				console.log(this.goodsData);
+				console.log(this.flashow)
+				console.log(this.timeList)
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getGoodsData()
 		}
 	}

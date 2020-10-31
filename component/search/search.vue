@@ -27,7 +27,7 @@
 		methods:{
 			search: function() {
 				uni.navigateTo({
-					url: '/pages/search/search' 
+					url: '/packageTother/pages/search/search' 
 				})
 			},
 		}

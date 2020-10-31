@@ -84,7 +84,7 @@
 				this.addr_id = this.$store.state.user.addr_id;
 			}
 		},
-		onLoad: function(options) {
+		onShow: function(options) {
 			
 			this.getAddrData()
 		},

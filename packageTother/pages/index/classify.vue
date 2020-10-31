@@ -134,7 +134,7 @@
 			},
 			todetail(id){
 				uni.navigateTo({
-					url:"/pages/goods/detail?id=" + id
+					url:"/packageTother/pages/goods/detail?id=" + id
 				})
 			}
 		},
