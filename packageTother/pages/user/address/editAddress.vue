@@ -98,15 +98,35 @@
 				let obj = e.detail.value;
 				let objArr = Object.keys(obj);
 				// 判断不能为空
-				objArr.some((v, index) => {
-					if (obj[v] === "") {
-						uni.showToast({
-							title: this.infoData[index] + '不能为空',
-							icon: 'none',
-						})
-						return true;
-					}
-				})
+				console.log(e.detail.value);
+				if (e.detail.value.nickname == "") {
+					uni.showToast({
+						title: "收货人为空",
+						icon: 'none',
+					})
+					return
+				}
+				if (e.detail.value.addr_detail == "") {
+					uni.showToast({
+						title: "详情地址为空",
+						icon: 'none',
+					})
+					return
+				}
+				if (e.detail.value.addr_house == "") {
+					uni.showToast({
+						title: "门牌号为空",
+						icon: 'none',
+					})
+					return
+				}
+				if (reg.test(e.detail.value.phone) == false) {
+					uni.showToast({
+						title: "手机格式错误，请输入正确的格式",
+						icon: 'none',
+					})
+					return
+				}
 			
 				const reg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
 				if (reg.test(e.detail.value.phone) == false) {
@@ -114,31 +134,32 @@
 						title: "手机格式错误，请输入正确的格式",
 						icon: 'none',
 					})
-				} else {
-					var user_id = this.$store.state.user.id
-					e.detail.value.user_id = user_id
-					e.detail.value.addr_area = this.addrValue
-					var {code,addr_id} = await addAddr(e.detail.value);
-					
-					if(e.detail.value.switch === true){
-						var res = await updateUser({id:user_id,addr_id:addr_id})
-						let user = this.$store.state.user;
-						user.addr_id = addr_id;
-						this.$store.commit('saveUser', user);
-					}
-					if(code == 0){
-						uni.navigateBack({
-							success(){
-								uni.showToast({
-									title:"添加地址成功",
-									icon:"none",
-									mask:true,
-								})
-							}
-						});
-					}
-					
+					return
+				} 
+				var user_id = this.$store.state.user.id
+				e.detail.value.user_id = user_id
+				e.detail.value.addr_area = this.addrValue
+				var {code,addr_id} = await addAddr(e.detail.value);
+				
+				if(e.detail.value.switch === true){
+					var res = await updateUser({id:user_id,addr_id:addr_id})
+					let user = this.$store.state.user;
+					user.addr_id = addr_id;
+					this.$store.commit('saveUser', user);
 				}
+				if(code == 0){
+					uni.navigateBack({
+						success(){
+							uni.showToast({
+								title:"添加地址成功",
+								icon:"none",
+								mask:true,
+							})
+						}
+					});
+				}
+					
+				
 			},
 			async getAddr(id){
 				var addr_id = this.$store.state.user.addr_id;
