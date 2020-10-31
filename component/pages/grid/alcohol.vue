@@ -10,7 +10,7 @@
 				<view class="inside" v-for="item in alcoholData" :key="item.id">
 					<!-- navigator为页面跳转，open-type为页面跳转数据 -->
 					<!-- 传id跳转到相应商品详情 -->
-					<navigator :url="'/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
+					<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
 						<image :src="item.image_url" class="small_item"></image>
 						<text>{{item.title}}</text>
 						<view class="money">
