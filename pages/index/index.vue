@@ -121,139 +121,63 @@
 		<!-- 新品滑动 -->
 
 		<!-- 种草笔记 -->
-		<view class="note_container">
-			<view class="top">
-				<text class="note">种草笔记</text>
-				<text class="more" @click="toMore">查看更多></text>
-			</view>
-			<view class="scroll-container">
-				<scroll-view class="scroll-view" :scroll-x="true" :show-scrollbar="true">
-					<!-- 根据id显示不同的商品笔记 -->
-					<view id="demo1" class="item" v-for="item in notelist" :key="item.id" @click="toNOteDetail(item.id)">
-						<view class="note_img">
-							<image lazy-load="true" :src="item.img_url" class="luosifen"></image>
-						</view>
-						<view class="desc">
-							<text>
-								{{item.title}}
-							</text>
-						</view>
-					</view>
-
-				</scroll-view>
-			</view>
-		</view>
+		<rec-note></rec-note>
 
 		<!-- 分类宫格 -->
-		<view class="category_container">
-			<!-- 送ta礼物分类 -->
-			<gift></gift>
-			<!-- 各种零食 -->
-			<snack></snack>
-			<!--果蔬生鲜 -->
-			<vegetable></vegetable>
-			<!-- 咖啡茶饮 -->
-			<coffee></coffee>
-			<!-- 各种酒水 -->
-			<alcohol></alcohol>
+		<view class="classify-shell" v-for="item in classify" :key="item.genre">
+			<classify-goods :imgUrl="item.imgUrl" :genre="item.genre"></classify-goods>
 		</view>
-		<!-- 分类宫格end -->
-
-		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop">
-			<image src="/static/images/index/icon/top.png" class="topimg"></image>
-		</view>
-
 
 		<!-- 弹出橱窗 -->
 		<show-case :goodsIds="goodsIds"></show-case>
-		<!-- 弹出橱窗 -->
+		
+		<!-- 回到顶部 -->
+		<back-top :scrollTop="scrollTop"></back-top>
 	</view>
 </template>
 
 <script>
 	import search from "@/component/search/search";
+	import recNote from "@/component/rec-note/rec-note.vue";
 	import showCase from "@/component/show-case/show-case.vue";
-	import gift from "@/component/pages/grid/gift.vue";
-	import snack from "@/component/pages/grid/snack.vue";
-	import vegetable from "@/component/pages/grid/vegetable.vue";
-	import coffee from "@/component/pages/grid/coffee.vue";
-	import alcohol from "@/component/pages/grid/alcohol.vue";
-	// 渲染种草笔记列表
-	// import 
-
-	import {
-		getGoodsByStatus,
-		getHomeNoteList,
-		getClassifyGoods,
-		getCarouselListByStatus
-	} from "@/api/index.js"
-
-
+	import backTop from "@/component/back-top/back-top.vue";
+	import classifyGoods from "@/component/classify-goods/classify-goods.vue";
+	import { getGoodsByStatus, getCarouselListByStatus } from "@/api/index.js"
 	export default {
 		components: {
 			search,
+			recNote,
 			showCase,
-			gift,
-			snack,
-			vegetable,
-			coffee,
-			alcohol
+			backTop,
+			classifyGoods
 		},
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
 				goodsIds: "45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94",
-				activityData: [{
-						name: "monnew",
-						img_url: "http://47.106.36.197:7000/source/home/monnew_index.webp"
-					},
-					{
-						name: "discounts",
-						img_url: "http://47.106.36.197:7000/source/home/discounts_index.webp"
-					},
-					{
-						name: "hot",
-						img_url: "http://47.106.36.197:7000/source/home/hot_index.webp"
-					},
-					{
-						name: "vip",
-						img_url: "http://47.106.36.197:7000/source/home/vip_index.webp"
-					},
-
-
+				activityData: [
+					{name: "monnew", img_url: "http://47.106.36.197:7000/source/home/monnew_index.webp"},
+					{name: "discounts", img_url: "http://47.106.36.197:7000/source/home/discounts_index.webp"},
+					{name: "hot", img_url: "http://47.106.36.197:7000/source/home/hot_index.webp"},
+					{name: "vip", img_url: "http://47.106.36.197:7000/source/home/vip_index.webp"},
+				],
+				classify: [
+					{imgUrl:"http://47.106.36.197:7000/source/home/sendgift.webp", genre: "gift"},
+					{imgUrl:"http://47.106.36.197:7000/source/home/snack.webp", genre: "snacks"},
+					{imgUrl:"http://47.106.36.197:7000/source/home/vegetable.webp", genre: "fruits"},
+					{imgUrl:"http://47.106.36.197:7000/source/home/coffee.webp", genre: "tea"},
+					{imgUrl:"http://47.106.36.197:7000/source/home/coffee.webp", genre: "liquor"}
 				],
 				newgoods: [],
-				notelist: [],
 				showtotop: false,
-				carousellist: []
-
-
+				carousellist: [],
+				scrollTop: 0
 			}
 		},
-		// 监听页面滚动，超过页面一半就显示回到顶部按钮
-		onPageScroll(res){
-			if (res.scrollTop >= 300) {
-				this.showtotop = true
-			} else {
-				this.showtotop = false
-			}
-		},
-
 		methods: {
 			Tosearch() {
 				this.$refs.search.search()
 			},
-			// 点击查看更多>(种草笔记)
-			toMore() {
-				uni.navigateTo({
-					url: "/packageTother/pages/note/note",
-					fail(err) {
-						console.log(err);
-					}
-				})
-			},
-
 			Todetail(id) {
 				uni.navigateTo({
 					url: "/packageTother/pages/goods/detail?id=" + id
@@ -290,14 +214,6 @@
 					url: "/pages/allGoods/allGoods"
 				})
 			},
-			// 回到顶部
-			ToTop() {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 300
-				})
-			},
-
 			tonew() {
 				uni.navigateTo({
 					url: "/packageTother/pages/new/new"
@@ -305,12 +221,6 @@
 			},
 			tourl(url) {
 
-			},
-			// 点击种草笔记列表，跳转到相应的笔记内容
-			toNOteDetail(id) {
-				uni.navigateTo({
-					url: `/packageTother/pages/note/noteDetail?n_id=${id}`
-				})
 			},
 			async init() {
 				var {
@@ -324,14 +234,10 @@
 			async lunbo(){
 				var {data}  = await getCarouselListByStatus(1)
 				this.carousellist = data
-			},
-			// 渲染种草笔记
-			async getnote() {
-				var {
-					data
-				} = await getHomeNoteList()
-				this.notelist = data
 			}
+		},
+		onPageScroll({scrollTop}) {
+			this.scrollTop = scrollTop;
 		},
 		onShow(){
 			let ids = this.$store.getters.getUser.goods_ids;
@@ -339,7 +245,6 @@
 		},
 		created() {
 			this.init()
-			this.getnote()
 			this.lunbo()
 		}
 
@@ -556,106 +461,6 @@
 		}
 
 		//新品
-
-		// 种草笔记
-		.note_container {
-
-			// background-color: #F9F9F9;
-			.top {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				// padding:20rpx;
-				padding: 0 20rpx;
-
-				.note {
-					font-size: 32rpx;
-					color: #323233;
-				}
-
-				.more {
-
-					font-size: 24rpx;
-					color: #c7c7d1;
-				}
-			}
-
-			.scroll-container {
-				.scroll-view {
-					white-space: nowrap;
-					height: 450rpx;
-					width: 100%;
-					margin-top: 20rpx;
-					border: 1px solid #E5E5E5;
-					overflow: hidden;
-
-					.item {
-						// 这个属性可以使图片跟文字盒子上下排行
-						display: inline-block;
-						background-color: white;
-						width: 40%;
-						height: 420rpx;
-						border: 1px solid #E5E5E5;
-						// padding:10rpx;
-						margin: 10rpx;
-						background-color: white;
-						border: 1px solid #E5E5E5;
-
-						.note_img {
-							width: 300rpx;
-
-							image {
-								overflow: hidden;
-								width: 100%;
-								height: 300rpx;
-							}
-						}
-
-						.desc {
-							width: 300rpx;
-							height: 100rpx;
-							// padding:10rpx;
-							// 字体不换行
-							white-space: pre-wrap;
-
-
-							// 限制两行以后用省略号表示
-							text {
-								overflow: hidden;
-								text-overflow: ellipsis;
-								display: -webkit-box;
-								-webkit-box-orient: vertical;
-								-webkit-line-clamp: 2;
-
-								font-weight: bold;
-								color: #4E4E4E
-							}
-						}
-
-					}
-				}
-			}
-
-		}
-
-		// 种草笔记到这
-
-		// 回到顶部
-		.top-button {
-			width: 70upx;
-			height: 70upx;
-			// 固定定位
-			position: fixed;
-			right: 49rpx;
-			bottom: 60rpx;
-			z-index: 5;
-
-			.topimg {
-				width: 100rpx;
-				height: 100rpx;
-			}
-		}
-		// 回到顶部到这
 		
 		.grid-container {
 			display: flex;

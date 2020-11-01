@@ -115,19 +115,18 @@
 				</view>
 			</view>
 		</tui-bottom-popup>
-
-
-		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" v-if="showtotop" @sroll="scroll">
-			<image src="/static/images/index/icon/top.png" class="topimg"></image>
-		</view>
 		
+		<!-- 推荐 -->
 		<recommend :scrollTop="scrollTop"></recommend>
+		
+		<!-- 回到顶部 -->
+		<back-top :scrollTop="scrollTop" ></back-top>
 	</view>
 </template>
 
 <script>
 	import recommend from "@/component/recommend/recommend.vue";
+	import backTop from '@/component/back-top/back-top.vue';
 	import { getSpec } from "@/api/index.js";
 	import { mapGetters, mapActions, mapMutations } from "vuex";
 	export default {
@@ -177,12 +176,6 @@
 		},
 		methods: {
 			...mapActions(['getCartList', 'updateCart', 'delCart', 'updateAllCart']),
-			ToTop() {
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 300
-				})
-			},
 			async chooseSpec(cIndex) {
 				this.current = cIndex;
 				let { data } = await getSpec(this.cart[cIndex].goods_id);
@@ -297,14 +290,10 @@
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
-			if(scrollTop >= 1000){
-				this.showtotop = true;
-			}else{
-				this.showtotop = false;
-			}
 		},
 		components: {
-			recommend
+			recommend,
+			backTop
 		}
 	}
 </script>
@@ -622,22 +611,5 @@
 				}
 			}
 		}
-
-		// 回到顶部
-		.top-button {
-			width: 70upx;
-			height: 70upx;
-			// 固定定位
-			position: fixed;
-			right: 50rpx;
-			bottom: 120rpx;
-			z-index: 900;
-
-			.topimg {
-				width: 100rpx;
-				height: 100rpx;
-			}
-		}
-		
 	}
 </style>

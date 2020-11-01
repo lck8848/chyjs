@@ -96,7 +96,7 @@
 		.walk {
 			position: fixed;
 			right: 20rpx;
-			bottom: 140rpx;
+			bottom: 260rpx;
 			width: 96rpx;
 			height: 96rpx;
 			background-image: url(http://47.106.36.197:7000/source/other/showcase.webp);

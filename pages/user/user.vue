@@ -22,15 +22,18 @@
 			<van-cell icon="user-o" title="个人信息" is-link @tap="goUserinfo" />
 			<van-cell icon="location-o" title="收货地址" is-link @tap="getAddress" />
 		</view>
-		<!-- 回到顶部 -->
-		<view class="top-button" @click="ToTop" @scroll="scroll" v-if="showtotop"><image src="/static/images/index/icon/top.png" class="topimg"></image></view>
-
+		
+		<!-- 推荐 -->
 		<recommend :scrollTop="scrollTop"></recommend>
+		
+		<!-- 回到顶部 -->
+		<back-top :scrollTop="scrollTop" ></back-top>
 	</view>
 </template>
 
 <script>
 import recommend from '@/component/recommend/recommend.vue';
+import backTop from '@/component/back-top/back-top.vue';
 import orderShell from '@/component/order-shell/order-shell.vue';
 import { wxlogin, checkToken } from '@/api/index.js';
 export default {
@@ -47,20 +50,8 @@ export default {
 	},
 	onPageScroll({ scrollTop }) {
 		this.scrollTop = scrollTop;
-		if (scrollTop >= 300) {
-			this.showtotop = true;
-		} else {
-			this.showtotop = false;
-		}
 	},
 	methods: {
-		// 回到顶部
-		ToTop() {
-			uni.pageScrollTo({
-				scrollTop: 0,
-				duration: 300
-			});
-		},
 		getSafety() {
 			var user_id = this.$store.state.user.id;
 			if (user_id === undefined) {
@@ -164,7 +155,6 @@ export default {
 				});
 			}
 		},
-
 		CheckAuth() {
 			// 查看微信小程序授权
 			let _this = this;
@@ -184,13 +174,13 @@ export default {
 			});
 		}
 	},
-
-	components: {
-		recommend,
-		orderShell
-	},
 	onShow() {
 		this.CheckAuth();
+	},
+	components: {
+		recommend,
+		orderShell,
+		backTop
 	}
 };
 </script>
@@ -199,24 +189,6 @@ export default {
 .container {
 	background-color: #f9f9f9;
 	height: 5270rpx;
-
-	// 回到顶部
-	.top-button {
-		width: 70upx;
-		height: 70upx;
-		// 固定定位
-		position: fixed;
-		right: 49rpx;
-		bottom: 60rpx;
-		z-index: 5;
-
-		.topimg {
-			width: 100rpx;
-			height: 100rpx;
-		}
-	}
-
-	// 回到顶部到这
 
 	.info {
 		display: flex;
