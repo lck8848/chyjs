@@ -215,6 +215,7 @@
 				}
 			};
 			this.keyword = options.keyword
+			this.key = options.keyword
 			var obj = {keyword:options.keyword,page:1,pageSize:10}
 			this.init(obj)
 		},
