@@ -99,10 +99,7 @@
 						this.flashow.push("false")
 					}
 				})
-				console.log(timestamp)
-				console.log(this.goodsData);
-				console.log(this.flashow)
-				console.log(this.timeList)
+			
 			}
 		},
 		onShow() {
