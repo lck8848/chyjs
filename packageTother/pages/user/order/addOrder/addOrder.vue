@@ -109,7 +109,7 @@
 							</view>
 						</view>
 						<view class="edit-shell" @tap="editAddr(item.id)">
-							<image class="edit-img" src="@/static/images/user/icon_addr_edit.png" mode="widthFix" />
+							<image class="edit-img" src="http://47.106.36.197:7000/source/userImages/other/icon_addr_edit.png" mode="widthFix" />
 						</view>
 					</view>
 				</scroll-view>

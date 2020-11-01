@@ -46,7 +46,7 @@
 					<view class="bottom">
 						<view class="price">￥<text class="num">{{item.price}}</text></view>
 						<view class="cart">
-							<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+							<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 				</view>

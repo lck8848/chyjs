@@ -22,7 +22,7 @@
 							</view>
 						</view>
 						<view class="tui-address-imgbox" @tap="editAddr(item.id,'edit')">
-							<image class="tui-address-img" src="@/static/images/user/icon_addr_edit.png" />
+							<image class="tui-address-img" src="http://47.106.36.197:7000/source/userImages/other/icon_addr_edit.png" />
 						</view>
 					</view>
 				</tui-list-cell>

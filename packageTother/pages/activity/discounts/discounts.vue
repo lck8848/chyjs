@@ -1,7 +1,7 @@
 <template>
 	<view class="discounts-container">
 		<view class="discounts">
-			<image src="@/packageTother/static/images/activity/discounts.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/discounts.webp" mode=""></image>
 		</view>
 
 
@@ -20,7 +20,7 @@
 						</view>
 						<block v-if="!flashow[index]">
 							<view class="jiesu_img">
-								<image src="@/static/images/user/已结束.png" mode=""></image>
+								<image src="http://47.106.36.197:7000/source/other/end.png" mode=""></image>
 							</view>
 						</block>
 					</view>
@@ -65,7 +65,7 @@
 
 
 		<view class="ka">
-			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>

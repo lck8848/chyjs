@@ -31,7 +31,7 @@
 													<text class="price-tag">¥</text>
 													<text class="price-sale-price">{{ g.price }}</text>
 												</view>
-												<image src="/static/images/allGoods/btn-shopcart.png" class="btn_img"></image>
+												<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" class="btn_img"></image>
 											</view>
 										</view>
 									</navigator>

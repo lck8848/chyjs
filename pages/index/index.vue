@@ -22,22 +22,22 @@
 		<view class="grid-container">
 			<view class="grid">
 				<view class="item" @click="Tosend">
-					<image src="@/static/images/index/grid1.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid1.jpg" mode=""></image>
 				</view>
 				<view class="item" @click="Tofruit">
-					<image src="@/static/images/index/grid2.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid2.jpg" mode=""></image>
 				</view>
 				<view class="item" @click="Tosnack">
-					<image src="@/static/images/index/grid3.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid3.jpg" mode=""></image>
 				</view>
 				<view class="item" @click="Totea">
-					<image src="@/static/images/index/grid4.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid4.jpg" mode=""></image>
 				</view>
 				<view class="item" @click="Towine">
-					<image src="@/static/images/index/grid5.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid5.jpg" mode=""></image>
 				</view>
 				<view class="item" @click="Toall">
-					<image src="@/static/images/index/grid6.jpg" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/grid6.jpg" mode=""></image>
 				</view>
 			</view>
 		</view>
@@ -88,7 +88,7 @@
 									￥<text class="price">{{item.price}}</text>
 								</view>
 								<view class="right">
-									<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+									<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
 								</view>
 							</view>
 						</view>
@@ -105,7 +105,7 @@
 								</view>
 
 								<view class="right">
-									<image src="@/static/images/index/右.png" mode=""></image>
+									<image src="http://47.106.36.197:7000/source/home/right_point.png" mode=""></image>
 								</view>
 							</view>
 						</view>
@@ -206,19 +206,19 @@
 				goodsIds: "45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94",
 				activityData: [{
 						name: "monnew",
-						img_url: "../../static/images/index/monnew.webp"
+						img_url: "http://47.106.36.197:7000/source/home/monnew_index.webp"
 					},
 					{
 						name: "discounts",
-						img_url: "../../static/images/index/discounts.webp"
+						img_url: "http://47.106.36.197:7000/source/home/discounts_index.webp"
 					},
 					{
 						name: "hot",
-						img_url: "../../static/images/index/hot.webp"
+						img_url: "http://47.106.36.197:7000/source/home/hot_index.webp"
 					},
 					{
 						name: "vip",
-						img_url: "../../static/images/index/vip.webp"
+						img_url: "http://47.106.36.197:7000/source/home/vip_index.webp"
 					},
 
 

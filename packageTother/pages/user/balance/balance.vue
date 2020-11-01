@@ -19,13 +19,13 @@
 		<view class="grid">
 			<navigator url="/packageTother/pages/user/balance/recharge/recharge" open-type="navigate">
 				<view class="recharge">
-					<image src="@/packageTother/static/images/user/充值.png" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/userImages/other/top_up.png" mode=""></image>
 					<text>充值</text>
 				</view>
 			</navigator>
 			<navigator url="/packageTother/pages/user/balance/record/record" open-type="navigate">
 				<view class="bill">
-					<image src="@/packageTother/static/images/user/账单.png" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/userImages/other/bill.png" mode=""></image>
 					<text>账单</text>
 				</view>
 

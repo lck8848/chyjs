@@ -16,7 +16,7 @@
 				可以关注我们的公众号“吃货研究所（Food_Lab）”，了解更多关于美食的知识和分享噢~
 			</view>
 			<view class="buttom">
-				<image src="../../static/images/note/noteDetail/Fr6XQKSR3YvkrxSDL96nqrig3032.jpg" mode=""></image>
+				<image src="http://47.106.36.197:7000/source/home/logo.webp" mode=""></image>
 				<text>吃货研究所店铺</text>
 				<view class="tags">
 					<!-- 点击更多笔记标签，进入查看更多笔记 -->

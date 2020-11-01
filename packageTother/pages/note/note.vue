@@ -5,11 +5,11 @@
 			<view class="info">
 				<!-- 点击logo跳转回首页 -->
 				<view class="left" @click="toIndex">
-					<image src="https://img.yzcdn.cn/upload_files/2018/08/22/Floa9HOof0MNNlCCx250fte7YEd7.png!small.webp"></image>
+					<image src="http://47.106.36.197:7000/source/home/logo2.webp"></image>
 				</view>
 				<view class="title">
 					<text>吃货研究所店铺</text>
-					<image src="../../static/images/note/tomore/3years.png" class="img"></image>
+					<image src="http://47.106.36.197:7000/source/home/laodian.png" class="img"></image>
 				</view>
 			</view>
 			<!-- 点击进店标签，进入首页 -->
@@ -38,7 +38,7 @@
 					</view>
 
 					<!-- right -->
-					<image src="/packageTother/static/images/cart/right.png" class="Right"></image>
+					<image src="http://47.106.36.197:7000/source/other/right.png" class="Right"></image>
 				</view>
 				<!-- </navigator> -->
 			</view>

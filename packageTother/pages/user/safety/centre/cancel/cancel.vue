@@ -1,7 +1,7 @@
 <template>
 	<view class="cancel-container">
 		<view class="wrapper">
-			<view class="icon"><image src="/static/images/user/logout.png" class="icon_img"></image></view>
+			<view class="icon"><image src="http://47.106.36.197:7000/source/userImages/other/logout.png" class="icon_img"></image></view>
 			<view class="title">注销后，将放弃所有资产和权益</view>
 			<view class="tips">
 				<ul>

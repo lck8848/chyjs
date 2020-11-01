@@ -21,7 +21,7 @@
 			make() {
 				let filePath = uQRCode.make({
 					canvasId: this.cid,
-					text: this.logo,
+					text: "http://47.106.36.197:7000?logo="+this.logo,
 					size: this.size,
 					margin: 10,
 					backgroundColor: "#fff",

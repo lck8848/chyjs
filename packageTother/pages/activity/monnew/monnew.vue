@@ -1,7 +1,7 @@
 <template>
 	<view class="monnew-container">
 		<view class="monnew">
-			<image src="@/packageTother/static/images/activity/monnew.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/monnew.webp" mode=""></image>
 		</view>
 		
 		<view class="monnew-goods">
@@ -28,7 +28,7 @@
 			</view>
 		<view class="monnew">
 
-			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>

@@ -5,7 +5,7 @@
 		<view class="head">
 			<view class="title" @click="toindex">
 				<view class="logo">
-					<image src="@/static/images/goods/detail/logo.webp" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/logo.webp" mode=""></image>
 				</view>
 				<view class="text">吃货研究所店铺</view>
 			</view>
@@ -51,10 +51,8 @@
 
 
 				<view class="share" @tap="share">
-					<!-- <image src="@/static/images/goods/detail/share.png" mode=""></image>
-					<text>分享</text> -->
 					<button class="button" data-name="shareBtn" open-type="share">
-						<image src="@/static/images/goods/detail/share.png" mode=""></image>
+						<image src="http://47.106.36.197:7000/source/home/share.png" mode=""></image>
 						<text>分享</text>
 					</button>
 				</view>
@@ -84,7 +82,7 @@
 				<text class="second">收货后结算,快递发货</text>
 			</view>
 			<view class="img">
-				<image src="@/static/images/cart/right.png" mode=""></image>
+				<image src="http://47.106.36.197:7000/source/other/right.png" mode=""></image>
 			</view>
 		</view>
 		
@@ -95,7 +93,7 @@
 
 			</view>
 			<view class="img">
-				<image src="@/static/images/cart/right.png" mode=""></image>
+				<image src="http://47.106.36.197:7000/source/other/right.png" mode=""></image>
 			</view>
 		</view>
 		<!-- 运费 服务 选择 -->
@@ -104,14 +102,14 @@
 		<!-- 吃货研究所店铺 -->
 		<view class="shop-container">
 			<view class="img">
-				<image src="@/static/images/goods/detail/logo.webp" mode=""></image>
+				<image src="http://47.106.36.197:7000/source/home/logo.webp" mode=""></image>
 			</view>
 			<view class="middle">
 				<view class="title">
 					吃货研究所店铺
 				</view>
 				<view class="image">
-					<image src="@/static/images/goods/detail/laodian.png" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/home/laodian.png" mode=""></image>
 				</view>
 			</view>
 			<view class="tail">

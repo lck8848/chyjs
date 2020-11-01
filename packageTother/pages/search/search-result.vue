@@ -53,7 +53,7 @@
 		<!-- 暂无数据 -->
 		<view class="none-container" v-if="shownone">
 			<view class="img">
-				<image src="@/static/images/search/nodata.png" mode=""></image>
+				<image src="http://47.106.36.197:7000/source/home/nodata.png" mode=""></image>
 			</view>
 			<view class="text">
 				<text>没有找到你想要的商品</text>
@@ -79,7 +79,7 @@
 					<view class="bottom">
 						<view class="price">￥<text class="num">{{item.price}}</text></view>
 						<view class="cart">
-							<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+							<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 				</view>

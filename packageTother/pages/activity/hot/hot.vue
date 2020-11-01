@@ -2,7 +2,7 @@
 	<view class="hot-container">
 		<!-- 标题 -->
 		<view class="hot">
-			<image src="@/packageTother/static/images/activity/hot.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/hot.webp" mode=""></image>
 		</view>
 		<!-- 列表 -->
 		<view class="hot-goods">
@@ -36,7 +36,7 @@
 		
 		
 		<view class="ka">
-			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/ka.webp" mode=""></image>
 		</view>
 	</view> 
 </template>

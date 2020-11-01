@@ -1,8 +1,8 @@
 <template>
 	<view class="centre-container">
 		<view class="banner">
-			<image src="/static/images/user/banner.png" class="banner_img"></image>
-			<image src="/static/images/user/logo.png" class="logo"></image>
+			<image src="http://47.106.36.197:7000/source/userImages/other/banner.png" class="banner_img"></image>
+			<image src="http://47.106.36.197:7000/source/userImages/other/favour.png" class="logo"></image>
 			<h2 class="title">有赞安全中心智能守护你的帐号安全</h2>
 		</view>
 		<view class="content">

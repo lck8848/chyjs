@@ -2,7 +2,7 @@
 	<view class="vip-container">
 		<view class="vip">
 
-			<image src="@/packageTother/static/images/activity/vip.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/vip.webp" mode=""></image>
 		</view>
 
 		<view class="monnew-goods">
@@ -29,7 +29,7 @@
 		</view>
 
 		<view class="vip">
-			<image src="@/packageTother/static/images/activity/ka.webp" mode=""></image>
+			<image src="http://47.106.36.197:7000/source/home/ka.webp" mode=""></image>
 		</view>
 	</view>
 </template>

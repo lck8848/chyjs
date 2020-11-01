@@ -5,7 +5,7 @@
 			<van-divider borderColor="#EBEBEB"></van-divider>
 		</view>
 		<view class="sendGift">
-			<image src="@/static/images/index/vegetable.webp" class="img" @click="toClassifyGoods"></image>
+			<image src="http://47.106.36.197:7000/source/home/vegetable.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in vegetableData" :key="item.id">
 					<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
@@ -16,7 +16,7 @@
 								<text class="small">￥</text>
 								<text class="big">{{item.price}}</text>
 							</view>
-							<image src="@/static/icon/cart-circle-o.png" class="cart"></image>
+							<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" class="cart"></image>
 						</view>
 					</navigator>
 				</view>

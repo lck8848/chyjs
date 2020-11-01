@@ -5,7 +5,7 @@
 			<van-divider borderColor="#EBEBEB"></van-divider>
 		</view>
 		<view class="sendGift">
-			<image src="@/static/images/index/alcohol.webp" class="img" @click="toClassifyGoods"></image>
+			<image src="http://47.106.36.197:7000/source/home/alcohol.webp" class="img" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="inside" v-for="item in alcoholData" :key="item.id">
 					<!-- navigator为页面跳转，open-type为页面跳转数据 -->
@@ -18,7 +18,7 @@
 								<text class="small">￥</text>
 								<text class="big">{{item.price}}</text>
 							</view>
-							<image src="@/static/icon/cart-circle-o.png" class="cart"></image>
+							<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" class="cart"></image>
 						</view>
 					</navigator>
 				</view>

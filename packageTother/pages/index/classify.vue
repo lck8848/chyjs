@@ -3,19 +3,19 @@
 		<!-- 顶部图片 -->
 		<view class="head-img">
 			<view class="item" v-if="head_img == 'gift' ? true : false">
-				<image class="image" src="@/static/images/index/classify/gift.webp" mode=""></image>
+				<image class="image" src="http://47.106.36.197:7000/source/home/gift.webp" mode=""></image>
 			</view>
 			<view class="item" v-if="head_img == 'fruits' ? true : false">
-				<image class="image" src="@/static/images/index/classify/fruits.webp" mode=""></image>
+				<image class="image" src="http://47.106.36.197:7000/source/home/fruits.webp" mode=""></image>
 			</view>
 			<view class="item" v-if="head_img == 'snacks' ? true : false">
-				<image class="image" src="@/static/images/index/classify/snacks.webp" mode=""></image>
+				<image class="image" src="http://47.106.36.197:7000/source/home/snacks.webp" mode=""></image>
 			</view>
 			<view class="item" v-if="head_img == 'tea' ? true : false">
-				<image class="image" src="@/static/images/index/classify/tea.webp" mode=""></image>
+				<image class="image" src="http://47.106.36.197:7000/source/home/tea.webp" mode=""></image>
 			</view>
 			<view class="item" v-if="head_img == 'liquor' ? true : false">
-				<image class="image" src="@/static/images/index/classify/liquor.webp" mode=""></image>
+				<image class="image" src="http://47.106.36.197:7000/source/home/liquor.webp" mode=""></image>
 			</view>
 		</view>
 		<!-- 顶部图片 -->
@@ -52,7 +52,7 @@
 					<view class="bottom">
 						<view class="price">￥<text class="num">{{item.price}}</text></view>
 						<view class="cart">
-							<image src="@/static/images/index/icon/cart-circle-o.png" mode=""></image>
+							<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
 						</view>
 					</view>
 				</view>
