@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="component">
-			<canvas canvas-id="qrcode" style="width: 354px;height: 354px;" />
+			<canvas class="canvas" :canvas-id="cid" :style="{width: `${size}px`, height: `${size}px`}" />
 		</view>
 	</view>
 </template>
@@ -12,31 +12,25 @@
 	export default {
 		data() {
 			return {
-				size: uni.upx2px(590),
-				imgUrl: ""
+				cid: "qrcode",
+				size: 200,
+				logo: ""
 			};
 		},
 		methods: {
-			async make() {
-			      // 回调方式
-			      uQRCode.make({
-			        canvasId: 'qrcode',
-			        componentInstance: this,
-			        text: 'uQRCode',
-			        size: 354,
-			        margin: 10,
-			        backgroundColor: '#ffffff',
-			        foregroundColor: '#000000',
-			        fileType: 'jpg',
-			        correctLevel: uQRCode.errorCorrectLevel.H,
-			        success: res => {
-			          console.log(res)
-			        }
-				})
+			make() {
+				let filePath = uQRCode.make({
+					canvasId: this.cid,
+					text: this.logo,
+					size: this.size,
+					margin: 10,
+					backgroundColor: "#fff",
+					foregroundColor: "#000"
+				});
 			}
 		},
-		async onLoad(option) {
-			this.imgUrl = option.imgUrl;
+		onLoad(option) {
+			this.logo = option.imgUrl;
 			this.make();
 		},
 		components: {
@@ -46,5 +40,7 @@
 </script>
 
 <style lang="scss">
-
+	.canvas {
+		margin: 40rpx auto;
+	}
 </style>

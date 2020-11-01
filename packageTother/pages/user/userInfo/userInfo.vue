@@ -143,9 +143,9 @@
 				this.value = this.user[mark];
 			},
 			goQrcode(imgUrl){
-				// uni.navigateTo({
-				// 	url: "/packageTother/pages/user/qrCode/qrCode?type="+4
-				// })
+				uni.navigateTo({
+					url: "/packageTother/pages/user/qrCode/qrCode?imgUrl="+imgUrl
+				})
 			},
 			async updateUser(mark, value){
 				let user = {id: this.user.id};

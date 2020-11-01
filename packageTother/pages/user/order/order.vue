@@ -302,6 +302,7 @@
 					flex: 1;
 					display: flex;
 					.search-icon {
+						vertical-align: text-top;
 						margin-right: 8rpx;
 					}
 					.search-input {

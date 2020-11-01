@@ -9,7 +9,7 @@
 			<view class="show-title">
 				适用门店
 				<view class="img" @tap="show()">
-					<image src="@/packageTother/static/images/showcase/cancel.png" mode=""></image>
+					<image src="http://47.106.36.197:7000/source/other/cancel.png" mode=""></image>
 				</view>
 				<view class="cancel" @tap="show()"></view>
 			</view>
