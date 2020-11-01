@@ -51,9 +51,14 @@
 
 
 				<view class="share" @tap="share">
-					<image src="@/static/images/goods/detail/share.png" mode=""></image>
-					<text>分享</text>
+					<!-- <image src="@/static/images/goods/detail/share.png" mode=""></image>
+					<text>分享</text> -->
+					<button class="button" data-name="shareBtn" open-type="share">
+						<image src="@/static/images/goods/detail/share.png" mode=""></image>
+						<text>分享</text>
+					</button>
 				</view>
+				
 			</view>
 			<view class="sell_point">
 				{{goodDetailData.sell_point}}
@@ -386,10 +391,25 @@
 					}
 			},
 			share(){
-				uni.showModal({
-					content:"请点击右上角三个点进行分享",
-					showCancel:false
-				})
+				// uni.showModal({
+				// 	content:"请点击右上角三个点进行分享",
+				// 	showCancel:false
+				// })
+				// uni.share({
+				//     provider: "weixin",
+				//     scene: "WXSenceTimeline",
+				//     type: 0,
+				//     href: "http://uniapp.dcloud.io/",
+				//     title: "uni-app分享",
+				//     summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+				//     imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+				//     success: function (res) {
+				//         console.log("success:" + JSON.stringify(res));
+				//     },
+				//     fail: function (err) {
+				//         console.log("fail:" + JSON.stringify(err));
+				//     }
+				// });
 			},
 
 		},
@@ -490,7 +510,7 @@
 			flex-direction: column;
 			background-color: #FFFFFF;
 			width:750rpx;
-			padding: 16rpx 24rpx 16rpx;
+			padding: 16rpx 34rpx 16rpx;
 			box-sizing: border-box;
 			.disprice{
 				font-size: 32rpx;
@@ -511,6 +531,7 @@
 				display: flex;
 				justify-content: space-between;
 				margin-top:16rpx;
+				padding-right: 10rpx;
 				.name{
 					width:80%;
 					font-size: 30rpx;
@@ -519,12 +540,38 @@
 					width: 10%;
 					display: flex;
 					flex-direction: column;
+					
 					image{
 						width: 36rpx;
 						height: 36rpx;
 					}
 					text{
 						font-size: 24rpx;
+					}
+					.button{
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						border:none;
+						outline: 0 none;
+						margin: 0;
+						padding: 0;
+						width: 80rpx;
+						background-color: #FFFFFF;
+						// margin-right: 20rpx;
+						text{
+							padding: 0;
+						}
+						// height: rpx;
+						// display: inline-block;
+						
+					}
+					button{
+						&::after{ 
+							border: none;
+							margin-right: 20rpx;
+						}
 					}
 					
 				}
