@@ -58,65 +58,7 @@
 
 
 		<!-- 新品滑动 -->
-		<view class="new-container">
-			<view class="head">
-				<view class="title">
-					新品
-				</view>
-				<view class="more" @click="tonew()">
-					更多
-				</view>
-			</view>
-			<view class="newscroll-container">
-
-				<scroll-view class="scroll" scroll-x="true">
-					<view class="item" v-for="item in newgoods" :key="item.id" @click="Todetail(item.id)">
-
-						<view class="img">
-							<image lazy-load="true" :src="item.image_url" mode=""></image>
-							<view class="label">
-								新品
-							</view>
-						</view>
-
-						<view class="text">
-							<view class="title">
-								{{item.title}}
-							</view>
-							<view class="bottom">
-								<view class="left">
-									￥<text class="price">{{item.price}}</text>
-								</view>
-								<view class="right">
-									<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
-								</view>
-							</view>
-						</view>
-					</view>
-
-
-					<view class="item more" @click="tonew()">
-
-
-						<view class="text-more">
-							<view class="info">
-								<view class="title">
-									查看更多
-								</view>
-
-								<view class="right">
-									<image src="http://47.106.36.197:7000/source/home/right_point.png" mode=""></image>
-								</view>
-							</view>
-						</view>
-
-
-					</view>
-
-				</scroll-view>
-			</view>
-
-		</view>
+		<new-goods></new-goods>
 
 		<!-- 新品滑动 -->
 
@@ -138,14 +80,16 @@
 
 <script>
 	import search from "@/component/search/search";
+	import newGoods from "@/component/new-goods/new-goods.vue";
 	import recNote from "@/component/rec-note/rec-note.vue";
 	import showCase from "@/component/show-case/show-case.vue";
 	import backTop from "@/component/back-top/back-top.vue";
 	import classifyGoods from "@/component/classify-goods/classify-goods.vue";
-	import { getGoodsByStatus, getCarouselListByStatus } from "@/api/index.js"
+	import { getCarouselListByStatus } from "@/api/index.js"
 	export default {
 		components: {
 			search,
+			newGoods,
 			recNote,
 			showCase,
 			backTop,
@@ -178,12 +122,6 @@
 			Tosearch() {
 				this.$refs.search.search()
 			},
-			Todetail(id) {
-				uni.navigateTo({
-					url: "/packageTother/pages/goods/detail?id=" + id
-				})
-			},
-
 			Tosend() {
 				uni.navigateTo({
 					url: "/packageTother/pages/index/classify?genre=gift"
@@ -214,20 +152,7 @@
 					url: "/pages/allGoods/allGoods"
 				})
 			},
-			tonew() {
-				uni.navigateTo({
-					url: "/packageTother/pages/new/new"
-				})
-			},
 			tourl(url) {
-
-			},
-			async init() {
-				var {
-					data
-				} = await getGoodsByStatus(3)
-				this.newgoods = data.splice(0, 6)
-
 
 			},
 			//轮播图
@@ -244,7 +169,6 @@
 			this.goodsIds = ids ?ids :"45,44,46,23,45,21,75,35,74,27,3,38,67,76,1,40,85,101,99,94";
 		},
 		created() {
-			this.init()
 			this.lunbo()
 		}
 
@@ -301,166 +225,6 @@
 				}
 			}
 		}
-
-
-
-		//新品
-		.new-container {
-			// overflow: hidden;
-			padding: 0 20rpx;
-
-			.head {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				margin: 20rpx 0;
-
-				.title {
-					background-color: rgb(217, 129, 84);
-					font-size: 28rpx;
-					color: #FFFFFF;
-					padding: 4rpx 18rpx;
-					border-radius: 6rpx;
-				}
-
-				.more {
-					font-size: 24rpx;
-					color: #C7C7D1;
-				}
-			}
-
-			.newscroll-container {
-				height: 410rpx;
-
-				.scroll {
-					white-space: nowrap;
-
-					.more {
-						// margin-bottom: 198rpx;
-						// overflow: hidden;
-						text-align: center;
-						line-height: 390rpx;
-						position: relative;
-						background-color: rgba(50, 50, 51, .05);
-						color: #969799;
-					}
-
-					.item {
-						display: inline-block;
-						// display: flex;
-
-						height: 390rpx;
-						width: 198rpx;
-						margin: 10rpx;
-
-						vertical-align: middle;
-						box-sizing: border-box;
-
-						.img {
-							position: relative;
-							height: 198rpx;
-							width: 198rpx;
-
-							.label {
-								position: absolute;
-								left: 0;
-								top: 14rpx;
-								font-size: 24rpx;
-								color: white;
-								background-color: rgb(255, 68, 68);
-								padding: 0 10rpx;
-								border-radius: 0 20rpx 20rpx 0;
-							}
-
-							image {
-								width: 100%;
-								height: 100%;
-							}
-
-
-						}
-
-						.text {
-							display: flex;
-							justify-content: space-between;
-							flex-direction: column;
-							box-sizing: border-box;
-							padding: 0 16rpx 4rpx;
-							background-color: #FFFFFF;
-
-							&-more {
-								text-align: center;
-								background-color: rgba(50, 50, 51, .00);
-								justify-content: center;
-								flex-direction: row;
-
-								.info {
-									display: flex;
-									// align-items: center;
-									justify-content: center;
-
-									.right {
-										width: 32rpx;
-										height: 32rpx;
-
-										image {
-											width: 100%;
-											height: 100%;
-										}
-
-									}
-								}
-
-							}
-
-							.title {
-								font-size: 26rpx;
-								font-weight: bold;
-								margin: 10rpx 0;
-								white-space: pre-wrap;
-								text-overflow: -o-ellipsis-lastline;
-								overflow: hidden;
-								text-overflow: ellipsis;
-								display: -webkit-box;
-								-webkit-line-clamp: 2;
-								-webkit-box-orient: vertical;
-							}
-
-							.bottom {
-								display: flex;
-								justify-content: space-between;
-								padding: 25rpx 0;
-
-								.left {
-									font-size: 24rpx;
-									color: #ff4444;
-
-									.price {
-										font-size: 32rpx;
-										font-weight: bold;
-
-									}
-								}
-
-								.right {
-									height: 40rpx;
-									width: 40rpx;
-
-									image {
-										width: 100%;
-										height: 100%;
-									}
-								}
-							}
-						}
-					}
-				}
-
-			}
-
-		}
-
-		//新品
 		
 		.grid-container {
 			display: flex;

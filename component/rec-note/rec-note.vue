@@ -84,14 +84,8 @@
 		.scroll-view {
 			white-space: nowrap;
 			padding: 30rpx 30rpx 0 0;
-			// height: 450rpx;
-			// width: 100%;
-			// margin-top: 20rpx;
-			// border: 1px solid #E5E5E5;
-			// overflow: hidden;
 	
 			.item {
-				// 这个属性可以使图片跟文字盒子上下排行
 				display: inline-block;
 				background-color: white;
 				width: 300rpx;
