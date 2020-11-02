@@ -135,9 +135,8 @@
 						break;
 				}
 			},
-			async search(val){
+			async search(){
 				this.isData = true;
-				this.keyword = val;
 				this.selected(this.action);
 				this.history.push_unique(this.keyword);
 				

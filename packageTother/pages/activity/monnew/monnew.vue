@@ -7,8 +7,8 @@
 		<view class="monnew-goods">
 			<view class="item" v-for="item in goodsData" :key="item.id">
 				<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
-					<view class="img">
-						<image :src="item.image_url" mode=""></image>
+					<view class="img-shell">
+						<image class="img" :src="item.image_url" mode="widthFix"></image>
 					</view>
 					<view class="text">
 						<view class="title">
@@ -16,10 +16,13 @@
 						</view>
 						<view class="details">
 							<view class="price">
-								 ￥{{item.price}}
+								 <view class="icon">
+								 	￥
+								 </view>
+								 {{item.price}}
 							</view>
-							<view class="img">
-								<image src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode=""></image>
+							<view class="cart">
+								<image class="cart-icon" src="http://47.106.36.197:7000/source/other/cart-circle-o.png" mode="widthFix"></image>
 							</view>
 						</view>
 					</view>
@@ -66,61 +69,62 @@
 			}
 		}
 		.monnew-goods{
-			
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
-			margin-left: 10px;
-			margin-right: 10px;
+			padding: 0 20rpx;
 			.item{
-				width: 47%;
-				height: 540rpx;
+				width: 46%;
 				background-color: #fff;
 				overflow: hidden;
-				margin-bottom: 20rpx;
-				.img{
-					width: 360rpx;
-					height: 360rpx;
+				border-radius: 16rpx;
+				margin: 10rpx;
+				.img-shell{
+					width: 100%;
+					height: auto;
 					
-					image{
+					.img{
 						width: 100%;
-						height: 100%;
+						height: auto;
 					}
 				}
 				.text{
-					padding: 20rpx;
+					padding: 12rpx 30rpx;
 					.title{
+						color: #323233;
 						font-size: 26rpx;
-						font-weight: normal;
 						margin-bottom: 10rpx;
+						
 						overflow : hidden;
 						text-overflow: ellipsis;
 						display: -webkit-box;
 						-webkit-line-clamp: 2;
 						-webkit-box-orient: vertical;
-						
-						
 					}
-					
-				}
-				.details{
-					display: flex;
-					align-items: center;
-					
-					justify-content: space-between;
-					
-					.price{
-						font-size: 18px;
-						color: #FF0000;
-						
-					}
-					.img{
-						width: 48rpx;
-						height: 48rpx;
-						
-						image{
-							width: 100%;
-							height: 100%;
+					.details{
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						height: 88rpx;
+						line-height: 88rpx;
+						.price{
+							display: flex;
+							font-size: 36rpx;
+							color: #f44;
+							.icon {
+								margin-right: 4rpx;
+								font-size: 24rpx;
+							}
+						}
+						.cart{
+							width: 48rpx;
+							height: 48rpx;
+							
+							.cart-icon {
+								vertical-align: top;
+								width: 100%;
+								height: auto;
+							}
 						}
 					}
 				}
