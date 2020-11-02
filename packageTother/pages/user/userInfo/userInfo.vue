@@ -22,7 +22,7 @@
 					</view>
 				</view>
 			</list-cell>
-			<list-cell :arrow="true" padding="0" :unlined="true" @tap="goQrcode(user.img_url)">
+			<list-cell :arrow="true" padding="0" :unlined="true" @tap="goQrcode()">
 				<view class="item">
 					<view class="title">会员码</view>
 					<view class="content">
@@ -124,7 +124,7 @@
 	export default {
 		data() {
 			return {
-				user: {},
+				user: "",
 				value: "",
 				isShow: false,
 				mark: "",
@@ -142,9 +142,9 @@
 				this.isShow = true;
 				this.value = this.user[mark];
 			},
-			goQrcode(imgUrl){
+			goQrcode(){
 				uni.navigateTo({
-					url: "/packageTother/pages/user/qrCode/qrCode?imgUrl="+imgUrl
+					url: `/packageTother/pages/user/qrCode/qrCode?imgUrl=${this.user.img_url}&name=${this.user.name}`
 				})
 			},
 			async updateUser(mark, value){

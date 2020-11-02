@@ -168,7 +168,7 @@
 					this.isShow = false;
 					this.value = "";
 				}else {
-					this.isShow = this.value.trim() ?this.isShow = true :!this.isShow;
+					this.isShow = this.value.trim() ?true :!this.isShow;
 				}
 			},
 			async checked(index){
@@ -302,8 +302,10 @@
 					flex: 1;
 					display: flex;
 					.search-icon {
-						vertical-align: text-top;
 						margin-right: 8rpx;
+						.uni-icons {
+							vertical-align: middle;
+						}
 					}
 					.search-input {
 						flex: 1;
@@ -317,7 +319,7 @@
 					line-height: 56rpx;
 					text-align: center;
 					.search-placeholder {
-						vertical-align: text-top;
+						vertical-align: middle;
 						font-size: 28rpx;
 						color: #c8c9cc;
 						margin-left: 10rpx;

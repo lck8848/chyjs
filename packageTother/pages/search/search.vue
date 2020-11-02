@@ -1,5 +1,6 @@
 <template>
-	<view class="container">
+	<view class="search-container">
+		
 		<view class="tui-searchbox">
 			<view class="tui-search-input">
 				<icon type="search" :size='13' color='#333'></icon>
@@ -9,55 +10,56 @@
 			</view>
 			<view class="tui-cancle" @tap="back">取消</view>
 		</view>
-		
-		<!-- <view class="tui-btn-box"><tui-button type="green" @click="detail(key)">搜索</tui-button></view> -->
-		
-		<view class="tui-search-history">
-			<view class="tui-history-header">
-				<view class="tui-search-title">热门搜索</view>
+			
+			<!-- <view class="tui-btn-box"><tui-button type="green" @click="detail(key)">搜索</tui-button></view> -->
+		<view class="container">
+			<view class="tui-search-history">
+				<view class="tui-history-header">
+					<view class="tui-search-title">热门搜索</view>
+				</view>
+				<view class="tui-history-content">
+					<block v-for="(item,index) in hot" :key="index" >
+						<view class="tag" @click="getkey(item)">{{item}}</view>
+					</block>
+				</view>
 			</view>
-			<view class="tui-history-content">
-				<block v-for="(item,index) in hot" :key="index" >
-					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
-				</block>
+			
+			<view class="tui-search-history"  v-if="history.length > 0" >
+				<view class="tui-history-header">
+					<view class="tui-search-title" >搜索历史</view>
+					<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
+				</view>
+				<view class="tui-history-content">
+					<block v-for="(item,index) in history" :key="index" >
+						<view class="tag" @click="getkey(item)">{{item}}</view>
+					</block>
+				</view>
 			</view>
-		</view>
-		
-		<view class="tui-search-history"  v-if="history.length > 0" >
-			<view class="tui-history-header">
-				<view class="tui-search-title" >搜索历史</view>
-				<tui-icon name="delete" :size='14' color='#333' @tap="openActionSheet" class="tui-icon-delete"></tui-icon>
-			</view>
-			<view class="tui-history-content">
-				<block v-for="(item,index) in history" :key="index" >
-					<tui-tag margin="0 24rpx 24rpx 0" type="gray" shape="circle" @click="getkey(item)">{{item}}</tui-tag>
-				</block>
-			</view>
-		</view>
-		<!-- <view v-show="key">
-			<view class="tui-header">
-				<view class="tui-header-left tui-noboredr">搜索 “{{key}}”</view>
-			</view>
-			<view class="tui-result-box">
-				<block v-for="(item,index) in searchList" :key="index">
-					<view class="tui-result-item" hover-class="tui-opcity" :hover-stay-time="150">
-						<rich-text :nodes="item.showKey"></rich-text>
-					</view>
-				</block>
-			</view>
-		</view> -->
+			<!-- <view v-show="key">
+				<view class="tui-header">
+					<view class="tui-header-left tui-noboredr">搜索 “{{key}}”</view>
+				</view>
+				<view class="tui-result-box">
+					<block v-for="(item,index) in searchList" :key="index">
+						<view class="tui-result-item" hover-class="tui-opcity" :hover-stay-time="150">
+							<rich-text :nodes="item.showKey"></rich-text>
+						</view>
+					</block>
+				</view>
+			</view> -->
 
-		<!-- <view class="tui-search-hot">
-			<view class="tui-hot-header">
-				<view class="tui-search-title">大家正在搜</view>
-			</view>
-			<view class="tui-hot-content">
-				<block v-for="(item,index) in hot" :key="index">
-					<tui-tag type="gray" shape="circle">{{item}}</tui-tag>
-				</block>
-			</view>
-		</view> -->
-		<tui-actionsheet :show="showActionSheet" :tips="tips" @click="itemClick" @cancel="closeActionSheet"></tui-actionsheet>
+			<!-- <view class="tui-search-hot">
+				<view class="tui-hot-header">
+					<view class="tui-search-title">大家正在搜</view>
+				</view>
+				<view class="tui-hot-content">
+					<block v-for="(item,index) in hot" :key="index">
+						<tui-tag type="gray" shape="circle">{{item}}</tui-tag>
+					</block>
+				</view>
+			</view> -->
+			<tui-actionsheet :show="showActionSheet" :tips="tips" @click="itemClick" @cancel="closeActionSheet"></tui-actionsheet>
+		</view>
 	</view>
 
 </template>
@@ -162,30 +164,31 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		color: #333;
-		background: #fff;
+	.search-container {
+		height: 100vh;
+		background-color: #fff;
 	}
-
 	.container {
 		padding: 0 30rpx 30rpx 30rpx;
 		box-sizing: border-box;
 	}
 
 	.tui-searchbox {
-		padding: 30rpx 0;
+		padding: 10rpx 30rpx;
 		box-sizing: border-box;
 		display: flex;
+		height: 100rpx;
 		align-items: center;
+		background-color: #f2f2f2;
 	}
 
 	.tui-search-input {
 		width: 100%;
-		height: 66rpx;
-		/* border-radius: 35rpx; */
+		height: 80rpx;
 		padding: 0 30rpx;
 		box-sizing: border-box;
-		background: #f2f2f2;
+		border-radius: 8rpx;
+		background: #fff;
 		display: flex;
 		align-items: center;
 		flex-wrap: nowrap;
@@ -204,7 +207,7 @@
 	}
 
 	.tui-cancle {
-		color: #888;
+		color: #666;
 		font-size: 28rpx;
 		padding-left: 30rpx;
 		flex-shrink: 0;
@@ -227,8 +230,8 @@
 	}
 
 	.tui-search-title {
-		font-size: 28rpx;
-		font-weight: bold;
+		color: #999999;
+		font-size: 24rpx;
 	}
 
 	.tui-hot-header {
@@ -263,4 +266,16 @@
 		line-height: 28rpx;
 		padding: 28rpx 0;
 	}
+	
+	.tag {
+		padding: 0 20rpx;
+		height: 64rpx;
+		line-height: 64rpx;
+		margin: 0 20rpx 20rpx 0;
+		color: #666;
+		font-size: 24rpx;
+		border-radius: 4rpx;
+		background-color: #f6f6f6;
+	}
+	
 </style>

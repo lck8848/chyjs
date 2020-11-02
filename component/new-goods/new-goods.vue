@@ -140,6 +140,7 @@
 				.img-shell {
 					position: relative;
 					width: 100%;
+					height: 200rpx;
 	
 					.label {
 						position: absolute;

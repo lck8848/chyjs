@@ -6,8 +6,8 @@
 				<view class="tui-search-input">
 					<icon type="search" :size='13' color='#333'></icon>
 					<input confirm-type="search" placeholder="大家都在搜：螺蛳粉" :focus="true" auto-focus placeholder-class="tui-input-plholder"
-					 class="tui-input" v-model.trim="key" @confirm="search(key)"  />
-					<icon type="clear" :size='13' color='#bcbcbc' @tap="cleanKey" v-show="key"></icon>
+					 class="tui-input" v-model="keyword" @confirm="search()"  />
+					<icon type="clear" :size='13' color='#bcbcbc' @tap="keyword=''" v-show="keyword"></icon>
 				</view>
 			</view>
 			
@@ -15,33 +15,18 @@
 				<button size="mini" type="warn" @click="search(key)">搜索</button>
 			</view> -->
 		</view>
-		
-		
-		
-		
 		<!-- 搜索框 -->
 		
 		<!-- 头部 -->
-		<view class="tui-header">
-			
-			<view class="tui-header-top">
-				<view :data-selected="1" class="tui-top-item" :class="selected == 1 ? 'active' : '' " @click="screen">综合</view>
-				
-				<view class="tui-top-item" :class="selected == 2 || selected == 3 ? 'active' : '' " >
-					<view >价格</view>
-					<view class="tui-price-arrow" >
-						<view :data-selected="2" class="tui-icon-box tui-arrow-up"   @click="up">
-							<tui-icon name="turningup" :size="16" :color="selected == 2 ? '#ff4444' : '' "></tui-icon>
-						</view>
-						<view :data-selected="3" class="tui-icon-box tui-arrow-down"  @click="down">
-							<tui-icon name="turningdown" :size="16" :color="selected == 3 ? '#ff4444' : '' " ></tui-icon>
-						</view>
-							
-					</view>
+		<view class="tab">
+			<view :class="['option', action==index?'action':'']"
+			v-for="(item, index) in tab" :key="index"
+			@click="selected(index)">
+				{{ item }}
+				<view class="filter" v-if="index == 1">
+					<view :class="['rank', 'ascend', sel=='desc' ?'sel':'']"></view>
+					<view :class="['rank', 'descend', sel=='asc' ?'sel':'']"></view>
 				</view>
-				
-				<view :data-selected="4" class="tui-top-item" @tap="newgood" :class="selected == 4 ? 'active' : '' ">上新</view>
-				
 			</view>
 		</view>
 		
@@ -66,7 +51,7 @@
 		
 		<!-- 商品列表 -->
 		
-		<view class="goods-list" v-if="!showload && !shownone">
+		<view class="goods-list" v-if="!shownone">
 			
 			<view class="item" v-for="item in goods" :key="item.id" @click="todetail(item.id)">
 				<view class="img">
@@ -88,7 +73,7 @@
 		
 		
 		<!-- 推荐商品 -->
-		<view class="recommend">
+		<view class="recommend" id="rec">
 			<recommend :scrollTop="scrollTop"></recommend>
 		</view>
 		
@@ -101,88 +86,63 @@
 	export default {
 		data() {
 			return {
-				selected:1,
+				action:0,
 				goods:[],
-				yuangoods:[],
-				showload:false,
 				keyword :"",
-				key: "",
 				history:JSON.parse(uni.getStorageSync("history")),
-				scrollTop: 0
+				scrollTop: 0,
+				tab:["综合", "价格", "上新"],
+				sel: '',
+				shownone: false,
+				rectop: 0,		//推荐商品模块到顶部的距离
+				page: 1,
+				pageSize: 10,
+				isData: true	//判断是否还有更多数据
 			};
 		},
-		computed:{
-			shownone:function(){
-				var _this = this
-				var status = false
-				if(this.goods.length==0){
-					status = true
-				}
-				return status
-			},
+		watch: {
+			goods(val){
+				this.shownone = val.length === 0;
+				this.$nextTick(function(){
+					this.getRecTop();
+					this.isData = val.length/this.page === this.pageSize;
+				})
+			}
 		},
 		methods:{
-			cleanKey(){
-				this.key = ""
-			},
+			selected(index, isAnew){
+				this.action = index;
+				if(!isAnew){
+					this.page = 1;
+					this.goods = [];
+				}
 				
-			async  screen(e){
-				this.selected = 1
-				this.showload = true
-				var obj = {keyword:this.keyword,page:1,pageSize:10}
-				var {data} = await getSearchResult(obj)
-				setTimeout(()=>{
-					this.goods = data
-					this.showload = false
-				},1000)
-				
-				
-
-			},
-			async up(e){
-				
-				this.selected = 2
-				this.showload = true
-				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"asc"}
-				var {data} = await getSearchResult(obj)
-				setTimeout(()=>{
-					this.goods = data
-					this.showload = false
-				},1000)
-				
-			},
-			async down(e){
-				this.selected = 3
-				this.showload = true
-				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"desc"}
-				var {data} = await getSearchResult(obj)
-				setTimeout(()=>{
-					this.goods = data
-					this.showload = false
-				},1000)
-				
-			},
-			async newgood(e){
-				this.selected = 4
-				this.showload = true
-				var obj = {keyword:this.keyword,page:1,pageSize:10,order:"new"}
-				var {data} = await getSearchResult(obj)
-				setTimeout(()=>{
-					this.goods = data
-					this.showload = false
-				},1000)
-				
+				switch (index){
+					case 0:
+						this.sel = "";
+						this.getGoodsList({keyword:this.keyword, page:this.page, pageSize:this.pageSize});
+						break;
+					case 1:
+						if(!this.sel){
+							this.sel = "asc";
+						}
+						this.getGoodsList({keyword:this.keyword, page:this.page, pageSize:this.pageSize, order:this.sel});
+						this.sel = this.sel==="asc" ?"desc" :"asc";
+						break;
+					case 2:
+						this.sel = "";
+						this.getGoodsList({keyword:this.keyword, page:this.page, pageSize:this.pageSize, order:"new"});
+						break;
+				}
 			},
 			async search(val){
-				this.keyword = val
-				var obj = {keyword:this.keyword,page:1,pageSize:10}
-				var {data} = await getSearchResult(obj)
-				this.goods = data
-				var data = this.key
-				this.history.push_unique(data)
+				this.isData = true;
+				this.keyword = val;
+				this.selected(this.action);
+				this.history.push_unique(this.keyword);
 				
 				for(var i = 0;i<this.history.length;i++){
-				    if(this.history[i]==""||this.history[i]==null||typeof(this.history[i])==undefined){
+				    if(!this.history[i]){
 				        this.history.splice(i,1);
 				        i=i-1;
 				    }
@@ -190,20 +150,31 @@
 				uni.setStorageSync('history',JSON.stringify(this.history))
 				
 			},
-			async init(obj){
-				var {data} = await getSearchResult(obj)
-				this.goods = data
-				this.yuangoods = data
-				
+			getRecTop(){
+				//获取推荐商品距离顶部的信息，以此判断是否加载更多数据
+				const query = uni.createSelectorQuery().in(this);
+				query.select('#rec').boundingClientRect(data => {
+					if(!data.top) return;
+					this.rectop = this.scrollTop + data.top;
+				}).exec();
+			},
+			async getGoodsList(obj){
+				var {data} = await getSearchResult(obj);
+				this.goods = this.goods.concat(data);
 			},
 			todetail(id){
 				uni.navigateTo({
-					url:"/pages/goods/detail?id=" + id
+					url:"/packageTother/pages/goods/detail?id=" + id
 				})
 			}
 		},
 		onPageScroll({scrollTop}){
 			this.scrollTop = scrollTop;
+			if(scrollTop > this.rectop-500 && this.isData){
+				this.page ++;
+				this.isData = false;
+				this.selected(this.action, true);
+			}
 		},
 		onLoad(options){
 			Array.prototype.push_unique = function () {
@@ -215,9 +186,7 @@
 				}
 			};
 			this.keyword = options.keyword
-			this.key = options.keyword
-			var obj = {keyword:options.keyword,page:1,pageSize:10}
-			this.init(obj)
+			this.selected(this.action);
 		},
 		components: {
 			recommend
@@ -271,70 +240,45 @@
 		// 搜索框
 		
 		// 头部
-		.tui-header {
-			width: 100%;
-			padding: 30rpx;
-			/* box-shadow: 0 15rpx 10rpx -15rpx #f2f2f2; */
-			box-sizing: border-box;
+		.tab {
+			display: flex;
+			justify-content: space-between;
 			background-color: #fff;
-			// position: fixed;
-			// z-index: 1000;
-			.tui-header-top{
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
+			.option {
+				flex: 1;
+				height: 80rpx;
+				line-height: 80rpx;
+				color: #717171;
+				text-align: center;
 				font-size: 28rpx;
-				color: #333;
-				.tui-top-item {
-					height: 28rpx;
-					line-height: 28rpx;
-					flex: 1;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-				.active {
-					color:#FF4444 ;
-					font-weight: bold;
-				}
-				
-				.tui-topitem-active::after {
-					content: '';
-					position: absolute;
-					width: 44rpx;
-					height: 6rpx;
-					background: #5677fc;
-					border-radius: 6rpx;
-					bottom: -10rpx;
-					left: 50%;
-					-webkit-transform: translateX(-50%);
-					transform: translateX(-50%);
-				}
-				
-				.tui-price-arrow {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					justify-content: center;
-					height: 30rpx;
-					.tui-icon-box {
-						line-height: 16px !important;
-						padding: 0 !important;
-						display: block !important;
-						position: relative;
+				.filter {
+					position: relative;
+					display: inline-block;
+					.rank {
+						position: absolute;
+						left: 10rpx;
+						width: 8rpx;
+						height: 8rpx;
+						transform: rotate(45deg);
 					}
-					
-					.tui-arrow-up {
-						top: 5px;
+					.ascend {
+						top: -18rpx;
+						border-left: 2rpx solid #bbb;
+						border-top: 2rpx solid #bbb;
 					}
-					
-					.tui-arrow-down {
-						top: -3px;
+					.descend {
+						bottom: 0rpx;
+						border-right: 2rpx solid #bbb;
+						border-bottom: 2rpx solid #bbb;
 					}
-					
+					.sel {
+						border-color: #f44;
+					}
 				}
 			}
-			
+			.action {
+				color: #f44;
+			}
 		}
 		//头部
 		

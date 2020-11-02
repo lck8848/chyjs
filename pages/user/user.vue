@@ -2,16 +2,18 @@
 	<view class="container">
 		<!-- 登录 -->
 		<!-- 二维码 -->
-		<button open-type="getUserInfo" hover-class="none" @getuserinfo="getuserinfo">
+		<view class="">
 			<view class="info">
-				<view class="item">
-					<view class="img"><image :src="infoData.img_url"></image></view>
+				<button class="item" open-type="getUserInfo" hover-class="none" @getuserinfo="getuserinfo">
+					<view class="img-shell">
+						<image class="img" :src="infoData.img_url"></image>
+					</view>
 					<view class="name">
 						<view class="info_name">{{ infoData.name }}</view>
 					</view>
-				</view>
+				</button>
 			</view>
-		</button>
+		</view>
 		<!-- 余额 -->
 		<view class="fees"><van-cell icon="balance-o" title="查看余额" is-link @tap="getBalance" /></view>
 
@@ -198,33 +200,34 @@ export default {
 		background-image: url(http://47.106.36.197:7000/source/userImages/other/user_back.png);
 		background-size: 100% 100%;
 		height: 375rpx;
-
+		
 		.item {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			flex-direction: column;
-			width: 300rpx;
-
-			.img {
+			padding: 0;
+			background-color: transparent;
+			&::after{
+				border: none;
+			}
+			.img-shell {
 				width: 100rpx;
 				height: 100rpx;
 				border-radius: 50%;
 				overflow: hidden;
 
-				image {
+				.img {
 					width: 100rpx;
 					height: 100rpx;
 				}
 			}
 
 			.name {
-				width: 200px;
-
 				.info_name {
+					font-size: 40rpx;
 					font-weight: 700;
 				}
-
 				.info_zhi {
 					font-size: 24rpx;
 					border: 1px solid #000000;

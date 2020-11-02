@@ -14,14 +14,16 @@
 			return {
 				cid: "qrcode",
 				size: 200,
-				logo: ""
+				logo: "",
+				name: ""
 			};
 		},
 		methods: {
 			make() {
+				let url = `http://47.106.36.197:7000?logo=${this.logo}&name=${this.name}`;
 				let filePath = uQRCode.make({
 					canvasId: this.cid,
-					text: "http://47.106.36.197:7000?logo="+this.logo,
+					text: url,
 					size: this.size,
 					margin: 10,
 					backgroundColor: "#fff",
@@ -31,6 +33,7 @@
 		},
 		onLoad(option) {
 			this.logo = option.imgUrl;
+			this.name = option.name;
 			this.make();
 		},
 		components: {

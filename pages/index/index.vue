@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 搜索框 -->
-		<view class="search-container" @click="Tosearch">
+		<view class="search-container" @click="toSearch">
 			<search ref="search"></search>
 		</view>
 		<!-- 轮播图 -->
@@ -119,7 +119,7 @@
 			}
 		},
 		methods: {
-			Tosearch() {
+			toSearch() {
 				this.$refs.search.search()
 			},
 			Tosend() {
