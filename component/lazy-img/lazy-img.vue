@@ -2,7 +2,9 @@
 	<view class="lazyload-container" :id="uid">
 		<image :src="imgUrl" mode="widthFix" @load="load" class="lazy-img luce"
 		v-if="isLoad" v-show="isShow" :class="{'tran':tran}"></image>
-		<image src="http://47.106.36.197:7000/source/other/after_img.svg" mode="widthFix" class="lazy-img" v-show="!isShow"></image>
+		<view class="none-img" v-show="!isShow">
+			<image src="http://47.106.36.197:7000/source/other/after_img.svg" mode="widthFix" class="none"></image>
+		</view>
 	</view>
 </template>
 
@@ -71,6 +73,16 @@
 	.tran {
 		transition: opacity 1.2s;
 		opacity: 1;
+	}
+	.none-img {
+		width: 80%;
+		height: 100%;
+		margin: auto;
+		.none {
+			width: 100%;
+			height: auto;
+			margin: auto;
+		}
 	}
 }
 </style>

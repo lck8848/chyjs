@@ -4,13 +4,13 @@
 			<van-divider borderColor="#EBEBEB"></van-divider>
 		</view>
 		<view class="sendGift">
-			<image :src="imgUrl" class="img" @click="toClassifyGoods"></image>
+			<image :src="imgUrl" class="image" @click="toClassifyGoods"></image>
 			<view class="outside">
 				<view class="goods" v-for="item in goodsList" :key="item.id">
-					<!-- navigator为页面跳转，open-type为页面跳转数据 -->
-					<!-- 传id跳转到相应商品详情 -->
 					<navigator :url="'/packageTother/pages/goods/detail?id='+item.id" open-type="navigate" hover-class="none">
-						<image :src="item.image_url" class="img" mode="widthFix"></image>
+						<view class="img-shell">
+							<image :src="item.image_url" class="img" mode="widthFix"></image>
+						</view>
 						<view class="text">
 							<view class="title">{{item.title}}</view>
 							<view class="money">
@@ -82,7 +82,7 @@
 		// margin-top: 280rpx;
 		margin-bottom: 500rpx;
 	
-		.img {
+		.image {
 			width: 100%;
 			height: 180rpx;
 	
@@ -102,11 +102,14 @@
 				margin: 12rpx;
 				background-color: #fff;
 				box-shadow: 0 2px 4px rgba(0,0,0,.06);
-				.img {
-					width: 100%;
-					height: auto;
-					// height: 224rpx;
+				.img-shell {
+					height: 224rpx;
+					.img {
+						width: 100%;
+						height: auto;
+					}
 				}
+				
 				.text {
 					padding: 0 16rpx 4rpx 16rpx;
 					.title {

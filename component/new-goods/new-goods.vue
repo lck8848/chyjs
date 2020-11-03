@@ -13,7 +13,7 @@
 			<view class="item" v-for="item in newgoods" :key="item.id" @click="todetail(item.id)">
 				<view class="goods">
 					<view class="img-shell">
-						<image lazy-load="true" :src="item.image_url" mode="widthFix" class="img"></image>
+						<image :src="item.image_url" mode="widthFix" class="img"></image>
 						<view class="label">
 							新品
 						</view>
@@ -108,15 +108,19 @@
 		white-space: nowrap;
 
 		.to-more {
+			position: relative;
 			display: inline-block;
-			vertical-align: super;
+			vertical-align: top;
 			width: 200rpx;
 			margin: 0 20rpx 0 10rpx;
 			.info {
+				position: absolute;
+				top: 8rpx;
+				width: 100%;
 				color: #969799;
 				font-size: 24rpx;
 				text-align: center;
-				line-height: 370rpx;
+				line-height: 375rpx;
 				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 				background-color: #efefef;
 				.right {
@@ -131,16 +135,13 @@
 			display: inline-block;
 			width: 220rpx;
 			.goods{
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
 				margin: 10rpx;
 				background-color: #fff;
 				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 				.img-shell {
 					position: relative;
 					width: 100%;
-					height: 200rpx;
+					height: 220rpx;
 	
 					.label {
 						position: absolute;

@@ -85,8 +85,9 @@
 				background-color: #fff;
 				border-radius: 16rpx;
 
-				.shell-img {
+				.img-shell {
 					width: 100%;
+					height: 324rpx;
 					.img {
 						width: 100%;
 						height: auto;
