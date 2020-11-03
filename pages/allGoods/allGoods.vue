@@ -231,7 +231,6 @@
 		align-items: flex-start;
 		align-content: flex-start;
 		font-size: 28rpx;
-		font-family: Times, TimesNR, 'New Century Schoolbook', Georgia, 'New York', serif;
 
 		.left {
 			width: 200rpx;
